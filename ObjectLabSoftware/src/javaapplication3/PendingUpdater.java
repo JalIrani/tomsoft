@@ -26,7 +26,7 @@ import static javaapplication3.PendingJobs.dba;
 public class PendingUpdater extends Thread {
 
     public void run() {
-        while (!PendingJobs.closing) {
+        while (/*!PendingJobs.closing*/ true) {
             try {
                 TimeUnit.SECONDS.sleep(20);
                 ResultSet results = dba.searchPending();

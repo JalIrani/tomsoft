@@ -1,14 +1,11 @@
 package javaapplication3;
 
 import java.awt.Desktop;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,65 +28,52 @@ public class PendingJobs extends javax.swing.JFrame {
     /**
      * Creates new form Options
      */
-    public static DefaultTableModel allFileTableModel = new DefaultTableModel();
-    static SQLMethods dba;
-    static Reports reports;
-    static InstanceCall inst;
-    private static RejectDescription WhyReject;
-    private static ApprovePage Approve;
-    private static Options ops;
-    static boolean closing;
-    PendingUpdater pUpdate;
+    public static DefaultTableModel allFileTableModel = null;
+    static SQLMethods dba = null;
+    static Reports reports = null;
+    static InstanceCall inst = null;
+    private static RejectDescription WhyReject = null;
+    private static ApprovePage Approve = null;
+    private static Options ops = null;
+    //PendingUpdater pUpdate = null;
     String fileLocation = "";
-    TomSoftMain home;
 
-    public void PendingJobsStart() {
-        home = new TomSoftMain();
+    public void PendingJobsStart() 
+    {
         ops = new Options();
         inst = new InstanceCall();
         reports = new Reports();
         dba = new SQLMethods();
+        
+        /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
-        this.allFileTableModel = (DefaultTableModel) PendingTable.getModel();
-        try {
-            importFiles();
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(PendingJobs.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        pUpdate = new PendingUpdater();
-        pUpdate.start();
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                // close sockets, etc
-                home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(false);
-                home.setVisible(true);
-            }
-        });
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PendingJobs.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        allFileTableModel = (DefaultTableModel) PendingTable.getModel();
+        
+        /* Updates table */
+        updatePendingTableData();
+        
         setVisible(true);
     }
-
-    public static void importFiles() throws FileNotFoundException, IOException, SQLException {
-        //SQLMethods inj = new SQLMethods();
-        ResultSet results = dba.searchPending();
+    
+    private static void clearPendingTable()
+    {
         // clear existing rows
-        while (allFileTableModel.getRowCount() > 0) {
+        while (allFileTableModel.getRowCount() > 0) 
             allFileTableModel.removeRow(0);
-        }
-        // While there are more results to process
-        while (results.next()) {
+    }
+    
+    /* Returns true if updated
+     * false if nothing to update
+    */
+    private static boolean updatePendingTable() throws FileNotFoundException, IOException, SQLException
+    {
+        ResultSet results = dba.searchPending();
+        
+        if(!results.next())
+            return false;
+        
+        while (results.next()) 
+        {
             // Build a Vector of Strings for the table row
             List<String> data = new LinkedList<>();
             data.add(results.getString("fileName"));
@@ -98,6 +82,25 @@ public class PendingJobs extends javax.swing.JFrame {
             data.add(results.getString("dateStarted"));
             allFileTableModel.addRow(data.toArray());
         }
+        
+        return true;
+    }
+
+    /* This actually gets the pending jobs by quering the DB */
+    public static void updatePendingTableData()  
+    {
+        //SQLMethods inj = new SQLMethods();
+        
+        clearPendingTable();
+        try
+        { 
+            updatePendingTable();
+        }
+        catch (IOException | SQLException e)
+        {
+            System.out.println(e);
+        }
+        // While there are more results to process
     }
 
     /**
@@ -120,7 +123,7 @@ public class PendingJobs extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         PendingTable = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        backToMain = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -196,8 +199,13 @@ public class PendingJobs extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 250));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication3/black and white bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 360));
+        backToMain.setText("Back to main");
+        backToMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToMainActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backToMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
 
         jMenu1.setText("File");
 
@@ -389,14 +397,27 @@ public class PendingJobs extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
+        // close this window
+        dispose();
+        /*
+        home = new TomSoftMain();        
+        home.studentSubmissionButton.setVisible(false);
+        home.setPrintersVisible(false);
+        home.setVisible(true);
+        */
+        // re instaniate main window
+        new TomSoftMain().setVisible(true); 
+    }//GEN-LAST:event_backToMainActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApprovedButton;
     public static javax.swing.JTable PendingTable;
     private javax.swing.JButton RejectButton;
+    private javax.swing.JButton backToMain;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

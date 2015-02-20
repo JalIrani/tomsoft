@@ -2,13 +2,13 @@ package javaapplication3;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Array;
+//import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javaapplication3.PendingJobs.allFileTableModel;
-import static javaapplication3.PendingJobs.importFiles;
+//import static javaapplication3.PendingJobs.allFileTableModel;
+//import static javaapplication3.PendingJobs.importFiles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
