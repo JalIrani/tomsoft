@@ -197,9 +197,8 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
         String password = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter Admin Password:");
-        //if (password.equals(PASS)) {
-        if(true)
-        {
+        /* password.equals(PASS) */
+        if (true) {
             studentSubmissionButton.setVisible(false);
             setPrintersVisible(true);
         } else {
