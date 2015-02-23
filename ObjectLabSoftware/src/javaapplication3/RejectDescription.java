@@ -162,7 +162,7 @@ public class RejectDescription extends javax.swing.JFrame {
         String[] splited = studentName.split(" ");
         String firstName = splited[0];
         String lastName = splited[1];
-        ResultSet results = PendingJobs.dba.searchID("pendingjobs", firstName, lastName, FileName, dateSubmitted);
+        ResultSet results = PendingJobsView.dba.searchID("pendingjobs", firstName, lastName, FileName, dateSubmitted);
         try {
             if (results.next()) {
                 Sender = new SendEmail(firstName, lastName, Error, FileName, results.getString("idJobs"));
@@ -173,7 +173,7 @@ public class RejectDescription extends javax.swing.JFrame {
                 File newDir = new File(inst.getRejected());
                 FileUtils.moveFileToDirectory(new File(inst.getSubmission() + FileName), newDir, true);
 
-                PendingJobs.dba.delete("pendingjobs", results.getString("idJobs"));
+                PendingJobsView.dba.delete("pendingjobs", results.getString("idJobs"));
                 JOptionPane.showMessageDialog(new JFrame(), "Email Sent Succesfully!");
             }
         } catch (SQLException | IOException ex) {

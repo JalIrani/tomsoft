@@ -42,7 +42,7 @@ public class SendEmail {
 
     public void Send() {
         System.out.println(Ident);
-        ResultSet Res = PendingJobs.dba.searchPendingWithID(Ident);
+        ResultSet Res = PendingJobsView.dba.searchPendingWithID(Ident);
         String Email ="";
         try {
             while(Res.next()){

@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javaapplication3.PendingJobs.allFileTableModel;
-import static javaapplication3.PendingJobs.dba;
+import static javaapplication3.PendingJobsView.allFileTableModel;
+import static javaapplication3.PendingJobsView.dba;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 
@@ -144,18 +144,18 @@ public class ApprovePage extends javax.swing.JFrame {
         if (error == false) {
             dba.updatePendingJobVolume(ID, Volume);
             System.out.println(fileLoc);
-            File newDir = new File(PendingJobs.inst.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
+            File newDir = new File(PendingJobsView.inst.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
             try {
-                FileUtils.moveFileToDirectory(new File(PendingJobs.inst.getSubmission() + "\\" + fileName), newDir, true);
+                FileUtils.moveFileToDirectory(new File(PendingJobsView.inst.getSubmission() + "\\" + fileName), newDir, true);
                 dba.updatePendingJobFLocation(ID, fileName);
-                PendingJobs.dba.approve(ID);
+                PendingJobsView.dba.approve(ID);
             } catch (SQLException ex) {
                 Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
             } catch (FileExistsException e) {
                 FileUtils.deleteQuietly(new File(newDir.getAbsoluteFile() + fileName));
-                newDir = new File(PendingJobs.inst.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
+                newDir = new File(PendingJobsView.inst.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
                 try {
-                    FileUtils.moveFileToDirectory(new File(PendingJobs.inst.getSubmission() + "\\" + fileName), newDir, true);
+                    FileUtils.moveFileToDirectory(new File(PendingJobsView.inst.getSubmission() + "\\" + fileName), newDir, true);
                 } catch (IOException ex) {
                     Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
                 }

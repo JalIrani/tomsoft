@@ -39,6 +39,9 @@ public class SQLMethods {
     private ResultSet res;
     private PreparedStatement stmt;
 
+    /* We should make this a singleton DP becuase everytime this class is instantiated a new connection to the
+        DB is created. 
+    */
     public SQLMethods() { //Only Constructor should open and close connections
         inst = new InstanceCall();
         NsLookup look = new NsLookup();
@@ -398,7 +401,7 @@ public class SQLMethods {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT idJobs "
+                    "SELECT idJobs, filePath "
                     + "FROM " + table + " "
                     + "WHERE "
                     + "firstName = ? "
@@ -770,7 +773,8 @@ public class SQLMethods {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /* WHY IS THERE A CONNECTIN CREATED IN HERE ????  - Nick Liccione*/
     public void insertIntoObjet(String bn, double bc, double sc, int models, String bm, double resolution, String comment, double cost) {
         String date = "(CURTIME())";
         try {

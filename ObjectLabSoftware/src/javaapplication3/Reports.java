@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javaapplication3.PendingJobs.allFileTableModel;
+import static javaapplication3.PendingJobsView.allFileTableModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,13 +22,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Matt
+ * 
  */
 public class Reports extends javax.swing.JFrame {
 
@@ -37,7 +31,6 @@ public class Reports extends javax.swing.JFrame {
     private static ResultSet res;
     private static String excelFilePath;
     private static Workbook wb;
-    private static CreationHelper createhelper;
     private static Sheet sheet;
     private static Row row;
     private static Cell cell;
@@ -102,6 +95,11 @@ public class Reports extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Project Name", "Student", "Course", "Printer", "Build Name" }));
+        searchFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFilterActionPerformed(evt);
+            }
+        });
         getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 44, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -224,7 +222,6 @@ public class Reports extends javax.swing.JFrame {
             res = sqlMethods.searchCompleted(searchKey.getText(), "buildName");
         }
 
-        Object[] rowData = new Object[model.getColumnCount()];
         try {
             while (res.next()) {
                 List<String> data = new LinkedList<>();
@@ -258,27 +255,31 @@ public class Reports extends javax.swing.JFrame {
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
         // TODO add your handling code here:
         wb = new HSSFWorkbook();
-        createhelper = wb.getCreationHelper();
         sheet = wb.createSheet("new sheet");
         row = null;
         cell = null;
-        for (int i = 0; i < model.getRowCount(); i++) {
+        for (int i = 0; i < model.getRowCount(); i++) 
+        {
             row = sheet.createRow(i);
-            for (int j = 0; j < model.getColumnCount(); j++) {
-
+            for (int j = 0; j < model.getColumnCount(); j++) 
+            {
                 cell = row.createCell(j);
                 cell.setCellValue((String) model.getValueAt(i, j));
             }
         }
-        try {
+        try 
+        {
+            /* should change this to have the user pick where they want to export the new excel file */
             excelFilePath = "C:\\Printers\\Export" + searchFilter.getSelectedItem().toString() + ".xls";
             FileOutputStream out = new FileOutputStream(excelFilePath);
-            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File to " + excelFilePath);
             wb.write(out);
+            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File to " + excelFilePath);
             out.close();
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) 
+        {
             Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (IOException ex) 
+        {
             Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_exportBtnActionPerformed
@@ -291,6 +292,10 @@ public class Reports extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error");  //print the error
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFilterActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

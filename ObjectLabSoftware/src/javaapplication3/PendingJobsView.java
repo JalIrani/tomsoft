@@ -23,10 +23,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Matt
  */
-public class PendingJobs extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Options
+public class PendingJobsView extends javax.swing.JFrame
+{
+    /* allFileTableModel:
+     * Used to hold data to display to user using the JTable class
+     * Data is gathered from DB. THE D
      */
     public static DefaultTableModel allFileTableModel = null;
     static SQLMethods dba = null;
@@ -80,6 +81,7 @@ public class PendingJobs extends javax.swing.JFrame {
             data.add(results.getString("firstName") + " " + results.getString("lastName"));
             data.add(results.getString("printer"));
             data.add(results.getString("dateStarted"));
+            /* Data retrieved from query is added into our object that we can use to display in the JTable */
             allFileTableModel.addRow(data.toArray());
         }
         
@@ -120,10 +122,10 @@ public class PendingJobs extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         ApprovedButton = new javax.swing.JButton();
         RejectButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        openFileInProgram = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         PendingTable = new javax.swing.JTable();
-        backToMain = new javax.swing.JButton();
+        backToMainMenu = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -168,15 +170,15 @@ public class PendingJobs extends javax.swing.JFrame {
                 RejectButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
+        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
-        jButton3.setText("Review File");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        openFileInProgram.setText("Review File");
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                openFileInProgramActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, -1, -1));
+        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 130, 20));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -199,13 +201,13 @@ public class PendingJobs extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 250));
 
-        backToMain.setText("Back to main");
-        backToMain.addActionListener(new java.awt.event.ActionListener() {
+        backToMainMenu.setText("Back to Main Menu");
+        backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backToMainActionPerformed(evt);
+                backToMainMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(backToMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
+        getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 20));
 
         jMenu1.setText("File");
 
@@ -249,7 +251,9 @@ public class PendingJobs extends javax.swing.JFrame {
         // TODO add your handling code here:
         reject();
     }//GEN-LAST:event_RejectButtonActionPerformed
-    private void reject() {
+    
+    private void reject() 
+    {
         if (PendingTable.getSelectedRow() > -1) {
             int i;
             String FileName;
@@ -263,14 +267,14 @@ public class PendingJobs extends javax.swing.JFrame {
                             (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 1),
                             (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 3));
                 }
-                //dba.searchOne("pendingJobs", );
             }
         } else {
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Please select an item to reject!");
         }
     }
     private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed
-        if (PendingTable.getSelectedRow() > -1) {
+        if (PendingTable.getSelectedRow() > -1) 
+        {
 
             int i;
             String firstName = "";
@@ -278,9 +282,15 @@ public class PendingJobs extends javax.swing.JFrame {
             String FileName = "";
             String DateStarted = "";
             String printer = "";
-
-            for (i = 0; i < allFileTableModel.getRowCount(); i++) {
-                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) {
+            
+            /* Put all of this in a method in SQLUtils called getDataFromUserSelectedRow */
+            for (i = 0; i < allFileTableModel.getRowCount(); i++) 
+            {
+                /* If fileName matches a single row in allFileTableModel that the user selected then get that data to query the DB
+                 * for the full filePath.
+                 */
+                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) 
+                {
                     String studentName = allFileTableModel.getValueAt(i, 1).toString();
                     String[] splited = studentName.split(" ");
                     firstName = splited[0];
@@ -290,33 +300,41 @@ public class PendingJobs extends javax.swing.JFrame {
                     DateStarted = allFileTableModel.getValueAt(i, 3).toString();
                 }
             }
+            
             System.out.println(firstName);
             System.out.println(lastName);
             System.out.println(FileName);
             System.out.println(DateStarted);
-
-            ResultSet result = PendingJobs.dba.searchID("pendingjobs", firstName, lastName, FileName, DateStarted);
+            
+            ResultSet result = PendingJobsView.dba.searchID("pendingjobs", firstName, lastName, FileName, DateStarted);
             String ID = "";
-            try {
-                while (result.next()) {
+            
+            try 
+            {
+                while (result.next()) 
                     ID = result.getString("idJobs");
-                }
-            } catch (SQLException ex) {
+            } 
+            catch (SQLException ex) 
+            {
                 Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ResultSet res = PendingJobs.dba.searchPendingWithID(ID);
-            try {
-                while (res.next()) {
+            ResultSet res = PendingJobsView.dba.searchPendingWithID(ID);
+            try 
+            {
+                while (res.next()) 
                     fileLocation = res.getString("filePath");
-                }
-            } catch (SQLException ex) {
+            } 
+            catch (SQLException ex) 
+            {
                 Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
             Approve = new ApprovePage();
             Approve.Approves(FileName, printer, fileLocation, ID);
-        } else {
+        } 
+        else 
+        {
             JOptionPane.showMessageDialog(new JFrame(), "Please select a file to approve!");
         }
     }//GEN-LAST:event_ApprovedButtonActionPerformed
@@ -340,9 +358,10 @@ public class PendingJobs extends javax.swing.JFrame {
         ops.OptionsStart();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        if (PendingTable.getSelectedRow() > -1) {
+    private void openFileInProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileInProgramActionPerformed
+        int selectedRow = PendingTable.getSelectedRow();
+        if (selectedRow > -1) 
+        {
             int i;
             String firstName = "";
             String lastName = "";
@@ -350,8 +369,10 @@ public class PendingJobs extends javax.swing.JFrame {
             String DateStarted = "";
             String printer = "";
 
-            for (i = 0; i < allFileTableModel.getRowCount(); i++) {
-                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) {
+            for (i = 0; i < allFileTableModel.getRowCount(); i++) 
+            {
+                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(selectedRow, 0))) 
+                {
                     String studentName = allFileTableModel.getValueAt(i, 1).toString();
                     String[] splited = studentName.split(" ");
                     firstName = splited[0];
@@ -361,62 +382,48 @@ public class PendingJobs extends javax.swing.JFrame {
                     DateStarted = allFileTableModel.getValueAt(i, 3).toString();
                 }
             }
+            
+            System.out.println(printer);
             System.out.println(firstName);
             System.out.println(lastName);
             System.out.println(FileName);
             System.out.println(DateStarted);
-
-            ResultSet result = PendingJobs.dba.searchID("pendingjobs", firstName, lastName, FileName, DateStarted);
-            String ID = "";
-            try {
-                while (result.next()) {
-                    ID = result.getString("idJobs");
-                }
-            } catch (SQLException ex) {
+            
+            
+            
+            try 
+            {
+                ResultSet result = PendingJobsView.dba.searchID("pendingjobs", firstName, lastName, FileName, DateStarted);
+                if (result.next())
+                    Desktop.getDesktop().open(new File(result.getString("filePath")));
+            } 
+            catch (SQLException ex) 
+            {
                 Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            ResultSet res = PendingJobs.dba.searchPendingWithID(ID);
-            try {
-                while (res.next()) {
-                    fileLocation = res.getString("filePath");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
+            catch (IOException ex) 
+            {
+                Logger.getLogger(PendingJobsView.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println(fileLocation);
-            File fileLoc = new File(fileLocation);
-            try {
-                Desktop.getDesktop().open(fileLoc);
-            } catch (IOException ex) {
-                Logger.getLogger(PendingJobs.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
+        } 
+        else 
+        {
             JOptionPane.showMessageDialog(new JFrame(), "Please select a file to Review!");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_openFileInProgramActionPerformed
 
-    private void backToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainActionPerformed
-        // close this window
+    private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
+        // TODO add your handling code here:
         dispose();
-        /*
-        home = new TomSoftMain();        
-        home.studentSubmissionButton.setVisible(false);
-        home.setPrintersVisible(false);
-        home.setVisible(true);
-        */
-        // re instaniate main window
         new TomSoftMain().setVisible(true); 
-    }//GEN-LAST:event_backToMainActionPerformed
+    }//GEN-LAST:event_backToMainMenuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApprovedButton;
     public static javax.swing.JTable PendingTable;
     private javax.swing.JButton RejectButton;
-    private javax.swing.JButton backToMain;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton backToMainMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
@@ -430,5 +437,6 @@ public class PendingJobs extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton openFileInProgram;
     // End of variables declaration//GEN-END:variables
 }
