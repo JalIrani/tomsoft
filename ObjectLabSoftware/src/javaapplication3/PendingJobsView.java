@@ -178,7 +178,7 @@ public class PendingJobsView extends javax.swing.JFrame
                 openFileInProgramActionPerformed(evt);
             }
         });
-        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 300, 130, 20));
+        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 140, 20));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -254,21 +254,26 @@ public class PendingJobsView extends javax.swing.JFrame
     
     private void reject() 
     {
-        if (PendingTable.getSelectedRow() > -1) {
-            int i;
-            String FileName;
-
+        if (PendingTable.getSelectedRow() > -1) 
+        {
             WhyReject = new RejectDescription();
             //String projectName = allFileTableModel.get;
-            for (i = 0; i < allFileTableModel.getRowCount(); i++) {
-                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) {
-                    FileName = PendingTable.getSelectedRow() + "";
-                    WhyReject.RejectDescription(i, (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0),
-                            (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 1),
-                            (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 3));
+            for (int i = 0; i < allFileTableModel.getRowCount(); i++) 
+            {
+                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) 
+                {
+                    WhyReject.RejectDescription
+                    (
+                      i, 
+                      (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0),
+                      (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 1),
+                      (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 3)
+                    );
                 }
             }
-        } else {
+        } 
+        else 
+        {
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Please select an item to reject!");
         }
     }
