@@ -385,7 +385,7 @@ public class Student_Submission extends javax.swing.JFrame {
         //Creates "JFileChooser" file browser
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //Limits selected files to the following types. TODO fix list
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Model Files", ".stl", "png", "gif", "jpeg");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Model Files", ".stl", ".obj", ".zpr");
         fileopen.setFileFilter(filter);
 
         fileopen.setAcceptAllFileFilterUsed(false);
