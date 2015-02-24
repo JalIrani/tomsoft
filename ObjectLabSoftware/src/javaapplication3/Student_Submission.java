@@ -3,6 +3,7 @@ package javaapplication3;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import javax.mail.internet.InternetAddress;
 import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -382,9 +384,11 @@ public class Student_Submission extends javax.swing.JFrame {
     private void BrowseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BrowseMouseClicked
         //Creates "JFileChooser" file browser
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
-        //FileFilter filter = new FileNameExtensionFilter("STL files", ".stl");
-        //fileopen.addChoosableFileFilter(filter);
+        //Limits selected files to the following types. TODO fix list
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Model Files", ".stl", "png", "gif", "jpeg");
+        fileopen.setFileFilter(filter);
 
+        fileopen.setAcceptAllFileFilterUsed(false);
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION) {
