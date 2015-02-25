@@ -777,12 +777,11 @@ public class SQLMethods {
     /* WHY IS THERE A CONNECTIN CREATED IN HERE ????  - Nick Liccione*/
     public void insertIntoObjet(String bn, double bc, double sc, int models, String bm, double resolution, String comment, double cost) {
         String date = "(CURTIME())";
-        try {
-            Class.forName(driver).newInstance();
-            Connection conn = DriverManager.getConnection(url + dbName, userName, password);
-            System.out.println("Success!");
-            Statement st = conn.createStatement();
-            int val = st.executeUpdate("INSERT INTO objet "
+        try 
+        {
+            stmt = this.conn.prepareStatement
+            (
+                    "INSERT INTO objet "
                     + "(idObjet, "
                     + "buildName, "
                     + "dateRun, "
@@ -794,12 +793,18 @@ public class SQLMethods {
                     + "comments, "
                     + "costOfBuild) "
                     + "VALUES(DATE_FORMAT(NOW(), '%Y-%m-%d_%H-%i-%s_" + bn + "'),"
-                    + "'" + bn + "'," + date + ",'" + bc + "','" + sc + "','" + models + "','" + bm + "','" + resolution + "','" + comment + "','" + cost + "');");
-            if (val == 1) {
+                    + "'" + bn + "'," + date + ",'" + bc + "','" + sc + "','" + models 
+                    + "','" + bm + "','" + resolution + "','" + comment + "','" + cost + "');"
+            );
+            
+            if (stmt.executeUpdate() == 1)
                 System.out.print("Successfully inserted value");
-            }
+            
             System.out.println(stmt);
-        } catch (Exception e) {
+            
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
     }

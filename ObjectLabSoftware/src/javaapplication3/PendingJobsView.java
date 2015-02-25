@@ -254,20 +254,35 @@ public class PendingJobsView extends javax.swing.JFrame
     
     private void reject() 
     {
+        /*
+            Object allFileTableModel.getValueAt(row, column)
+          */
+        int userSelectedRow = PendingTable.getSelectedRow();
+        
         if (PendingTable.getSelectedRow() > -1) 
         {
             WhyReject = new RejectDescription();
             //String projectName = allFileTableModel.get;
+            /* For loop moved into UtilController in a method called getSelectedRow */
             for (int i = 0; i < allFileTableModel.getRowCount(); i++) 
             {
-                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) 
+                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(userSelectedRow, 0))) 
                 {
-                    WhyReject.RejectDescription
+                    /* rejectStudentSubmission -- to be moveed into UtilController
+                    ( 
+                        int, 
+                        (String) allFileTableModel.getValueAt(userSelectedRow, 0), 
+                        (String) allFileTableModel.getValueAt(userSelectedRow, 1),
+                        (String) allFileTableModel.getValueAt(userSelectedRow, 3)
+                    );
+                    */
+                    
+                    WhyReject.rejectDesc
                     (
                       i, 
-                      (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0),
-                      (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 1),
-                      (String) allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 3)
+                      (String) allFileTableModel.getValueAt(userSelectedRow, 0),
+                      (String) allFileTableModel.getValueAt(userSelectedRow, 1),
+                      (String) allFileTableModel.getValueAt(userSelectedRow, 3)
                     );
                 }
             }
@@ -277,6 +292,7 @@ public class PendingJobsView extends javax.swing.JFrame
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Please select an item to reject!");
         }
     }
+    
     private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed
         if (PendingTable.getSelectedRow() > -1) 
         {

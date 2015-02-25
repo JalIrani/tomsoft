@@ -64,7 +64,7 @@ public class RejectDescription extends javax.swing.JFrame {
     /**
      * Creates new form Add
      */
-    public void RejectDescription(int ProjectCount, String fileName, String StudentName, String dateSubmitted) {
+    public void rejectDesc(int ProjectCount, String fileName, String StudentName, String dateSubmitted) {
         inst = new InstanceCall();
         pCount = ProjectCount;
         initComponents();
