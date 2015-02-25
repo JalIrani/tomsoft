@@ -2,13 +2,9 @@ package javaapplication3;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javaapplication3.PendingJobsView.allFileTableModel;
 import static javaapplication3.PendingJobsView.dba;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;

@@ -17,83 +17,103 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 // Notice, do not import com.mysql.jdbc.*
 // or you will have problems!
-public class SQLMethods {
-
-    String url;
-    String dbName = "jobsdb";
-    String driver = "com.mysql.jdbc.Driver";
-
-    //String url = "jdbc:mysql://10.37.8.172/";
-    //String url = "jdbc:mysql://cosc412.ddns.net:3306/";
-    String userName = "admin";
-    String password = "password";
-    InstanceCall inst;
-    Connection conn = null;
-    private static Statement st;
+public class SQLMethods 
+{
+    /* Same url and connection to the DB until it is closed */
+    private final String url;
+    private Connection conn;
     private ResultSet res;
     private PreparedStatement stmt;
 
-    /* We should make this a singleton DP becuase everytime this class is instantiated a new connection to the
-        DB is created. 
-    */
-    public SQLMethods() { //Only Constructor should open and close connections
-        inst = new InstanceCall();
+    public SQLMethods() 
+    {
+        /* To resolve hostname to an IP adr */
         NsLookup look = new NsLookup();
         File f = new File("C:\\Sync\\computername.txt");
-        String ip = "";
-        String line = "";
-        try {
+        String line, ip = "";
+        
+        try 
+        {
             // FileReader reads text files in the default encoding.
             FileReader fileReader = new FileReader(f.getAbsolutePath());
-
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) 
                 ip = line;
-            }
 
             // Always close files.
             bufferedReader.close();
-        } catch (FileNotFoundException ex) {
+        }
+        catch (FileNotFoundException ex) 
+        {
             System.out.println("Unable to open file!");
-            String temp = JOptionPane.showInputDialog("Please enter the exact name of the computer running Magics:");
+            String temp = JOptionPane.showInputDialog("Please enter the exact name of the computer hosting the database server: ");
             ip = look.resolve(temp);
             //create and write to file
-            PrintWriter writer;
-            try {
-                writer = new PrintWriter("C:\\Sync\\computername.txt", "UTF-8");
+            
+            try 
+            {
+                PrintWriter writer = new PrintWriter("C:\\Sync\\computername.txt", "UTF-8");
                 writer.println(temp);
                 writer.close();
-            } catch (FileNotFoundException ex1) {
+            } 
+            catch (FileNotFoundException ex1) 
+            {
                 Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex1);
-            } catch (UnsupportedEncodingException ex1) {
+            } 
+            catch (UnsupportedEncodingException ex1) 
+            {
                 Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        } catch (IOException ex) {
+            } 
+        } 
+        catch (IOException ex) 
+        {
             System.out.println("Couldn't read file! IOException!");
         }
 
         url = "jdbc:mysql://" + ip + ":3306/";
-
-        try {
+        connectToDatabase("com.mysql.jdbc.Driver", url + "jobsdb", "admin", "password");
+    }
+    
+    private void connectToDatabase(String driver, String urlDatabaseName, String userName, String pw)
+    {
+        try 
+        {
             Class.forName(driver).newInstance();
-            conn = DriverManager.getConnection(url + dbName, userName, password);
-            st = conn.createStatement();
-        } catch (ClassNotFoundException e) {
-            System.out.print("Driver class not found / created. Exception!");
-        } catch (InstantiationException | IllegalAccessException | SQLException e) {
-            e.printStackTrace();
+            conn = DriverManager.getConnection(urlDatabaseName, userName, pw);
+        } 
+        catch (ClassNotFoundException e) 
+        {
+            System.out.println("Driver class not found / created. Exception!\n" + e);
+        } 
+        catch (InstantiationException | IllegalAccessException | SQLException e) 
+        {
+            System.out.println(e);
         }
     }
-
-//doesn't work
+    
+    public void closeDBConnection()
+    {
+        try 
+        {
+            conn.close();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //doesn't work
     public ResultSet selectAllFromTable(String table) {
         res = null;
         try {

@@ -25,75 +25,44 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PendingJobsView extends javax.swing.JFrame
 {
-    /* allFileTableModel:
-     * Used to hold data to display to user using the JTable class
-     * Data is gathered from DB. THE D
-     */
-    public static DefaultTableModel allFileTableModel = null;
+
+    private DefaultTableModel allFileTableModel;
     static SQLMethods dba = null;
     static Reports reports = null;
     static InstanceCall inst = null;
-    private static RejectDescription WhyReject = null;
     private static ApprovePage Approve = null;
     private static Options ops = null;
-    //PendingUpdater pUpdate = null;
     String fileLocation = "";
 
-    public void PendingJobsStart() 
+    public PendingJobsView() 
     {
+        this.allFileTableModel = null;
         ops = new Options();
         inst = new InstanceCall();
         reports = new Reports();
         dba = new SQLMethods();
-        
-        /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
+         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
+    }
+
+    public void PendingJobsStart() 
+    {
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
-        
         /* Updates table */
-        updatePendingTableData();
         
+        updatePendingTableData();
         setVisible(true);
     }
     
-    private static void clearPendingTable()
-    {
-        // clear existing rows
-        while (allFileTableModel.getRowCount() > 0) 
-            allFileTableModel.removeRow(0);
-    }
     
-    /* Returns true if updated
-     * false if nothing to update
-    */
-    private static boolean updatePendingTable() throws FileNotFoundException, IOException, SQLException
-    {
-        ResultSet results = dba.searchPending();
-        
-        if(!results.next())
-            return false;
-        
-        while (results.next()) 
-        {
-            // Build a Vector of Strings for the table row
-            List<String> data = new LinkedList<>();
-            data.add(results.getString("fileName"));
-            data.add(results.getString("firstName") + " " + results.getString("lastName"));
-            data.add(results.getString("printer"));
-            data.add(results.getString("dateStarted"));
-            /* Data retrieved from query is added into our object that we can use to display in the JTable */
-            allFileTableModel.addRow(data.toArray());
-        }
-        
-        return true;
-    }
 
     /* This actually gets the pending jobs by quering the DB */
-    public static void updatePendingTableData()  
+    public void updatePendingTableData()  
     {
         //SQLMethods inj = new SQLMethods();
         
         clearPendingTable();
+        
         try
         { 
             updatePendingTable();
@@ -248,51 +217,18 @@ public class PendingJobsView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
-        // TODO add your handling code here:
-        reject();
-    }//GEN-LAST:event_RejectButtonActionPerformed
-    
-    private void reject() 
-    {
-        /*
-            Object allFileTableModel.getValueAt(row, column)
-          */
         int userSelectedRow = PendingTable.getSelectedRow();
-        
-        if (PendingTable.getSelectedRow() > -1) 
-        {
-            WhyReject = new RejectDescription();
-            //String projectName = allFileTableModel.get;
-            /* For loop moved into UtilController in a method called getSelectedRow */
-            for (int i = 0; i < allFileTableModel.getRowCount(); i++) 
-            {
-                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(userSelectedRow, 0))) 
-                {
-                    /* rejectStudentSubmission -- to be moveed into UtilController
-                    ( 
-                        int, 
-                        (String) allFileTableModel.getValueAt(userSelectedRow, 0), 
-                        (String) allFileTableModel.getValueAt(userSelectedRow, 1),
-                        (String) allFileTableModel.getValueAt(userSelectedRow, 3)
-                    );
-                    */
-                    
-                    WhyReject.rejectDesc
-                    (
-                      i, 
-                      (String) allFileTableModel.getValueAt(userSelectedRow, 0),
-                      (String) allFileTableModel.getValueAt(userSelectedRow, 1),
-                      (String) allFileTableModel.getValueAt(userSelectedRow, 3)
-                    );
-                }
-            }
-        } 
-        else 
-        {
-            JOptionPane.showMessageDialog(new java.awt.Frame(), "Please select an item to reject!");
-        }
-    }
-    
+        /*
+        rejectStudentSubmission
+        ( 
+                getSelectedRowNum(allFileTableModel, 0), 
+                (String) allFileTableModel.getValueAt(userSelectedRow, 0), 
+                (String) allFileTableModel.getValueAt(userSelectedRow, 1),
+                (String) allFileTableModel.getValueAt(userSelectedRow, 3)
+        );
+        */
+    }//GEN-LAST:event_RejectButtonActionPerformed
+      
     private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed
         if (PendingTable.getSelectedRow() > -1) 
         {
