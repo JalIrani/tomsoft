@@ -218,15 +218,15 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
-        /*
-        rejectStudentSubmission
+        
+        UtilController.rejectStudentSubmission
         ( 
-                getSelectedRowNum(allFileTableModel, 0), 
+                UtilController.getSelectedRowNum(allFileTableModel, userSelectedRow, 0), 
                 (String) allFileTableModel.getValueAt(userSelectedRow, 0), 
                 (String) allFileTableModel.getValueAt(userSelectedRow, 1),
                 (String) allFileTableModel.getValueAt(userSelectedRow, 3)
         );
-        */
+        
     }//GEN-LAST:event_RejectButtonActionPerformed
       
     private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed

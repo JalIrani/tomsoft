@@ -13,17 +13,35 @@ import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author nick
  */
 public class UtilController 
 {
-    
     public static void rejectStudentSubmission (int row, String s, String s2, String s3)
     {
         new RejectDescription().rejectDesc(row, s, s2, s3); 
+    }
+    
+     /**
+      * gets row number of matching column in DefaultTableModel dm
+      * @param dm the table model
+      * @param column
+      * @param selectedRow current row selected
+      * @return 
+      */
+    public static int getSelectedRowNum(DefaultTableModel dm, int selectedRow, int column)
+    {
+        for (int i = 0; i < dm.getRowCount(); i++)
+        {
+            if (dm.getValueAt(i, column).equals(dm.getValueAt(selectedRow, column)))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     
     private static void getColumnNames(ResultSet queryResult, Object[] columnNames)
@@ -101,5 +119,6 @@ public class UtilController
         
         return true;
     }
-        
+     
+    
 }
