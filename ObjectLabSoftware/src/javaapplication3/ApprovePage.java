@@ -26,23 +26,31 @@ public class ApprovePage extends javax.swing.JFrame {
     String ID, fileName, printer, fileLoc;
     boolean error;
 
-    public void Approves(String File, String print, String FileLocation, String id) {
-        fileName = File;
+    public void approveSubmission(String file, String print, String fileLocation, String id) {
+        fileName = file;
         printer = print;
-        fileLoc = FileLocation;
+        fileLoc = fileLocation;
         ID = id;
+        
         initComponents();
         hideErrorFields();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(ApprovePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
         setVisible(true);
     }
 
@@ -123,42 +131,46 @@ public class ApprovePage extends javax.swing.JFrame {
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         errorTxt1.setVisible(false);
         Double Volume = null;
-        if (!volumeTextField.getText().equals("")) {
-            try {
+        
+        if (!volumeTextField.getText().equals("")) 
+        {
+            try 
+            {
                 Volume = Double.parseDouble(volumeTextField.getText());
-            } catch (Exception ex) {
+            } 
+            catch (Exception ex) 
+            {
                 error = true;
                 errorTxt1.setText("*Numbers only");
                 errorTxt1.setVisible(true);
             }
-        } else {
+        } 
+        else 
+        {
             error = true;
             errorTxt1.setText("*Empty Field");
             errorTxt1.setVisible(true);
         }
 
-        if (error == false) {
+        if (!error) 
+        {
             dba.updatePendingJobVolume(ID, Volume);
             System.out.println(fileLoc);
             File newDir = new File(PendingJobsView.inst.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
-            try {
+            
+            try 
+            {
                 FileUtils.moveFileToDirectory(new File(PendingJobsView.inst.getSubmission() + "\\" + fileName), newDir, true);
                 dba.updatePendingJobFLocation(ID, fileName);
                 PendingJobsView.dba.approve(ID);
-            } catch (SQLException ex) {
-                Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (FileExistsException e) {
-                FileUtils.deleteQuietly(new File(newDir.getAbsoluteFile() + fileName));
-                newDir = new File(PendingJobsView.inst.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
-                try {
-                    FileUtils.moveFileToDirectory(new File(PendingJobsView.inst.getSubmission() + "\\" + fileName), newDir, true);
-                } catch (IOException ex) {
-                    Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (IOException ex) {
+            } 
+            catch (SQLException | IOException ex) 
+            {
                 Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             dispose();
+            
         }
     }//GEN-LAST:event_SubmitButtonActionPerformed
 

@@ -17,8 +17,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -264,19 +262,26 @@ public class SQLMethods
         }
     }
 
-    public ResultSet searchPending() {
+    public ResultSet searchPending() 
+    {
         res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "status = 'pending'");
-            System.out.println(stmt);
+        try 
+        {
+            stmt = this.conn.prepareStatement
+            (
+                "SELECT fileName, firstName, lastName, printer, dateStarted "
+                + "FROM pendingjobs "
+                + "WHERE "
+                + "status = 'pending'"
+            );
+            
             res = stmt.executeQuery();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
+        
         return res;
     }
 

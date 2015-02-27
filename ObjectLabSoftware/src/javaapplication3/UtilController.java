@@ -3,14 +3,10 @@
  */
 package javaapplication3;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -20,10 +16,54 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UtilController 
 {
-    public static void rejectStudentSubmission (int row, String s, String s2, String s3)
+    public static void rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission)
     {
-        new RejectDescription().rejectDesc(row, s, s2, s3); 
+        new RejectDescription().rejectDesc(file, fName, lName, dateOfSubmission); 
     }
+    
+    public static void approveStudentSubmission(String fileName, String firstName, String lastName, String printer, String dateStarted)
+    {
+        ResultSet result = PendingJobsView.dba.searchID("pendingjobs", firstName, lastName, fileName, dateStarted);
+        String fileLocation = "", ID = "";
+            
+        try 
+        {
+            while (result.next()) 
+            {
+                ID = result.getString("idJobs");
+                System.out.println("ID: " + ID);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ResultSet res = PendingJobsView.dba.searchPendingWithID(ID);
+            
+        try 
+        {
+            while (res.next()) 
+                fileLocation = res.getString("filePath");
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(!fileLocation.equals(""))
+        {
+            ApprovePage apage = new ApprovePage();
+            apage.approveSubmission(fileName, printer, fileLocation, ID); 
+        }
+        else
+        {
+            System.out.println("ERROR MSG: File path not found");
+            System.exit(1);
+        }
+    }
+    
+    
     
      /**
       * gets row number of matching column in DefaultTableModel dm
@@ -34,18 +74,21 @@ public class UtilController
       */
     public static int getSelectedRowNum(DefaultTableModel dm, int selectedRow, int column)
     {
+        if (selectedRow < 0)
+            return -1;
+        
         for (int i = 0; i < dm.getRowCount(); i++)
-        {
             if (dm.getValueAt(i, column).equals(dm.getValueAt(selectedRow, column)))
-            {
                 return i;
-            }
-        }
+        
         return -1;
     }
     
-    private static void getColumnNames(ResultSet queryResult, Object[] columnNames)
+    /* This function takes the column names found in the queryResult and inserts them into columnNames */
+    private static ArrayList<String> getColumnNames(ResultSet queryResult)
     { 
+        ArrayList<String> columnNames = new ArrayList<>();
+        
         try 
         {
             /* Meta data contains number of columns and there names.
@@ -53,71 +96,61 @@ public class UtilController
              */
             ResultSetMetaData meta = queryResult.getMetaData();
             int columnCount = meta.getColumnCount();
-            columnNames = new Object[columnCount];
             
-            for(int column = 0; column < columnCount; column++)
-            {
-                columnNames[column] = meta.getColumnName(column);
-            }
+            for(int column = 1; column <= columnCount; column++)
+                columnNames.add(meta.getColumnName(column));
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+            return columnNames;
         }
+        
+        return columnNames;
+        
     }
-
     
-     /* This function is called to take the ResultSet return type form a DB query and re-format it into general
-      * structures that make it easy for the View classes to display / modify.
+     /* This function is called to take the query result "ResultSet" return type form a DB query and re-format it into 
+      * general structures that make it easy for the View classes to display / modify.
       * Therefore the View classes would not have to know about the data and column names ect... 
       */
-    public static boolean readyOutputForViewPage(ResultSet queryResult, Object[][] dataVector, Object[] columnNames)
+    private static ArrayList<ArrayList<String>> readyOutputForViewPage(ResultSet queryResult)
     {
-        /* This function takes the column names found in the queryResult and inserts them into columnNames */
-        getColumnNames(queryResult, columnNames);
+        ArrayList<String> columnNames = getColumnNames(queryResult);
+        ArrayList<ArrayList<String>> retval = new ArrayList<>();
+        
         /* Process data column by column and add that data into dataVector */
         try 
-        {
+        {  
+            ArrayList<String> tempRow;
+            
+            /* Goes through ResultSet row by row adding the row data into retval as an arraylist of type string */
             while (queryResult.next()) 
             {
-                /* While a row is availabe for processing 
-                   Process by column
-                */
-                for(int col = 0; col < columnNames.length - 1; col++)
-                    dataVector[queryResult.getRow()][col] = queryResult.getString((String) columnNames[col]);
-             }
+                tempRow = new ArrayList<>();
+                for (String columnName : columnNames) 
+                    tempRow.add(queryResult.getString((String) columnName));
+                
+                retval.add(tempRow);
+            }
         }
         catch (SQLException sqle)
         {
             System.out.println(sqle);
-            return false;
+            return retval;
         }
-        return true;
-    } 
+        return retval;
+    }
     
-    /* Returns true if updated
-     * false if nothing to update
-    */
-    private boolean updatePendingTable() throws FileNotFoundException, IOException, SQLException
-    {
-        ResultSet results = dba.searchPending();
+    public static void updatePendingTableData(DefaultTableModel dataHolder)
+    {     
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.searchPending();
         
-        if(!results.next())
-            return false;
+        ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
         
-        while (results.next()) 
-        {
-            // Build a Vector of Strings for the table row
-            List<String> data = new LinkedList<>();
-            data.add(results.getString("fileName"));
-            data.add(results.getString("firstName") + " " + results.getString("lastName"));
-            data.add(results.getString("printer"));
-            data.add(results.getString("dateStarted"));
-            /* Data retrieved from query is added into our object that we can use to display in the JTable */
-            this.allFileTableModel.addRow(data.toArray());
-        }
-        
-        return true;
+        for (ArrayList<String> retval1 : retval) 
+            dataHolder.addRow(retval1.toArray());
     }
      
     

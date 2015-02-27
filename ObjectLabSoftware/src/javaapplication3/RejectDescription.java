@@ -19,35 +19,38 @@ import org.apache.commons.io.FileUtils;
  *
  * @author Matt
  */
-public class RejectDescription extends javax.swing.JFrame {
-
+public class RejectDescription extends javax.swing.JFrame 
+{
     private static SendEmail Sender;
-    private static int pCount;
     private static boolean Canceled = false;
     private static boolean Continue = false;
     InstanceCall inst;
-     String FileName;
-     String dateSubmitted;
-     String studentName;
+    private String fileName;
+    private String dateSubmitted;
+    private String studentFirstName;
+    private String studentLastName;
 
     /**
      * @return the Canceled
      */
-    public boolean isCanceled() {
+    public boolean isCanceled() 
+    {
         return Canceled;
     }
 
     /**
      * @param aCanceled the Canceled to set
      */
-    public static void setCanceled(boolean aCanceled) {
+    public static void setCanceled(boolean aCanceled) 
+    {
         Canceled = aCanceled;
     }
 
     /**
      * @return the Continue
      */
-    public boolean isContinue() {
+    public boolean isContinue() 
+    {
         return Continue;
     }
 
@@ -59,23 +62,18 @@ public class RejectDescription extends javax.swing.JFrame {
         Continue = aContinue;
     }
 
-    public void rejectDesc(int ProjectCount, String fileName, String StudentName, String dateSubmitted) {
+    public void rejectDesc(String file, String fName, String lName, String submissionDate) 
+    {
         inst = new InstanceCall();
-        pCount = ProjectCount;
+        
         initComponents();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-            this.FileName = fileName;
-            this.studentName = StudentName;
-            this.dateSubmitted = dateSubmitted;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RejectDescription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
+        /* Initalize our instance fields */
+        fileName = file;
+        studentFirstName = fName;
+        studentLastName = lName;
+        this.dateSubmitted = submissionDate;
+        
         setVisible(true);
     }
 
@@ -148,30 +146,30 @@ public class RejectDescription extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
-        // TODO add your handling code here:
-        String Student = "Student name from database";
         String Error = ErrorText.getText();
-        System.out.println("Sending Email");
-
-        System.out.println(FileName);
-        String[] splited = studentName.split(" ");
-        String firstName = splited[0];
-        String lastName = splited[1];
-        ResultSet results = PendingJobsView.dba.searchID("pendingjobs", firstName, lastName, FileName, dateSubmitted);
-        try {
-            if (results.next()) {
-                Sender = new SendEmail(firstName, lastName, Error, FileName, results.getString("idJobs"));
+         
+        ResultSet results = PendingJobsView.dba.searchID("pendingjobs", studentFirstName, studentLastName, fileName, dateSubmitted);
+        
+        try 
+        {
+            if (results.next()) 
+            {
+                Sender = new SendEmail(studentFirstName, studentLastName, Error, fileName, results.getString("idJobs"));
+                
+                /* Is error set to null if it fails ??? Should we check for this and not actualy "reject the file ?? -nick */
                 System.out.println(Error);
+                
                 Sender.Send();
-                System.out.println(inst.getSubmission()+ FileName);
-                System.out.println(inst.getRejected() + FileName);
+                
                 File newDir = new File(inst.getRejected());
-                FileUtils.moveFileToDirectory(new File(inst.getSubmission() + FileName), newDir, true);
+                FileUtils.moveFileToDirectory(new File(inst.getSubmission() + fileName), newDir, true);
 
                 PendingJobsView.dba.delete("pendingjobs", results.getString("idJobs"));
                 JOptionPane.showMessageDialog(new JFrame(), "Email Sent Succesfully!");
             }
-        } catch (SQLException | IOException ex) {
+        } 
+        catch (SQLException | IOException ex) 
+        {
             Logger.getLogger(RejectDescription.class.getName()).log(Level.SEVERE, null, ex);
         }
 

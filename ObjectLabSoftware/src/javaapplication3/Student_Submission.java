@@ -1,5 +1,5 @@
 package javaapplication3;
-/* hi */
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -382,13 +382,31 @@ public class Student_Submission extends javax.swing.JFrame {
 
 
     private void BrowseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BrowseMouseClicked
+        /* New code - found a bug that it will not show file types set in Model Files filter 
         //Creates "JFileChooser" file browser
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //Limits selected files to the following types. TODO fix list
+        
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Model Files", ".stl", ".obj", ".zpr");
         fileopen.setFileFilter(filter);
 
         fileopen.setAcceptAllFileFilterUsed(false);
+        int ret = fileopen.showDialog(null, "Open file");
+
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File file = fileopen.getSelectedFile();
+            //Inputs the file location into the textbox "fileName"
+            fileLocation.setText(file.toString().replaceAll("'", ""));
+            projName.setText(file.getName().replaceAll("'", ""));
+        }
+        */
+        
+        /* I put the old code in for now just to TEST something -Nick */
+        //Creates "JFileChooser" file browser
+        JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
+        //FileFilter filter = new FileNameExtensionFilter("STL files", ".stl");
+        //fileopen.addChoosableFileFilter(filter);
+
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION) {

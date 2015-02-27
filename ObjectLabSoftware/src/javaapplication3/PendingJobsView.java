@@ -2,12 +2,9 @@ package javaapplication3;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -25,19 +22,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PendingJobsView extends javax.swing.JFrame
 {
+    private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
+    private static final int FIRST_NAME_COLUMN_NUMBER = 1;
+    private static final int LAST_NAME_COLUMN_NUMBER = 2;
+    private static final int PRINTER_COLUMN_NUMBER = 3;
+    private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
 
     private DefaultTableModel allFileTableModel;
     static SQLMethods dba = null;
     static Reports reports = null;
     static InstanceCall inst = null;
-    private static ApprovePage Approve = null;
-    private static Options ops = null;
     String fileLocation = "";
 
     public PendingJobsView() 
     {
         this.allFileTableModel = null;
-        ops = new Options();
         inst = new InstanceCall();
         reports = new Reports();
         dba = new SQLMethods();
@@ -48,30 +47,10 @@ public class PendingJobsView extends javax.swing.JFrame
     public void PendingJobsStart() 
     {
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
+        
         /* Updates table */
-        
-        updatePendingTableData();
+        UtilController.updatePendingTableData(allFileTableModel);
         setVisible(true);
-    }
-    
-    
-
-    /* This actually gets the pending jobs by quering the DB */
-    public void updatePendingTableData()  
-    {
-        //SQLMethods inj = new SQLMethods();
-        
-        clearPendingTable();
-        
-        try
-        { 
-            updatePendingTable();
-        }
-        catch (IOException | SQLException e)
-        {
-            System.out.println(e);
-        }
-        // While there are more results to process
     }
 
     /**
@@ -98,7 +77,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        showClassEditorOptions = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -155,7 +134,7 @@ public class PendingJobsView extends javax.swing.JFrame
 
             },
             new String [] {
-                "Project Name", "Student Name", "Printer", "Date Submitted"
+                "Project Name", "First Name", "Last Name", "Printer", "Date Submitted"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -188,13 +167,13 @@ public class PendingJobsView extends javax.swing.JFrame
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem3.setText("Class Settings");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        showClassEditorOptions.setText("Class Settings");
+        showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                showClassEditorOptionsActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(showClassEditorOptions);
 
         jMenuBar1.add(jMenu1);
 
@@ -218,82 +197,44 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
+        //     public void rejectDesc(String file, String fName, String lName, String submissionDate) 
+        /*
+         private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
+    private static final int FIRST_NAME_COLUMN_NUMBER = 1;
+    private static final int LAST_NAME_COLUMN_NUMBER = 2;
+    private static final int PRINTER_COLUMN_NUMBER = 3;
+    private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
         
+            
+        */
         UtilController.rejectStudentSubmission
         ( 
-                UtilController.getSelectedRowNum(allFileTableModel, userSelectedRow, 0), 
-                (String) allFileTableModel.getValueAt(userSelectedRow, 0), 
-                (String) allFileTableModel.getValueAt(userSelectedRow, 1),
-                (String) allFileTableModel.getValueAt(userSelectedRow, 3)
+                (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER), 
+                (String) allFileTableModel.getValueAt(userSelectedRow, FIRST_NAME_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(userSelectedRow, LAST_NAME_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(userSelectedRow, DATE_PROJECT_STARTED_COLUMN_NUMBER)
         );
         
     }//GEN-LAST:event_RejectButtonActionPerformed
       
     private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed
-        if (PendingTable.getSelectedRow() > -1) 
+        int userSelectedRow = PendingTable.getSelectedRow();
+        
+        if (userSelectedRow > -1) 
         {
+            int rowDataLocation = UtilController.getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
 
-            int i;
-            String firstName = "";
-            String lastName = "";
-            String FileName = "";
-            String DateStarted = "";
-            String printer = "";
-            
-            /* Put all of this in a method in SQLUtils called getDataFromUserSelectedRow */
-            for (i = 0; i < allFileTableModel.getRowCount(); i++) 
-            {
-                /* If fileName matches a single row in allFileTableModel that the user selected then get that data to query the DB
-                 * for the full filePath.
-                 */
-                if (allFileTableModel.getValueAt(i, 0).equals(allFileTableModel.getValueAt(PendingTable.getSelectedRow(), 0))) 
-                {
-                    String studentName = allFileTableModel.getValueAt(i, 1).toString();
-                    String[] splited = studentName.split(" ");
-                    firstName = splited[0];
-                    lastName = splited[1];
-                    printer = allFileTableModel.getValueAt(i, 2).toString();
-                    FileName = allFileTableModel.getValueAt(i, 0).toString();
-                    DateStarted = allFileTableModel.getValueAt(i, 3).toString();
-                }
-            }
-            
-            System.out.println(firstName);
-            System.out.println(lastName);
-            System.out.println(FileName);
-            System.out.println(DateStarted);
-            
-            ResultSet result = PendingJobsView.dba.searchID("pendingjobs", firstName, lastName, FileName, DateStarted);
-            String ID = "";
-            
-            try 
-            {
-                while (result.next()) 
-                    ID = result.getString("idJobs");
-            } 
-            catch (SQLException ex) 
-            {
-                Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            ResultSet res = PendingJobsView.dba.searchPendingWithID(ID);
-            try 
-            {
-                while (res.next()) 
-                    fileLocation = res.getString("filePath");
-            } 
-            catch (SQLException ex) 
-            {
-                Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            Approve = new ApprovePage();
-            Approve.Approves(FileName, printer, fileLocation, ID);
-        } 
-        else 
-        {
-            JOptionPane.showMessageDialog(new JFrame(), "Please select a file to approve!");
+            UtilController.approveStudentSubmission
+            (
+                (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(rowDataLocation, PRINTER_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER)
+            );
+                    
         }
+         
     }//GEN-LAST:event_ApprovedButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -303,20 +244,24 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        try {
+        try 
+        {
             Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             JOptionPane.showMessageDialog(null, "Error");  //print the error
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        ops.OptionsStart();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    
+    /* This button when pressed will pull up the options menu for editing courses and choosing a "current" course. */
+    private void showClassEditorOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showClassEditorOptionsActionPerformed
+       new Options().OptionsStart();
+    }//GEN-LAST:event_showClassEditorOptionsActionPerformed
 
     private void openFileInProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileInProgramActionPerformed
         int selectedRow = PendingTable.getSelectedRow();
+        
         if (selectedRow > -1) 
         {
             int i;
@@ -388,12 +333,12 @@ public class PendingJobsView extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton openFileInProgram;
+    private javax.swing.JMenuItem showClassEditorOptions;
     // End of variables declaration//GEN-END:variables
 }
