@@ -1,5 +1,6 @@
 package javaapplication3;
 
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /*
@@ -196,8 +197,14 @@ public class TomSoftMain extends javax.swing.JFrame {
     }//GEN-LAST:event_zcorpButtonActionPerformed
 
     private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
-        String password = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter Admin Password:");
-        /* password.equals(PASS) */
+        PasswordDialogue dialogue = new PasswordDialogue();
+        dialogue.setAlwaysOnTop(true);
+        dialogue.setVisible(true);
+        dialogue.setLocationRelativeTo(this);
+        /* 
+        Currently bypasses what is typed into dialogue for ease of testing
+        password.equals(PASS) 
+        */
         if (true) {
             studentSubmissionButton.setVisible(false);
             setPrintersVisible(true);
