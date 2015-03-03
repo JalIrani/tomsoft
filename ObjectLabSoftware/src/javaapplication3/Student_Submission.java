@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.swing.ButtonGroup;
@@ -406,7 +407,10 @@ public class Student_Submission extends javax.swing.JFrame {
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //FileFilter filter = new FileNameExtensionFilter("STL files", ".stl");
         //fileopen.addChoosableFileFilter(filter);
-
+        fileopen.setAcceptAllFileFilterUsed(false);
+        fileopen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
+        fileopen.setFileFilter(filter);
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION) {
