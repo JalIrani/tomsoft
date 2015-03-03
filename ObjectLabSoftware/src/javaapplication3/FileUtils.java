@@ -155,10 +155,10 @@ public class FileUtils {
     
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //Limits selected files to the following types. TODO fix list
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Model Files", ".stl", ".obj", ".zpr");
-        fileopen.setFileFilter(filter);
-
         fileopen.setAcceptAllFileFilterUsed(false);
+        fileopen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
+        fileopen.setFileFilter(filter);
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION) {
