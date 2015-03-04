@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.swing.ButtonGroup;
@@ -231,7 +232,7 @@ public class Student_Submission extends javax.swing.JFrame {
         firstName.setName("firstName"); // NOI18N
         getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 200, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication3/black and white bg.jpg"))); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 360));
 
         editMenu.setText("Help");
@@ -261,10 +262,7 @@ public class Student_Submission extends javax.swing.JFrame {
         errorTxt6.setVisible(false);
         errorTxt7.setVisible(false);
     }
-    
-    /* In here this checks to make sure all fields have been filled out and checks to see if
-        the file name entered is not a duplicate 
-    */
+
     private boolean errCheck() {
         boolean isErr = false;
         hideErrorFields();
@@ -313,8 +311,8 @@ public class Student_Submission extends javax.swing.JFrame {
             errorTxt7.setText("Select Option!");
             isErr = true;
         }
-        
-        /* This checks for a duplicate file submission by querying the pendingjobs table and then
+
+		 /* This checks for a duplicate file submission by querying the pendingjobs table and then
             traversing through the ResultSet for a match from the user input and an entry in the DB.
         */
           ResultSet existing = sqlMethods.searchPending();
@@ -412,7 +410,10 @@ public class Student_Submission extends javax.swing.JFrame {
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //FileFilter filter = new FileNameExtensionFilter("STL files", ".stl");
         //fileopen.addChoosableFileFilter(filter);
-
+        fileopen.setAcceptAllFileFilterUsed(false);
+        fileopen.setMultiSelectionEnabled(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
+        fileopen.setFileFilter(filter);
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION) {
@@ -469,3 +470,4 @@ public class Student_Submission extends javax.swing.JFrame {
     private javax.swing.JTextField projName;
     // End of variables declaration//GEN-END:variables
 }
+
