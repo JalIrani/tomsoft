@@ -49,6 +49,16 @@ INSERT INTO `jobsDB`.`printers` VALUES
 	'mtype4', 'munit4', 3,
 	'mtype5', 'munit5', 4
 );
+
+INSERT INTO `jobsDB`.`printers` VALUES
+(
+	'solidscape', 
+	'mtype', 'munit', 0, 
+	'mtype2', 'munit2', 1, 
+	'mtype3', 'munit3', 2,
+	'mtype4', 'munit4', 3,
+	'mtype5', 'munit5', 4
+);
 -- -----------------------------------------------------
 -- Table `jobsDB`.`pendingJobs`
 -- -----------------------------------------------------
