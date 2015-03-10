@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication3;
+package ObjectLabEnterpriseSoftware;
 
 /**
  *
@@ -56,7 +56,7 @@ public class PasswordDialogue extends javax.swing.JFrame {
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 57, -1, -1));
         getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 136, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaapplication3/black and white bg.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg")));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 160, 100));
 
         pack();
