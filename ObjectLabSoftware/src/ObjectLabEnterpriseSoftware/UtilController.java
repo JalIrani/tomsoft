@@ -144,6 +144,22 @@ public class UtilController
         
     }
     
+    /**     * 
+     * @param filepath
+     * @return 
+     * 
+     * Check if the file exists in the given filepath. If it doesn't, prompt the user to search for the file. 
+     * If user is unable to find the file, delete it from the database.
+     */
+    public static boolean checkFileExists(String filepath){
+        boolean exists = FileUtils.doesFileExist(filepath);
+        //If the files does not exist and the user does not locate it
+        if(!exists){
+            //TODO: update file location in database
+        }
+        return true;
+    }
+    
      /**
       * This is probably something that should be in a general Utils class for the front end or the various "views".
       * I'm leaving this here for now because I don't want to change or add anything else that could affect other 

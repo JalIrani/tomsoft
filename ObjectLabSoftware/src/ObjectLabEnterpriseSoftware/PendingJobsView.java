@@ -300,7 +300,8 @@ public class PendingJobsView extends javax.swing.JFrame
                 (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
                 (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER)
             );
-            
+            //TODO: display popup/error if this is false
+            UtilController.checkFileExists(fileLocation.getPath());
             try 
             {
                 Desktop.getDesktop().open(fileLocation);

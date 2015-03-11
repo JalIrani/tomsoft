@@ -80,11 +80,16 @@ public class FileUtils {
         return false;
     }
     
-    public boolean doesFileExist(String path){
+    public static boolean doesFileExist(String path){
     
         File newDir = new File(path);
         if(newDir.exists()){
             return true;
+        }
+        else{
+            String fileLoc = browseForFile();
+            if(fileLoc != null)
+                return true;
         }
         return false;
     }
@@ -150,7 +155,7 @@ public class FileUtils {
         return true;
     }
     
-    public String browseForFile(){
+    public static String browseForFile(){
     
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //Limits selected files to the following types. TODO fix list
