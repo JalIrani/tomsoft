@@ -1,6 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.util.Locale;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -198,6 +199,7 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
         PasswordDialogue dialogue = new PasswordDialogue();
+        dialogue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dialogue.setAlwaysOnTop(true);
         dialogue.setVisible(true);
         dialogue.setLocationRelativeTo(this);
