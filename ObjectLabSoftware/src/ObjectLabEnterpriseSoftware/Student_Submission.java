@@ -46,6 +46,8 @@ public class Student_Submission extends javax.swing.JFrame {
         /*
         Fetch available classes
         */
+         
+        /*
         ResultSet result2 = sqlMethods.getCurrentClasses();
         try {
             while (result2.next()) {
@@ -54,6 +56,7 @@ public class Student_Submission extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PrinterBuild.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -192,7 +195,13 @@ public class Student_Submission extends javax.swing.JFrame {
         });
         getContentPane().add(Student_Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 73, 23));
 
+        classBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableClasses()));
         classBox.setSelectedItem(null);
+        classBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classBoxActionPerformed(evt);
+            }
+        });
         getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 120, -1));
 
         printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
@@ -431,6 +440,10 @@ public class Student_Submission extends javax.swing.JFrame {
     private void printerBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printerBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_printerBoxActionPerformed
+
+    private void classBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_classBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -260,9 +260,7 @@ public class UtilController
           Fetch available printers
         */
         
-        //Initialize the return value of String [] 
         SQLMethods dbconn = new SQLMethods();
-
         ResultSet printersAvailableResult = dbconn.getAvailablePrinters();
         ArrayList<ArrayList<String>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
@@ -276,6 +274,38 @@ public class UtilController
             printersAvailble[row] = (String) printersAvailableAL.get(row).get(0);
         
         return printersAvailble;
+    }
+    
+    public static String[] returnAvailableClasses()
+    {    
+        /*
+          Fetch available classes
+        */
+        
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet classesAvailableResult = dbconn.getCurrentClasses();
+        ArrayList<ArrayList<String>> classesAvailableAL = readyOutputForViewPage(classesAvailableResult);
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        /*
+        Convert results to desired format
+        */
+        String [] classesAvailble = new String[classesAvailableAL.size()];
+        for(int row = 0; row < classesAvailableAL.size(); row++)
+        {
+            String tempRow = "";
+            ArrayList<String> tmplist;
+            
+            tmplist = (ArrayList<String>) classesAvailableAL.get(row);      
+            
+            for(int column = 0; column < tmplist.size(); column++)
+                tempRow += tmplist.get(column) + " ";
+                
+            classesAvailble[row] = tempRow;
+        }
+        
+        return classesAvailble;
     }
     
 }
