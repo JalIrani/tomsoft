@@ -953,4 +953,22 @@ public class SQLMethods
         }
         return res;
     }
+    
+    public ResultSet getAvailablePrinters() 
+    {
+        res = null;
+        try {
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT printer"
+                    + " FROM printers"
+            );
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
 }

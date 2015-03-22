@@ -7,6 +7,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,10 @@ public class Student_Submission extends javax.swing.JFrame {
         
         sqlMethods = new SQLMethods();
         home = new TomSoftMain();
+        
+        /*
+        Fetch available classes
+        */
         ResultSet result2 = sqlMethods.getCurrentClasses();
         try {
             while (result2.next()) {
@@ -49,6 +54,7 @@ public class Student_Submission extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PrinterBuild.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -189,8 +195,13 @@ public class Student_Submission extends javax.swing.JFrame {
         classBox.setSelectedItem(null);
         getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 120, -1));
 
-        printerBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Zcorp", "Solidscape", "Objet" }));
+        printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
         printerBox.setSelectedItem(null);
+        printerBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printerBoxActionPerformed(evt);
+            }
+        });
         getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 120, -1));
 
         errorTxt1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -416,6 +427,10 @@ public class Student_Submission extends javax.swing.JFrame {
     private void BrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BrowseActionPerformed
+
+    private void printerBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printerBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printerBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
