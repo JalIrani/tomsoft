@@ -43,57 +43,6 @@ public class PrinterBuild extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
-    public static void selectAllFiles(String Printer) {
-        while (fileTableModel.getRowCount() > 0) {
-            fileTableModel.removeRow(0);
-        }
-        switch (Printer) {
-            case "ZCorp":
-                ResultSet result = dba.searchApprovedZcorp();
-                try {
-                    while (result.next()) {
-                        List<Object> data = new LinkedList<>();
-                        data.add(false);
-                        data.add(result.getString("fileName"));
-                        data.add(result.getString("dateStarted"));
-                        fileTableModel.addRow(data.toArray());
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PrinterBuild.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-            case "Objet":
-                ResultSet result2 = dba.searchApprovedObjet();
-                try {
-                    while (result2.next()) {
-                        List<Object> data = new LinkedList<>();
-                        // data.add((Boolean) false);
-                        data.add(false);
-                        data.add(result2.getString("fileName"));
-                        data.add(result2.getString("dateStarted"));
-                        fileTableModel.addRow(data.toArray());
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PrinterBuild.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-            case "Solidscape":
-                ResultSet result3 = dba.searchApprovedSolidscape();
-                try {
-                    while (result3.next()) {
-                        List<Object> data = new LinkedList<>();
-                        // data.add((Boolean) false);
-                        data.add(false);
-                        data.add(result3.getString("fileName"));
-                        data.add(result3.getString("dateStarted"));
-                        fileTableModel.addRow(data.toArray());
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PrinterBuild.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,7 +110,7 @@ public class PrinterBuild extends javax.swing.JFrame {
                 fileTableModel.removeRow(0);
             }
             System.out.println("now repopulating");
-            selectAllFiles(BuildPrinter);
+            UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
             dispose();
 
         }
@@ -354,7 +303,7 @@ public class PrinterBuild extends javax.swing.JFrame {
         }
         if (!BuildName.getText().isEmpty()) {
             clearEntries(fileTableModel);
-            selectAllFiles(BuildPrinter);
+            UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
         }
     }//GEN-LAST:event_browseBtnActionPerformed
     public void clearEntries(DefaultTableModel fileTableModel) {

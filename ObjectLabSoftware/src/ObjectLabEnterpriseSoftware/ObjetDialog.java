@@ -86,7 +86,7 @@ public class ObjetDialog extends javax.swing.JFrame {
                 int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     gatherScrapThenExit();
-                    PrinterBuild.selectAllFiles("Objet");
+                    UtilController.updatePrinterBuildView("Objet");
                     dispose();
                 } else {
                     ResultSet r = ObjetMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());

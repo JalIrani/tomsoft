@@ -84,7 +84,7 @@ public class SolidscapeDialog extends javax.swing.JFrame {
                 int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     gatherScrapThenExit();
-                    PrinterBuild.selectAllFiles("Solidscape");
+                    UtilController.updatePrinterBuildView("Solidscape");
                     dispose();
                 }  else {
                     ResultSet r = SolidscapeMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());

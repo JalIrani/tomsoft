@@ -254,5 +254,39 @@ public class UtilController
             dataHolder.addRow(retval1.toArray());
     }
      
+    public static String[] returnAvailablePrinters()
+    {    
+        /*
+          Fetch available printers
+        */
+        
+        //Initialize the return value of String [] 
+        SQLMethods dbconn = new SQLMethods();
+
+        ResultSet printersAvailableResult = dbconn.getAvailablePrinters();
+        ArrayList<ArrayList<String>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        /*
+        Convert results to desired format
+        */
+        String [] printersAvailble = new String[printersAvailableAL.size()];
+        for(int row = 0; row < printersAvailableAL.size(); row++)
+            printersAvailble[row] = (String) printersAvailableAL.get(row).get(0);
+        
+        return printersAvailble;
+    }
+
+    /*
+    Updates view for making a build.
+    This will show files/jobs (student submissions) that need to be put into a build
+    UNFINISHED ****
+     */
+    public static void updatePrinterBuildView(String printer) 
+    {
+
+        //ResultSet result = PrinterBuild.dba.searchApprovedJobsNotPrinted(printer);
+    }
     
 }

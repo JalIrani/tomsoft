@@ -89,7 +89,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
                 int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                 if (PromptResult == JOptionPane.YES_OPTION) {
                     gatherScrapThenExit();
-                    PrinterBuild.selectAllFiles("ZCorp");
+                    UtilController.updatePrinterBuildView("ZCorp");
                     dispose();
                 } else {
                     ResultSet r = ZCorpMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());

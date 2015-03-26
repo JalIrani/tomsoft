@@ -607,53 +607,29 @@ public class SQLMethods
         System.out.println(stmt);
     }
 
-    public ResultSet searchApprovedZcorp() {
+    /* This querys for approved jobs that do not belong to a build */
+    public ResultSet searchApprovedJobsNotPrinted(String printer) 
+    {
         res = null;
-        try {
-            stmt = this.conn.prepareStatement(
+        
+        try 
+        {
+            stmt = this.conn.prepareStatement
+            (
                     "SELECT * "
                     + "FROM pendingjobs "
                     + "WHERE "
-                    + "printer = 'ZCorp' "
+                    + "printer = ? "
                     + "AND buildName is null "
-                    + "AND status = 'approved'");
+                    + "AND status = 'approved'"
+            );
+            
+            stmt.setString(1, printer);
             System.out.println(stmt);
             res = stmt.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    public ResultSet searchApprovedSolidscape() {
-        res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "printer = 'Solidscape' "
-                    + "AND status = 'approved'");
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    public ResultSet searchApprovedObjet() {
-        res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "printer = 'Objet' "
-                    + "AND status = 'approved'");
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
         return res;
@@ -953,4 +929,22 @@ public class SQLMethods
         }
         return res;
     }
+    
+    public ResultSet getAvailablePrinters() 
+    {
+        res = null;
+        try {
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT printer"
+                    + " FROM printers"
+            );
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
 }
