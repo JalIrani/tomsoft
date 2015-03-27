@@ -295,6 +295,8 @@ public class UtilController
         ArrayList<ArrayList<String>> approvedForPrinter = readyOutputForViewPage(result);
         dbconn.closeDBConnection();
         
+       
+        
         return approvedForPrinter;
         
     }

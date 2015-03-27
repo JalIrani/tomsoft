@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -115,7 +116,9 @@ public class PrinterBuild extends javax.swing.JFrame {
                 fileTableModel.removeRow(0);
             }
             System.out.println("now repopulating");
-            UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
+            ArrayList<ArrayList<String>> retval = UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
+            for (ArrayList<String> retval1 : retval) 
+            fileTableModel.addRow(retval1.toArray());
             dispose();
 
         }
@@ -312,7 +315,11 @@ public class PrinterBuild extends javax.swing.JFrame {
         }
         if (!BuildName.getText().isEmpty()) {
             clearEntries(fileTableModel);
-            UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
+            ArrayList<ArrayList<String>> retval = UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
+            for (ArrayList<String> retval1 : retval)
+            {
+                fileTableModel.addRow(retval1.toArray());
+            }
         }
     }//GEN-LAST:event_browseBtnActionPerformed
     public void clearEntries(DefaultTableModel fileTableModel) {

@@ -70,7 +70,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
         setUp(build, count);
     }
 
-    public void ZCorpDialogStart() {
+    public void ZCorpDialogStart() 
+    {
         instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
@@ -82,30 +83,43 @@ public class ZCorpDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() 
+        {
             @Override
-            public void windowClosing(WindowEvent we) {
+            public void windowClosing(WindowEvent we) 
+            {
                 String ObjButtons[] = {"Yes", "No"};
                 int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) {
+                if (PromptResult == JOptionPane.YES_OPTION) 
+                {
                     gatherScrapThenExit();
                     UtilController.updatePrinterBuildView("ZCorp");
                     dispose();
-                } else {
+                } 
+                else 
+                {
                     ResultSet r = ZCorpMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while(r.next()){
+                    try 
+                    {
+                        while(r.next())
+                        {
                             ZCorpMain.dba.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
                         }
-                    } catch (SQLException ex) {
+                    } 
+                    catch (SQLException ex) 
+                    {
                         Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     ResultSet s = ZCorpMain.dba.searchZCorpByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while(s.next()){
+                    try 
+                    {
+                        while(s.next())
+                        {
                             ZCorpMain.dba.deleteByBuildName(s.getString("buildName"), "zcorp");
                         }
-                    } catch (SQLException ex) {
+                    } 
+                    catch (SQLException ex) 
+                    {
                         Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     dispose();
