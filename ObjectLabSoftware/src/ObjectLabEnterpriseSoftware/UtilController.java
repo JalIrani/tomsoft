@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -278,15 +280,40 @@ public class UtilController
         return printersAvailble;
     }
 
-    /*
-    Updates view for making a build.
-    This will show files/jobs (student submissions) that need to be put into a build
-    UNFINISHED ****
+    /**
+     * Updates view for making a build.
+     * This will show files/jobs (student submissions) that need to be put into a build
+     * UNFINISHED ****
+     * @param printer the printer being viewed
+     * @return 
      */
-    public static void updatePrinterBuildView(String printer) 
+    public static ArrayList<ArrayList<String>> updatePrinterBuildView(String printer) 
     {
+        SQLMethods dbconn = new SQLMethods();
 
-        //ResultSet result = PrinterBuild.dba.searchApprovedJobsNotPrinted(printer);
+        ResultSet result = dbconn.searchApprovedJobsNotPrinted(printer);
+        ArrayList<ArrayList<String>> approvedForPrinter = readyOutputForViewPage(result);
+        dbconn.closeDBConnection();
+        
+        return approvedForPrinter;
+        
     }
+    
+    /**
+     * updates build name in pending jobs table in the database
+     * @param b build name
+     * @param f file name
+     **/
+    public static void updateRecordInPendingJobsTable(String b, String f) 
+    { 
+        SQLMethods dbconn = new SQLMethods();
+        File buildName = new File(b);
+        String bName = buildName.getName();
+        //System.out.println("Updating " + b + " to be associated with " + f);
+        dbconn.updatePendingJobsBuildName(bName, f);
+        
+        dbconn.closeDBConnection();
+    }
+    
     
 }
