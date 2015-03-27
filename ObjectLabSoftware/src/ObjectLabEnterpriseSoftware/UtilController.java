@@ -279,7 +279,7 @@ public class UtilController
         
         return printersAvailble;
     }
-
+    
     /**
      * Updates view for making a build.
      * This will show files/jobs (student submissions) that need to be put into a build
@@ -314,6 +314,5 @@ public class UtilController
         
         dbconn.closeDBConnection();
     }
-    
     
 }
