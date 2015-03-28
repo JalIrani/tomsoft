@@ -248,7 +248,7 @@ public class Options extends javax.swing.JFrame {
     }//GEN-LAST:event_addNewClassActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        home.studentSubmissionButton.setVisible(false);
+        //home.studentSubmissionButton.setVisible(false);
         home.setPrintersVisible(false);
         home.setVisible(true);
         dispose();

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class TomSoftMain extends javax.swing.JFrame {
 
-    LaserCutterMain LaserMain;
+    LaserCutterMain laserSys;
     ObjetMain objetSys;
     ZCorpMain zcorpSys;
     SolidscapeMain solidscapeSys;
@@ -24,10 +24,11 @@ public class TomSoftMain extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
-        studentSubmissionButton.setVisible(false);
+        //studentSubmissionButton.setVisible(false);
         objetSys = new ObjetMain();
         zcorpSys = new ZCorpMain();
         solidscapeSys = new SolidscapeMain();
+        laserSys = new LaserCutterMain();
         pendingSys = new PendingJobsView();
         studentSys = new Student_Submission();
     }
@@ -45,9 +46,11 @@ public class TomSoftMain extends javax.swing.JFrame {
         jList1 = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        newStudentButton = new javax.swing.JButton();
+        errorIdLabel = new javax.swing.JLabel();
+        studentIdString = new javax.swing.JTextField();
+        studentButton = new javax.swing.JButton();
         laserCutterButton = new javax.swing.JButton();
-        studentSubmissionButton = new javax.swing.JButton();
-        submitButton = new javax.swing.JButton();
         zcorpButton = new javax.swing.JButton();
         solidscapeButton = new javax.swing.JButton();
         AdminButton = new javax.swing.JButton();
@@ -55,7 +58,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         objetButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        newStudent = new javax.swing.JLabel();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -76,30 +79,40 @@ public class TomSoftMain extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        newStudentButton.setText("New Student");
+        newStudentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newStudentButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 110, 30));
+
+        errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
+        errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 130, 20));
+
+        studentIdString.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentIdStringActionPerformed(evt);
+            }
+        });
+        getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 130, 30));
+
+        studentButton.setText("Student");
+        studentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 30));
+
         laserCutterButton.setText("Laser Cutter");
         laserCutterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 laserCutterButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(laserCutterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 30, 130, -1));
-
-        studentSubmissionButton.setText("Submit");
-        studentSubmissionButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        studentSubmissionButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentSubmissionButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(studentSubmissionButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 130, 30));
-
-        submitButton.setText("Student");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 150, 30));
+        getContentPane().add(laserCutterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 130, 30));
 
         zcorpButton.setText("ZCorp");
         zcorpButton.setToolTipText("");
@@ -109,7 +122,7 @@ public class TomSoftMain extends javax.swing.JFrame {
                 zcorpButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(zcorpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 130, 30));
+        getContentPane().add(zcorpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 130, 30));
 
         solidscapeButton.setText("Solidscape");
         solidscapeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +138,7 @@ public class TomSoftMain extends javax.swing.JFrame {
                 AdminButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 150, 30));
+        getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 130, 30));
 
         openProjectsButton.setText("Projects");
         openProjectsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +146,7 @@ public class TomSoftMain extends javax.swing.JFrame {
                 openProjectsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 130, 30));
+        getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 130, 30));
 
         objetButton.setText("Objet");
         objetButton.setPreferredSize(new java.awt.Dimension(417, 417));
@@ -142,7 +155,7 @@ public class TomSoftMain extends javax.swing.JFrame {
                 objetButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(objetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 130, 30));
+        getContentPane().add(objetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 130, 30));
 
         settingsButton.setText("Settings");
         settingsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +163,7 @@ public class TomSoftMain extends javax.swing.JFrame {
                 settingsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 130, 30));
+        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 130, 30));
 
         ReportsButton.setText("Reports");
         ReportsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -158,10 +171,10 @@ public class TomSoftMain extends javax.swing.JFrame {
                 ReportsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 130, 30));
+        getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 130, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/backgroundrender.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
+        newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/backgroundrender.png"))); // NOI18N
+        getContentPane().add(newStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
 
         pack();
         setLocationRelativeTo(null);
@@ -172,18 +185,6 @@ public class TomSoftMain extends javax.swing.JFrame {
         solidscapeSys.SolidscapeMainStart();
         dispose();
     }//GEN-LAST:event_solidscapeButtonActionPerformed
-
-    private void studentSubmissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSubmissionButtonActionPerformed
-        // TODO add your handling code here:       
-        studentSys.studentSubmissionStart();
-        dispose();
-    }//GEN-LAST:event_studentSubmissionButtonActionPerformed
-
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        setPrintersVisible(false);
-        studentSubmissionButton.setVisible(true);
-
-    }//GEN-LAST:event_submitButtonActionPerformed
 
     private void openProjectsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectsButtonActionPerformed
         // TODO add your handling code here:
@@ -208,7 +209,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         password.equals(PASS) 
         */
         if (true) {
-            studentSubmissionButton.setVisible(false);
+            //studentSubmissionButton.setVisible(false);
             setPrintersVisible(true);
         } else {
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Incorrect password! Access Denied!");
@@ -229,9 +230,36 @@ public class TomSoftMain extends javax.swing.JFrame {
     }//GEN-LAST:event_ReportsButtonActionPerformed
 
     private void laserCutterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laserCutterButtonActionPerformed
-        LaserMain.LaserCutterMainStart();
+        laserSys.LaserCutterMainStart();
         dispose();
     }//GEN-LAST:event_laserCutterButtonActionPerformed
+
+    private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
+        // TODO add your handling code here:
+        setPrintersVisible(false);
+        String id = studentIdString.getText();//DB team this is to store String
+        if(id.length() != 7){
+            errorIdLabel.setText("TU ID must be 7 digits");   
+        }
+        //else if not in database "invailid TU ID, enter vaild or create new student"
+        else{
+            errorIdLabel.setText("");
+            studentSys.studentSubmissionStart();
+        }
+        
+
+        //dispose();
+    }//GEN-LAST:event_studentButtonActionPerformed
+
+    private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_studentIdStringActionPerformed
+
+    private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_newStudentButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {
         adminSettings ad = new adminSettings();
@@ -245,6 +273,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         zcorpButton.setVisible(isVisible);
         solidscapeButton.setVisible(isVisible);
         objetButton.setVisible(isVisible);
+        laserCutterButton.setVisible(isVisible);
         ReportsButton.setVisible(isVisible);
     }
 
@@ -320,18 +349,20 @@ public class TomSoftMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdminButton;
     private javax.swing.JButton ReportsButton;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel errorIdLabel;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton laserCutterButton;
+    private javax.swing.JLabel newStudent;
+    private javax.swing.JButton newStudentButton;
     private javax.swing.JButton objetButton;
     private javax.swing.JButton openProjectsButton;
     private javax.swing.JButton settingsButton;
     private javax.swing.JButton solidscapeButton;
-    public static javax.swing.JButton studentSubmissionButton;
-    private javax.swing.JButton submitButton;
+    private javax.swing.JButton studentButton;
+    private javax.swing.JTextField studentIdString;
     private javax.swing.JButton zcorpButton;
     // End of variables declaration//GEN-END:variables
 }

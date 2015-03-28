@@ -65,7 +65,7 @@ public class Student_Submission extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 // close sockets, etc
-                home.studentSubmissionButton.setVisible(false);
+                //home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
                 home.setVisible(true);
             }

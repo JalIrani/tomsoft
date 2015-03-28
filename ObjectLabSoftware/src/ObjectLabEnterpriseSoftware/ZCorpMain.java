@@ -43,7 +43,7 @@ public class ZCorpMain extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 // close sockets, etc
-                home.studentSubmissionButton.setVisible(false);
+                //home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
                 home.setVisible(true);
             }
@@ -172,7 +172,7 @@ public class ZCorpMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseButtonActionPerformed
-        home.studentSubmissionButton.setVisible(false);
+        //home.studentSubmissionButton.setVisible(false);
         home.setPrintersVisible(false);
         home.setVisible(true);
         dispose();
