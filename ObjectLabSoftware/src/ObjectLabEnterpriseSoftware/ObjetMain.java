@@ -202,7 +202,7 @@ public class ObjetMain extends javax.swing.JFrame {
                 Price = Double.parseDouble(res.getString("materialCostPerUnit5"));
             }
             PrinterBuild OBuild = new PrinterBuild();
-            OBuild.ZcorpBuildStart("Objet");
+            OBuild.startMakeBuildProcess("Objet");
             PrinterBuild.PrinterBuildHeader.setText("Objet Build Creator");
         } catch (Exception ex) {
             Settings = new ObjetPref();

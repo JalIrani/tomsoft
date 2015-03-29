@@ -188,7 +188,7 @@ public class ZCorpMain extends javax.swing.JFrame {
                 double cyanPrice = Double.parseDouble(res.getString("materialCostPerUnit4"));
             }
             PrinterBuild z = new PrinterBuild();
-            z.ZcorpBuildStart("ZCorp");
+            z.startMakeBuildProcess("ZCorp");
             z.PrinterBuildHeader.setText("ZCorp Build Creator");
         } catch (Exception ex) {
             ZCorpMain.ZPref = new ZcorpPref();

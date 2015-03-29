@@ -607,7 +607,10 @@ public class SQLMethods
         System.out.println(stmt);
     }
 
-    /* This querys for approved jobs that do not belong to a build */
+    /* This querys for jobs that have been approved (status = approved). 
+        With this query we can display the student's submissions that needs to
+        be inserted into a build. The search is based on the name of the printer.
+    */
     public ResultSet searchApprovedJobsNotPrinted(String printer) 
     {
         res = null;
@@ -616,11 +619,10 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement
             (
-                    "SELECT * "
+                    "SELECT fileName, dateStarted "
                     + "FROM pendingjobs "
                     + "WHERE "
                     + "printer = ? "
-                    + "AND buildName is null "
                     + "AND status = 'approved'"
             );
             
@@ -676,7 +678,14 @@ public class SQLMethods
         }
        // return res;
     }
-
+    
+    /* PLEASE NOT THIS WILL NOT RUN IN MYSQL WORK BENCH B/C OF SAFETY MODE! 
+        Safe UPDATE mode only allows table modifications if the WHERE clause
+        is a key column -Nick
+    
+        ---------------THIS IS NOT SAFE--------------
+        SET buildName = ? WHERE filename = ?
+    */
     public void updatePendingJobsBuildName(String build, String fileName) {
         try {
             stmt = this.conn.prepareStatement(

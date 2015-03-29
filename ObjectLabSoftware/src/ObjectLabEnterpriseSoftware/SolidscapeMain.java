@@ -195,7 +195,7 @@ public class SolidscapeMain extends javax.swing.JFrame {
             }
             PrinterBuild SolidscapeBuild = new PrinterBuild();
 
-            SolidscapeBuild.ZcorpBuildStart("Solidscape");
+            SolidscapeBuild.startMakeBuildProcess("Solidscape");
             SolidscapeBuild.PrinterBuildHeader.setText("Soliscape Build Creator");
         } catch (Exception ex) {
             Settings = new SolidscapePref();

@@ -24,6 +24,17 @@ public class UtilController
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
     
+    private static void print(ArrayList<ArrayList<Object>> q)
+    {
+        for(int i = 0; i < q.size(); i++)
+        {
+            ArrayList<Object> row = q.get(i);
+            for(int j = 0; j < row.size(); j++)
+                System.out.print(" " + (String) row.get(j) + " ");
+            System.out.println("\nRow 0");
+        }
+    }
+    
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -211,22 +222,22 @@ public class UtilController
       * Therefore the View classes would not have to know about the data and column names ect... 
       * -Nick
       */
-    private static ArrayList<ArrayList<String>> readyOutputForViewPage(ResultSet queryResult)
+    private static ArrayList<ArrayList<Object>> readyOutputForViewPage(ResultSet queryResult)
     {
         ArrayList<String> columnNames = getColumnNames(queryResult);
-        ArrayList<ArrayList<String>> retval = new ArrayList<>();
+        ArrayList<ArrayList<Object>> retval = new ArrayList<>();
         
         /* Process data column by column and add that data into dataVector */
         try 
         {  
-            ArrayList<String> tempRow;
+            ArrayList<Object> tempRow;
             
             /* Goes through ResultSet row by row adding the row data into retval as an arraylist of type string */
             while (queryResult.next()) 
             {
                 tempRow = new ArrayList<>();
                 for (String columnName : columnNames) 
-                    tempRow.add(queryResult.getString((String) columnName));
+                    tempRow.add((Object) queryResult.getString((String) columnName));
                 
                 retval.add(tempRow);
             }
@@ -247,12 +258,12 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.searchPending();
         
-        ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
+        ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
         
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
 
-        for (ArrayList<String> retval1 : retval) 
+        for (ArrayList<Object> retval1 : retval) 
             dataHolder.addRow(retval1.toArray());
     }
      
@@ -266,7 +277,7 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
 
         ResultSet printersAvailableResult = dbconn.getAvailablePrinters();
-        ArrayList<ArrayList<String>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
+        ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
         
@@ -280,25 +291,22 @@ public class UtilController
         return printersAvailble;
     }
     
-    /**
+     /**
      * Updates view for making a build.
      * This will show files/jobs (student submissions) that need to be put into a build
      * UNFINISHED ****
      * @param printer the printer being viewed
      * @return 
      */
-    public static ArrayList<ArrayList<String>> updatePrinterBuildView(String printer) 
+    public static ArrayList<ArrayList<Object>> updatePrinterBuildView(String printer) 
     {
         SQLMethods dbconn = new SQLMethods();
 
         ResultSet result = dbconn.searchApprovedJobsNotPrinted(printer);
-        ArrayList<ArrayList<String>> approvedForPrinter = readyOutputForViewPage(result);
+        ArrayList<ArrayList<Object>> approvedForPrinter = readyOutputForViewPage(result);
         dbconn.closeDBConnection();
-        
-       
-        
-        return approvedForPrinter;
-        
+
+        return approvedForPrinter;       
     }
     
     /**

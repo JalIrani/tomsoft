@@ -483,7 +483,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
                     //This is where we would add the call to the method that udpates things in completed Jobs
                     //Updates project cost in pending
                     ZCorpMain.calc.BuildtoProjectCost(buildName, "Zcorp", buildCost);
-
+                    
+                    /* queries the DB for everything that has the buildName = to build name passed in as parameter */
                     ResultSet res2 = ZCorpMain.dba.searchPendingByBuildName(buildName);
                     ArrayList list = new ArrayList();
                     try {
@@ -496,6 +497,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
                     Iterator itr = list.iterator();
                     //Date date = Calendar.getInstance().getTime();
                     //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    
+                    /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
                     while (itr.hasNext()) {
                         ResultSet res3 = ZCorpMain.dba.searchPendingByBuildName(itr.next().toString());
                         if (res3.next()) {

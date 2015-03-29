@@ -3,48 +3,139 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class PrinterBuild extends javax.swing.JFrame {
+public class PrinterBuild extends javax.swing.JFrame 
+{
 
-    public static DefaultTableModel fileTableModel;
-    static SQLMethods dba;
-    public static int countNumOfModels;
-    public static String BuildPrinter;
-    InstanceCall inst;
+    private static DefaultTableModel fileTableModel;
+    private static int countNumOfModels;
+    private static String printerSelectedForBuildProcess;
+    private InstanceCall inst;
+    
+    private void clearEntries(DefaultTableModel fileTableModel) 
+    {
+        while (fileTableModel.getRowCount() > 0)
+            fileTableModel.removeRow(0);
+    }
+    
+    private void updateView()
+    {
+        clearEntries(fileTableModel);
+            
+        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(printerSelectedForBuildProcess);
+            
+        for (ArrayList<Object> retval1 : retval)
+        {
+            /* We need to account for the checkbox by adding in a boolean value = false as the first value. */
+            retval1.add(0, (Boolean) false);
+            fileTableModel.addRow(retval1.toArray());
+        }
+    }
+    
+    private boolean valididateUserInput() 
+    {
+        /* filepathToSelectedPrinterBuild is the file location to the build file */
+        if (filepathToSelectedPrinterBuild.getText().isEmpty()) 
+        {
+            ErrorText.setText("Choose a build file above!");
+            ErrorText.setVisible(true);
+            return false;
+        } 
+        else 
+        {
+            //checks to see if any sleections in table exist to prevent no file submit case
+            for (int z = 0; z < fileTableModel.getRowCount(); z++) 
+            {
+                if ((Boolean) fileTableModel.getValueAt(z, 0)) 
+                {
+                    return true;
+                }
+            }
+            
+            ErrorText.setText("Select Files used for build!");
+            ErrorText.setVisible(true);
+            
+            return false;
+        }
+    }
 
-    public void ZcorpBuildStart(String print) {
-        initComponents();
+    public void startMakeBuildProcess(String printerSelectedToMakeBuildFor) 
+    {
         inst = new InstanceCall();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        initComponents();
+        
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(PrinterBuild.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        BuildPrinter = print;
-        System.out.println("Testing");
+        
+        printerSelectedForBuildProcess = printerSelectedToMakeBuildFor;
         countNumOfModels = 0;
         fileTableModel = (DefaultTableModel) stlFileTable.getModel();
-        dba = new SQLMethods();
         ErrorText.setVisible(false);
         this.setVisible(true);
     }
 
+    private void submit() 
+    {
+        countNumOfModels = 0;
+        if (valididateUserInput()) 
+        {
+            ErrorText.setVisible(false);
 
+            //int z;
+            //ArrayList selected = new ArrayList();
+            for (int z = 0; z < fileTableModel.getRowCount(); z++) 
+            {
+                if ((Boolean) fileTableModel.getValueAt(z, 0)) 
+                {
+                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedPrinterBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
+                    countNumOfModels++;
+                }
+            }
+            
+            //now number of models are set
+            //let's sequentially open Zcorp windows FOR EACH build-based STL file
+            if(printerSelectedForBuildProcess.equals("ZCorp")) 
+            {
+                ZCorpDialog zd = new ZCorpDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
+                zd.ZCorpDialogStart();
+            }
+            else if(printerSelectedForBuildProcess.equals("Objet"))
+            {
+                ObjetDialog od = new ObjetDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
+                od.ObjetDialogStart();
+            }
+            else if(printerSelectedForBuildProcess.equals("Solidscape"))
+            {
+                SolidscapeDialog sd = new SolidscapeDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
+                sd.SolidscapeDialogStart();
+            }
+            else
+            {
+                /* Enter some sort of error text here */
+            }
+            
+            dispose();
+
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,72 +148,6 @@ public class PrinterBuild extends javax.swing.JFrame {
      *         returns false if there isn't a build file selected and aborts submit
      */
     @SuppressWarnings("unchecked")
-    public boolean valid() {
-        if (BuildName.getText().isEmpty()) {
-            ErrorText.setText("Choose a build file above!");
-            ErrorText.setVisible(true);
-            return false;
-        } else {//checks to see if any sleections in table exist to prevent no file submit case
-            for (int z = 0; z < fileTableModel.getRowCount(); z++) {
-                if ((Boolean) fileTableModel.getValueAt(z, 0)) {
-                    return true;
-                }
-            }
-            ErrorText.setText("Select Files used for build!");
-            ErrorText.setVisible(true);
-            return false;
-        }
-    }
-/*
-    private void updateRecordInPendingJobsTable(String b, String f) { // this should update buildName of each file in pending
-        File buildName = new File(b);
-        String bName = buildName.getName();
-        //System.out.println("Updating " + b + " to be associated with " + f);
-        dba.updatePendingJobsBuildName(bName, f);
-    }
-    */
-
-    public void submit() {
-        countNumOfModels = 0;
-        if (valid()) {
-            ErrorText.setVisible(false);
-            Boolean bool = false;
-
-            //int z;
-            //ArrayList selected = new ArrayList();
-            for (int z = 0; z < fileTableModel.getRowCount(); z++) {
-                if ((Boolean) fileTableModel.getValueAt(z, 0)) {
-                    UtilController.updateRecordInPendingJobsTable(BuildName.getText(), (String) fileTableModel.getValueAt(z, 1));
-                    countNumOfModels++;
-                }
-            }
-            //now number of models are set
-            //let's sequentially open Zcorp windows FOR EACH build-based STL file
-            switch (BuildPrinter) {
-                case "ZCorp":
-                    ZCorpDialog zd = new ZCorpDialog(new java.awt.Frame(), true, BuildName.getText(), countNumOfModels);
-                    zd.ZCorpDialogStart();
-                    break;
-                case "Objet":
-                    ObjetDialog od = new ObjetDialog(new java.awt.Frame(), true, BuildName.getText(), countNumOfModels);
-                    od.ObjetDialogStart();
-                    break;
-                case "Solidscape":
-                    SolidscapeDialog sd = new SolidscapeDialog(new java.awt.Frame(), true, BuildName.getText(), countNumOfModels);
-                    sd.SolidscapeDialogStart();
-                    break;
-            }
-            while (fileTableModel.getRowCount() > 0) {
-                fileTableModel.removeRow(0);
-            }
-            System.out.println("now repopulating");
-            ArrayList<ArrayList<String>> retval = UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
-            for (ArrayList<String> retval1 : retval) 
-            fileTableModel.addRow(retval1.toArray());
-            dispose();
-
-        }
-    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -136,7 +161,7 @@ public class PrinterBuild extends javax.swing.JFrame {
         closeBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         buildLbl = new javax.swing.JLabel();
-        BuildName = new javax.swing.JTextField();
+        filepathToSelectedPrinterBuild = new javax.swing.JTextField();
         browseBtn = new javax.swing.JButton();
         ErrorText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -196,13 +221,13 @@ public class PrinterBuild extends javax.swing.JFrame {
         buildLbl.setText("Build File Name:");
         getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        BuildName.setEditable(false);
-        BuildName.addActionListener(new java.awt.event.ActionListener() {
+        filepathToSelectedPrinterBuild.setEditable(false);
+        filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BuildNameActionPerformed(evt);
+                filepathToSelectedPrinterBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(BuildName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
+        getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
 
         browseBtn.setText("Browse");
         browseBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -295,9 +320,9 @@ public class PrinterBuild extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_closeBtnActionPerformed
 
-    private void BuildNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuildNameActionPerformed
+    private void filepathToSelectedPrinterBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedPrinterBuildActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BuildNameActionPerformed
+    }//GEN-LAST:event_filepathToSelectedPrinterBuildActionPerformed
 
     /**
      * Handles creating the file browser when browsing
@@ -308,25 +333,18 @@ public class PrinterBuild extends javax.swing.JFrame {
         chooser.setPreferredSize(new Dimension(800, 500));
         int returnVal = chooser.showDialog(null, "Select");
 
-        if (returnVal == chooser.APPROVE_OPTION) {
+        if (returnVal == chooser.APPROVE_OPTION) 
+        {
             File myFile = chooser.getSelectedFile();
             //String fileName = myFile.getName();
-            BuildName.setText(myFile.getAbsolutePath().replaceAll("'", ""));
+            filepathToSelectedPrinterBuild.setText(myFile.getAbsolutePath().replaceAll("'", ""));
         }
-        if (!BuildName.getText().isEmpty()) {
-            clearEntries(fileTableModel);
-            ArrayList<ArrayList<String>> retval = UtilController.updatePrinterBuildView(PrinterBuild.BuildPrinter);
-            for (ArrayList<String> retval1 : retval)
-            {
-                fileTableModel.addRow(retval1.toArray());
-            }
-        }
+        
+        if (!filepathToSelectedPrinterBuild.getText().isEmpty())
+            updateView();
+        
     }//GEN-LAST:event_browseBtnActionPerformed
-    public void clearEntries(DefaultTableModel fileTableModel) {
-        while (fileTableModel.getRowCount() > 0) {
-            fileTableModel.removeRow(0);
-        }
-    }
+   
     private void reportsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsMenuActionPerformed
         // TODO add your handling code here:
         Reports reports = new Reports();
@@ -344,7 +362,6 @@ public class PrinterBuild extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BuildName;
     private javax.swing.JLabel ErrorText;
     public static javax.swing.JLabel PrinterBuildHeader;
     private javax.swing.JButton Submit_Button;
@@ -353,6 +370,7 @@ public class PrinterBuild extends javax.swing.JFrame {
     private javax.swing.JButton closeBtn;
     private javax.swing.JMenuItem contentsMenu;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JTextField filepathToSelectedPrinterBuild;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
