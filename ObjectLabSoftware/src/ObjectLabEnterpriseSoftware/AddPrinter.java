@@ -1,6 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -135,18 +136,23 @@ public class AddPrinter extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtnActionPerformed
     
     private int y = 90;
-    private int count = 1;
+    private int count = 0;
+    ArrayList<JTextField> fields = new ArrayList<JTextField>();
+    ArrayList<JLabel> labels = new ArrayList<JLabel>();
     private void addFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFieldButtonActionPerformed
         tfield = new JTextField();
 	tfield.setName("tfield"+count);
+	fields.add(tfield);
 	tlabel = new JLabel();
 	tlabel.setName("fieldL"+count);
-	count++;
+	tlabel.setText("Field #"+count);
+	labels.add(tlabel);
 	y+=30;
-	getContentPane().add(tfield, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1));
-	getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, y, -1, -1));
-	tfield.setVisible(true);
-	tlabel.setVisible(true);
+	getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1),4);
+	getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(30, y, -1, -1),3);
+	fields.get(count).setVisible(true);
+	labels.get(count).setVisible(true);
+	count++;
 	revalidate();
 	repaint();
     }//GEN-LAST:event_addFieldButtonActionPerformed
