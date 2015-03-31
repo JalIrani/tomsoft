@@ -325,4 +325,43 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
+    public static void revertBuild(String buildPath, String printer)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet r = dbconn.searchPendingByBuildName(buildPath);
+        String print = printer;
+        try 
+        {
+            while(r.next())
+            {
+                dbconn.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //This won't be the final way this is done, but is currently here for testing purposes
+        ResultSet s;
+        if(print == "solidscape")
+            s = dbconn.searchSolidscapeByBuildName(buildPath);
+        else if(print == "zcorp")
+            s = dbconn.searchZCorpByBuildName(buildPath);
+        else
+            s = dbconn.searchObjetByBuildName(buildPath);
+        try 
+        {
+            while(s.next())
+            {
+                dbconn.deleteByBuildName(s.getString("buildName"), printer);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        dbconn.closeDBConnection();
+    }
+    
 }

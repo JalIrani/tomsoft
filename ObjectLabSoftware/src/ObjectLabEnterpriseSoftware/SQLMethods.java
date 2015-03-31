@@ -335,7 +335,7 @@ public class SQLMethods
         }
         return res;
     }
-
+    
     public ResultSet searchCompleted(String query, String column) {
         res = null;
         try {

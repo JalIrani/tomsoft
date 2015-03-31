@@ -88,42 +88,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent we) 
             {
-                String ObjButtons[] = {"Yes", "No"};
-                int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) 
-                {
-                    gatherScrapThenExit();
-                    UtilController.updatePrinterBuildView("ZCorp");
-                    dispose();
-                } 
-                else 
-                {
-                    ResultSet r = ZCorpMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());
-                    try 
-                    {
-                        while(r.next())
-                        {
-                            ZCorpMain.dba.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
-                        }
-                    } 
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ResultSet s = ZCorpMain.dba.searchZCorpByBuildName(new File(BPath.getText()).getName());
-                    try 
-                    {
-                        while(s.next())
-                        {
-                            ZCorpMain.dba.deleteByBuildName(s.getString("buildName"), "zcorp");
-                        }
-                    } 
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    dispose();
-                }
+                UtilController.revertBuild(new File(BPath.getText()).getName(), "zcorp");
+                dispose();
             }
         });
     }
@@ -434,13 +400,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
         return true;
     }
 
-    private void populateFromDB(ResultSet r) throws SQLException {
-        mono.setText(r.getString("monoBinder"));
-        magenta.setText(r.getString("magentaBinder"));
-        cyan.setText(r.getString("cyanBinder"));
-        yellow.setText(r.getString("yelloBinder"));
-        comment.setText("comment");
-    }
+    
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         if (validateForm()) {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
@@ -457,7 +417,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
             comments = comment.getText();
         //hideErrorFields();
 
-            //this is stuff about price
+            /*this is stuff about price
             ResultSet res = ZCorpMain.dba.searchPrinterSettings("zcorp");
             try {
                 if (res.next()) {
@@ -476,13 +436,13 @@ public class ZCorpDialog extends javax.swing.JFrame {
 
             } catch (Exception e) {
                 errFree = false;
-            }
+            }*/
             //Checks if there were errors
             if (errFree) {
                 try {
                     //This is where we would add the call to the method that udpates things in completed Jobs
                     //Updates project cost in pending
-                    ZCorpMain.calc.BuildtoProjectCost(buildName, "Zcorp", buildCost);
+                    //ZCorpMain.calc.BuildtoProjectCost(buildName, "Zcorp", buildCost);
                     
                     /* queries the DB for everything that has the buildName = to build name passed in as parameter */
                     ResultSet res2 = ZCorpMain.dba.searchPendingByBuildName(buildName);
@@ -523,16 +483,16 @@ public class ZCorpDialog extends javax.swing.JFrame {
                             String Comment = res3.getString("comment");
                             String nameOfBuild = res3.getString("buildName");
                             double volume = Double.parseDouble(res3.getString("volume"));
-                            double cost = Double.parseDouble(res3.getString("cost"));
+                            //double cost = Double.parseDouble(res3.getString("cost"));
 
-                            ZCorpMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, cost);
+                            ZCorpMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00/*placeholder since cost isn't being used*/);
                             ZCorpMain.dba.delete("pendingjobs", ID);
                             //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
                         }
                     }
 
                     // if there is no matching record
-                    ZCorpMain.dba.insertIntoZcorp(buildName, monoBinder, yellowBinder, magentaBuilder, cyanBuilder, cubicInches, modelAmount, comments, buildCost, "complete");
+                    ZCorpMain.dba.insertIntoZcorp(buildName, monoBinder, yellowBinder, magentaBuilder, cyanBuilder, cubicInches, modelAmount, comments, 0.00/*placeholder since cost isn't being used*/, "complete");
                 } catch (IOException ex) {
                     Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
@@ -547,7 +507,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         monoError.setVisible(false);
         yellowError.setVisible(false);
         magentaError.setVisible(false);
@@ -581,63 +542,6 @@ public class ZCorpDialog extends javax.swing.JFrame {
         numOfModels.setText("" + countNumOfModels);
     }
 
-    /**
-     * Searches if build already exists in database and removes it if not
-     */
-    private void gatherScrapThenExit() {
-        //ResultSet ls = ZCorpMain.dba.searchZCorpByBuildName(BPath.getText());
-        String buildPath = BPath.getText();
-        //buildPath = buildPath.replace("\\", "\\\\");
-        File file = new File(buildPath);
-        String bName = file.getName();//buildName isgood
-
-        int noModels = Integer.parseInt(numOfModels.getText());
-        //add try catches here for all doubles
-        double monoVar = 0.0, yellowVar = 0.0, magentaVar = 0.0, cyanVar = 0.0;
-
-        if (mono.getText().length() > 0) {
-            try {
-                monoVar = Double.parseDouble(mono.getText());
-            } catch (NumberFormatException e) {
-                monoVar = 0.0;
-            }
-        }
-        if (yellow.getText().length() > 0) {
-            try {
-                yellowVar = Double.parseDouble(yellow.getText());
-            } catch (NumberFormatException e) {
-                yellowVar = 0.0;
-            }
-        }
-        if (magenta.getText().length() > 0) {
-            try {
-                magentaVar = Double.parseDouble(magenta.getText());
-            } catch (NumberFormatException e) {
-                magentaVar = 0.0;
-            }
-        }
-        if (cyan.getText().length() > 0) {
-            try {
-                cyanVar = Double.parseDouble(cyan.getText());
-            } catch (NumberFormatException e) {
-                cyanVar = 0.0;
-            }
-        }
-        String Comments = comment.getText();
-
-        double Cost = 0;
-        double CubInches;
-        if (volume.getText().isEmpty()) {
-            CubInches = 0.0;
-        } else {
-            CubInches = Double.parseDouble(volume.getText());
-        }
-        // System.out.println("Okay .. here are the values: build:" + bName+" mono:" +monoVar+" yellow:" +yellowVar + " magenta:"+magentaVar+ " cyan:" +cyanVar + " vol:"+CubInches+" model:"+noModels+" comments:"+Comments+" cost:"+Cost);
-        System.out.println("inserting stuff into zcorp");
-        ZCorpMain.dba.insertIntoZcorp(bName, monoVar, yellowVar, magentaVar, cyanVar, CubInches, noModels, Comments, Cost, "incomplete");
-        System.out.println("should be inserted now");
-
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

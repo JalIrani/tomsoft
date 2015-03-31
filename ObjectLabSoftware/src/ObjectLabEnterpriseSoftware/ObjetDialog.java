@@ -82,31 +82,8 @@ public class ObjetDialog extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
-                String ObjButtons[] = {"Yes", "No"};
-                int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) {
-                    gatherScrapThenExit();
-                    UtilController.updatePrinterBuildView("Objet");
-                    dispose();
-                } else {
-                    ResultSet r = ObjetMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while (r.next()) {
-                            ObjetMain.dba.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ResultSet s = ObjetMain.dba.searchObjetByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while (s.next()) {
-                            ObjetMain.dba.deleteByBuildName(s.getString("buildName"), "objet");
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    dispose();
-                }
+                UtilController.revertBuild(new File(BPath.getText()).getName(), "objet");
+                dispose();
             }
         });
     }
@@ -291,6 +268,12 @@ public class ObjetDialog extends javax.swing.JFrame {
         SupportConError.setForeground(new java.awt.Color(255, 0, 0));
         SupportConError.setText("Error Text");
         getContentPane().add(SupportConError, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, 20));
+
+        BuildConsumedText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuildConsumedTextActionPerformed(evt);
+            }
+        });
         getContentPane().add(BuildConsumedText, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 72, -1));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -428,11 +411,7 @@ public class ObjetDialog extends javax.swing.JFrame {
         }
         return true;
     }
-
-    private void populateFromDB(ResultSet r) throws SQLException {
-        ResolutionText.setText(r.getString("resolution"));
-        comment.setText("comment");
-    }
+   
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         if (validateForm()) {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
@@ -448,19 +427,19 @@ public class ObjetDialog extends javax.swing.JFrame {
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
             //hideErrorFields();            
-            //now dealing with buildCost
+            /*now dealing with buildCost
             try {
                 buildCost = (double) Calculations.ObjetCost(BuildConsumed, material.getSelectedItem().toString());
             } catch (Exception e) {
                 errFree = true;
                 e.printStackTrace();
-            }
+            }*/
             //Checks if there were errors
             if (errFree) {
                 try {
                     //This is where we would add the call to the method that udpates things in completed Jobs
                     //Updates project cost in pending
-                    ObjetMain.calc.BuildtoProjectCost(buildName, "Objet", buildCost);
+                    //ObjetMain.calc.BuildtoProjectCost(buildName, "Objet", buildCost);
 
                     ResultSet res2 = ObjetMain.dba.searchPendingByBuildName(buildName);
                     ArrayList list = new ArrayList();
@@ -498,16 +477,16 @@ public class ObjetDialog extends javax.swing.JFrame {
                             String Comment = res3.getString("comment");
                             String nameOfBuild = res3.getString("buildName");
                             double volume = Double.parseDouble(res3.getString("volume"));
-                            double cost = Double.parseDouble(res3.getString("cost"));
+                            //double cost = Double.parseDouble(res3.getString("cost"));
 
-                            ObjetMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, cost);
+                            ObjetMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00/*placeholder since cost isn't being used*/);
                             ObjetMain.dba.delete("pendingjobs", ID);
                             //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
                         }
                     }
 
                     // if there is no matching record
-                    ObjetMain.dba.insertIntoObjet(buildName, BuildConsumed, SupportConsumed, modelAmount,  materialType, Resolution, comments, buildCost);
+                    ObjetMain.dba.insertIntoObjet(buildName, BuildConsumed, SupportConsumed, modelAmount,  materialType, Resolution, comments, 0.00 /*placeholder since cost isn't being used*/);
                 } catch (IOException ex) {
                     Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
@@ -547,26 +526,13 @@ public class ObjetDialog extends javax.swing.JFrame {
     private void ResolutionTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolutionTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ResolutionTextActionPerformed
+
+    private void BuildConsumedTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuildConsumedTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuildConsumedTextActionPerformed
     public static void setUp(String buildName, int countNumOfModels) {
         BPath.setText(buildName);
         numOfModels.setText("" + countNumOfModels);
-    }
-
-    /**
-     * Searches if build already exists in database and removes it if not
-     */
-    private void gatherScrapThenExit() {
-        String buildPath = BPath.getText();
-        //buildPath = buildPath.replace("\\", "\\\\");
-        File file = new File(buildPath);
-        String bName = file.getName();//buildName isgood
-
-        int noModels = Integer.parseInt(numOfModels.getText());
-        //add try catches here for all doubles
-        String Comments = comment.getText();
-        System.out.println("inserting stuff into Objet");
-        ObjetMain.dba.insertIntoObjet(bName, BuildConsumed, SupportConsumed, noModels, materialType, Resolution, Comments, 0);
-        System.out.println("should be inserted now");
     }
 
 
