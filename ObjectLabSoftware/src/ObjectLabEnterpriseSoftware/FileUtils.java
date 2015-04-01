@@ -155,6 +155,24 @@ public class FileUtils {
         return true;
     }
     
+    /**
+     * This method was added in by David Prince to allow the method "submitBuild" in UtilController to work properly
+     * This class was causing trouble when I was trying to access the FileUtil method "moveFileToDirectory"
+     * So I added this as a way to access the method from UtilController
+     * 
+     * @param srcFile
+     * @param destDir
+     * @param createDestDir 
+     */
+    public static void moveFileToNewDirectory(File srcFile,File destDir,boolean createDestDir)
+    {
+        try {
+            org.apache.commons.io.FileUtils.moveFileToDirectory(srcFile ,destDir ,createDestDir);
+        } catch (IOException ex) {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static String browseForFile(){
     
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location

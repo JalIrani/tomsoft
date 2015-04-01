@@ -9,8 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +17,6 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -44,28 +41,35 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     static double buildCost = 0;
     static boolean errFree = true;
     static boolean closing;
-    private double ResolutionVar;
+    static double ResolutionVar;
     private boolean errorFound;
 
     /**
      * Creates new form SolidscapeDialog
      */
-    public SolidscapeDialog(java.awt.Frame parent, boolean modal, String build, int count) {
+    public SolidscapeDialog(java.awt.Frame parent, boolean modal, String build, int count) 
+    {
         initComponents();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(SolidscapeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         setUp(build, count);
     }
     
-    public void SolidscapeDialogStart() {
+    public void SolidscapeDialogStart() 
+    {
         instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
@@ -135,6 +139,11 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BPath.setEditable(false);
+        BPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BPathActionPerformed(evt);
+            }
+        });
         getContentPane().add(BPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 61, 220, -1));
 
         dateRunTxt.setEditable(false);
@@ -267,7 +276,8 @@ public class SolidscapeDialog extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private boolean validateForm() {
+    private boolean validateForm() 
+    {
                 try {
             ResolutionVar = Double.parseDouble(ResolutionText.getText());
         } catch (NumberFormatException e) {
@@ -305,84 +315,14 @@ public class SolidscapeDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
-        //hideErrorFields();            
-
-            /*now dealing with buildCost
-           try {
-            Integer d = Integer.parseInt(days.getSelectedItem().toString());
-            Integer h = Integer.parseInt(hours.getSelectedItem().toString());
-            Integer m = Integer.parseInt(minutes.getSelectedItem().toString());
-            buildTime = d + ":" + h + ":" + m;
-            buildCost = Calculations.SolidscapeCost(d, h, m);
-        } catch (Exception e) {
-            errFree = true;
-            e.printStackTrace();
-        }*/
-            //Checks if there were errors
-            if (errFree) {
-                try {
-                    //This is where we would add the call to the method that udpates things in completed Jobs
-                    //Updates project cost in pending
-                    //SolidscapeMain.calc.BuildtoProjectCost(buildName, "Solidscape", buildCost);
-
-                    ResultSet res2 = SolidscapeMain.dba.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try {
-                        while (res2.next()) {
-                            list.add(res2.getString("buildName"));
-                        }
-                    } catch (SQLException ex) {
-                    }
-                    
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    while (itr.hasNext()) {
-                        ResultSet res3 = SolidscapeMain.dba.searchPendingByBuildName(itr.next().toString());
-                        if (res3.next()) {
-                            System.out.println("Now doing this shiz");
-                            String ID = res3.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res3.getString("printer");
-                            String firstName = res3.getString("firstName");
-                            String lastName = res3.getString("lastName");
-                            String course = res3.getString("course");
-                            String section = res3.getString("section");
-                            String fileName = res3.getString("fileName");
-                            System.out.println(fileName);
-
-                            File newDir = new File(SolidscapeMain.getInstance().getSolidscapePrinted());
-                            FileUtils.moveFileToDirectory(new File(SolidscapeMain.getInstance().getSolidscapeToPrint() + fileName), newDir, true);
-
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res3.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res3.getString("Email");
-                            String Comment = res3.getString("comment");
-                            String nameOfBuild = res3.getString("buildName");
-                            double volume = Double.parseDouble(res3.getString("volume"));
-                            //double cost = Double.parseDouble(res3.getString("cost"));
-
-                            SolidscapeMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00/*placeholder since cost isn't being used*/);
-                            SolidscapeMain.dba.delete("pendingjobs", ID);
-                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
-
-                    // if there is no matching record
-                    SolidscapeMain.dba.insertIntoSolidscape(buildName, modelAmount, ResolutionVar, buildTime, comments, 0.00/*placeholder since cost isn't being used*/);
-                } catch (IOException ex) {
-                    Logger.getLogger(SolidscapeDialog.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(SolidscapeDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+            
+            UtilController.submitBuildInfoToDB(buildName,"Solidscape");
+            
                 dispose();
             } else {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
             }
-        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void hideErrorFields() {
@@ -406,6 +346,10 @@ public class SolidscapeDialog extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error");  //print the error
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void BPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BPathActionPerformed
     public static void setUp(String buildName, int countNumOfModels) {
         BPath.setText(buildName);
         numOfModels.setText("" + countNumOfModels);

@@ -9,12 +9,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static org.apache.commons.io.FileUtils.directoryContains;
+
 /**
  *
  * @author nick
@@ -295,6 +297,10 @@ public class UtilController
      * Updates view for making a build.
      * This will show files/jobs (student submissions) that need to be put into a build
      * UNFINISHED ****
+     * 
+     * This method is called in:
+     *      PrinterBuild.updateView
+     * 
      * @param printer the printer being viewed
      * @return 
      */
@@ -310,7 +316,11 @@ public class UtilController
     }
     
     /**
-     * updates build name in pending jobs table in the database
+     * Updates build name in pending jobs table in the database
+     * 
+     * This method is called in:
+     *      PrinterBuild.submit
+     * 
      * @param b build name
      * @param f file name
      **/
@@ -325,6 +335,18 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
+    /**
+     * This method is called when an unfinished print build is exited out of
+     * It takes the information previously stored in the Database and removes it.
+     * 
+     * This method is called in:
+     *      ZCorpDialog.ZCorpDialogStart.WindowClosing
+     *      SolidscapeDialog.SolidscapeDialogStart.WindowClosing
+     *      ObjetDialog.ObjetDialogStart.WindowClosing
+     * 
+     * @param buildPath 
+     * @param printer 
+     */
     public static void revertBuild(String buildPath, String printer)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -341,14 +363,19 @@ public class UtilController
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //This won't be the final way this is done, but is currently here for testing purposes
-        ResultSet s;
-        if(print == "solidscape")
-            s = dbconn.searchSolidscapeByBuildName(buildPath);
-        else if(print == "zcorp")
-            s = dbconn.searchZCorpByBuildName(buildPath);
-        else
-            s = dbconn.searchObjetByBuildName(buildPath);
+        //This won't be the final way this is done, but is currently here for testing purposes. Working on creating a universal "search[printer]ByBuildName" method
+        ResultSet s = null;//this is set equal to null so line 381 will compile.
+        switch (print) {
+            case "solidscape":
+                s = dbconn.searchSolidscapeByBuildName(buildPath);
+                break;
+            case "zcorp":
+                s = dbconn.searchZCorpByBuildName(buildPath);
+                break;
+            case "objet":
+                s = dbconn.searchObjetByBuildName(buildPath);
+                break;
+        }
         try 
         {
             while(s.next())
@@ -361,6 +388,111 @@ public class UtilController
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        dbconn.closeDBConnection();
+    }
+    
+    /**
+     * This method is called when an administrator submits a printer build. It takes the information they typed in and stores it in the database.
+     * This method is called in:
+     *      ZCorpDialog.ZCorpDialogStart.submitBtnActionPerformed
+     *      SolidscapeDialog.SolidscapeDialogStart.submitBtnActionPerformed
+     *      ObjetDialog.ObjetDialogStart.submitBtnActionPerformed
+     * 
+     * @param buildName The name of the build, used to gather information from the database.
+     * @param printer this gets the name of the printer, 
+     *                for now, the "printer" parameter is used to determine which sql method is used and the directory of the submitted file because it is different for every printer
+     *                This will be changed when the dynamic database is being used
+     */
+    public static void submitBuildInfoToDB(String buildName, String printer)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        try 
+        {
+       
+                    /* queries the DB for everything that has the buildName = to build name passed in as parameter */
+                    ResultSet res1 = dbconn.searchPendingByBuildName(buildName);
+                    ArrayList list = new ArrayList();
+                    try 
+                    {
+                        while (res1.next()) 
+                        {
+                            list.add(res1.getString("buildName"));
+                        }
+                    } 
+                    catch (SQLException ex) 
+                    {
+                        Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Iterator itr = list.iterator();
+                    //Date date = Calendar.getInstance().getTime();
+                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    
+                    /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
+                    while (itr.hasNext()) 
+                    {
+                        ResultSet res2 = dbconn.searchPendingByBuildName(itr.next().toString());
+                        if (res2.next()) 
+                        {
+                            String ID = res2.getString("idJobs");
+                            System.out.println(ID);
+                            String Printer = res2.getString("printer");
+                            String firstName = res2.getString("firstName");
+                            String lastName = res2.getString("lastName");
+                            String course = res2.getString("course");
+                            String section = res2.getString("section");
+                            String fileName = res2.getString("fileName");
+                            System.out.println(fileName);
+                            File newDir = null;
+                            
+                            switch (printer) {
+                                case "ZCorp":
+                                    newDir = new File(ZCorpMain.getInstance().getZcorpPrinted());
+                                    FileUtils.moveFileToNewDirectory(new File(ZCorpMain.getInstance().getZcorpToPrint() + fileName), newDir, true);
+                                    break;
+                                case "Solidscape":
+                                    newDir = new File(SolidscapeMain.getInstance().getSolidscapePrinted());
+                                    FileUtils.moveFileToNewDirectory(new File(SolidscapeMain.getInstance().getSolidscapeToPrint() + fileName), newDir, true);
+                                    break;
+                                case "Objet":
+                                    newDir = new File(ObjetMain.getInstance().getObjetPrinted());
+                                    FileUtils.moveFileToNewDirectory(new File(ObjetMain.getInstance().getObjetToPrint() + fileName), newDir, true);
+                                    break;
+                            }
+                            
+
+                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
+                            String dateStarted = res2.getString("dateStarted");
+                            String Status = "completed";
+                            String Email = res2.getString("Email");
+                            String Comment = res2.getString("comment");
+                            String nameOfBuild = res2.getString("buildName");
+                            double volume = Double.parseDouble(res2.getString("volume"));
+                            //double cost = Double.parseDouble(res3.getString("cost"));
+
+                            dbconn.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00 /*placeholder since cost isn't being used*/);
+                            dbconn.delete("pendingjobs", ID);
+                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
+                        }
+                    }
+
+            // if there is no matching record
+            switch (printer) {
+                case "ZCorp":
+                    dbconn.insertIntoZcorp(buildName, ZCorpDialog.monoBinder, ZCorpDialog.yellowBinder, ZCorpDialog.magentaBuilder, ZCorpDialog.cyanBuilder, ZCorpDialog.cubicInches, ZCorpDialog.modelAmount, ZCorpDialog.comments, 0.00/*placeholder since cost isn't being used*/, "complete");
+                    break;
+                case "Solidscape":
+                    dbconn.insertIntoSolidscape(buildName, SolidscapeDialog.modelAmount, SolidscapeDialog.ResolutionVar, SolidscapeDialog.buildTime, SolidscapeDialog.comments, 0.00/*placeholder since cost isn't being used*/);
+                    break;
+                case "Objet":
+                    dbconn.insertIntoObjet(buildName, ObjetDialog.BuildConsumed, ObjetDialog.SupportConsumed, ObjetDialog.modelAmount,  ObjetDialog.materialType, ObjetDialog.Resolution, ObjetDialog.comments, 0.00 /*placeholder since cost isn't being used*/);
+                    break;
+            }
+                    
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dbconn.closeDBConnection();
     }
     

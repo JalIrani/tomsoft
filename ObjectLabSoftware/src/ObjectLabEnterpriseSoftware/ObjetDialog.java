@@ -9,8 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +17,6 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -426,79 +423,14 @@ public class ObjetDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
-            //hideErrorFields();            
-            /*now dealing with buildCost
-            try {
-                buildCost = (double) Calculations.ObjetCost(BuildConsumed, material.getSelectedItem().toString());
-            } catch (Exception e) {
-                errFree = true;
-                e.printStackTrace();
-            }*/
-            //Checks if there were errors
-            if (errFree) {
-                try {
-                    //This is where we would add the call to the method that udpates things in completed Jobs
-                    //Updates project cost in pending
-                    //ObjetMain.calc.BuildtoProjectCost(buildName, "Objet", buildCost);
-
-                    ResultSet res2 = ObjetMain.dba.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try {
-                        while (res2.next()) {
-                            list.add(res2.getString("buildName"));
-                        }
-                    } catch (SQLException ex) {
-                    }
-
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    while (itr.hasNext()) {
-                        ResultSet res3 = ObjetMain.dba.searchPendingByBuildName(itr.next().toString());
-                        if (res3.next()) {
-                            System.out.println("Now doing this shiz");
-                            String ID = res3.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res3.getString("printer");
-                            String firstName = res3.getString("firstName");
-                            String lastName = res3.getString("lastName");
-                            String course = res3.getString("course");
-                            String section = res3.getString("section");
-                            String fileName = res3.getString("fileName");
-                            System.out.println(fileName);
-
-                            File newDir = new File(ObjetMain.getInstance().getObjetPrinted());
-                            FileUtils.moveFileToDirectory(new File(ObjetMain.getInstance().getObjetToPrint() + fileName), newDir, true);
-
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res3.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res3.getString("Email");
-                            String Comment = res3.getString("comment");
-                            String nameOfBuild = res3.getString("buildName");
-                            double volume = Double.parseDouble(res3.getString("volume"));
-                            //double cost = Double.parseDouble(res3.getString("cost"));
-
-                            ObjetMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00/*placeholder since cost isn't being used*/);
-                            ObjetMain.dba.delete("pendingjobs", ID);
-                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
-
-                    // if there is no matching record
-                    ObjetMain.dba.insertIntoObjet(buildName, BuildConsumed, SupportConsumed, modelAmount,  materialType, Resolution, comments, 0.00 /*placeholder since cost isn't being used*/);
-                } catch (IOException ex) {
-                    Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            
+            UtilController.submitBuildInfoToDB(buildName,"Objet");
 
                 dispose();
             } else {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
             }
-        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void hideErrorFields() {

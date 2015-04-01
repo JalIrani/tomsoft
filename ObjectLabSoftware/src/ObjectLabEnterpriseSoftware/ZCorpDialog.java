@@ -9,8 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +17,6 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -415,96 +412,14 @@ public class ZCorpDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             comments = comment.getText();
-        //hideErrorFields();
-
-            /*this is stuff about price
-            ResultSet res = ZCorpMain.dba.searchPrinterSettings("zcorp");
-            try {
-                if (res.next()) {
-                    monoPrice = Double.parseDouble(res.getString("materialCostPerUnit"));
-                    yellowPrice = Double.parseDouble(res.getString("materialCostPerUnit2"));
-                    magentaPrice = Double.parseDouble(res.getString("materialCostPerUnit3"));
-                    cyanPrice = Double.parseDouble(res.getString("materialCostPerUnit4"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            //now dealing with buildCost
-            try {
-                buildCost = Calculations.ZcorpCost(cubicInches);
-
-            } catch (Exception e) {
-                errFree = false;
-            }*/
-            //Checks if there were errors
-            if (errFree) {
-                try {
-                    //This is where we would add the call to the method that udpates things in completed Jobs
-                    //Updates project cost in pending
-                    //ZCorpMain.calc.BuildtoProjectCost(buildName, "Zcorp", buildCost);
-                    
-                    /* queries the DB for everything that has the buildName = to build name passed in as parameter */
-                    ResultSet res2 = ZCorpMain.dba.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try {
-                        while (res2.next()) {
-                            list.add(res2.getString("buildName"));
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    
-                    /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
-                    while (itr.hasNext()) {
-                        ResultSet res3 = ZCorpMain.dba.searchPendingByBuildName(itr.next().toString());
-                        if (res3.next()) {
-                            System.out.println("Now doing this shiz");
-                            String ID = res3.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res3.getString("printer");
-                            String firstName = res3.getString("firstName");
-                            String lastName = res3.getString("lastName");
-                            String course = res3.getString("course");
-                            String section = res3.getString("section");
-                            String fileName = res3.getString("fileName");
-                            System.out.println(fileName);
-
-                            File newDir = new File(ZCorpMain.getInstance().getZcorpPrinted());
-                            FileUtils.moveFileToDirectory(new File(ZCorpMain.getInstance().getZcorpToPrint() + fileName), newDir, true);
-
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res3.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res3.getString("Email");
-                            String Comment = res3.getString("comment");
-                            String nameOfBuild = res3.getString("buildName");
-                            double volume = Double.parseDouble(res3.getString("volume"));
-                            //double cost = Double.parseDouble(res3.getString("cost"));
-
-                            ZCorpMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00/*placeholder since cost isn't being used*/);
-                            ZCorpMain.dba.delete("pendingjobs", ID);
-                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
-
-                    // if there is no matching record
-                    ZCorpMain.dba.insertIntoZcorp(buildName, monoBinder, yellowBinder, magentaBuilder, cyanBuilder, cubicInches, modelAmount, comments, 0.00/*placeholder since cost isn't being used*/, "complete");
-                } catch (IOException ex) {
-                    Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            
+            UtilController.submitBuildInfoToDB(buildName,"ZCorp");
 
                 dispose();
             } else {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
             }
-        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void hideErrorFields() 
