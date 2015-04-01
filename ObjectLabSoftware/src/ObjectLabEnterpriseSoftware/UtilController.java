@@ -10,8 +10,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -21,14 +19,13 @@ import static org.apache.commons.io.FileUtils.directoryContains;
  *
  * @author nick
  */
-public class UtilController 
+public class UtilController
 {
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
-    static TomSoftMain home;
     
     /**
-     * This method opens up the Printer build page for its respective printer
+     * This method creates the Printer build class for its respective printer
      * 
      * It is called from the following methods:
      *      TomSoftMain.solidscapeButtonActionPerformed
@@ -93,26 +90,6 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
-    /**
-     * This method is used to return to the homescreen after exiting select windows
-     * 
-     * It is called from the following methods:
-     *      PrinterBuild.startMakingBuildProcess.windowClosing
-     *      PrinterBuild.closeBtnActionPerformed
-     *      ObjetDialog.ObjetDialogStart.windowClosing
-     *      ObjetDialog.submitBtnActionPerformed
-     *      ZCorpDialog.ZCorpDialogStart.windowClosing
-     *      ZCorpDialog.submitBtnActionPerformed
-     *      SolidscapeDialog.SolidscapeDialogStart.windowClosing
-     *      SolidscapeDialog.submitBtnActionPerformed
-     */
-    public static void returnHome()
-    {
-        home = new TomSoftMain();
-        home.studentSubmissionButton.setVisible(false);
-        home.setPrintersVisible(false);
-        home.setVisible(true);
-    }
     
     private static void print(ArrayList<ArrayList<Object>> q)
     {
@@ -439,7 +416,6 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         ResultSet r = dbconn.searchPendingByBuildName(buildPath);
-        String print = printer;
         try 
         {
             while(r.next())
@@ -453,17 +429,7 @@ public class UtilController
         }
         //This won't be the final way this is done, but is currently here for testing purposes. Working on creating a universal "search[printer]ByBuildName" method
         ResultSet s = null;//this is set equal to null so line 381 will compile.
-        switch (print) {
-            case "solidscape":
-                s = dbconn.searchSolidscapeByBuildName(buildPath);
-                break;
-            case "zcorp":
-                s = dbconn.searchZCorpByBuildName(buildPath);
-                break;
-            case "objet":
-                s = dbconn.searchObjetByBuildName(buildPath);
-                break;
-        }
+        s = dbconn.searchPrintersByBuildName(buildPath, printer);
         try 
         {
             while(s.next())

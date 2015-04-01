@@ -352,14 +352,16 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet searchPrintersByBuildName(String buildName) {
+    public ResultSet searchPrintersByBuildName(String buildName, String printer) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM printers "
+                    + "FROM "
+                    + printer + " "
                     + "WHERE "
                     + "buildName = ?");
+            
             stmt.setString(1, buildName);
             System.out.println(stmt);
             res = stmt.executeQuery();

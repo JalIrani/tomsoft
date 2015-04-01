@@ -86,12 +86,12 @@ public class ZCorpDialog extends javax.swing.JFrame {
             public void windowClosing(WindowEvent we) 
             {
                 UtilController.revertBuild(new File(BPath.getText()).getName(), "zcorp");
-                UtilController.returnHome();
+                returnHome();
                 dispose();
             }
         });
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -383,6 +383,13 @@ public class ZCorpDialog extends javax.swing.JFrame {
         }
         return true;
     }
+    
+    public static void returnHome() {
+        
+        PrinterBuild.home.studentSubmissionButton.setVisible(false);
+        PrinterBuild.home.setPrintersVisible(false);
+        PrinterBuild.home.setVisible(true);
+    }
 
     
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
@@ -401,7 +408,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
             comments = comment.getText();
             
             UtilController.submitBuildInfoToDB(buildName,"ZCorp");
-            UtilController.returnHome();
+            returnHome();
 
                 dispose();
             } else {

@@ -80,7 +80,7 @@ public class ObjetDialog extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent we) {
                 UtilController.revertBuild(new File(BPath.getText()).getName(), "objet");
-                UtilController.returnHome();
+                returnHome();
                 dispose();
             }
         });
@@ -396,6 +396,13 @@ public class ObjetDialog extends javax.swing.JFrame {
         return true;
     }
    
+   public static void returnHome() {
+        
+        PrinterBuild.home.studentSubmissionButton.setVisible(false);
+        PrinterBuild.home.setPrintersVisible(false);
+        PrinterBuild.home.setVisible(true);
+    }
+   
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         if (validateForm()) {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
@@ -412,7 +419,7 @@ public class ObjetDialog extends javax.swing.JFrame {
             String comments = comment.getText();
             
             UtilController.submitBuildInfoToDB(buildName,"Objet");
-            UtilController.returnHome();
+            returnHome();
 
                 dispose();
             } else {

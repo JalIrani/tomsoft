@@ -12,11 +12,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuild extends javax.swing.JFrame 
 {
-    TomSoftMain home;
+    
 
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String printerSelectedForBuildProcess;
+    public static TomSoftMain home;
     private InstanceCall inst;
     
     
@@ -99,7 +100,7 @@ public class PrinterBuild extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e) {
                 // close sockets, etc
-               UtilController.returnHome();
+               returnHome();
                dispose();
             }
         });
@@ -151,6 +152,25 @@ public class PrinterBuild extends javax.swing.JFrame
         }
     }
     
+    /**
+     * This method is used to return to the homescreen after exiting select windows
+     *
+     * It is called from the following methods:
+     *      PrinterBuild.startMakingBuildProcess.windowClosing
+     *      PrinterBuild.closeBtnActionPerformed
+     *      ObjetDialog.ObjetDialogStart.windowClosing
+     *      ObjetDialog.submitBtnActionPerformed
+     *      ZCorpDialog.ZCorpDialogStart.windowClosing
+     *      ZCorpDialog.submitBtnActionPerformed
+     *      SolidscapeDialog.SolidscapeDialogStart.windowClosing
+     *      SolidscapeDialog.submitBtnActionPerformed
+     */
+    public static void returnHome() {
+        
+        home.studentSubmissionButton.setVisible(false);
+        home.setPrintersVisible(false);
+        home.setVisible(true);
+    }
 
 
     /**
@@ -334,7 +354,7 @@ public class PrinterBuild extends javax.swing.JFrame
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         // TODO add your handling code here:
-        UtilController.returnHome();
+        returnHome();
         dispose();
     }//GEN-LAST:event_closeBtnActionPerformed
 
