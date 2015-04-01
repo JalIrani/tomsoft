@@ -1,6 +1,8 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,11 +12,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuild extends javax.swing.JFrame 
 {
+    TomSoftMain home;
 
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String printerSelectedForBuildProcess;
     private InstanceCall inst;
+    
     
     private void clearEntries(DefaultTableModel fileTableModel) 
     {
@@ -65,6 +69,7 @@ public class PrinterBuild extends javax.swing.JFrame
 
     public void startMakeBuildProcess(String printerSelectedToMakeBuildFor) 
     {
+        home = new TomSoftMain();
         inst = new InstanceCall();
         initComponents();
         
@@ -89,6 +94,16 @@ public class PrinterBuild extends javax.swing.JFrame
         fileTableModel = (DefaultTableModel) stlFileTable.getModel();
         ErrorText.setVisible(false);
         this.setVisible(true);
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // close sockets, etc
+               UtilController.returnHome();
+               dispose();
+            }
+        });
+        
     }
 
     private void submit() 
@@ -136,6 +151,8 @@ public class PrinterBuild extends javax.swing.JFrame
         }
     }
     
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -317,6 +334,7 @@ public class PrinterBuild extends javax.swing.JFrame
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         // TODO add your handling code here:
+        UtilController.returnHome();
         dispose();
     }//GEN-LAST:event_closeBtnActionPerformed
 

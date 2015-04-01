@@ -11,9 +11,6 @@ import javax.swing.JOptionPane;
 public class TomSoftMain extends javax.swing.JFrame {
 
     LaserCutterMain LaserMain;
-    ObjetMain objetSys;
-    ZCorpMain zcorpSys;
-    SolidscapeMain solidscapeSys;
     PendingJobsView pendingSys;
     Student_Submission studentSys;
     boolean show;
@@ -24,9 +21,6 @@ public class TomSoftMain extends javax.swing.JFrame {
         this.setResizable(false);
         setPrintersVisible(false);
         studentSubmissionButton.setVisible(false);
-        objetSys = new ObjetMain();
-        zcorpSys = new ZCorpMain();
-        solidscapeSys = new SolidscapeMain();
         pendingSys = new PendingJobsView();
         studentSys = new Student_Submission();
     }
@@ -168,7 +162,7 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void solidscapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solidscapeButtonActionPerformed
         // TODO add your handling code here:
-        solidscapeSys.SolidscapeMainStart();
+        UtilController.startPrintBuild("solidscape");
         dispose();
     }//GEN-LAST:event_solidscapeButtonActionPerformed
 
@@ -192,7 +186,7 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void zcorpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zcorpButtonActionPerformed
         // TODO add your handling code here:
-        zcorpSys.ZCorpMainStart();
+        UtilController.startPrintBuild("zcorp");
         dispose();
     }//GEN-LAST:event_zcorpButtonActionPerformed
 
@@ -215,7 +209,7 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void objetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetButtonActionPerformed
         // TODO add your handling code here:
-        objetSys.ObjetMainStart();
+        UtilController.startPrintBuild("objet");
         dispose();
     }//GEN-LAST:event_objetButtonActionPerformed
 

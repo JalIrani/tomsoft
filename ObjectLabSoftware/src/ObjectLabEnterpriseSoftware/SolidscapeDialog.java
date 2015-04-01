@@ -86,6 +86,7 @@ public class SolidscapeDialog extends javax.swing.JFrame {
             public void windowClosing(WindowEvent we) {
                 
                 UtilController.revertBuild(new File(BPath.getText()).getName(), "solidscape");
+                UtilController.returnHome();
                 dispose();
             }
         });
@@ -130,8 +131,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(370, 363));
@@ -260,18 +259,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Help");
-
-        jMenuItem3.setText("Contents");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -318,6 +305,7 @@ public class SolidscapeDialog extends javax.swing.JFrame {
             
             UtilController.submitBuildInfoToDB(buildName,"Solidscape");
             
+            UtilController.returnHome();
                 dispose();
             } else {
                 System.out.println("ERRORS");
@@ -337,15 +325,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         Reports rpr = new Reports();
         rpr.ReportsPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + SolidscapeMain.getInstance().getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void BPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPathActionPerformed
         // TODO add your handling code here:
@@ -378,10 +357,8 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel minStar;
