@@ -32,11 +32,12 @@ public class Reports extends javax.swing.JFrame {
     private static Row row;
     private static Cell cell;
     InstanceCall inst;
-
+    UtilController controller;
     /**
      * Creates new form Reports
      */
     public Reports() {
+        this.controller = new UtilController();
         inst = new InstanceCall();
     }
 
@@ -44,19 +45,20 @@ public class Reports extends javax.swing.JFrame {
         initComponents();
         sqlMethods = new SQLMethods();
         model = (DefaultTableModel) reportsTable.getModel();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Reports.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        setLocationRelativeTo(null);
+        controller.updateReportTableData(model);
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Windows".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//
+//                }
+//            }
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Reports.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -126,9 +128,7 @@ public class Reports extends javax.swing.JFrame {
             new Object [][] {
 
             },
-            new String [] {
-                "Project Name", "Student", "Course", "Printer", "Date Submitted", "Date Printed", "Build Name", "Cost"
-            }
+            controller.getReportColumnHeaders()
         ) {
             boolean[] canEdit = new boolean [] {
                 true, true, false, false, false, false, false, false

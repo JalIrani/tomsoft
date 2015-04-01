@@ -22,6 +22,24 @@ public class UtilController
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
     
+    public static String[] getReportColumnHeaders(){
+        return new String[]{"Project Name", "Student", "Course", "Printer", "Date Submitted", "Date Printed", "Build Name", "Cost"};
+    }
+    
+    public static void updateReportTableData(DefaultTableModel dataHolder)
+    {     
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.searchPending();
+        
+        ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
+        
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+
+        for (ArrayList<String> retval1 : retval) 
+            dataHolder.addRow(retval1.toArray());
+    }
+    
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
