@@ -162,7 +162,9 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void solidscapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solidscapeButtonActionPerformed
         // TODO add your handling code here:
-        UtilController.startPrintBuild("solidscape");
+        UtilController.retrievePrinterSettings("solidscape");
+        PrinterBuild Build = new PrinterBuild();
+        Build.startMakeBuildProcess("Solidscape");
         dispose();
     }//GEN-LAST:event_solidscapeButtonActionPerformed
 
@@ -186,7 +188,9 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void zcorpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zcorpButtonActionPerformed
         // TODO add your handling code here:
-        UtilController.startPrintBuild("zcorp");
+        UtilController.retrievePrinterSettings("zcorp");
+        PrinterBuild Build = new PrinterBuild();
+        Build.startMakeBuildProcess("ZCorp");;
         dispose();
     }//GEN-LAST:event_zcorpButtonActionPerformed
 
@@ -209,7 +213,9 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void objetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetButtonActionPerformed
         // TODO add your handling code here:
-        UtilController.startPrintBuild("objet");
+        UtilController.retrievePrinterSettings("objet");
+        PrinterBuild Build = new PrinterBuild();
+        Build.startMakeBuildProcess("Objet");
         dispose();
     }//GEN-LAST:event_objetButtonActionPerformed
 

@@ -72,8 +72,9 @@ public class PrinterBuild extends javax.swing.JFrame
     {
         home = new TomSoftMain();
         inst = new InstanceCall();
-        initComponents();
         
+        initComponents();
+        PrinterBuildHeader.setText(printerSelectedToMakeBuildFor + " Build Creator");
         try 
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 

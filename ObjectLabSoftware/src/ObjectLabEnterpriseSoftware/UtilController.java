@@ -24,71 +24,7 @@ public class UtilController
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
     
-    /**
-     * This method creates the Printer build class for its respective printer
-     * 
-     * It is called from the following methods:
-     *      TomSoftMain.solidscapeButtonActionPerformed
-     *      TomSoftMain.objetButtonActionPerformed
-     *      TomSoftMain.zcorpButtonActionPerformed
-     *      
-     * @param printer the printer that the user wants to use
-     */
-    public static void startPrintBuild(String printer)
-    {
-        
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet res = dbconn.searchPrinterSettings(printer);
-        
-        switch (printer) {
-            case "solidscape":
-                {
-                    SolidscapePref Settings; 
-                    try
-                    {
-                        PrinterBuild SolidscapeBuild = new PrinterBuild();
-                        SolidscapeBuild.startMakeBuildProcess("Solidscape");
-                        SolidscapeBuild.PrinterBuildHeader.setText("Soliscape Build Creator");
-                    }
-                    catch (Exception ex)
-                    {
-                        Settings = new SolidscapePref();
-                        Settings.SolidscapePrefStart();
-                    }       break;
-                }
-            case "zcorp":
-            {
-                ZcorpPref Settings;
-                try
-                {
-                    PrinterBuild ZCorpBuild = new PrinterBuild();
-                    ZCorpBuild.startMakeBuildProcess("ZCorp");
-                    ZCorpBuild.PrinterBuildHeader.setText("ZCorp Build Creator");
-                }
-                catch (Exception ex)
-                {
-                    Settings = new ZcorpPref();
-                Settings.ZcorpPrefStart();
-                }       break;
-            }
-            case "objet": 
-            {
-                ObjetPref Settings;
-                try
-                {
-                    PrinterBuild ObjetBuild = new PrinterBuild();
-                    ObjetBuild.startMakeBuildProcess("Objet");
-                    ObjetBuild.PrinterBuildHeader.setText("Objet Build Creator");
-                }
-                catch (Exception ex)
-                {
-                    Settings = new ObjetPref();
-                Settings.ObjetPrefStart();
-            }       break;
-                }
-        }
-        dbconn.closeDBConnection();
-    }
+    
     
     
     private static void print(ArrayList<ArrayList<Object>> q)
@@ -427,8 +363,7 @@ public class UtilController
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //This won't be the final way this is done, but is currently here for testing purposes. Working on creating a universal "search[printer]ByBuildName" method
-        ResultSet s = null;//this is set equal to null so line 381 will compile.
+        ResultSet s;
         s = dbconn.searchPrintersByBuildName(buildPath, printer);
         try 
         {
@@ -551,6 +486,23 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
-    
+    /**
+     * This method finds the printer build class for its respective printer
+     * 
+     * It is called from the following methods:
+     *      TomSoftMain.solidscapeButtonActionPerformed
+     *      TomSoftMain.objetButtonActionPerformed
+     *      TomSoftMain.zcorpButtonActionPerformed
+     *      
+     * @param printer the printer that the user wants to use
+     */
+    public static void retrievePrinterSettings(String printer)
+    {
+        
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet res = dbconn.searchPrinterSettings(printer);
+        
+        dbconn.closeDBConnection();
+    }
     
 }
