@@ -29,11 +29,18 @@ public class EmailUtils {
     private static String Error;
     private static String FileName;
     private static String Ident;
-    
+    private static String dateSubmitted;
     private static String TuId;
     private static String message;
     private static String email;
 
+    public EmailUtils(String fname, String lname, String file, String date){
+        fName = fname;
+        lName = lname;
+        FileName = file;
+        dateSubmitted = date;
+    
+    }
 
     public EmailUtils(String fname, String lname, String Err, String file, String ID) {
         fName = fname;

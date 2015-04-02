@@ -126,6 +126,8 @@ public class UtilController
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
         InstanceCall cloudStorageOperations = new InstanceCall();
         
+        
+        
         try 
         {
             if (results.next()) 
@@ -143,8 +145,10 @@ public class UtilController
                 {
                     org.apache.commons.io.FileUtils.moveFileToDirectory(new File(cloudStorageOperations.getSubmission() + file), locationOfRejectedFiles, true);
                     
-                    SendEmail rejectionEmail = new SendEmail(fName, lName, reasonForRejection, file, results.getString("idJobs"));
-                    rejectionEmail.Send();
+                    //SendEmail rejectionEmail = new SendEmail(fName, lName, reasonForRejection, file, results.getString("idJobs"));
+                    EmailUtils sendEmails = new EmailUtils(fName, lName, reasonForRejection, file, results.getString("idJobs"));
+                    sendEmails.Send();
+                    //rejectionEmail.Send();
                     
                     dbconn.delete("pendingjobs", results.getString("idJobs"));
                     dbconn.closeDBConnection();
