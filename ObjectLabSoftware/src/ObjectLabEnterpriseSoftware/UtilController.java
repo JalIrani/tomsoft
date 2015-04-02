@@ -4,6 +4,8 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -11,8 +13,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static org.apache.commons.io.FileUtils.directoryContains;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 /**
  *
  * @author nick
@@ -22,22 +31,93 @@ public class UtilController
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
     
-    public static String[] getReportColumnHeaders(){
-        return new String[]{"Project Name", "Student", "Course", "Printer", "Date Submitted", "Date Printed", "Build Name", "Cost"};
+    public static String[] getReportColumnHeaders(int reportID){
+        try {
+            SQLMethods dbconn = new SQLMethods();
+            ResultSet queryResult = dbconn.getReport();
+            /* Must process results found in ResultSet before the connection is closed! */
+            
+            ResultSetMetaData rsmd = queryResult.getMetaData();
+            String[] headers = new String[rsmd.getColumnCount()];
+            //System.out.println(rsmd.getColumnName(5));
+            for(int i = 1; i <= rsmd.getColumnCount();i++){
+                headers[i-1] = rsmd.getColumnName(i);
+            }
+            
+            dbconn.closeDBConnection();
+            return headers;
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
-    public static void updateReportTableData(DefaultTableModel dataHolder)
+    public static void updateReportTableData(DefaultTableModel dataHolder) 
     {     
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchPending();
+        ResultSet queryResult = dbconn.getReport();
         
         ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
         
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
-
+        
         for (ArrayList<String> retval1 : retval) 
             dataHolder.addRow(retval1.toArray());
+    }
+    
+    public static void updateReportTableData(DefaultTableModel dataHolder, String column, String value) 
+    {     
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getReport(column, value);
+        
+        ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
+        
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        for (ArrayList<String> retval1 : retval) 
+            dataHolder.addRow(retval1.toArray());
+    }
+    
+    public void exportReportToFile(DefaultTableModel model, String[] header){
+    
+        FileUtils fileManager = new FileUtils();
+        
+        Workbook wb = new HSSFWorkbook();
+        //TODO: pick better sheet name
+        Sheet sheet = wb.createSheet("new sheet");
+        Row row = null;
+        Cell cell = null;
+ 
+        for (int i = 0; i < model.getRowCount()+1; i++) 
+        {
+            row = sheet.createRow(i);
+            if(i == 0){
+               for(int j = 0; j < header.length; j++){
+                   cell = row.createCell(j);
+                   cell.setCellValue(header[j]);
+               }
+            }
+            else
+            {
+                for (int j = 0; j < model.getColumnCount(); j++) 
+                {
+                    cell = row.createCell(j);
+                    cell.setCellValue((String) model.getValueAt(i-1, j));
+                }
+            }
+        }
+        
+        boolean didSave = fileManager.saveReport("ReportName", wb);
+
+        if(didSave){
+            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File");
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
+        }
+        
     }
     
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)

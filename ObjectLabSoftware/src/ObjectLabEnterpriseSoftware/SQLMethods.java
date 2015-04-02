@@ -262,6 +262,62 @@ public class SQLMethods
         }
     }
 
+    public ResultSet getReport() 
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement
+            (
+                "SELECT filename, firstName, lastName, printer, dateStarted "
+                + "FROM pendingjobs "
+                + "WHERE "
+                + "status = 'pending'"
+            );
+            
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
+    public ResultSet getReport(String column, String value) 
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement
+            (
+                "SELECT filename, firstName, lastName, printer, dateStarted "
+                + "FROM pendingjobs "
+                + "WHERE "
+                + "status = 'pending'"
+                + " AND "
+                + column + " = '" + value + "'"
+            );
+            
+            /*System.out.println("SELECT filename, firstName, lastName, printer, dateStarted "
+                + "FROM pendingjobs "
+                + "WHERE "
+                + "status = 'pending'"
+                + " AND "
+                + column + " = '" + value + "'");
+            */
+            
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
     public ResultSet searchPending() 
     {
         res = null;

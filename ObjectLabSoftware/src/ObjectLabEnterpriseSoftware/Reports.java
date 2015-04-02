@@ -1,22 +1,9 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 
 /*
  * 
@@ -27,17 +14,15 @@ public class Reports extends javax.swing.JFrame {
     private static SQLMethods sqlMethods;
     private static ResultSet res;
     private static String excelFilePath;
-    private static Workbook wb;
-    private static Sheet sheet;
-    private static Row row;
-    private static Cell cell;
     InstanceCall inst;
     UtilController controller;
+    String[] headers;
     /**
      * Creates new form Reports
      */
     public Reports() {
         this.controller = new UtilController();
+        headers = controller.getReportColumnHeaders(1);
         inst = new InstanceCall();
     }
 
@@ -46,19 +31,7 @@ public class Reports extends javax.swing.JFrame {
         sqlMethods = new SQLMethods();
         model = (DefaultTableModel) reportsTable.getModel();
         controller.updateReportTableData(model);
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Windows".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//
-//                }
-//            }
-//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Reports.class
-//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        setLocationRelativeTo(null);
+
         setVisible(true);
     }
 
@@ -82,8 +55,6 @@ public class Reports extends javax.swing.JFrame {
         reportsTable = new javax.swing.JTable();
         exportBtn = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        costLbl = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -93,7 +64,7 @@ public class Reports extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Project Name", "Student", "Course", "Printer", "Build Name" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
@@ -128,7 +99,7 @@ public class Reports extends javax.swing.JFrame {
             new Object [][] {
 
             },
-            controller.getReportColumnHeaders()
+            headers
         ) {
             boolean[] canEdit = new boolean [] {
                 true, true, false, false, false, false, false, false
@@ -160,13 +131,6 @@ public class Reports extends javax.swing.JFrame {
         });
         getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Total Cost:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 330, -1, -1));
-
-        costLbl.setText("$0.0");
-        getContentPane().add(costLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 330, -1, -1));
-
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
@@ -197,91 +161,27 @@ public class Reports extends javax.swing.JFrame {
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        // TODO add your handling code here:
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
-        }
+        
         /* All of the data that is being displayed and exported is found in the completedjobs table and retrieved here
             depending on what filter is triggered
         */
-        if (searchFilter.getSelectedItem().equals("Project Name")) {
-            // Code that searches database by project name
-            res = sqlMethods.searchCompleted(searchKey.getText(), "fileName");
-        } else if (searchFilter.getSelectedItem().equals("Student")) { //Needs to be modified to accomodate for Full Student Name and reflection in Query
-            // Code that searches database by student
-            res = sqlMethods.searchTwo("completedJobs", "firstName", "lastName", "%" + searchKey.getText() + "%");
-            // res = sqlMethods.searchTwo("SELECT * FROM" + table + " WHERE (CustomerName = 'Alfreds' OR City = 'London');
-        } else if (searchFilter.getSelectedItem().equals("Course")) {
-            // Code that searches database by course   
-            res = sqlMethods.searchTwo("completedJobs", "course", "section", "%" + searchKey.getText() + "%");
-        } else if (searchFilter.getSelectedItem().equals("Printer")) {
-            // Code that searches database by printer
-            res = sqlMethods.searchOne("completedJobs", "printer", searchKey.getText());
-        } else if (searchFilter.getSelectedItem().equals("Build Name")) {
-            // Code that searches database by build
-            res = sqlMethods.searchCompleted(searchKey.getText(), "buildName");
-        }
-
-        try {
-            while (res.next()) {
-                List<String> data = new LinkedList<>();
-                data.add(res.getString("fileName"));
-                data.add(res.getString("firstName") + " " + res.getString("lastName"));
-                data.add(res.getString("course") + " " + res.getString("section"));
-                data.add(res.getString("printer"));
-                data.add(res.getString("dateStarted"));
-                data.add(res.getString("dateCompleted"));
-                data.add(res.getString("buildName"));
-                data.add(res.getString("cost"));
-
-                model.addRow(data.toArray());
+        //System.out.println(searchFilter.getSelectedItem().toString());
+        //System.out.println(searchKey.getText().trim().length() > 0);
+        if(searchKey.getText().trim().length() > 0){
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
             }
-
-            updateCost();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(new JFrame(), "SQL Exception! Unable to Get Information from Database");
+            model = (DefaultTableModel) reportsTable.getModel();
+            controller.updateReportTableData(model, searchFilter.getSelectedItem().toString(), searchKey.getText().trim());
         }
+
     }//GEN-LAST:event_searchBtnActionPerformed
 
-    private void updateCost() {
-        double total = 0.0;
-        for (int i = 0; i < model.getRowCount(); i++) {
-            total += Double.parseDouble(model.getValueAt(i, 7).toString()); //7 refers to column 'Cost'
-        }
-        costLbl.setText("$" + String.format("%.2f", total));
-    }
-
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
-        // TODO add your handling code here:
-        wb = new HSSFWorkbook();
-        sheet = wb.createSheet("new sheet");
-        row = null;
-        cell = null;
-        for (int i = 0; i < model.getRowCount(); i++) 
-        {
-            row = sheet.createRow(i);
-            for (int j = 0; j < model.getColumnCount(); j++) 
-            {
-                cell = row.createCell(j);
-                cell.setCellValue((String) model.getValueAt(i, j));
-            }
-        }
-        try 
-        {
-            /* should change this to have the user pick where they want to export the new excel file */
-            excelFilePath = "C:\\Printers\\Export" + searchFilter.getSelectedItem().toString() + ".xls";
-            FileOutputStream out = new FileOutputStream(excelFilePath);
-            wb.write(out);
-            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File to " + excelFilePath);
-            out.close();
-        } catch (FileNotFoundException ex) 
-        {
-            Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) 
-        {
-            Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        //Exports the grid plus headers to an excel file
+        controller.exportReportToFile(model, headers);
+        
     }//GEN-LAST:event_exportBtnActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -300,12 +200,10 @@ public class Reports extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton closeBtn;
-    private javax.swing.JLabel costLbl;
     private javax.swing.JButton exportBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
