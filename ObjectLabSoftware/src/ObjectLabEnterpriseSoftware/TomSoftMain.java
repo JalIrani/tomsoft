@@ -231,6 +231,7 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void laserCutterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laserCutterButtonActionPerformed
         laserSys.LaserCutterMainStart();
+        laserSys.setLocationRelativeTo(this);
         dispose();
     }//GEN-LAST:event_laserCutterButtonActionPerformed
 

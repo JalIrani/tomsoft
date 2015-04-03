@@ -88,7 +88,7 @@ public class Reports extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Project Name", "Student", "Course", "Printer", "Build Name" }));
@@ -192,7 +192,8 @@ public class Reports extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        setVisible(false);
+        //setVisible(false);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dispose();
     }//GEN-LAST:event_closeBtnActionPerformed
 
