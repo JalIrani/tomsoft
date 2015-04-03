@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class TomSoftMain extends javax.swing.JFrame {
 
+    NewStudent newStudentSys;
     LaserCutterMain laserSys;
     ObjetMain objetSys;
     ZCorpMain zcorpSys;
@@ -31,6 +32,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         laserSys = new LaserCutterMain();
         pendingSys = new PendingJobsView();
         studentSys = new Student_Submission();
+        newStudentSys = new NewStudent();
     }
 
     /**
@@ -259,6 +261,8 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         // TODO add your handling code here:
+        newStudentSys.NewStudentMainStart();
+        dispose();
         
     }//GEN-LAST:event_newStudentButtonActionPerformed
 
