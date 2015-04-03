@@ -59,10 +59,10 @@ public class FileUtils {
         submission = drive + "\\ObjectLabPrinters\\Submissions\\";
         temp = new File(submission);
          temp.mkdirs();
-        PDFAdmin = "\\TomSoft Help Admin.pdf";
+        PDFAdmin = "\\TomSoft Help Admin";
         temp = new File(PDFAdmin);
          temp.mkdirs();
-        PDFStudent = "\\TomSoft Help Student.pdf";
+        PDFStudent = "\\TomSoft Help Student";
         temp = new File(PDFStudent);
          temp.mkdirs();
         zcorpToPrint = drive + "\\ObjectLabPrinters\\Zcorp\\ToPrint\\";

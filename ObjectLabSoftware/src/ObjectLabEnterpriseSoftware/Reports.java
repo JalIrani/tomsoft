@@ -96,63 +96,54 @@ public class Reports extends javax.swing.JFrame {
 
         reportsTable.setAutoCreateRowSorter(true);
         reportsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
+            new Object[][]{},
             headers
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false, false, false, false, false, false
-            };
+        )
+    );
+    jScrollPane1.setViewportView(reportsTable);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(reportsTable);
+    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 118, 682, 203));
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 118, 682, 203));
+    exportBtn.setText("Export");
+    exportBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+    exportBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            exportBtnActionPerformed(evt);
+        }
+    });
+    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 327, 61, -1));
 
-        exportBtn.setText("Export");
-        exportBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        exportBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 327, 61, -1));
+    closeBtn.setText("Close");
+    closeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+    closeBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            closeBtnActionPerformed(evt);
+        }
+    });
+    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
 
-        closeBtn.setText("Close");
-        closeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        closeBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
+    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+    jLabel5.setText("jLabel5");
+    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
-        jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
+    jMenu1.setText("File");
+    jMenuBar1.add(jMenu1);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+    jMenu2.setText("Help");
 
-        jMenu2.setText("Help");
+    jMenuItem1.setText("Contents");
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItem1ActionPerformed(evt);
+        }
+    });
+    jMenu2.add(jMenuItem1);
 
-        jMenuItem1.setText("Contents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem1);
+    jMenuBar1.add(jMenu2);
 
-        jMenuBar1.add(jMenu2);
+    setJMenuBar(jMenuBar1);
 
-        setJMenuBar(jMenuBar1);
-
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed

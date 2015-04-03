@@ -269,10 +269,11 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement
             (
-                "SELECT filename, firstName, lastName, printer, dateStarted "
-                + "FROM pendingjobs "
-                + "WHERE "
-                + "status = 'pending'"
+                "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+"cyanBinder, cubicInches, noModels, runTime "
+                + " from Zcorp "
+                + "order by "
+                + "dateRun;"
             );
             
             res = stmt.executeQuery();
@@ -292,10 +293,11 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement
             (
-                "SELECT filename, firstName, lastName, printer, dateStarted "
-                + "FROM pendingjobs "
-                + "WHERE "
-                + "status = 'pending'"
+                "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+"cyanBinder, cubicInches, noModels, runTime "
+                + " from Zcorp "
+                + "order by "
+                + "dateRun"
                 + " AND "
                 + column + " = '" + value + "'"
             );
