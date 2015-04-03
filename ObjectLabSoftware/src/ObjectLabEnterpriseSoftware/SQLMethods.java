@@ -334,11 +334,12 @@ public class SQLMethods {
 		}
 	}
 
-	public void insertIntoBuild(String buildname, int runtime, int models) {
+	public void insertIntoBuild(String buildname, int runtime, int models, String printer) {
 		try {
-			stmt = conn.prepareStatement("insert into printer_build ( build_name, date_created, total_runtime_seconds, number_of_models) values (?,NOW(),0, ?)");
+			stmt = conn.prepareStatement("insert into printer_build ( build_name, date_created, total_runtime_seconds, number_of_models, printer_name) values (?,NOW(),0, ?, ?)");
 			stmt.setString(1, buildname);
 			stmt.setInt(2, models);
+			stmt.setString(3, printer);
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
