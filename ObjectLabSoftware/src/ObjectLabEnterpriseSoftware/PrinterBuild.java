@@ -1,5 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
+import static ObjectLabEnterpriseSoftware.ZCorpDialog.buildName;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuild extends javax.swing.JFrame 
@@ -108,8 +110,11 @@ public class PrinterBuild extends javax.swing.JFrame
         
     }
 
-    private void submit() 
+    private boolean submit() 
     {
+        if(!printerSelectedForBuildProcess.equals("zcorp") && !printerSelectedForBuildProcess.equals("solidscape") && !printerSelectedForBuildProcess.equals("objet"))
+            return false;
+        
         countNumOfModels = 0;
         if (valididateUserInput()) 
         {
@@ -128,17 +133,17 @@ public class PrinterBuild extends javax.swing.JFrame
             
             //now number of models are set
             //let's sequentially open Zcorp windows FOR EACH build-based STL file
-            if(printerSelectedForBuildProcess.equals("ZCorp")) 
+            if(printerSelectedForBuildProcess.equals("zcorp")) 
             {
                 ZCorpDialog zd = new ZCorpDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
                 zd.ZCorpDialogStart();
             }
-            else if(printerSelectedForBuildProcess.equals("Objet"))
+            else if(printerSelectedForBuildProcess.equals("objet"))
             {
                 ObjetDialog od = new ObjetDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
                 od.ObjetDialogStart();
             }
-            else if(printerSelectedForBuildProcess.equals("Solidscape"))
+            else if(printerSelectedForBuildProcess.equals("solidscape"))
             {
                 SolidscapeDialog sd = new SolidscapeDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
                 sd.SolidscapeDialogStart();
@@ -149,8 +154,10 @@ public class PrinterBuild extends javax.swing.JFrame
             }
             
             dispose();
-
+            return true;
         }
+        
+        return false;
     }
     
     /**
@@ -350,7 +357,9 @@ public class PrinterBuild extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
-        submit();
+        if(!submit())
+              JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);  
+
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed

@@ -164,7 +164,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         UtilController.retrievePrinterSettings("solidscape");
         PrinterBuild Build = new PrinterBuild();
-        Build.startMakeBuildProcess("Solidscape");
+        Build.startMakeBuildProcess("solidscape");
         dispose();
     }//GEN-LAST:event_solidscapeButtonActionPerformed
 
@@ -190,7 +190,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         UtilController.retrievePrinterSettings("zcorp");
         PrinterBuild Build = new PrinterBuild();
-        Build.startMakeBuildProcess("ZCorp");;
+        Build.startMakeBuildProcess("zcorp");
         dispose();
     }//GEN-LAST:event_zcorpButtonActionPerformed
 
@@ -215,7 +215,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         UtilController.retrievePrinterSettings("objet");
         PrinterBuild Build = new PrinterBuild();
-        Build.startMakeBuildProcess("Objet");
+        Build.startMakeBuildProcess("objet");
         dispose();
     }//GEN-LAST:event_objetButtonActionPerformed
 

@@ -8,15 +8,11 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -54,14 +50,19 @@ public class ZCorpDialog extends javax.swing.JFrame {
         //par = parent;
 
         initComponents();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(ZCorpDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         setUp(build, count);
@@ -80,16 +81,19 @@ public class ZCorpDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() 
-        {
-            @Override
-            public void windowClosing(WindowEvent we) 
+        addWindowListener
+        (
+            new WindowAdapter() 
             {
-                UtilController.revertBuild(new File(BPath.getText()).getName(), "zcorp");
-                returnHome();
-                dispose();
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    UtilController.revertBuild(new File(BPath.getText()).getName(), "zcorp");
+                    returnHome();
+                    dispose();
+                }
             }
-        });
+        );
     }
     
     /**
@@ -315,67 +319,103 @@ public class ZCorpDialog extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private boolean validateForm() {
-        try {
+    
+    private boolean validateForm() 
+    {
+        try 
+        {
             monoBinder = Double.parseDouble(mono.getText());
             monoError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (mono.getText().isEmpty()) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (mono.getText().isEmpty()) 
+            {
                 monoError.setText("*Empty Field");
                 monoError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 monoError.setText("*Numbers only");
                 monoError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             yellowBinder = Double.parseDouble(yellow.getText());
             yellowError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (yellow.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (yellow.getText().equals("")) 
+            {
                 yellowError.setText("*Empty Field");
                 yellowError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 yellowError.setText("*Numbers only");
                 yellowError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             magentaBuilder = Double.parseDouble(magenta.getText());
             magentaError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (magenta.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (magenta.getText().equals("")) 
+            {
                 magentaError.setText("*Empty Field");
                 magentaError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 magentaError.setText("*Numbers only");
                 magentaError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             cyanBuilder = Double.parseDouble(cyan.getText());
             cyanError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (cyan.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (cyan.getText().equals("")) 
+            {
                 cyanError.setText("*Empty Field");
                 cyanError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 cyanError.setText("*Numbers only");
                 cyanError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             cubicInches = Double.parseDouble(volume.getText());
             volumeError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (volume.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (volume.getText().equals("")) 
+            {
                 volumeError.setText("*Empty Field");
                 volumeError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 volumeError.setText("*Numbers only");
                 volumeError.setVisible(true);
             }
@@ -393,7 +433,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
 
     
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (validateForm()) {
+        if (validateForm()) 
+        {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
             Integer hr = Integer.parseInt(hours.getSelectedItem().toString());
             Integer min = Integer.parseInt(minutes.getSelectedItem().toString());
@@ -406,15 +447,19 @@ public class ZCorpDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             comments = comment.getText();
-            
-            UtilController.submitBuildInfoToDB(buildName,"ZCorp");
-            returnHome();
 
-                dispose();
-            } else {
+            if(!UtilController.submitBuildInfoToDB(buildName, "zcorp"))
+              JOptionPane.showMessageDialog(new JPanel(), "Build was not created.", "Warning", JOptionPane.WARNING_MESSAGE);  
+            
+            returnHome();
+            dispose();
+            
+        } 
+        else 
+        {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-            }
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
     private void hideErrorFields() 

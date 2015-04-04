@@ -8,15 +8,11 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -44,27 +40,36 @@ public class ObjetDialog extends javax.swing.JFrame {
     /**
      * Creates new form ObjetDialog
      */
-    public ObjetDialog(java.awt.Frame parent, boolean modal, String build, int count) {
+    public ObjetDialog(java.awt.Frame parent, boolean modal, String build, int count) 
+    {
         initComponents();
         BuildConError.setVisible(false);
         SupportConError.setVisible(false);
         volumeError.setVisible(false);
         ResolutionError.setVisible(false);
         materialError.setVisible(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(ObjetDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
         setUp(build, count);
     }
 
-    public void ObjetDialogStart() {
+    public void ObjetDialogStart() 
+    {
         instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
@@ -76,14 +81,19 @@ public class ObjetDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent we) {
-                UtilController.revertBuild(new File(BPath.getText()).getName(), "objet");
-                returnHome();
-                dispose();
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    UtilController.revertBuild(new File(BPath.getText()).getName(), "objet");
+                    returnHome();
+                    dispose();
+                }
             }
-        });
+        );
     }
 
     /**
@@ -321,74 +331,109 @@ public class ObjetDialog extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   private boolean validateForm() {
-        try {
+   
+    private boolean validateForm() 
+    {
+        try 
+        {
             BuildConsumed = Double.parseDouble(BuildConsumedText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (BuildConsumedText.getText().equals("")) {
+            if (BuildConsumedText.getText().equals("")) 
+            {
                 BuildConError.setText("*Empty Field");
                 BuildConError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 BuildConError.setText("*Numbers only please");
                 BuildConError.setVisible(true);
             }
         }
         
-         try {
+        try 
+        {
             materialType = material.getSelectedItem().toString();
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
             materialError.setText("Select a material");
         }
 
-        try {
+        try 
+        {
             Resolution = Double.parseDouble(ResolutionText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (ResolutionText.getText().equals("")) {
+            if (ResolutionText.getText().equals("")) 
+            {
                 ResolutionError.setText("*Empty Field");
                 ResolutionError.setVisible(true);
-            } else {
+            } else 
+            {
                 ResolutionError.setText("*Numbers only please");
                 ResolutionError.setVisible(true);
             }
         }
 
-        try {
+        try 
+        {
             SupportConsumed = Double.parseDouble(SuppConsumedText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (SuppConsumedText.getText().equals("")) {
+            if (SuppConsumedText.getText().equals("")) 
+            {
                 SupportConError.setText("*Empty Field");
                 SupportConError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 SupportConError.setText("*Numbers only please");
                 SupportConError.setVisible(true);
             }
         }
 
-        try {
+        try 
+        {
             Volume = Double.parseDouble(VolumeText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (VolumeText.getText().equals("")) {
+            if (VolumeText.getText().equals("")) 
+            {
                 volumeError.setText("*Empty Field");
                 volumeError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 volumeError.setText("*Numbers only please");
                 volumeError.setVisible(true);
             }
         }
 
-        try {
+        try 
+        {
             modelAmount = Integer.parseInt(numOfModels.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (numOfModels.getText().equals("")) {
+            
+            if (numOfModels.getText().equals("")) 
+            {
                 jLabel19.setText("*Empty Field");
                 jLabel19.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 jLabel19.setText("*Numbers only please");
                 jLabel19.setVisible(true);
             }
@@ -396,7 +441,8 @@ public class ObjetDialog extends javax.swing.JFrame {
         return true;
     }
    
-   public static void returnHome() {
+   public static void returnHome() 
+   {
         
         PrinterBuild.home.studentSubmissionButton.setVisible(false);
         PrinterBuild.home.setPrintersVisible(false);
@@ -404,7 +450,8 @@ public class ObjetDialog extends javax.swing.JFrame {
     }
    
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (validateForm()) {
+        if (validateForm()) 
+        {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
             Integer hr = Integer.parseInt(hours.getSelectedItem().toString());
             Integer min = Integer.parseInt(minutes.getSelectedItem().toString());
@@ -418,23 +465,28 @@ public class ObjetDialog extends javax.swing.JFrame {
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
             
-            UtilController.submitBuildInfoToDB(buildName,"Objet");
+            if(!UtilController.submitBuildInfoToDB(buildName,"objet"))
+              JOptionPane.showMessageDialog(new JPanel(), "Build was not created.", "Warning", JOptionPane.WARNING_MESSAGE);  
+            
             returnHome();
-
-                dispose();
-            } else {
-                System.out.println("ERRORS");
-                JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-            }
+            dispose();
+        } 
+        else 
+        {
+            System.out.println("ERRORS");
+            JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         ResolutionError.setVisible(false);
         runTimeError.setVisible(false);
         dayStar.setVisible(false);
         hourStar.setVisible(false);
         minStar.setVisible(false);
     }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         Reports rpr = new Reports();

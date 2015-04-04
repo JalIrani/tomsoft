@@ -5,18 +5,15 @@
  */
 package ObjectLabEnterpriseSoftware;
 
+import static ObjectLabEnterpriseSoftware.ObjetDialog.buildName;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -81,15 +78,20 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent we) {
-                
-                UtilController.revertBuild(new File(BPath.getText()).getName(), "solidscape");
-                returnHome();
-                dispose();
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+
+                    UtilController.revertBuild(new File(BPath.getText()).getName(), "solidscape");
+                    returnHome();
+                    dispose();
+                }
             }
-        });
+        );
     }
 
     /**
@@ -265,35 +267,49 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private boolean validateForm() 
     {
-                try {
+        try 
+        {
             ResolutionVar = Double.parseDouble(ResolutionText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errorFound = true;
-            if (ResolutionText.getText().equals("")) {
+            if (ResolutionText.getText().equals("")) 
+            {
                 ResolutionError.setText("*Empty Field");
                 ResolutionError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 ResolutionError.setText("*Numbers only please");
                 ResolutionError.setVisible(true);
             }
         }
-        try {
+        
+        try 
+        {
             modelAmount = Integer.parseInt(numOfModels.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errorFound = true;
-            if (numOfModels.getText().equals("")) {
+            if (numOfModels.getText().equals("")) 
+            {
                 jLabel19.setText("*Empty Field");
                 jLabel19.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 jLabel19.setText("*Numbers only please");
                 jLabel19.setVisible(true);
             }
         }
+        
        return true;
     }
     
-    public static void returnHome() {
-        
+    public static void returnHome() 
+    {
         PrinterBuild.home.studentSubmissionButton.setVisible(false);
         PrinterBuild.home.setPrintersVisible(false);
         PrinterBuild.home.setVisible(true);
@@ -301,7 +317,8 @@ public class SolidscapeDialog extends javax.swing.JFrame {
 
      
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (validateForm()) {
+        if (validateForm()) 
+        {
             String buildPath = BPath.getText();
             buildName = new File(buildPath).getName();
             buildPath = buildPath.replace("\\", "\\\\");
@@ -310,23 +327,28 @@ public class SolidscapeDialog extends javax.swing.JFrame {
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
             
-            UtilController.submitBuildInfoToDB(buildName,"Solidscape");
+            if(!UtilController.submitBuildInfoToDB(buildName,"solidscape"))
+              JOptionPane.showMessageDialog(new JPanel(), "Build was not created.", "Warning", JOptionPane.WARNING_MESSAGE);  
             
             returnHome();
-                dispose();
-            } else {
+            dispose();
+        } 
+        else 
+        {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-            }
+        }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         ResolutionError.setVisible(false);
         runTimeError.setVisible(false);
         dayStar.setVisible(false);
         hourStar.setVisible(false);
         minStar.setVisible(false);
     }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         Reports rpr = new Reports();
@@ -336,7 +358,9 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     private void BPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BPathActionPerformed
-    public static void setUp(String buildName, int countNumOfModels) {
+   
+    public static void setUp(String buildName, int countNumOfModels) 
+    {
         BPath.setText(buildName);
         numOfModels.setText("" + countNumOfModels);
     }

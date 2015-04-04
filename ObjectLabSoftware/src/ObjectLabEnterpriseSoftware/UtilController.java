@@ -356,27 +356,14 @@ public class UtilController
         {
             while(r.next())
             {
-                dbconn.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
+                dbconn.updatePendingJobsBuildName("", r.getString("fileName"));
             }
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ResultSet s;
-        s = dbconn.searchPrintersByBuildName(buildPath, printer);
-        try 
-        {
-            while(s.next())
-            {
-                dbconn.deleteByBuildName(s.getString("buildName"), printer);
-            }
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
         dbconn.closeDBConnection();
     }
     
@@ -391,99 +378,105 @@ public class UtilController
      * @param printer this gets the name of the printer, 
      *                for now, the "printer" parameter is used to determine which sql method is used and the directory of the submitted file because it is different for every printer
      *                This will be changed when the dynamic database is being used
+     * @return success or failure status 
      */
-    public static void submitBuildInfoToDB(String buildName, String printer)
+    public static boolean submitBuildInfoToDB(String buildName, String printer)
     {
+        if(!printer.equals("zcorp") && !printer.equals("solidscape") && !printer.equals("objet"))
+            return false;
+        
         SQLMethods dbconn = new SQLMethods();
         InstanceCall instance = new InstanceCall();
+ 
         try 
         {
-       
-                    /* queries the DB for everything that has the buildName = to build name passed in as parameter */
-                    ResultSet res1 = dbconn.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try 
+            /* queries the DB for everything that has the buildName = to build name passed in as parameter */
+            ResultSet res1 = dbconn.searchPendingByBuildName(buildName);
+            ArrayList list = new ArrayList();
+            System.out.println("String buildName: " + buildName);
+            
+            try 
+            {
+                while (res1.next()) 
+                {
+                    list.add(res1.getString("buildName"));
+                }
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
+            Iterator itr = list.iterator();
+            while (itr.hasNext()) 
+            {
+                ResultSet res2 = dbconn.searchPendingByBuildName(itr.next().toString());
+                if (res2.next()) 
+                {
+                    String ID = res2.getString("idJobs");
+                    System.out.println(ID);
+                    String Printer = res2.getString("printer");
+                    String firstName = res2.getString("firstName");
+                    String lastName = res2.getString("lastName");
+                    String course = res2.getString("course");
+                    String section = res2.getString("section");
+                    String fileName = res2.getString("fileName");
+                    System.out.println(fileName);
+                    File newDir = null;
+                            
+                    switch (printer) 
                     {
-                        while (res1.next()) 
-                        {
-                            list.add(res1.getString("buildName"));
-                        }
-                    } 
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+                        case "zcorp":
+                            newDir = new File(instance.getZcorpPrinted());
+                            FileUtils.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
+                            break;
+                        case "solidscape":
+                            newDir = new File(instance.getSolidscapePrinted());
+                            FileUtils.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
+                            break;
+                        case "objet":
+                            newDir = new File(instance.getObjetPrinted());
+                            FileUtils.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
+                            break;
                     }
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    
-                    /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
-                    while (itr.hasNext()) 
-                    {
-                        ResultSet res2 = dbconn.searchPendingByBuildName(itr.next().toString());
-                        if (res2.next()) 
-                        {
-                            String ID = res2.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res2.getString("printer");
-                            String firstName = res2.getString("firstName");
-                            String lastName = res2.getString("lastName");
-                            String course = res2.getString("course");
-                            String section = res2.getString("section");
-                            String fileName = res2.getString("fileName");
-                            System.out.println(fileName);
-                            File newDir = null;
-                            
-                            switch (printer) {
-                                case "ZCorp":
-                                    newDir = new File(instance.getZcorpPrinted());
-                                    FileUtils.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
-                                    break;
-                                case "Solidscape":
-                                    newDir = new File(instance.getSolidscapePrinted());
-                                    FileUtils.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
-                                    break;
-                                case "Objet":
-                                    newDir = new File(instance.getObjetPrinted());
-                                    FileUtils.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
-                                    break;
-                            }
-                            
+   
+                    String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
+                    String dateStarted = res2.getString("dateStarted");
+                    String Status = "completed";
+                    String Email = res2.getString("Email");
+                    String Comment = res2.getString("comment");
+                    String nameOfBuild = res2.getString("buildName");
+                    double volume = Double.parseDouble(res2.getString("volume"));
+                    //double cost = Double.parseDouble(res3.getString("cost"));
 
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res2.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res2.getString("Email");
-                            String Comment = res2.getString("comment");
-                            String nameOfBuild = res2.getString("buildName");
-                            double volume = Double.parseDouble(res2.getString("volume"));
-                            //double cost = Double.parseDouble(res3.getString("cost"));
-
-                            dbconn.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00 /*placeholder since cost isn't being used*/);
-                            dbconn.delete("pendingjobs", ID);
+                    dbconn.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00 /*placeholder since cost isn't being used*/);
+                    dbconn.delete("pendingjobs", ID);
                             //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
+                }
+            }
 
             // if there is no matching record
-            switch (printer) {
-                case "ZCorp":
+            switch (printer) 
+            {
+                case "zcorp":
                     dbconn.insertIntoZcorp(buildName, ZCorpDialog.monoBinder, ZCorpDialog.yellowBinder, ZCorpDialog.magentaBuilder, ZCorpDialog.cyanBuilder, ZCorpDialog.cubicInches, ZCorpDialog.modelAmount, ZCorpDialog.comments, 0.00/*placeholder since cost isn't being used*/, "complete");
                     break;
-                case "Solidscape":
+                case "solidscape":
                     dbconn.insertIntoSolidscape(buildName, SolidscapeDialog.modelAmount, SolidscapeDialog.ResolutionVar, SolidscapeDialog.buildTime, SolidscapeDialog.comments, 0.00/*placeholder since cost isn't being used*/);
                     break;
-                case "Objet":
+                case "objet":
                     dbconn.insertIntoObjet(buildName, ObjetDialog.BuildConsumed, ObjetDialog.SupportConsumed, ObjetDialog.modelAmount,  ObjetDialog.materialType, ObjetDialog.Resolution, ObjetDialog.comments, 0.00 /*placeholder since cost isn't being used*/);
                     break;
-            }
-                    
+            }        
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         dbconn.closeDBConnection();
+        return true;
     }
     
     /**
