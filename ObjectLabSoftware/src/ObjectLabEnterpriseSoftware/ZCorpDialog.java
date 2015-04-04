@@ -67,7 +67,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
         setUp(build, count);
     }
 
-    public void ZCorpDialogStart() {
+    public void ZCorpDialogStart() 
+    {
         instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
@@ -409,14 +410,15 @@ public class ZCorpDialog extends javax.swing.JFrame {
             UtilController.submitBuildInfoToDB(buildName,"ZCorp");
             returnHome();
 
-            dispose();
-        } else {
-            System.out.println("ERRORS");
-            JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-        }
+                dispose();
+            } else {
+                System.out.println("ERRORS");
+                JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
+            }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         monoError.setVisible(false);
         yellowError.setVisible(false);
         magentaError.setVisible(false);
