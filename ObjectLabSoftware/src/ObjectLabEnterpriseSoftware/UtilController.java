@@ -52,7 +52,7 @@ public class UtilController
         return null;
     }
     
-    public static void updateReportTableData(DefaultTableModel dataHolder) 
+    public static ArrayList<ArrayList<String>> updateReportTableData() 
     {     
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.getReport();
@@ -62,11 +62,11 @@ public class UtilController
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
         
-        for (ArrayList<String> retval1 : retval) 
-            dataHolder.addRow(retval1.toArray());
+        return retval;
+        
     }
     
-    public static void updateReportTableData(DefaultTableModel dataHolder, String column, String value) 
+    public static ArrayList<ArrayList<String>> updateReportTableData(String column, String value) 
     {     
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.getReport(column, value);
@@ -76,8 +76,7 @@ public class UtilController
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
         
-        for (ArrayList<String> retval1 : retval) 
-            dataHolder.addRow(retval1.toArray());
+        return retval;
     }
     
     public void exportReportToFile(DefaultTableModel model, String[] header){

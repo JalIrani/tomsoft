@@ -2,6 +2,7 @@ package ObjectLabEnterpriseSoftware;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,7 +31,9 @@ public class Reports extends javax.swing.JFrame {
         initComponents();
         sqlMethods = new SQLMethods();
         model = (DefaultTableModel) reportsTable.getModel();
-        controller.updateReportTableData(model);
+        for (ArrayList<String> retval1 : controller.updateReportTableData()){ 
+            model.addRow(retval1.toArray());
+        }
 
         setVisible(true);
     }
@@ -163,7 +166,9 @@ public class Reports extends javax.swing.JFrame {
                 model.removeRow(0);
             }
             model = (DefaultTableModel) reportsTable.getModel();
-            controller.updateReportTableData(model, searchFilter.getSelectedItem().toString(), searchKey.getText().trim());
+            for (ArrayList<String> retval1 : controller.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim())){ 
+                model.addRow(retval1.toArray());
+            }
         }
 
     }//GEN-LAST:event_searchBtnActionPerformed
