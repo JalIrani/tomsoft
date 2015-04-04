@@ -648,7 +648,8 @@ public class SQLMethods
             System.out.println(stmt);
             stmt.executeUpdate();
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex) 
+		{
             Logger.getLogger(SQLMethods.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
@@ -663,7 +664,9 @@ public class SQLMethods
             System.out.println(stmt);
             stmt.executeUpdate();
 
-        } catch (SQLException ex) {
+        } 
+		catch (SQLException ex) 
+		{
             Logger.getLogger(SQLMethods.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
