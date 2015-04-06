@@ -151,6 +151,8 @@ public class NewStudent extends javax.swing.JFrame {
 		    exit=false;
 	    }
 	    if(exit==true)
+                    home.setPrintersVisible(true);
+                    home.setVisible(true);
 		    dispose();
         
     }//GEN-LAST:event_submitActionPerformed
