@@ -51,59 +51,22 @@ public class FileUtils {
     public FileUtils() {
         //Use the directory provided on piazza and change the file paths below to test
         drive = "C:\\Sync";
-         File temp = new File(drive);
-         temp.mkdirs();
         rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
-        temp = new File(rejected);
-         temp.mkdirs();
         submission = drive + "\\ObjectLabPrinters\\Submissions\\";
-        temp = new File(submission);
-         temp.mkdirs();
-        PDFAdmin = "\\TomSoft Help Admin";
-        temp = new File(PDFAdmin);
-         temp.mkdirs();
-        PDFStudent = "\\TomSoft Help Student";
-        temp = new File(PDFStudent);
-         temp.mkdirs();
+        PDFAdmin = drive + "\\TomSoft Help Admin.pdf";
+        PDFStudent = drive + "\\TomSoft Help Student.pdf";
         zcorpToPrint = drive + "\\ObjectLabPrinters\\Zcorp\\ToPrint\\";
-        temp = new File(zcorpToPrint);
-         temp.mkdirs();
         zcorpPrinted = drive + "\\ObjectLabPrinters\\Zcorp\\Printed\\";
-        temp = new File(zcorpPrinted);
-         temp.mkdirs();
         zcorpToBuild = drive + "\\ObjectLabPrinters\\Zcorp\\Build Files\\";
-        temp = new File(zcorpToBuild);
-         temp.mkdirs();
         solidscapeToPrint = drive + "\\ObjectLabPrinters\\Solidscape\\ToPrint\\";
-        temp = new File(solidscapeToPrint);
-         temp.mkdirs();
         solidscapePrinted = drive + "\\ObjectLabPrinters\\Solidscape\\Printed\\";
-        temp = new File(solidscapePrinted);
-         temp.mkdirs();
         solidscapeToBuild = drive + "\\ObjectLabPrinters\\Solidscape\\Build Files\\";
-        temp = new File(solidscapeToBuild);
-         temp.mkdirs();
         objetToPrint = drive + "\\ObjectLabPrinters\\Objet\\ToPrint\\";
-        temp = new File(objetToPrint);
-         temp.mkdirs();
         objetPrinted = drive + "\\ObjectLabPrinters\\Objet\\Printed\\";
-        temp = new File(objetPrinted);
-         temp.mkdirs();
         objetToBuild = drive + "\\ObjectLabPrinters\\Objet\\Build Files\\";
-        temp = new File(objetToBuild);
-         temp.mkdirs();
         excelFilePath = drive + "\\Export\\";
-        temp = new File(excelFilePath);
-         temp.mkdirs();
         ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
-        temp = new File(ZIPPED_FOLDER);
-         temp.mkdirs();
         INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
-        temp = new File(INPUT_FOLDER);
-         temp.mkdirs();
-        
-        
-        
     }
     
     public boolean deleteFile(String path){
