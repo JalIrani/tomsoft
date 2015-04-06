@@ -24,9 +24,6 @@ public class UtilController
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
     
-    
-    
-    
     private static void print(ArrayList<ArrayList<Object>> q)
     {
         for(int i = 0; i < q.size(); i++)
@@ -77,11 +74,13 @@ public class UtilController
                 
             }
             
+            dbconn.closeDBConnection();
             return FAILURE;
         } 
         catch (SQLException | IOException ex) 
         {
             System.out.println("Program crashed in reject subm\n" + ex);
+            dbconn.closeDBConnection();
             return FAILURE;
         }
     }
@@ -139,23 +138,19 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
         
-        
         ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateSubmitted);
                         
         try 
-        {
-            
+        { 
             if (result.next())
-                filePath = new File(result.getString("filePath"));
-            
-            dbconn.closeDBConnection();
-            
+                filePath = new File(result.getString("filePath")); 
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        dbconn.closeDBConnection();
         return filePath;
         
     }
@@ -167,30 +162,9 @@ public class UtilController
      * Check if the file exists in the given filepath. If it doesn't, prompt the user to search for the file. 
      * If user is unable to find the file, delete it from the database.
      */
-    public static boolean checkFileExists(String filepath){
-        boolean exists = FileUtils.doesFileExist(filepath);
-        //If the files does not exist and the user does not locate it
-        if(!exists){
-            //TODO: update file location in database
-        }
-        return true;
-    }
-    
-     /**
-      * This is probably something that should be in a general Utils class for the front end or the various "views".
-      * I'm leaving this here for now because I don't want to change or add anything else that could affect other 
-      * groups. -Nick
-      */
-    public static int getSelectedRowNum(DefaultTableModel dm, int selectedRow, int column)
+    public static boolean checkFileExists(String filepath)
     {
-        if (selectedRow < 0)
-            return -1;
-        
-        for (int i = 0; i < dm.getRowCount(); i++)
-            if (dm.getValueAt(i, column).equals(dm.getValueAt(selectedRow, column)))
-                return i;
-        
-        return -1;
+        return FileUtils.doesFileExist(filepath);
     }
     
     /* This function takes the column names found in the queryResult and inserts them into columnNames */
@@ -256,7 +230,7 @@ public class UtilController
     /* I'm still considering making the return type the array of arrylists<String> since it is more general
      * than having the UI pass in its table model -Nick
     */
-    public static void updatePendingTableData(DefaultTableModel dataHolder)
+    public static ArrayList<ArrayList<Object>> updatePendingTableData()
     {     
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.searchPending();
@@ -265,9 +239,7 @@ public class UtilController
         
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
-
-        for (ArrayList<Object> retval1 : retval) 
-            dataHolder.addRow(retval1.toArray());
+        return retval;
     }
      
     public static String[] returnAvailablePrinters()
