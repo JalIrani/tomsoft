@@ -23,7 +23,7 @@ public class LaserCutterMain extends javax.swing.JFrame {
     public static ObjetPref Settings;
     static SQLMethods dba;
     DefaultListModel currentFileListModel = new DefaultListModel();
-    private static InstanceCall instance;
+    private static FileManager instance;
     public static Reports reports;
     PrinterOpenBuilds OBuild;
     TomSoftMain home;
@@ -33,7 +33,7 @@ public class LaserCutterMain extends javax.swing.JFrame {
         OBuild = new PrinterOpenBuilds();
         dba = new SQLMethods();
         reports = new Reports();
-        instance = new InstanceCall();
+        instance = new FileManager();
         initComponents();
 
         try {

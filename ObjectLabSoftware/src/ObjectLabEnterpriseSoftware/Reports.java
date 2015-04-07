@@ -15,7 +15,7 @@ public class Reports extends javax.swing.JFrame {
     private static SQLMethods sqlMethods;
     private static ResultSet res;
     private static String excelFilePath;
-    InstanceCall inst;
+    FileManager inst;
     UtilController controller;
     String[] headers;
     /**
@@ -24,7 +24,7 @@ public class Reports extends javax.swing.JFrame {
     public Reports() {
         this.controller = new UtilController();
         headers = controller.getReportColumnHeaders(1);
-        inst = new InstanceCall();
+        inst = new FileManager();
     }
 
     public void ReportsPage() {

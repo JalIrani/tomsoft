@@ -29,13 +29,13 @@ public class Student_Submission extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     SQLMethods sqlMethods;
-    InstanceCall inst;
+    FileManager inst;
     ButtonGroup group;
     String printer;
     TomSoftMain home;
 
     public void studentSubmissionStart() {
-        inst = new InstanceCall();
+        inst = new FileManager();
         initComponents();
         hideErrorFields();
         

@@ -16,7 +16,7 @@ public class ZCorpMain extends javax.swing.JFrame {
     public static ZcorpPref ZPref;
     static Calculations calc;
     static DefaultListModel allFileListModel = new DefaultListModel();
-    private static InstanceCall instance;
+    private static FileManager instance;
     //public static Reports reports;
     public static SQLMethods dba;
     TomSoftMain home;
@@ -26,7 +26,7 @@ public class ZCorpMain extends javax.swing.JFrame {
         dba = new SQLMethods();
         calc = new Calculations();
         //reports = new Reports();
-        instance = new InstanceCall();
+        instance = new FileManager();
         home = new TomSoftMain();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -246,14 +246,14 @@ public class ZCorpMain extends javax.swing.JFrame {
     /**
      * @return the instance
      */
-    public static InstanceCall getInstance() {
+    public static FileManager getInstance() {
         return instance;
     }
 
     /**
      * @param instance the instance to set
      */
-    public void setInstance(InstanceCall instance) {
+    public void setInstance(FileManager instance) {
         this.instance = instance;
     }
 

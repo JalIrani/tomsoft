@@ -27,7 +27,7 @@ public class ObjetMain extends javax.swing.JFrame {
     public static ObjetPref Settings;
     static SQLMethods dba;
     DefaultListModel currentFileListModel = new DefaultListModel();
-    private static InstanceCall instance;
+    private static FileManager instance;
     public static Reports reports;
     PrinterOpenBuilds OBuild;
     TomSoftMain home;
@@ -37,7 +37,7 @@ public class ObjetMain extends javax.swing.JFrame {
         OBuild = new PrinterOpenBuilds();
         dba = new SQLMethods();
         reports = new Reports();
-        instance = new InstanceCall();
+        instance = new FileManager();
         initComponents();
 
         try {
@@ -257,14 +257,14 @@ public class ObjetMain extends javax.swing.JFrame {
    /**
      * @return the instance
      */
-    public static InstanceCall getInstance() {
+    public static FileManager getInstance() {
         return instance;
     }
 
     /**
      * @param aInstance the instance to set
      */
-    public static void setInstance(InstanceCall aInstance) {
+    public static void setInstance(FileManager aInstance) {
         instance = aInstance;
     }
 }

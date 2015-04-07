@@ -24,13 +24,13 @@ public class Options extends javax.swing.JFrame {
      */
     DefaultListModel allClassListModel = new DefaultListModel();
     DefaultListModel currentClassListModel = new DefaultListModel();
-    InstanceCall Inst;
+    FileManager Inst;
     SQLMethods dba;
     TomSoftMain home;
 
     public void OptionsStart() {
         dba = new SQLMethods();
-        Inst = new InstanceCall();
+        Inst = new FileManager();
         home = new TomSoftMain();
         initComponents();
         addNewClass.setVisible(true);

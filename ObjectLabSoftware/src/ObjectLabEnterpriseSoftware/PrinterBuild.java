@@ -19,11 +19,11 @@ public class PrinterBuild extends javax.swing.JFrame {
     static SQLMethods dba;
     public static int countNumOfModels;
     public static String BuildPrinter;
-    InstanceCall inst;
+    FileManager inst;
 
     public void ZcorpBuildStart(String print) {
         initComponents();
-        inst = new InstanceCall();
+        inst = new FileManager();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {

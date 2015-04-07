@@ -81,7 +81,7 @@ public class UtilController
     
     public void exportReportToFile(DefaultTableModel model, String[] header){
     
-        FileUtils fileManager = new FileUtils();
+        FileManager fileManager = new FileManager();
         
         Workbook wb = new HSSFWorkbook();
         //TODO: pick better sheet name
@@ -123,7 +123,7 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
-        InstanceCall cloudStorageOperations = new InstanceCall();
+        FileManager cloudStorageOperations = new FileManager();
         
         
         
@@ -178,7 +178,7 @@ public class UtilController
         */
         SQLMethods dbconn = new SQLMethods();
         ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateStarted);
-        InstanceCall cloudStorageOperations = new InstanceCall();
+        FileManager cloudStorageOperations = new FileManager();
         
         String ID;
 
@@ -253,7 +253,7 @@ public class UtilController
      * If user is unable to find the file, delete it from the database.
      */
     public static boolean checkFileExists(String filepath){
-        boolean exists = FileUtils.doesFileExist(filepath);
+        boolean exists = FileManager.doesFileExist(filepath);
         //If the files does not exist and the user does not locate it
         if(!exists){
             //TODO: update file location in database

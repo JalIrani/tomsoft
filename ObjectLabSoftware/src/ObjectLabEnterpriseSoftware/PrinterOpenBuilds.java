@@ -32,10 +32,10 @@ public class PrinterOpenBuilds extends javax.swing.JFrame {
     static SQLMethods dba;
     String openBuildsPrinter;
     Reports reports;
-    InstanceCall inst;
+    FileManager inst;
 
     public void ZcorpOpenBuildsStart(String printer) {
-        inst = new InstanceCall();
+        inst = new FileManager();
         openBuildsPrinter = printer;
         initComponents();
         try {

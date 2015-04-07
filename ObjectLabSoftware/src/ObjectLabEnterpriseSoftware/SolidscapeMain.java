@@ -25,7 +25,7 @@ public class SolidscapeMain extends javax.swing.JFrame {
     static Calculations calc;
     DefaultListModel currentFileListModel = new DefaultListModel();
     private PrinterOpenBuilds SBuild;
-    private static InstanceCall instance;
+    private static FileManager instance;
     public static Reports reports;
     public static SQLMethods dba;
     public static SolidscapePref Settings;
@@ -36,7 +36,7 @@ public class SolidscapeMain extends javax.swing.JFrame {
         home = new TomSoftMain();
         dba = new SQLMethods();
         reports = new Reports();
-        instance = new InstanceCall();
+        instance = new FileManager();
         initComponents();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -251,14 +251,14 @@ public class SolidscapeMain extends javax.swing.JFrame {
    /**
      * @return the instance
      */
-    public static InstanceCall getInstance() {
+    public static FileManager getInstance() {
         return instance;
     }
 
     /**
      * @param aInstance the instance to set
      */
-    public static void setInstance(InstanceCall aInstance) {
+    public static void setInstance(FileManager aInstance) {
         instance = aInstance;
     }
 

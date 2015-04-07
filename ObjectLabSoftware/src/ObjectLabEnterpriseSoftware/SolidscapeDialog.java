@@ -27,7 +27,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class SolidscapeDialog extends javax.swing.JFrame {
 
-    InstanceCall instance;
+    FileUtils instance;
 
     static String fileName = "";
     static String buildName = "";
@@ -66,7 +66,7 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     }
     
     public void SolidscapeDialogStart() {
-        instance = new InstanceCall();
+        instance = new FileUtils();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();
