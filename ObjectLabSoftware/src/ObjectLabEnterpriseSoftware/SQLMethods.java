@@ -262,19 +262,50 @@ public class SQLMethods
         }
     }
 
-    public ResultSet getReport() 
+    public ResultSet getReport(int reportID) 
     {
         res = null;
         try 
         {
-            stmt = this.conn.prepareStatement
-            (
-                "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
-"cyanBinder, cubicInches, noModels, runTime "
-                + " from Zcorp "
-                + "order by "
-                + "dateRun;"
-            );
+            switch (reportID){
+                case 0:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+                case 1:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n" +
+                        "buildMaterials from objet "+
+                        " order by "+
+                        " daterun;"
+                    );
+                    break;
+                case 2:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, noModels, runtime from solidscape " +
+                        " order by daterun;"
+                    );
+                    break;
+                case 3:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+            }
+            
             
             res = stmt.executeQuery();
         } 
@@ -286,29 +317,58 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet getReport(String column, String value) 
+    public ResultSet getReport(String column, String value, int reportID) 
     {
         res = null;
         try 
         {
-            stmt = this.conn.prepareStatement
-            (
-                "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
-"cyanBinder, cubicInches, noModels, runTime "
-                + " from Zcorp "
-                + "order by "
-                + "dateRun"
-                + " AND "
-                + column + " = '" + value + "'"
-            );
-            
-            /*System.out.println("SELECT filename, firstName, lastName, printer, dateStarted "
-                + "FROM pendingjobs "
-                + "WHERE "
-                + "status = 'pending'"
-                + " AND "
-                + column + " = '" + value + "'");
-            */
+            switch (reportID){
+                case 0:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+                case 1:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n"
+                        + "buildMaterials from objet "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + " order by "
+                        + " daterun;"
+                    );
+                    break;
+                case 2:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, noModels, runtime from solidscape "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + " order by daterun;"
+                        
+                    );
+                    break;
+                case 3:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+            }
             
             res = stmt.executeQuery();
         } 

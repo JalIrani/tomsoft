@@ -15,23 +15,33 @@ public class Reports extends javax.swing.JFrame {
     private static SQLMethods sqlMethods;
     private static ResultSet res;
     private static String excelFilePath;
+
     FileManager inst;
+
+    private int reportID = 0;
+
     UtilController controller;
     String[] headers;
+    ArrayList<String> printers;
     /**
      * Creates new form Reports
      */
     public Reports() {
         this.controller = new UtilController();
-        headers = controller.getReportColumnHeaders(1);
-        inst = new FileManager();
+        headers = UtilController.getReportColumnHeaders(reportID);
+        //TODO: this information should come from the database
+        printers = new ArrayList<String>();
+        printers.add("Zcorp");
+        printers.add("Objet");
+        printers.add("SolidScape");
+//        printers.add("LaserCutter");
     }
 
     public void ReportsPage() {
         initComponents();
         sqlMethods = new SQLMethods();
         model = (DefaultTableModel) reportsTable.getModel();
-        for (ArrayList<String> retval1 : controller.updateReportTableData()){ 
+        for (ArrayList<String> retval1 : UtilController.updateReportTableData(reportID)){ 
             model.addRow(retval1.toArray());
         }
 
@@ -53,7 +63,9 @@ public class Reports extends javax.swing.JFrame {
         searchKey = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         reportsTable = new javax.swing.JTable();
         exportBtn = new javax.swing.JButton();
@@ -93,9 +105,26 @@ public class Reports extends javax.swing.JFrame {
         getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 44, 77, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 76, 682, 10));
 
+        jButton1.setText("Export Master Report");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, -1));
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Reports");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
+        jComboBox1.setName("PrinterSelection"); // NOI18N
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         reportsTable.setAutoCreateRowSorter(true);
         reportsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -114,7 +143,7 @@ public class Reports extends javax.swing.JFrame {
             exportBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(567, 327, 61, -1));
+    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 61, -1));
 
     closeBtn.setText("Close");
     closeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -165,10 +194,13 @@ public class Reports extends javax.swing.JFrame {
             while (model.getRowCount() > 0) {
                 model.removeRow(0);
             }
+            
             model = (DefaultTableModel) reportsTable.getModel();
-            for (ArrayList<String> retval1 : controller.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim())){ 
+            System.out.println(searchFilter.getSelectedItem().toString());
+            for (ArrayList<String> retval1 : UtilController.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim(), reportID)){ 
                 model.addRow(retval1.toArray());
             }
+
         }
 
     }//GEN-LAST:event_searchBtnActionPerformed
@@ -193,10 +225,42 @@ public class Reports extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFilterActionPerformed
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        
+        //System.out.println(evt.getItem().toString());
+        reportID = printers.indexOf(evt.getItem().toString());
+        //System.out.println(report);
+        
+        headers = UtilController.getReportColumnHeaders(reportID);
+        while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            reportsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object[][]{},
+            headers));
+            model = (DefaultTableModel) reportsTable.getModel();
+            searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
+            for (ArrayList<String> retval1 : UtilController.updateReportTableData(reportID)){ 
+                model.addRow(retval1.toArray());
+            }
+        
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+        
+        for(String printer : printers){
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton closeBtn;
     private javax.swing.JButton exportBtn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
