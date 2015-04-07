@@ -34,7 +34,7 @@ public class UtilController
     public static String[] getReportColumnHeaders(int reportID){
         try {
             SQLMethods dbconn = new SQLMethods();
-            ResultSet queryResult = dbconn.getReport();
+            ResultSet queryResult = dbconn.getReport(reportID);
             /* Must process results found in ResultSet before the connection is closed! */
             
             ResultSetMetaData rsmd = queryResult.getMetaData();
@@ -52,10 +52,10 @@ public class UtilController
         return null;
     }
     
-    public static ArrayList<ArrayList<String>> updateReportTableData() 
+    public static ArrayList<ArrayList<String>> updateReportTableData(int reportID) 
     {     
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getReport();
+        ResultSet queryResult = dbconn.getReport(reportID);
         
         ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
         
@@ -66,10 +66,10 @@ public class UtilController
         
     }
     
-    public static ArrayList<ArrayList<String>> updateReportTableData(String column, String value) 
+    public static ArrayList<ArrayList<String>> updateReportTableData(String column, String value, int reportID) 
     {     
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getReport(column, value);
+        ResultSet queryResult = dbconn.getReport(column, value, reportID);
         
         ArrayList<ArrayList<String>> retval = readyOutputForViewPage(queryResult);
         
