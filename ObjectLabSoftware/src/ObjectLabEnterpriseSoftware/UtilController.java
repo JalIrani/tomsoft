@@ -12,13 +12,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static org.apache.commons.io.FileUtils.directoryContains;
 
-/**
- *
- * @author nick
- */
+/* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
 public class UtilController
 {
     private static final boolean SUCCESS = true;
@@ -35,11 +40,148 @@ public class UtilController
         }
     }
     
+    public static String[] getReportColumnHeaders(int reportID){
+        try {
+            SQLMethods dbconn = new SQLMethods();
+            ResultSet queryResult = dbconn.getReport(reportID);
+            /* Must process results found in ResultSet before the connection is closed! */
+            
+            ResultSetMetaData rsmd = queryResult.getMetaData();
+            String[] headers = new String[rsmd.getColumnCount()];
+            //System.out.println(rsmd.getColumnName(5));
+            for(int i = 1; i <= rsmd.getColumnCount();i++){
+                headers[i-1] = rsmd.getColumnName(i);
+            }
+            
+            dbconn.closeDBConnection();
+            return headers;
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static ArrayList<ArrayList<Object>> updateReportTableData(int reportID) 
+    {     
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getReport(reportID);
+        
+        ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
+        
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        return retval;
+        
+    }
+    
+    public static ArrayList<ArrayList<Object>> updateReportTableData(String column, String value, int reportID) 
+    {     
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getReport(column, value, reportID);
+        
+        ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
+        
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        return retval;
+    }
+    
+    public void exportReportToFile(DefaultTableModel model, String[] header){
+    
+        FileManager fileManager = new FileManager();
+        
+        Workbook wb = new HSSFWorkbook();
+        //TODO: pick better sheet name
+        Sheet sheet = wb.createSheet("new sheet");
+        Row row = null;
+        Cell cell = null;
+ 
+        for (int i = 0; i < model.getRowCount()+1; i++) 
+        {
+            row = sheet.createRow(i);
+            if(i == 0){
+               for(int j = 0; j < header.length; j++){
+                   cell = row.createCell(j);
+                   cell.setCellValue(header[j]);
+               }
+            }
+            else
+            {
+                for (int j = 0; j < model.getColumnCount(); j++) 
+                {
+                    cell = row.createCell(j);
+                    cell.setCellValue((String) model.getValueAt(i-1, j));
+                }
+            }
+        }
+        
+        boolean didSave = fileManager.saveReport("ReportName", wb);
+
+        if(didSave){
+            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File");
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
+        }
+        
+    }
+    
+    public static void exportReportsForPrinters(ArrayList<Object> printers){
+    
+        FileManager fileManager = new FileManager();
+        
+        Workbook wb = new HSSFWorkbook();
+        
+        String[] columnHeaders;
+        ArrayList<ArrayList<Object>> data;
+        Sheet sheet;
+        
+        for(int x = 0; x < printers.size(); x++){
+        
+            sheet = wb.createSheet((String) printers.get(x));
+            columnHeaders = getReportColumnHeaders(x);
+            data = updateReportTableData(x);
+            Row row = null;
+            Cell cell = null;
+            
+            for (int i = 0; i < data.size()+1; i++) 
+            {
+                row = sheet.createRow(i);
+                if(i == 0){
+                   for(int j = 0; j < data.get(i).size(); j++){
+                       cell = row.createCell(j);
+                       cell.setCellValue(columnHeaders[j]);
+                   }
+                }
+                else
+                {
+                    for (int j = 0; j < data.get(i-1).size(); j++) 
+                    {
+                        cell = row.createCell(j);
+                        cell.setCellValue((String) data.get(i-1).get(j));
+                    }
+                }
+            }
+        }
+        boolean didSave = fileManager.saveReport("MasterReport", wb);
+
+        if(didSave){
+            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File");
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
+        }
+    }
+    
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
-        InstanceCall cloudStorageOperations = new InstanceCall();
+        FileManager cloudStorageOperations = new FileManager();
+        
+        
         
         try 
         {
@@ -58,8 +200,10 @@ public class UtilController
                 {
                     org.apache.commons.io.FileUtils.moveFileToDirectory(new File(cloudStorageOperations.getSubmission() + file), locationOfRejectedFiles, true);
                     
-                    SendEmail rejectionEmail = new SendEmail(fName, lName, reasonForRejection, file, results.getString("idJobs"));
-                    rejectionEmail.Send();
+                    //SendEmail rejectionEmail = new SendEmail(fName, lName, reasonForRejection, file, results.getString("idJobs"));
+                    EmailUtils sendEmails = new EmailUtils(fName, lName, reasonForRejection, file, results.getString("idJobs"));
+                    sendEmails.Send();
+                    //rejectionEmail.Send();
                     
                     dbconn.delete("pendingjobs", results.getString("idJobs"));
                     dbconn.closeDBConnection();
@@ -92,7 +236,7 @@ public class UtilController
         */
         SQLMethods dbconn = new SQLMethods();
         ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateStarted);
-        InstanceCall cloudStorageOperations = new InstanceCall();
+        FileManager cloudStorageOperations = new FileManager();
         
         String ID;
 
@@ -162,9 +306,13 @@ public class UtilController
      * Check if the file exists in the given filepath. If it doesn't, prompt the user to search for the file. 
      * If user is unable to find the file, delete it from the database.
      */
-    public static boolean checkFileExists(String filepath)
-    {
-        return FileUtils.doesFileExist(filepath);
+    public static boolean checkFileExists(String filepath){
+        boolean exists = FileManager.doesFileExist(filepath);
+        //If the files does not exist and the user does not locate it
+        if(!exists){
+            //TODO: update file location in database
+        }
+        return true;
     }
     
     /* This function takes the column names found in the queryResult and inserts them into columnNames */
@@ -358,7 +506,7 @@ public class UtilController
             return false;
         
         SQLMethods dbconn = new SQLMethods();
-        InstanceCall instance = new InstanceCall();
+        FileManager instance = new FileManager();
  
         try 
         {
@@ -401,15 +549,15 @@ public class UtilController
                     {
                         case "zcorp":
                             newDir = new File(instance.getZcorpPrinted());
-                            FileUtils.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
+                            FileManager.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
                             break;
                         case "solidscape":
                             newDir = new File(instance.getSolidscapePrinted());
-                            FileUtils.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
+                            FileManager.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
                             break;
                         case "objet":
                             newDir = new File(instance.getObjetPrinted());
-                            FileUtils.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
+                            FileManager.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
                             break;
                     }
    

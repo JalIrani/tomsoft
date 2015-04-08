@@ -262,6 +262,124 @@ public class SQLMethods
         }
     }
 
+    public ResultSet getReport(int reportID) 
+    {
+        res = null;
+        try 
+        {
+            switch (reportID){
+                case 0:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+                case 1:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n" +
+                        "buildMaterials from objet "+
+                        " order by "+
+                        " daterun;"
+                    );
+                    break;
+                case 2:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, noModels, runtime from solidscape " +
+                        " order by daterun;"
+                    );
+                    break;
+                case 3:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+            }
+            
+            
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
+    public ResultSet getReport(String column, String value, int reportID) 
+    {
+        res = null;
+        try 
+        {
+            switch (reportID){
+                case 0:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+                case 1:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n"
+                        + "buildMaterials from objet "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + " order by "
+                        + " daterun;"
+                    );
+                    break;
+                case 2:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, noModels, runtime from solidscape "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + " order by daterun;"
+                        
+                    );
+                    break;
+                case 3:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+            }
+            
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
     public ResultSet searchPending() 
     {
         res = null;

@@ -14,14 +14,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Saurabh
- */
 public class ZCorpDialog extends javax.swing.JFrame {
-
-    InstanceCall instance;
-
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";
@@ -70,7 +63,6 @@ public class ZCorpDialog extends javax.swing.JFrame {
 
     public void ZCorpDialogStart() 
     {
-        instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();

@@ -14,15 +14,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuild extends javax.swing.JFrame 
 {
-    
-
-    private static DefaultTableModel fileTableModel;
-    private static int countNumOfModels;
     private static String printerSelectedForBuildProcess;
-    public static TomSoftMain home;
-    private InstanceCall inst;
-    
-    
+    public static TomSoftMain home;    
+    public static DefaultTableModel fileTableModel;
+    public static int countNumOfModels;
+    public static String BuildPrinter;
+    FileManager inst;
+        
     private void clearEntries(DefaultTableModel fileTableModel) 
     {
         while (fileTableModel.getRowCount() > 0)
@@ -73,7 +71,7 @@ public class PrinterBuild extends javax.swing.JFrame
     public void startMakeBuildProcess(String printerSelectedToMakeBuildFor) 
     {
         home = new TomSoftMain();
-        inst = new InstanceCall();
+        inst = new FileManager();
         
         initComponents();
         PrinterBuildHeader.setText(printerSelectedToMakeBuildFor + " Build Creator");

@@ -5,7 +5,6 @@
  */
 package ObjectLabEnterpriseSoftware;
 
-import static ObjectLabEnterpriseSoftware.ObjetDialog.buildName;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -15,14 +14,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Saurabh
- */
 public class SolidscapeDialog extends javax.swing.JFrame {
-
-    InstanceCall instance;
-
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";
@@ -39,7 +31,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     static boolean errFree = true;
     static boolean closing;
     static double ResolutionVar;
-    private boolean errorFound;
 
     /**
      * Creates new form SolidscapeDialog
@@ -67,7 +58,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     
     public void SolidscapeDialogStart() 
     {
-        instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();
@@ -267,6 +257,8 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private boolean validateForm() 
     {
+        boolean errorFound = false;
+        
         try 
         {
             ResolutionVar = Double.parseDouble(ResolutionText.getText());
@@ -304,7 +296,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
                 jLabel19.setVisible(true);
             }
         }
-        
        return true;
     }
     

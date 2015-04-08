@@ -14,13 +14,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Saurabh
- */
 public class ObjetDialog extends javax.swing.JFrame {
-
-    InstanceCall instance;
     static String materialType = "";
     static String fileName = "";
     static String buildName = "";
@@ -70,7 +64,6 @@ public class ObjetDialog extends javax.swing.JFrame {
 
     public void ObjetDialogStart() 
     {
-        instance = new InstanceCall();
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();

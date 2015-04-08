@@ -27,7 +27,7 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private final DefaultTableModel allFileTableModel;
     static Reports reports = null;
-    private static InstanceCall inst = null;
+    private static FileManager inst = null;
 
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
@@ -37,7 +37,7 @@ public class PendingJobsView extends javax.swing.JFrame
     
     public PendingJobsView() 
     {
-        inst = new InstanceCall();
+        inst = new FileManager();
         reports = new Reports();
          /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
