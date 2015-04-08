@@ -119,6 +119,54 @@ public class UtilController
         
     }
     
+    public static void exportReportsForPrinters(ArrayList<String> printers){
+    
+        FileUtils fileManager = new FileUtils();
+        
+        Workbook wb = new HSSFWorkbook();
+        
+        String[] columnHeaders;
+        ArrayList<ArrayList<String>> data;
+        Sheet sheet;
+        
+        for(int x = 0; x < printers.size(); x++){
+        
+            sheet = wb.createSheet(printers.get(x));
+            columnHeaders = getReportColumnHeaders(x);
+            data = updateReportTableData(x);
+            Row row = null;
+            Cell cell = null;
+            
+            for (int i = 0; i < data.size()+1; i++) 
+            {
+                row = sheet.createRow(i);
+                if(i == 0){
+                   for(int j = 0; j < data.get(i).size(); j++){
+                       cell = row.createCell(j);
+                       cell.setCellValue(columnHeaders[j]);
+                   }
+                }
+                else
+                {
+                    for (int j = 0; j < data.get(i-1).size(); j++) 
+                    {
+                        cell = row.createCell(j);
+                        cell.setCellValue((String) data.get(i-1).get(j));
+                    }
+                }
+            }
+        }
+        boolean didSave = fileManager.saveReport("MasterReport", wb);
+
+        if(didSave){
+            JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File");
+        }
+        else{
+            JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
+        }
+    
+    }
+    
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
