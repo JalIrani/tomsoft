@@ -91,29 +91,29 @@ public class Student_Submission extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1_FileLocation = new javax.swing.JLabel();
+        jLabel2_FirstName = new javax.swing.JLabel();
         fileLocation = new javax.swing.JTextField();
         Browse = new javax.swing.JButton();
         lastName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel3_LastName = new javax.swing.JLabel();
+        jLabel4_Email = new javax.swing.JLabel();
         emailInfo = new javax.swing.JTextField();
         projName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel5_ProjName = new javax.swing.JLabel();
+        jLabel6_Class = new javax.swing.JLabel();
+        jLabel7_Printer = new javax.swing.JLabel();
         Student_Submit = new javax.swing.JButton();
         classBox = new javax.swing.JComboBox();
         printerBox = new javax.swing.JComboBox();
-        errorTxt1 = new javax.swing.JLabel();
-        errorTxt2 = new javax.swing.JLabel();
-        errorTxt3 = new javax.swing.JLabel();
-        errorTxt4 = new javax.swing.JLabel();
-        errorTxt6 = new javax.swing.JLabel();
-        errorTxt7 = new javax.swing.JLabel();
+        error_NoFileLocationSelected = new javax.swing.JLabel();
+        error_NoFirstName = new javax.swing.JLabel();
+        error_NoLastName = new javax.swing.JLabel();
+        error_NoEmail = new javax.swing.JLabel();
+        error_NoClassSelected = new javax.swing.JLabel();
+        error_NoPrinterSelected = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel8_StudentSubmission = new javax.swing.JLabel();
         firstName = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -128,14 +128,14 @@ public class Student_Submission extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("File Location:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 95, 20));
+        jLabel1_FileLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1_FileLocation.setText("File Location:");
+        getContentPane().add(jLabel1_FileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 95, 20));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("First Name:");
-        jLabel2.setToolTipText("");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 95, 20));
+        jLabel2_FirstName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2_FirstName.setText("First Name:");
+        jLabel2_FirstName.setToolTipText("");
+        getContentPane().add(jLabel2_FirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 95, 20));
 
         fileLocation.setEditable(false);
         getContentPane().add(fileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 200, 20));
@@ -158,13 +158,13 @@ public class Student_Submission extends javax.swing.JFrame {
         lastName.setName("lastName"); // NOI18N
         getContentPane().add(lastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 200, -1));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Last Name:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 95, 20));
+        jLabel3_LastName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3_LastName.setText("Last Name:");
+        getContentPane().add(jLabel3_LastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 95, 20));
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Email:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 95, 20));
+        jLabel4_Email.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4_Email.setText("Email:");
+        getContentPane().add(jLabel4_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 95, 20));
 
         emailInfo.setName("email"); // NOI18N
         getContentPane().add(emailInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 200, -1));
@@ -173,18 +173,18 @@ public class Student_Submission extends javax.swing.JFrame {
         projName.setName("projName"); // NOI18N
         getContentPane().add(projName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 200, -1));
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("Project Name:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 95, 20));
+        jLabel5_ProjName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5_ProjName.setText("Project Name:");
+        getContentPane().add(jLabel5_ProjName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 95, 20));
 
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Class:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 95, 20));
+        jLabel6_Class.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6_Class.setText("Class:");
+        getContentPane().add(jLabel6_Class, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 95, 20));
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Printer:");
-        jLabel7.setToolTipText("");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 95, 20));
+        jLabel7_Printer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7_Printer.setText("Printer:");
+        jLabel7_Printer.setToolTipText("");
+        getContentPane().add(jLabel7_Printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 95, 20));
 
         Student_Submit.setText("Submit");
         Student_Submit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -213,40 +213,40 @@ public class Student_Submission extends javax.swing.JFrame {
         });
         getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 120, -1));
 
-        errorTxt1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        errorTxt1.setForeground(new java.awt.Color(255, 0, 0));
-        errorTxt1.setText("Error Text");
-        getContentPane().add(errorTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 119, 20));
+        error_NoFileLocationSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoFileLocationSelected.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoFileLocationSelected.setText("Error Text");
+        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 119, 20));
 
-        errorTxt2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        errorTxt2.setForeground(new java.awt.Color(255, 0, 0));
-        errorTxt2.setText("Error Text");
-        getContentPane().add(errorTxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 119, 20));
+        error_NoFirstName.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoFirstName.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoFirstName.setText("Error Text");
+        getContentPane().add(error_NoFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 119, 20));
 
-        errorTxt3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        errorTxt3.setForeground(new java.awt.Color(255, 0, 0));
-        errorTxt3.setText("Error Text");
-        getContentPane().add(errorTxt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 119, 20));
+        error_NoLastName.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoLastName.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoLastName.setText("Error Text");
+        getContentPane().add(error_NoLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 119, 20));
 
-        errorTxt4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        errorTxt4.setForeground(new java.awt.Color(255, 0, 0));
-        errorTxt4.setText("Error Text");
-        getContentPane().add(errorTxt4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 119, 20));
+        error_NoEmail.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoEmail.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoEmail.setText("Error Text");
+        getContentPane().add(error_NoEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 119, 20));
 
-        errorTxt6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        errorTxt6.setForeground(new java.awt.Color(255, 0, 0));
-        errorTxt6.setText("Error Text");
-        getContentPane().add(errorTxt6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 119, 20));
+        error_NoClassSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoClassSelected.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoClassSelected.setText("Error Text");
+        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 119, 20));
 
-        errorTxt7.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        errorTxt7.setForeground(new java.awt.Color(255, 0, 0));
-        errorTxt7.setText("Error Text");
-        getContentPane().add(errorTxt7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 119, 20));
+        error_NoPrinterSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoPrinterSelected.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoPrinterSelected.setText("Error Text");
+        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 119, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 390, 10));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("Student Submission");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jLabel8_StudentSubmission.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8_StudentSubmission.setText("Student Submission");
+        getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         firstName.setName("firstName"); // NOI18N
         getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 200, -1));
@@ -274,67 +274,67 @@ public class Student_Submission extends javax.swing.JFrame {
 
     private void hideErrorFields() {
         //visibility wasn't an option to set from the beginning.
-        errorTxt1.setVisible(false);
-        errorTxt2.setVisible(false);
-        errorTxt3.setVisible(false);
-        errorTxt4.setVisible(false);
-        errorTxt6.setVisible(false);
-        errorTxt7.setVisible(false);
+        error_NoFileLocationSelected.setVisible(false);
+        error_NoFirstName.setVisible(false);
+        error_NoLastName.setVisible(false);
+        error_NoEmail.setVisible(false);
+        error_NoClassSelected.setVisible(false);
+        error_NoPrinterSelected.setVisible(false);
     }
-
+    
     private boolean errCheck() {
         boolean isErr = false;
         hideErrorFields();
-        if (fileLocation.getText().equals("")) {
-            errorTxt1.setVisible(true);
-            errorTxt1.setText("Select a File!");
+        if (fileLocation.getText().isEmpty()) {
+            error_NoFileLocationSelected.setVisible(true);
+            error_NoFileLocationSelected.setText("Select a File!");
             isErr = true;
         }
 
-        if (firstName.getText().equals("")) {
-            errorTxt2.setVisible(true);
-            errorTxt2.setText("Cannot be empty.");
+        if (firstName.getText().isEmpty()) {
+            error_NoFirstName.setVisible(true);
+            error_NoFirstName.setText("Cannot be empty.");
             isErr = true;
         }
 
-        if (lastName.getText().equals("")) {
-            errorTxt3.setVisible(true);
-            errorTxt3.setText("Cannot be empty.");
+        if (lastName.getText().isEmpty()) {
+            error_NoLastName.setVisible(true);
+            error_NoLastName.setText("Cannot be empty.");
             isErr = true;
         }
 
         //Simple Email Validation Using a JAVA MAIL method
-        if (emailInfo.getText().equals("")) {
-            errorTxt4.setVisible(true);
-            errorTxt4.setText("Cannot be empty.");
+        if (emailInfo.getText().isEmpty()) {
+            error_NoEmail.setVisible(true);
+            error_NoEmail.setText("Cannot be empty.");
             isErr = true;
         } else {
             try {
                 new InternetAddress(emailInfo.getText()).validate();
             } catch (AddressException e) {
-                errorTxt4.setVisible(true);
-                errorTxt4.setText("Invalid Email!");
+                error_NoEmail.setVisible(true);
+                error_NoEmail.setText("Invalid Email!");
                 isErr = true;
             }
         }
         //End Email Validation
 
         if (classBox.getSelectedIndex() == -1) {
-            errorTxt6.setVisible(true);
-            errorTxt6.setText("Select Option!");
+            error_NoClassSelected.setVisible(true);
+            error_NoClassSelected.setText("Select Option!");
             isErr = true;
         }
 
         if (printerBox.getSelectedIndex() == -1) {
-            errorTxt7.setVisible(true);
-            errorTxt7.setText("Select Option!");
+            error_NoPrinterSelected.setVisible(true);
+            error_NoPrinterSelected.setText("Select Option!");
             isErr = true;
         }
 
-		 /* This checks for a duplicate file submission by querying the pendingjobs table and then
-            traversing through the ResultSet for a match from the user input and an entry in the DB.
+	/* This checks for a duplicate file submission by querying the pendingjobs table and then
+           traversing through the ResultSet for a match from the user input and an entry in the DB.
         */
-          ResultSet existing = sqlMethods.searchPending();
+        ResultSet existing = sqlMethods.searchPending();
         try {
             while (existing.next()) {
                 String temp = existing.getString("filename");
@@ -345,7 +345,8 @@ public class Student_Submission extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Student_Submission.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        } 
+        
         return isErr;
     }
 
@@ -366,40 +367,18 @@ public class Student_Submission extends javax.swing.JFrame {
                 String[] splittedCourse = classText.split("\\s");
                 printer = (String) printerBox.getSelectedItem();
                 //move file to location
-                String fileLoc = "";
-                try {
-                    System.out.println(fileLocation.getText());
-                    FileUtils.copyFileToDirectory(new File(fileLocation.getText()), new File(inst.getSubmission()));
-                    fileLoc = inst.getSubmission() + new File(fileLocation.getText()).getName();
-
-                    System.out.println(printer);
-                    System.out.println(fName);
-                    System.out.println(lName);
-                    System.out.println(splittedCourse[0]);
-                    System.out.println(splittedCourse[1]);
-                    System.out.println(fileName);
-                    System.out.println(fileLoc);
-                    System.out.println(email);
-
-                    sqlMethods.insertIntoPendingJobs(printer, fName, lName, splittedCourse[0], splittedCourse[1], fileName, fileLoc.replace("\\", "\\\\"), email);
-                    //JOptionPane.showMessageDialog(new java.awt.Frame(), "Succesfully submitted file!");
-                    //dispose();
-                    setVisible(false);
-                    TimeUnit.SECONDS.sleep(2);
-                    fileLocation.setText(null);
-                    projName.setText(null);
-                    firstName.setText(null);
-                    lastName.setText(null);
-                    emailInfo.setText(null);
-                    classBox.setSelectedItem(null);
-                    printerBox.setSelectedItem(null);
-                    setVisible(true);
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Student_Submission.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
+                UtilController.moveFileToSubmitLocation(fileLocation, inst, sqlMethods, printer, fName, lName, splittedCourse[0], splittedCourse[1], fileName, email);
+                JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
+                dispose();
+                setVisible(false);
+                fileLocation.setText(null);
+                projName.setText(null);
+                firstName.setText(null);
+                lastName.setText(null);
+                emailInfo.setText(null);
+                classBox.setSelectedItem(null);
+                printerBox.setSelectedItem(null);
+                setVisible(true);
             }
     }//GEN-LAST:event_Student_SubmitActionPerformed
 
@@ -452,22 +431,22 @@ public class Student_Submission extends javax.swing.JFrame {
     private javax.swing.JComboBox classBox;
     private javax.swing.JMenu editMenu;
     private javax.swing.JTextField emailInfo;
-    private javax.swing.JLabel errorTxt1;
-    private javax.swing.JLabel errorTxt2;
-    private javax.swing.JLabel errorTxt3;
-    private javax.swing.JLabel errorTxt4;
-    private javax.swing.JLabel errorTxt6;
-    private javax.swing.JLabel errorTxt7;
+    private javax.swing.JLabel error_NoFileLocationSelected;
+    private javax.swing.JLabel error_NoFirstName;
+    private javax.swing.JLabel error_NoLastName;
+    private javax.swing.JLabel error_NoEmail;
+    private javax.swing.JLabel error_NoClassSelected;
+    private javax.swing.JLabel error_NoPrinterSelected;
     private javax.swing.JTextField fileLocation;
     private javax.swing.JTextField firstName;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel1_FileLocation;
+    private javax.swing.JLabel jLabel2_FirstName;
+    private javax.swing.JLabel jLabel3_LastName;
+    private javax.swing.JLabel jLabel4_Email;
+    private javax.swing.JLabel jLabel5_ProjName;
+    private javax.swing.JLabel jLabel6_Class;
+    private javax.swing.JLabel jLabel7_Printer;
+    private javax.swing.JLabel jLabel8_StudentSubmission;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

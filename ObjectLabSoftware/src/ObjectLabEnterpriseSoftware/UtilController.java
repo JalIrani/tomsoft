@@ -308,4 +308,35 @@ public class UtilController
         return classesAvailble;
     }
     
+    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, InstanceCall inst, SQLMethods sqlMethods, String printer, String fName, String lName, String Class, String section, String fileName, String email){
+        String fileLoc = "";
+        try {
+            //testing
+            System.out.println(fileLocation.getText());
+            
+            org.apache.commons.io.FileUtils.copyFileToDirectory(new File(fileLocation.getText()), new File(inst.getSubmission()));
+            fileLoc = inst.getSubmission() + new File(fileLocation.getText()).getName();
+            
+            //testing
+            System.out.println(printer);
+            System.out.println(fName);
+            System.out.println(lName);
+            System.out.println(Class);
+            System.out.println(section);
+            System.out.println(fileName);
+            System.out.println(fileLoc);
+            System.out.println(email);
+
+            sqlMethods.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc.replace("\\", "\\\\"), email);
+            
+            java.util.concurrent.TimeUnit.SECONDS.sleep(2);
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Student_Submission.class.getName()).log(Level.SEVERE, null, ex);
+        }
+				
+    }//end moveFileToSubmitLocation
+
+    
 }
