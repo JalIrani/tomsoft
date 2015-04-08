@@ -355,21 +355,37 @@ public class Student_Submission extends javax.swing.JFrame {
         //Once Submit is Pressed
             // checks to see if stl files with same name exists
             if (errCheck() == false) {
+                 //***********Stores Values in Textfeilds //***********
                 String fileName = projName.getText();
-
-                //System.out.println("fileloc" + fileLoc);
                 String fName = firstName.getText();
                 String lName = lastName.getText();
                 String email = emailInfo.getText();
-
-                //break down course string to course and section
+                
+                //***********break down course string to course and section//***********
                 String classText = (String) classBox.getSelectedItem();
                 String[] splittedCourse = classText.split("\\s");
                 printer = (String) printerBox.getSelectedItem();
-                //move file to location
+                
+                  //***********Calls UtilController Method to move file to the Submit location
                 UtilController.moveFileToSubmitLocation(fileLocation, inst, sqlMethods, printer, fName, lName, splittedCourse[0], splittedCourse[1], fileName, email);
-                JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
-                dispose();
+               
+                //***********GUI For CONFIRMATION (Proper place needed)  ****************
+                  JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
+                  dispose();
+                 //***********resets fields//***********
+                Reset_StudentSubmissionFields();
+                
+                
+            }
+            
+    }
+    
+    
+    
+          private void Reset_StudentSubmissionFields(){
+              
+                //*********** resets fields  //***********
+                //dispose();
                 setVisible(false);
                 fileLocation.setText(null);
                 projName.setText(null);
@@ -379,7 +395,8 @@ public class Student_Submission extends javax.swing.JFrame {
                 classBox.setSelectedItem(null);
                 printerBox.setSelectedItem(null);
                 setVisible(true);
-            }
+        
+    
     }//GEN-LAST:event_Student_SubmitActionPerformed
 
 
