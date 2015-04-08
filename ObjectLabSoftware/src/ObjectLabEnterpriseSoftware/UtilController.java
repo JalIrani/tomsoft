@@ -121,7 +121,7 @@ public class UtilController
     
     public static void exportReportsForPrinters(ArrayList<String> printers){
     
-        FileUtils fileManager = new FileUtils();
+        FileManager fileManager = new FileManager();
         
         Workbook wb = new HSSFWorkbook();
         
