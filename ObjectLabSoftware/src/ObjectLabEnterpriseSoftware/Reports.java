@@ -1,7 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -12,10 +11,6 @@ import javax.swing.table.DefaultTableModel;
 public class Reports extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
-    private static SQLMethods sqlMethods;
-    private static ResultSet res;
-    private static String excelFilePath;
-
     FileManager inst;
 
     private int reportID = 0;
@@ -39,12 +34,10 @@ public class Reports extends javax.swing.JFrame {
 
     public void ReportsPage() {
         initComponents();
-        sqlMethods = new SQLMethods();
         model = (DefaultTableModel) reportsTable.getModel();
         for (ArrayList<String> retval1 : UtilController.updateReportTableData(reportID)){ 
             model.addRow(retval1.toArray());
         }
-
         setVisible(true);
     }
 
