@@ -260,6 +260,31 @@ public class SQLMethods {
 		}
 		return res;
 	}
+	//____________________________________________________________________________________
+	public ResultSet selectColumnNames(String printer) {
+        res = null;
+        try {
+            stmt = this.conn.prepareStatement("SELECT * FROM Custom_printer_column_names Where printer_name = ? " );
+            stmt.setString(1, printer);
+            res = stmt.executeQuery();
+            
+        } catch (SQLException e) {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+public ResultSet selectBuildData(int id) {
+        res = null;
+        try {
+            stmt = this.conn.prepareStatement("SELECT * FROM column_build_data Where build_id = ? " );
+            res = stmt.executeQuery();
+            stmt.setInt(1, id);
+        } catch (SQLException e) {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+
 
 	// END OF SELECT METHODS
 	// _____________________________________________________________________________________________________________________
@@ -553,6 +578,21 @@ public class SQLMethods {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void deleteFromBuild(String buildName)
+	{
+		try {
+			stmt=this.conn.prepareStatement("DELETE FROM printer_build WHERE build_name = ?");
+	    	stmt.setString(1, buildName); 
+	    	stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+
+		
+		
 	}
 
 	// END OF DELETE METHODS

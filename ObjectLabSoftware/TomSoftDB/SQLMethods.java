@@ -373,7 +373,7 @@ public class SQLMethods {
 
 	// BEGGINIGNG OF UPDATE METHODS
 	// _____________________________________________________________________________________________________________________
-	public void changeJobStatus(String file_name, String status)
+	public void updateJobStatus(String file_name, String status)
 			throws SQLException {
 		stmt = this.conn.prepareStatement("UPDATE job SET status = ? WHERE file_name = ?");
 		stmt.setString(1, status);
@@ -476,6 +476,93 @@ public class SQLMethods {
 			e.printStackTrace();
 		}
 	}
+	 public void updateColumnFieldName(String updatedName, int id) {
+	        res = null;
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE Custom_printer_column_names SET column_field_name = ? WHERE column_names_id = ? ;");
+	            stmt.setString(1, updatedName);
+		stmt.setInt(2, id); 
+	            stmt.executeUpdate();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	 public void updateColumnFieldData(String data , int columnId, String buildName) {
+	        res = null;
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE column_build_data SET column_field_data =? Where column_name_id = ? AND build_name = ? ;");
+	            stmt.setString(1, data);
+		stmt.setInt(2, columnId);
+		stmt.setString(3, buildName);
+	stmt.executeUpdate();
+	                   } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    public void updatePrinterFileExtension(String printer_name, String file_extension) {
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE printer SET file_extension = ? WHERE printer_name = ?");
+	           stmt.setString(1, file_extension);
+	           stmt.setString(2, printer_name);
+	            stmt.executeUpdate();
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	    }
+
+	    public void updatePrinterCurrent(String printer_name, String current) {
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE printer SET current  = ? WHERE printer_name = ?");
+	            stmt.setString(1, current);
+	            stmt.setString(2,printer_name);
+	            System.out.println(stmt);
+	            stmt.executeUpdate();
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	    }
+	    public void updatePrinterBuildDateCreated(String buildName ,String date_created) {
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE printer_build SET date_created = NOW() WHERE build_name = ?");
+	           stmt.setString(1, buildName);
+	            System.out.println(stmt);
+	            stmt.executeUpdate();
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	    }
+
+
+
+	    public void updatePrinterBuildTotalRuntimeSeconds(String buildName, int total_runtime_seconds) {
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE printer_build SET total_runtime_seconds = ? WHERE build_name = ?");
+	            System.out.println(stmt);
+	            stmt.setInt(1, total_runtime_seconds);
+	            stmt.setString(2, buildName);
+	            stmt.executeUpdate();
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	    }
+	 
+	   public void updatePrinterBuildNumberOfModels(String buildName, int number_of_models) {
+	        try {
+	            stmt = this.conn.prepareStatement("UPDATE printer_build SET number_of_models =? WHERE build_name = ?");
+	            System.out.println(stmt);
+	            stmt.setInt(1,number_of_models);
+	            stmt.setString(2, buildName);
+	            stmt.executeUpdate();
+
+	        } catch (SQLException ex) {
+	            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+	    }
+
 
 	// END OF UPDATE METHODS
 	// _____________________________________________________________________________________________________________________
@@ -488,6 +575,25 @@ public class SQLMethods {
                     stmt = this.conn.prepareStatement("DELETE FROM job WHERE submission_id = ?");
                     stmt.setInt(1, id);
                     stmt.executeUpdate();
+                } catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void deleteColumnName(int primaryKey){
+		try{
+			stmt=conn.prepareStatement("delete from Custom_printer_column_names where column_names_id= ? ");
+            stmt.setInt(1, primaryKey); 
+            stmt.executeUpdate();
+                } catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void deleteColumnData(String buildName, int columnId){
+		try{
+			stmt=conn.prepareStatement("delete from column_build_data where build_name= ? AND column_name_id = ?");
+            stmt.setString(1, buildName); 
+	        stmt.setInt(2, columnId); 
+            stmt.executeUpdate();
                 } catch (Exception e) {
 			e.printStackTrace();
 		}
