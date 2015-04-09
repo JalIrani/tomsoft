@@ -41,7 +41,8 @@ public class UtilController
     }
     
     public static String[] getReportColumnHeaders(int reportID){
-        try {
+        try 
+		{
             SQLMethods dbconn = new SQLMethods();
             ResultSet queryResult = dbconn.getReport(reportID);
             /* Must process results found in ResultSet before the connection is closed! */
@@ -55,7 +56,9 @@ public class UtilController
             
             dbconn.closeDBConnection();
             return headers;
-        } catch (SQLException ex) {
+        } 
+		catch (SQLException ex) 
+		{
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -177,6 +180,9 @@ public class UtilController
     
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
+		/*
+		Establish connection to DB
+		*/
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
         FileManager cloudStorageOperations = new FileManager();
@@ -399,9 +405,7 @@ public class UtilController
           Fetch available printers
         */
         
-        //Initialize the return value of String [] 
         SQLMethods dbconn = new SQLMethods();
-
         ResultSet printersAvailableResult = dbconn.getAvailablePrinters();
         ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
@@ -417,6 +421,114 @@ public class UtilController
         return printersAvailble;
     }
     
+    public static String[] returnAvailableClasses()
+    {    
+        /*
+          Fetch available classes
+        */
+        
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet classesAvailableResult = dbconn.getCurrentClasses();
+        ArrayList<ArrayList<Object>> classesAvailableAL = readyOutputForViewPage(classesAvailableResult);
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        /*
+        Convert results to desired format
+        */
+        String[] classesAvailble = new String[classesAvailableAL.size()];
+        for(int row = 0; row < classesAvailableAL.size(); row++)
+        {
+            String tempRow = "";
+            ArrayList<Object> tmplist;
+            
+            tmplist = (ArrayList<Object>) classesAvailableAL.get(row);      
+            
+            for(int column = 0; column < tmplist.size(); column++)
+                tempRow += tmplist.get(column) + " ";
+                
+            classesAvailble[row] = tempRow;
+        }
+        
+        return classesAvailble;
+    }
+    
+    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, FileManager inst, String printer, String fName, String lName, String Class, String section, String fileName, String email)
+	{
+		/*
+		Establish connection to DB
+		*/
+		SQLMethods dbconn = new SQLMethods();
+		
+		String fileLoc = "";
+        try 
+        {
+			
+           //********* Create New File Location With Appended Filename ******** 
+            fileLoc = inst.getSubmission() + fileName;
+			fileLoc = fileLoc.replace("\\", "\\\\");
+			System.out.println("Get file location:" + fileLoc);
+			
+			
+            //********* Copies the Student Submition to the Directory ********
+			File oldFile = new File(fileLocation.getText());
+			System.out.println("old:" + oldFile.getName());
+			
+			File newFile = new File(fileLoc);
+			System.out.println("new:" + newFile.getName());
+
+            org.apache.commons.io.FileUtils.copyFile(oldFile, newFile);
+
+            //********* inserts Student Submission in Data Base *********
+            dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc, email);
+            
+            java.util.concurrent.TimeUnit.SECONDS.sleep(2);
+        }
+        
+        catch (IOException e) 
+        {
+            javax.swing.JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
+        } 
+        
+        catch (InterruptedException ex)
+        {
+            Logger.getLogger(StudentSubmission.class.getName()).log(Level.SEVERE, null, ex);
+        }
+				
+    }//end moveFileToSubmitLocation
+
+	public static String getCurrentTimeFromDB()
+	{
+		/*
+		Establish connection to DB
+		*/
+		SQLMethods dbconn = new SQLMethods();
+		
+		/*
+		Parse result as single string
+		*/
+		String currTime = null;
+		ResultSet res = dbconn.getCurrentTime();
+		String arr = null;
+		try
+		{
+			int count=1;
+			while (res.next()) 
+			{
+				currTime = res.getString(count);
+				count++;
+			}
+		}
+		catch (SQLException sqlError)
+		{
+			sqlError.printStackTrace();
+		}
+		/*
+		Append a "_" so that project names can be differentiated from timestamp
+		*/
+		currTime = "_" + currTime; 
+		return (String)currTime.trim();
+	}
      /**
      * Updates view for making a build.
      * This will show files/jobs (student submissions) that need to be put into a build
@@ -620,5 +732,4 @@ public class UtilController
         
         dbconn.closeDBConnection();
     }
-    
 }
