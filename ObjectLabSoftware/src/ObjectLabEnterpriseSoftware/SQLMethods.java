@@ -839,7 +839,11 @@ public class SQLMethods
                     + "status, "
                     + "email) "
                     + "VALUES"
-                    + "(DATE_FORMAT(NOW(), '%Y-%m-%d_" + lastName + "_" + firstName + "_" + fileName + "'), '"
+					/*
+					File name now includes timestamp, so it now can function as a Primary Key
+					*/
+                    + "('" 
+					+ lastName + "_" + firstName + "_" + fileName + "', '"
                     + printer + "', '"
                     + firstName + "', '"
                     + lastName + "', '"

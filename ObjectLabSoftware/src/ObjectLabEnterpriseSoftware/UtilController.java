@@ -458,14 +458,24 @@ public class UtilController
 		String fileLoc = "";
         try 
         {
+			
+           //********* Create New File Location With Appended Filename ******** 
+            fileLoc = inst.getSubmission() + fileName;
+			fileLoc = fileLoc.replace("\\", "\\\\");
+			System.out.println("Get file location:" + fileLoc);
+			
+			
             //********* Copies the Student Submition to the Directory ********
-            org.apache.commons.io.FileUtils.copyFileToDirectory(new File(fileLocation.getText()), new File(inst.getSubmission()));
+			File oldFile = new File(fileLocation.getText());
+			System.out.println("old:" + oldFile.getName());
+			
+			File newFile = new File(fileLoc);
+			System.out.println("new:" + newFile.getName());
 
-           //********* Stores File Location ******** 
-            fileLoc = inst.getSubmission() + new File(fileLocation.getText()).getName();
+            org.apache.commons.io.FileUtils.copyFile(oldFile, newFile);
 
             //********* inserts Student Submission in Data Base *********
-            dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc.replace("\\", "\\\\"), email);
+            dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc, email);
             
             java.util.concurrent.TimeUnit.SECONDS.sleep(2);
         }
