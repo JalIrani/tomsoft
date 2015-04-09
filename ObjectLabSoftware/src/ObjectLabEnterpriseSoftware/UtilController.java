@@ -41,7 +41,8 @@ public class UtilController
     }
     
     public static String[] getReportColumnHeaders(int reportID){
-        try {
+        try 
+		{
             SQLMethods dbconn = new SQLMethods();
             ResultSet queryResult = dbconn.getReport(reportID);
             /* Must process results found in ResultSet before the connection is closed! */
@@ -55,7 +56,9 @@ public class UtilController
             
             dbconn.closeDBConnection();
             return headers;
-        } catch (SQLException ex) {
+        } 
+		catch (SQLException ex) 
+		{
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -457,7 +460,6 @@ public class UtilController
         {
             //********* Copies the Student Submition to the Directory ********
             org.apache.commons.io.FileUtils.copyFileToDirectory(new File(fileLocation.getText()), new File(inst.getSubmission()));
-            System.out.println(fileLocation.getText() + "This is a test to get old filename");
 
            //********* Stores File Location ******** 
             fileLoc = inst.getSubmission() + new File(fileLocation.getText()).getName();
@@ -502,12 +504,14 @@ public class UtilController
 				count++;
 			}
 		}
-		catch (SQLException sqlerror)
+		catch (SQLException sqlError)
 		{
-			sqlerror.printStackTrace();
+			sqlError.printStackTrace();
 		}
-		
-		System.out.println(currTime);
+		/*
+		Append a "_" so that project names can be differentiated from timestamp
+		*/
+		currTime = "_" + currTime; 
 		return (String)currTime.trim();
 	}
      /**

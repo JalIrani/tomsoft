@@ -1,5 +1,4 @@
 package ObjectLabEnterpriseSoftware;
-//UtilController.getCurrentTimeFromDB();
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -26,7 +25,8 @@ public class StudentSubmission extends javax.swing.JFrame {
     String printer;
     TomSoftMain home;
 
-    public void studentSubmissionStart() {
+    public void studentSubmissionStart() 
+	{
         inst = new FileManager();
         initComponents();
         hideErrorFields();
@@ -34,22 +34,28 @@ public class StudentSubmission extends javax.swing.JFrame {
         sqlMethods = new SQLMethods();
         home = new TomSoftMain();
         
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try 
+		{
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+			{
+                if ("Windows".equals(info.getName())) 
+				{
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+		{
             java.util.logging.Logger.getLogger(StudentSubmission.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() 
+		{
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e) 
+			{
                 // close sockets, etc
                 home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
@@ -392,20 +398,26 @@ public class StudentSubmission extends javax.swing.JFrame {
         fileopen.setFileFilter(filter);
         int ret = fileopen.showDialog(null, "Open file");
 
-        if (ret == JFileChooser.APPROVE_OPTION) {
+        if (ret == JFileChooser.APPROVE_OPTION) 
+		{
             File file = fileopen.getSelectedFile();
             //Inputs the file location into the textbox "fileName"
             fileLocation.setText(file.toString().replaceAll("'", ""));
-            projName.setText(file.getName().replaceAll("'", ""));
+			String projectFileName = file.getName().replaceAll("'", "");
+			String finalProjectFileName = projectFileName.replaceAll("(\\.\\S+?$)", UtilController.getCurrentTimeFromDB() + "$1");
+            projName.setText(finalProjectFileName);
         }
     }//GEN-LAST:event_BrowseMouseClicked
 
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        try {
+        try 
+		{
             Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFStudent());
-        } catch (IOException e) {
+        } 
+		catch (IOException e) 
+		{
             JOptionPane.showMessageDialog(null, e);  //print the error
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
