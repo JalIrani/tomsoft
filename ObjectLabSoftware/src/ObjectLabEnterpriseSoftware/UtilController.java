@@ -332,7 +332,7 @@ public class UtilController
         
         catch (InterruptedException ex)
         {
-            Logger.getLogger(Student_Submission.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentSubmission.class.getName()).log(Level.SEVERE, null, ex);
         }
 				
     }//end moveFileToSubmitLocation

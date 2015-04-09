@@ -15,7 +15,7 @@ public class TomSoftMain extends javax.swing.JFrame {
     ZCorpMain zcorpSys;
     SolidscapeMain solidscapeSys;
     PendingJobsView pendingSys;
-    Student_Submission studentSys;
+    StudentSubmission studentSys;
     boolean show;
     String PASS = "ForwardMotion";
 
@@ -28,7 +28,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         zcorpSys = new ZCorpMain();
         solidscapeSys = new SolidscapeMain();
         pendingSys = new PendingJobsView();
-        studentSys = new Student_Submission();
+        studentSys = new StudentSubmission();
     }
 
     /**

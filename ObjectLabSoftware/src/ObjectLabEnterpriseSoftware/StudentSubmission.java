@@ -24,7 +24,7 @@ import org.apache.commons.io.FileUtils;
  * @author Matt
  * @programmer Morgan
  */
-public class Student_Submission extends javax.swing.JFrame {
+public class StudentSubmission extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
@@ -67,7 +67,7 @@ public class Student_Submission extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Student_Submission.class
+            java.util.logging.Logger.getLogger(StudentSubmission.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -344,7 +344,7 @@ public class Student_Submission extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Student_Submission.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentSubmission.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
         return isErr;
@@ -448,11 +448,11 @@ public class Student_Submission extends javax.swing.JFrame {
     private javax.swing.JComboBox classBox;
     private javax.swing.JMenu editMenu;
     private javax.swing.JTextField emailInfo;
+    private javax.swing.JLabel error_NoClassSelected;
+    private javax.swing.JLabel error_NoEmail;
     private javax.swing.JLabel error_NoFileLocationSelected;
     private javax.swing.JLabel error_NoFirstName;
     private javax.swing.JLabel error_NoLastName;
-    private javax.swing.JLabel error_NoEmail;
-    private javax.swing.JLabel error_NoClassSelected;
     private javax.swing.JLabel error_NoPrinterSelected;
     private javax.swing.JTextField fileLocation;
     private javax.swing.JTextField firstName;
