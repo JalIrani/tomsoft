@@ -8,27 +8,13 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
+import javax.swing.JPanel;
 
-/**
- *
- * @author Saurabh
- */
 public class SolidscapeDialog extends javax.swing.JFrame {
-
-    InstanceCall instance;
-
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";
@@ -44,29 +30,34 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     static double buildCost = 0;
     static boolean errFree = true;
     static boolean closing;
-    private double ResolutionVar;
-    private boolean errorFound;
+    static double ResolutionVar;
 
     /**
      * Creates new form SolidscapeDialog
      */
-    public SolidscapeDialog(java.awt.Frame parent, boolean modal, String build, int count) {
+    public SolidscapeDialog(java.awt.Frame parent, boolean modal, String build, int count) 
+    {
         initComponents();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(SolidscapeDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         setUp(build, count);
     }
     
-    public void SolidscapeDialogStart() {
-        instance = new InstanceCall();
+    public void SolidscapeDialogStart() 
+    {
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();
@@ -77,36 +68,20 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent we) {
-                String ObjButtons[] = {"Yes", "No"};
-                int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) {
-                    gatherScrapThenExit();
-                    PrinterBuild.selectAllFiles("Solidscape");
-                    dispose();
-                }  else {
-                    ResultSet r = SolidscapeMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while(r.next()){
-                            SolidscapeMain.dba.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SolidscapeDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ResultSet s = SolidscapeMain.dba.searchSolidscapeByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while(s.next()){
-                            SolidscapeMain.dba.deleteByBuildName(s.getString("buildName"), "solidscape");
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(SolidscapeDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+
+                    UtilController.revertBuild(new File(BPath.getText()).getName(), "solidscape");
+                    returnHome();
                     dispose();
                 }
             }
-        });
+        );
     }
 
     /**
@@ -148,8 +123,6 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(370, 363));
@@ -157,6 +130,11 @@ public class SolidscapeDialog extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BPath.setEditable(false);
+        BPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BPathActionPerformed(evt);
+            }
+        });
         getContentPane().add(BPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 61, 220, -1));
 
         dateRunTxt.setEditable(false);
@@ -273,56 +251,65 @@ public class SolidscapeDialog extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Help");
-
-        jMenuItem3.setText("Contents");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private boolean validateForm() {
-                try {
+    private boolean validateForm() 
+    {
+        boolean errorFound = false;
+        
+        try 
+        {
             ResolutionVar = Double.parseDouble(ResolutionText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errorFound = true;
-            if (ResolutionText.getText().equals("")) {
+            if (ResolutionText.getText().equals("")) 
+            {
                 ResolutionError.setText("*Empty Field");
                 ResolutionError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 ResolutionError.setText("*Numbers only please");
                 ResolutionError.setVisible(true);
             }
         }
-        try {
+        
+        try 
+        {
             modelAmount = Integer.parseInt(numOfModels.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errorFound = true;
-            if (numOfModels.getText().equals("")) {
+            if (numOfModels.getText().equals("")) 
+            {
                 jLabel19.setText("*Empty Field");
                 jLabel19.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 jLabel19.setText("*Numbers only please");
                 jLabel19.setVisible(true);
             }
         }
        return true;
     }
-
-     private void populateFromDB(ResultSet r) throws SQLException {
-        ResolutionText.setText(r.getString("resolution"));
-        comment.setText("comment");
+    
+    public static void returnHome() 
+    {
+        PrinterBuild.home.studentSubmissionButton.setVisible(false);
+        PrinterBuild.home.setPrintersVisible(false);
+        PrinterBuild.home.setVisible(true);
     }
+
+     
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (validateForm()) {
+        if (validateForm()) 
+        {
             String buildPath = BPath.getText();
             buildName = new File(buildPath).getName();
             buildPath = buildPath.replace("\\", "\\\\");
@@ -330,127 +317,43 @@ public class SolidscapeDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
-        //hideErrorFields();            
-
-            //now dealing with buildCost
-           try {
-            Integer d = Integer.parseInt(days.getSelectedItem().toString());
-            Integer h = Integer.parseInt(hours.getSelectedItem().toString());
-            Integer m = Integer.parseInt(minutes.getSelectedItem().toString());
-            buildTime = d + ":" + h + ":" + m;
-            buildCost = Calculations.SolidscapeCost(d, h, m);
-        } catch (Exception e) {
-            errFree = true;
-            e.printStackTrace();
-        }
-            //Checks if there were errors
-            if (errFree) {
-                try {
-                    //This is where we would add the call to the method that udpates things in completed Jobs
-                    //Updates project cost in pending
-                    SolidscapeMain.calc.BuildtoProjectCost(buildName, "Solidscape", buildCost);
-
-                    ResultSet res2 = SolidscapeMain.dba.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try {
-                        while (res2.next()) {
-                            list.add(res2.getString("buildName"));
-                        }
-                    } catch (SQLException ex) {
-                    }
-                    
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    while (itr.hasNext()) {
-                        ResultSet res3 = SolidscapeMain.dba.searchPendingByBuildName(itr.next().toString());
-                        if (res3.next()) {
-                            System.out.println("Now doing this shiz");
-                            String ID = res3.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res3.getString("printer");
-                            String firstName = res3.getString("firstName");
-                            String lastName = res3.getString("lastName");
-                            String course = res3.getString("course");
-                            String section = res3.getString("section");
-                            String fileName = res3.getString("fileName");
-                            System.out.println(fileName);
-
-                            File newDir = new File(SolidscapeMain.getInstance().getSolidscapePrinted());
-                            FileUtils.moveFileToDirectory(new File(SolidscapeMain.getInstance().getSolidscapeToPrint() + fileName), newDir, true);
-
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res3.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res3.getString("Email");
-                            String Comment = res3.getString("comment");
-                            String nameOfBuild = res3.getString("buildName");
-                            double volume = Double.parseDouble(res3.getString("volume"));
-                            double cost = Double.parseDouble(res3.getString("cost"));
-
-                            SolidscapeMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, cost);
-                            SolidscapeMain.dba.delete("pendingjobs", ID);
-                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
-
-                    // if there is no matching record
-                    SolidscapeMain.dba.insertIntoSolidscape(buildName, modelAmount, ResolutionVar, buildTime, comments, buildCost);
-                } catch (IOException ex) {
-                    Logger.getLogger(SolidscapeDialog.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(SolidscapeDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                dispose();
-            } else {
+            
+            if(!UtilController.submitBuildInfoToDB(buildName,"solidscape"))
+              JOptionPane.showMessageDialog(new JPanel(), "Build was not created.", "Warning", JOptionPane.WARNING_MESSAGE);  
+            
+            returnHome();
+            dispose();
+        } 
+        else 
+        {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-            }
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         ResolutionError.setVisible(false);
         runTimeError.setVisible(false);
         dayStar.setVisible(false);
         hourStar.setVisible(false);
         minStar.setVisible(false);
     }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         Reports rpr = new Reports();
         rpr.ReportsPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void BPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPathActionPerformed
         // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + SolidscapeMain.getInstance().getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-    public static void setUp(String buildName, int countNumOfModels) {
+    }//GEN-LAST:event_BPathActionPerformed
+   
+    public static void setUp(String buildName, int countNumOfModels) 
+    {
         BPath.setText(buildName);
         numOfModels.setText("" + countNumOfModels);
-    }
-
-    /**
-     * Searches if build already exists in database and removes it if not
-     */
-    private void gatherScrapThenExit() {
-        String buildPath = BPath.getText();
-        //buildPath = buildPath.replace("\\", "\\\\");
-        File file = new File(buildPath);
-        String bName = file.getName();//buildName isgood
-
-        int noModels = Integer.parseInt(numOfModels.getText());
-        //add try catches here for all doubles
-        String Comments = comment.getText();
-        System.out.println("inserting stuff into Solidscape");
-        SolidscapeMain.dba.insertIntoSolidscape(bName, noModels, ResolutionVar, buildTime, Comments, buildCost);
-        System.out.println("should be inserted now");
     }
 
 
@@ -476,10 +379,8 @@ public class SolidscapeDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel minStar;

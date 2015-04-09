@@ -23,17 +23,15 @@ public class LaserCutterMain extends javax.swing.JFrame {
     public static ObjetPref Settings;
     static SQLMethods dba;
     DefaultListModel currentFileListModel = new DefaultListModel();
-    private static InstanceCall instance;
+    private static FileManager instance;
     public static Reports reports;
-    PrinterOpenBuilds OBuild;
     TomSoftMain home;
     public void LaserCutterMainStart() {
         calc = new Calculations();
         home = new TomSoftMain();
-        OBuild = new PrinterOpenBuilds();
         dba = new SQLMethods();
         reports = new Reports();
-        instance = new InstanceCall();
+        instance = new FileManager();
         initComponents();
 
         try {
@@ -46,7 +44,7 @@ public class LaserCutterMain extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ObjetMain.class
+            java.util.logging.Logger.getLogger(LaserCutterMain.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 

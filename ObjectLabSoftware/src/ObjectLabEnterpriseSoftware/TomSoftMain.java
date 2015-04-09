@@ -11,9 +11,6 @@ import javax.swing.JOptionPane;
 public class TomSoftMain extends javax.swing.JFrame {
 
     LaserCutterMain LaserMain;
-    ObjetMain objetSys;
-    ZCorpMain zcorpSys;
-    SolidscapeMain solidscapeSys;
     PendingJobsView pendingSys;
     StudentSubmission studentSys;
     boolean show;
@@ -24,9 +21,6 @@ public class TomSoftMain extends javax.swing.JFrame {
         this.setResizable(false);
         setPrintersVisible(false);
         studentSubmissionButton.setVisible(false);
-        objetSys = new ObjetMain();
-        zcorpSys = new ZCorpMain();
-        solidscapeSys = new SolidscapeMain();
         pendingSys = new PendingJobsView();
         studentSys = new StudentSubmission();
     }
@@ -168,7 +162,9 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void solidscapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solidscapeButtonActionPerformed
         // TODO add your handling code here:
-        solidscapeSys.SolidscapeMainStart();
+        UtilController.retrievePrinterSettings("solidscape");
+        PrinterBuild Build = new PrinterBuild();
+        Build.startMakeBuildProcess("solidscape");
         dispose();
     }//GEN-LAST:event_solidscapeButtonActionPerformed
 
@@ -192,7 +188,9 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void zcorpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zcorpButtonActionPerformed
         // TODO add your handling code here:
-        zcorpSys.ZCorpMainStart();
+        UtilController.retrievePrinterSettings("zcorp");
+        PrinterBuild Build = new PrinterBuild();
+        Build.startMakeBuildProcess("zcorp");
         dispose();
     }//GEN-LAST:event_zcorpButtonActionPerformed
 
@@ -215,7 +213,9 @@ public class TomSoftMain extends javax.swing.JFrame {
 
     private void objetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetButtonActionPerformed
         // TODO add your handling code here:
-        objetSys.ObjetMainStart();
+        UtilController.retrievePrinterSettings("objet");
+        PrinterBuild Build = new PrinterBuild();
+        Build.startMakeBuildProcess("objet");
         dispose();
     }//GEN-LAST:event_objetButtonActionPerformed
 

@@ -8,26 +8,13 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
+import javax.swing.JPanel;
 
-/**
- *
- * @author Saurabh
- */
 public class ObjetDialog extends javax.swing.JFrame {
-
-    InstanceCall instance;
     static String materialType = "";
     static String fileName = "";
     static String buildName = "";
@@ -47,28 +34,36 @@ public class ObjetDialog extends javax.swing.JFrame {
     /**
      * Creates new form ObjetDialog
      */
-    public ObjetDialog(java.awt.Frame parent, boolean modal, String build, int count) {
+    public ObjetDialog(java.awt.Frame parent, boolean modal, String build, int count) 
+    {
         initComponents();
         BuildConError.setVisible(false);
         SupportConError.setVisible(false);
         volumeError.setVisible(false);
         ResolutionError.setVisible(false);
         materialError.setVisible(false);
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(ObjetDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
         setUp(build, count);
     }
 
-    public void ObjetDialogStart() {
-        instance = new InstanceCall();
+    public void ObjetDialogStart() 
+    {
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();
@@ -79,36 +74,19 @@ public class ObjetDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent we) {
-                String ObjButtons[] = {"Yes", "No"};
-                int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) {
-                    gatherScrapThenExit();
-                    PrinterBuild.selectAllFiles("Objet");
-                    dispose();
-                } else {
-                    ResultSet r = ObjetMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while (r.next()) {
-                            ObjetMain.dba.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ResultSet s = ObjetMain.dba.searchObjetByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while (s.next()) {
-                            ObjetMain.dba.deleteByBuildName(s.getString("buildName"), "objet");
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    UtilController.revertBuild(new File(BPath.getText()).getName(), "objet");
+                    returnHome();
                     dispose();
                 }
             }
-        });
+        );
     }
 
     /**
@@ -162,8 +140,6 @@ public class ObjetDialog extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Objet Data Entry");
@@ -291,6 +267,12 @@ public class ObjetDialog extends javax.swing.JFrame {
         SupportConError.setForeground(new java.awt.Color(255, 0, 0));
         SupportConError.setText("Error Text");
         getContentPane().add(SupportConError, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, 20));
+
+        BuildConsumedText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuildConsumedTextActionPerformed(evt);
+            }
+        });
         getContentPane().add(BuildConsumedText, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 72, -1));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -338,103 +320,131 @@ public class ObjetDialog extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Help");
-
-        jMenuItem3.setText("Contents");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   private boolean validateForm() {
-        try {
+   
+    private boolean validateForm() 
+    {
+        try 
+        {
             BuildConsumed = Double.parseDouble(BuildConsumedText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (BuildConsumedText.getText().equals("")) {
+            if (BuildConsumedText.getText().equals("")) 
+            {
                 BuildConError.setText("*Empty Field");
                 BuildConError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 BuildConError.setText("*Numbers only please");
                 BuildConError.setVisible(true);
             }
         }
         
-         try {
+        try 
+        {
             materialType = material.getSelectedItem().toString();
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
             materialError.setText("Select a material");
         }
 
-        try {
+        try 
+        {
             Resolution = Double.parseDouble(ResolutionText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (ResolutionText.getText().equals("")) {
+            if (ResolutionText.getText().equals("")) 
+            {
                 ResolutionError.setText("*Empty Field");
                 ResolutionError.setVisible(true);
-            } else {
+            } else 
+            {
                 ResolutionError.setText("*Numbers only please");
                 ResolutionError.setVisible(true);
             }
         }
 
-        try {
+        try 
+        {
             SupportConsumed = Double.parseDouble(SuppConsumedText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (SuppConsumedText.getText().equals("")) {
+            if (SuppConsumedText.getText().equals("")) 
+            {
                 SupportConError.setText("*Empty Field");
                 SupportConError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 SupportConError.setText("*Numbers only please");
                 SupportConError.setVisible(true);
             }
         }
 
-        try {
+        try 
+        {
             Volume = Double.parseDouble(VolumeText.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (VolumeText.getText().equals("")) {
+            if (VolumeText.getText().equals("")) 
+            {
                 volumeError.setText("*Empty Field");
                 volumeError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 volumeError.setText("*Numbers only please");
                 volumeError.setVisible(true);
             }
         }
 
-        try {
+        try 
+        {
             modelAmount = Integer.parseInt(numOfModels.getText());
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) 
+        {
             errFree = false;
-            if (numOfModels.getText().equals("")) {
+            
+            if (numOfModels.getText().equals("")) 
+            {
                 jLabel19.setText("*Empty Field");
                 jLabel19.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 jLabel19.setText("*Numbers only please");
                 jLabel19.setVisible(true);
             }
         }
         return true;
     }
-
-    private void populateFromDB(ResultSet r) throws SQLException {
-        ResolutionText.setText(r.getString("resolution"));
-        comment.setText("comment");
+   
+   public static void returnHome() 
+   {
+        
+        PrinterBuild.home.studentSubmissionButton.setVisible(false);
+        PrinterBuild.home.setPrintersVisible(false);
+        PrinterBuild.home.setVisible(true);
     }
+   
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (validateForm()) {
+        if (validateForm()) 
+        {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
             Integer hr = Integer.parseInt(hours.getSelectedItem().toString());
             Integer min = Integer.parseInt(minutes.getSelectedItem().toString());
@@ -447,126 +457,45 @@ public class ObjetDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             String comments = comment.getText();
-            //hideErrorFields();            
-            //now dealing with buildCost
-            try {
-                buildCost = (double) Calculations.ObjetCost(BuildConsumed, material.getSelectedItem().toString());
-            } catch (Exception e) {
-                errFree = true;
-                e.printStackTrace();
-            }
-            //Checks if there were errors
-            if (errFree) {
-                try {
-                    //This is where we would add the call to the method that udpates things in completed Jobs
-                    //Updates project cost in pending
-                    ObjetMain.calc.BuildtoProjectCost(buildName, "Objet", buildCost);
-
-                    ResultSet res2 = ObjetMain.dba.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try {
-                        while (res2.next()) {
-                            list.add(res2.getString("buildName"));
-                        }
-                    } catch (SQLException ex) {
-                    }
-
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    while (itr.hasNext()) {
-                        ResultSet res3 = ObjetMain.dba.searchPendingByBuildName(itr.next().toString());
-                        if (res3.next()) {
-                            System.out.println("Now doing this shiz");
-                            String ID = res3.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res3.getString("printer");
-                            String firstName = res3.getString("firstName");
-                            String lastName = res3.getString("lastName");
-                            String course = res3.getString("course");
-                            String section = res3.getString("section");
-                            String fileName = res3.getString("fileName");
-                            System.out.println(fileName);
-
-                            File newDir = new File(ObjetMain.getInstance().getObjetPrinted());
-                            FileUtils.moveFileToDirectory(new File(ObjetMain.getInstance().getObjetToPrint() + fileName), newDir, true);
-
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res3.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res3.getString("Email");
-                            String Comment = res3.getString("comment");
-                            String nameOfBuild = res3.getString("buildName");
-                            double volume = Double.parseDouble(res3.getString("volume"));
-                            double cost = Double.parseDouble(res3.getString("cost"));
-
-                            ObjetMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, cost);
-                            ObjetMain.dba.delete("pendingjobs", ID);
-                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
-
-                    // if there is no matching record
-                    ObjetMain.dba.insertIntoObjet(buildName, BuildConsumed, SupportConsumed, modelAmount,  materialType, Resolution, comments, buildCost);
-                } catch (IOException ex) {
-                    Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ObjetDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                dispose();
-            } else {
-                System.out.println("ERRORS");
-                JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-            }
+            
+            if(!UtilController.submitBuildInfoToDB(buildName,"objet"))
+              JOptionPane.showMessageDialog(new JPanel(), "Build was not created.", "Warning", JOptionPane.WARNING_MESSAGE);  
+            
+            returnHome();
+            dispose();
+        } 
+        else 
+        {
+            System.out.println("ERRORS");
+            JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         ResolutionError.setVisible(false);
         runTimeError.setVisible(false);
         dayStar.setVisible(false);
         hourStar.setVisible(false);
         minStar.setVisible(false);
     }
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         Reports rpr = new Reports();
         rpr.ReportsPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + ObjetMain.getInstance().getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void ResolutionTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResolutionTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ResolutionTextActionPerformed
+
+    private void BuildConsumedTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuildConsumedTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BuildConsumedTextActionPerformed
     public static void setUp(String buildName, int countNumOfModels) {
         BPath.setText(buildName);
         numOfModels.setText("" + countNumOfModels);
-    }
-
-    /**
-     * Searches if build already exists in database and removes it if not
-     */
-    private void gatherScrapThenExit() {
-        String buildPath = BPath.getText();
-        //buildPath = buildPath.replace("\\", "\\\\");
-        File file = new File(buildPath);
-        String bName = file.getName();//buildName isgood
-
-        int noModels = Integer.parseInt(numOfModels.getText());
-        //add try catches here for all doubles
-        String Comments = comment.getText();
-        System.out.println("inserting stuff into Objet");
-        ObjetMain.dba.insertIntoObjet(bName, BuildConsumed, SupportConsumed, noModels, materialType, Resolution, Comments, 0);
-        System.out.println("should be inserted now");
     }
 
 
@@ -601,10 +530,8 @@ public class ObjetDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox material;

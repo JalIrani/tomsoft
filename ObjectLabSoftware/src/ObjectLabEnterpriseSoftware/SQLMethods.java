@@ -262,6 +262,124 @@ public class SQLMethods
         }
     }
 
+    public ResultSet getReport(int reportID) 
+    {
+        res = null;
+        try 
+        {
+            switch (reportID){
+                case 0:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+                case 1:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n" +
+                        "buildMaterials from objet "+
+                        " order by "+
+                        " daterun;"
+                    );
+                    break;
+                case 2:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, noModels, runtime from solidscape " +
+                        " order by daterun;"
+                    );
+                    break;
+                case 3:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+            }
+            
+            
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
+    public ResultSet getReport(String column, String value, int reportID) 
+    {
+        res = null;
+        try 
+        {
+            switch (reportID){
+                case 0:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+                case 1:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n"
+                        + "buildMaterials from objet "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + " order by "
+                        + " daterun;"
+                    );
+                    break;
+                case 2:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, noModels, runtime from solidscape "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + " order by daterun;"
+                        
+                    );
+                    break;
+                case 3:
+                    stmt = this.conn.prepareStatement
+                    (
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
+        "cyanBinder, cubicInches, noModels, runTime "
+                        + " from Zcorp "
+                        + " where "
+                        + column + " = '" + value + "' "
+                        + "order by "
+                        + "dateRun;"
+                    );
+                    break;
+            }
+            
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
     public ResultSet searchPending() 
     {
         res = null;
@@ -335,7 +453,7 @@ public class SQLMethods
         }
         return res;
     }
-
+    
     public ResultSet searchCompleted(String query, String column) {
         res = null;
         try {
@@ -352,14 +470,16 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet searchPrintersByBuildName(String buildName) {
+    public ResultSet searchPrintersByBuildName(String buildName, String printer) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM printers "
+                    + "FROM "
+                    + printer + " "
                     + "WHERE "
                     + "buildName = ?");
+            
             stmt.setString(1, buildName);
             System.out.println(stmt);
             res = stmt.executeQuery();
@@ -607,53 +727,31 @@ public class SQLMethods
         System.out.println(stmt);
     }
 
-    public ResultSet searchApprovedZcorp() {
+    /* This querys for jobs that have been approved (status = approved). 
+        With this query we can display the student's submissions that needs to
+        be inserted into a build. The search is based on the name of the printer.
+    */
+    public ResultSet searchApprovedJobsNotPrinted(String printer) 
+    {
         res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
+        
+        try 
+        {
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT fileName, dateStarted "
                     + "FROM pendingjobs "
                     + "WHERE "
-                    + "printer = 'ZCorp' "
-                    + "AND buildName is null "
-                    + "AND status = 'approved'");
+                    + "printer = ? "
+                    + "AND status = 'approved'"
+            );
+            
+            stmt.setString(1, printer);
             System.out.println(stmt);
             res = stmt.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    public ResultSet searchApprovedSolidscape() {
-        res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "printer = 'Solidscape' "
-                    + "AND status = 'approved'");
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    public ResultSet searchApprovedObjet() {
-        res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "printer = 'Objet' "
-                    + "AND status = 'approved'");
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
         return res;
@@ -668,7 +766,8 @@ public class SQLMethods
             System.out.println(stmt);
             stmt.executeUpdate();
 
-        } catch (SQLException ex) {
+        } catch (SQLException ex) 
+		{
             Logger.getLogger(SQLMethods.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
@@ -683,7 +782,9 @@ public class SQLMethods
             System.out.println(stmt);
             stmt.executeUpdate();
 
-        } catch (SQLException ex) {
+        } 
+		catch (SQLException ex) 
+		{
             Logger.getLogger(SQLMethods.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
@@ -700,7 +801,14 @@ public class SQLMethods
         }
        // return res;
     }
-
+    
+    /* PLEASE NOT THIS WILL NOT RUN IN MYSQL WORK BENCH B/C OF SAFETY MODE! 
+        Safe UPDATE mode only allows table modifications if the WHERE clause
+        is a key column -Nick
+    
+        ---------------THIS IS NOT SAFE--------------
+        SET buildName = ? WHERE filename = ?
+    */
     public void updatePendingJobsBuildName(String build, String fileName) {
         try {
             stmt = this.conn.prepareStatement(

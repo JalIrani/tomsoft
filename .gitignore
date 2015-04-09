@@ -1,2 +1,8 @@
 /ObjectLabSoftware/nbproject/private/
 /ObjectLabSoftware/build/
+<<<<<<< HEAD
+/ObjectLabSoftware/dist/
+*.form
+=======
+/ObjectLabSoftware/dist/
+>>>>>>> dev/refactor_reports2

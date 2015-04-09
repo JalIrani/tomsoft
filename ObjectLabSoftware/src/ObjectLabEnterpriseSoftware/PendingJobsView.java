@@ -3,6 +3,7 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,11 +27,17 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private final DefaultTableModel allFileTableModel;
     static Reports reports = null;
-    private static InstanceCall inst = null;
+    private static FileManager inst = null;
 
+    private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
+    {
+        for (ArrayList<Object> row : view) 
+            pendingJobsView.addRow(row.toArray());
+    }
+    
     public PendingJobsView() 
     {
-        inst = new InstanceCall();
+        inst = new FileManager();
         reports = new Reports();
          /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
@@ -40,8 +47,24 @@ public class PendingJobsView extends javax.swing.JFrame
     public void PendingJobsStart() 
     {
         /* Updates table */
-        UtilController.updatePendingTableData(allFileTableModel);
+        updateView(allFileTableModel, UtilController.updatePendingTableData());
         setVisible(true);
+    }
+    
+    /**
+      * Takes the table model, selected row, and the column you are interested in and returns
+      * the row number that the user selected.
+      */
+    public static int getSelectedRowNum(DefaultTableModel dm, int selectedRow, int column)
+    {
+        if (selectedRow < 0)
+            return -1;
+        
+        for (int i = 0; i < dm.getRowCount(); i++)
+            if (dm.getValueAt(i, column).equals(dm.getValueAt(selectedRow, column)))
+                return i;
+        
+        return -1;
     }
 
     /**
@@ -212,12 +235,12 @@ public class PendingJobsView extends javax.swing.JFrame
       * I'm leaving this here for now because I don't want to change or add anything else that could affect other 
       * groups. -Nick
       */
-    private static double getDouble(double min, double max)
+    private static double getDouble(String msg, double min, double max)
     {
         do
         {
             
-            String tmp = JOptionPane.showInputDialog(null, "Enter volume (in cubic inches): ");
+            String tmp = JOptionPane.showInputDialog(null, msg);
             Scanner inputChecker = new Scanner(tmp);
             double volume;
             
@@ -240,8 +263,8 @@ public class PendingJobsView extends javax.swing.JFrame
         
         if (userSelectedRow > -1) 
         {
-            int rowDataLocation = UtilController.getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
-            double volume = getDouble(1, 10000);   
+            int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
+            double volume = getDouble("Enter volume (in cubic inches): ", 1, 10000);   
              
             /* Hand off the data in the selected row found in our tablemodel to this method so we can 
                 approve the correct file to be printed... -Nick 
@@ -288,7 +311,7 @@ public class PendingJobsView extends javax.swing.JFrame
         
         if (userSelectedRow > -1) 
         {
-            int rowDataLocation = UtilController.getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
+            int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
             
             /* Hand off the data in the selected row found in our tablemodel to this method so we can 
                 open the correct file with the information found in the row that was clicked on. -Nick 

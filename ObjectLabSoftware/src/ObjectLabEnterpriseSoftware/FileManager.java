@@ -21,11 +21,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
- * @author Miguel
+ * @author Miguel+Emily
  */
-public class FileUtils {
+public class FileManager {
     
-    private static final InstanceCall cloudStorageOperations = new InstanceCall();
     private final String submission;
     private final String drive;
     private String zcorpToPrint;
@@ -48,13 +47,13 @@ public class FileUtils {
 
 
     //Sets default locations that will be shared by all installations
-    public FileUtils() {
+    public FileManager() {
         //Use the directory provided on piazza and change the file paths below to test
         drive = "C:\\Sync";
         rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
         submission = drive + "\\ObjectLabPrinters\\Submissions\\";
-        PDFAdmin = "\\TomSoft Help Admin.pdf";
-        PDFStudent = "\\TomSoft Help Student.pdf";
+        PDFAdmin = drive + "\\TomSoft Help Admin.pdf";
+        PDFStudent = drive + "\\TomSoft Help Student.pdf";
         zcorpToPrint = drive + "\\ObjectLabPrinters\\Zcorp\\ToPrint\\";
         zcorpPrinted = drive + "\\ObjectLabPrinters\\Zcorp\\Printed\\";
         zcorpToBuild = drive + "\\ObjectLabPrinters\\Zcorp\\Build Files\\";
@@ -75,7 +74,8 @@ public class FileUtils {
             newDir.delete();
         }
         
-        if(newDir.exists()) return true;
+        if(newDir.exists()) 
+            return true;
         
         return false;
     }
@@ -98,7 +98,7 @@ public class FileUtils {
         try {
             org.apache.commons.io.FileUtils.moveFileToDirectory(new File(submission + FileName), new File(rejected), true);
         } catch (IOException ex) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -108,12 +108,12 @@ public class FileUtils {
     
         File newDir = new File(drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
             try {
-                org.apache.commons.io.FileUtils.moveFileToDirectory(new File(cloudStorageOperations.getSubmission() + "\\" + FileName), newDir, true);
+                org.apache.commons.io.FileUtils.moveFileToDirectory(new File(submission + "\\" + FileName), newDir, true);
             } catch (FileExistsException e) {
                 org.apache.commons.io.FileUtils.deleteQuietly(new File(newDir.getAbsoluteFile() + FileName));
-                newDir = new File(cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
+                newDir = new File(drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
                 try {
-                    org.apache.commons.io.FileUtils.moveFileToDirectory(new File(cloudStorageOperations.getSubmission() + "\\" + FileName), newDir, true);
+                    org.apache.commons.io.FileUtils.moveFileToDirectory(new File(submission + "\\" + FileName), newDir, true);
                 } catch (IOException ex) {
                     //Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
@@ -133,10 +133,10 @@ public class FileUtils {
             wb.write(out);
             out.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } catch (IOException ex) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         
@@ -148,11 +148,29 @@ public class FileUtils {
         try {
             org.apache.commons.io.FileUtils.copyFileToDirectory(new File(fileLocation), new File(submission));
         } catch (IOException ex) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         
         return true;
+    }
+    
+    /**
+     * This method was added in by David Prince to allow the method "submitBuild" in UtilController to work properly
+     * This class was causing trouble when I was trying to access the FileUtil method "moveFileToDirectory"
+     * So I added this as a way to access the method from UtilController
+     * 
+     * @param srcFile
+     * @param destDir
+     * @param createDestDir 
+     */
+    public static void moveFileToNewDirectory(File srcFile,File destDir,boolean createDestDir)
+    {
+        try {
+            org.apache.commons.io.FileUtils.moveFileToDirectory(srcFile ,destDir ,createDestDir);
+        } catch (IOException ex) {
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static String browseForFile(){
@@ -179,7 +197,7 @@ public class FileUtils {
         try {
             zip(INPUT_FOLDER, zipTo);
         } catch (IOException ex) {
-            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
            return true;
@@ -245,7 +263,136 @@ public class FileUtils {
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
+    //getters and setters moved from InstanceCall by Emily and Miguel
+    /**
+     * @return the zcorpToPrint
+     */
+    public String getZcorpToPrint() {
+        return zcorpToPrint;
+    }
 
-       
+    /**
+     * @param zcorpToPrint the zcorpToPrint to set
+     */
+    public void setZcorpToPrint(String zcorpToPrint) {
+        this.zcorpToPrint = zcorpToPrint;
+    }
+
+    /**
+     * @return the zcorpToBuild
+     */
+    public String getZcorpToBuild() {
+        return zcorpToBuild;
+    }
+
+    /**
+     * @return the solidscapeToPrint
+     */
+    public String getSolidscapeToPrint() {
+        return solidscapeToPrint;
+    }
+
+    /**
+     * @return the solidscapeToBuild
+     */
+    public String getSolidscapeToBuild() {
+        return solidscapeToBuild;
+    }
+
+    /**
+     * @return the zcorpToBuildDir
+     */
+    public String getZcorpToBuildDir() {
+        return zcorpToBuildDir;
+    }
+
+    /**
+     * @return the objetToPrint
+     */
+    public String getObjetToPrint() {
+        return objetToPrint;
+    }
+
+    /**
+     * @return the objetToBuild
+     */
+    public String getObjetToBuild() {
+        return objetToBuild;
+    }
+
+    /**
+     * @return the zcorpPrinted
+     */
+    public String getZcorpPrinted() {
+        return zcorpPrinted;
+    }
+
+    /**
+     * @return the solidscapePrinted
+     */
+    public String getSolidscapePrinted() {
+        return solidscapePrinted;
+    }
+
+    /**
+     * @return the objetPrinted
+     */
+    public String getObjetPrinted() {
+        return objetPrinted;
+    }
+
+    /**
+     * @return the PDF
+     */
+    public String getPDFAdmin() {
+        return PDFAdmin;
+    }
+
+        /**
+     * @return the PDF
+     */
+    public String getPDFStudent() {
+        return PDFStudent;
+    }
     
-}
+    /**
+     * @return the submitted
+     */
+    public String getSubmitted() {
+        return submitted;
+    }
+
+    /**
+     * @return the submission
+     */
+    public String getSubmission() {
+        return submission;
+    }
+
+    /**
+     * @return the drive
+     */
+    public String getDrive() {
+        return drive;
+    }
+
+    /**
+     * @return the rejected
+     */
+    public String getRejected() {
+        return rejected;
+    }
+       
+   //added getters
+     public String getExcelFilePath() {
+        return excelFilePath;
+    }
+
+    public String getINPUT_FOLDER() {
+        return INPUT_FOLDER;
+    }
+
+    public String getZIPPED_FOLDER() {
+        return ZIPPED_FOLDER;
+    }
+}//end of class
