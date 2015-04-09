@@ -180,9 +180,7 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
         FileManager cloudStorageOperations = new FileManager();
-        
-        
-        
+
         try 
         {
             if (results.next()) 
@@ -195,6 +193,11 @@ public class UtilController
                     -Nick 
                 */
                 File locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());
+                
+                /* Create rejected directory if it does not exist */
+                FileManager fm = new FileManager();
+                if(!fm.doesFileExist(fm.getRejected()))
+                    fm.create(fm.getRejected());
                 
                 if(!directoryContains(locationOfRejectedFiles, new File(cloudStorageOperations.getRejected() + file)))
                 {
@@ -307,7 +310,7 @@ public class UtilController
      * If user is unable to find the file, delete it from the database.
      */
     public static boolean checkFileExists(String filepath){
-        boolean exists = FileManager.doesFileExist(filepath);
+        boolean exists = new FileManager().doesFileExist(filepath);
         //If the files does not exist and the user does not locate it
         if(!exists){
             //TODO: update file location in database

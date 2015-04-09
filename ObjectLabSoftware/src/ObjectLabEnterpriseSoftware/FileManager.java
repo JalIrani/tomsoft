@@ -17,6 +17,7 @@ import java.util.zip.ZipOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.io.FileExistsException;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
@@ -79,28 +80,33 @@ public class FileManager {
         
         return false;
     }
-    
-    public static boolean doesFileExist(String path){
-    
-        File newDir = new File(path);
-        if(newDir.exists()){
-            return true;
-        }
-        else{
-            String fileLoc = browseForFile();
+    /* String fileLoc = browseForFile();
             if(fileLoc != null)
                 return true;
-        }
-        return false;
+    */
+    
+    public boolean doesFileExist(String path)
+    {
+        return new File(path).exists();
     }
     
-    public boolean rejectFile(String FileName){
-        try {
-            org.apache.commons.io.FileUtils.moveFileToDirectory(new File(submission + FileName), new File(rejected), true);
-        } catch (IOException ex) {
+    public boolean create(String path)
+    {
+        return new File(path).mkdir();
+    }
+    
+    public boolean rejectFile(String FileName)
+    {
+        try 
+        {
+            FileUtils.moveFileToDirectory(new File(submission + FileName), new File(rejected), true);
+        } 
+        catch (IOException ex) 
+        {
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        
         return true;
     }
     
@@ -173,21 +179,23 @@ public class FileManager {
         }
     }
     
-    public static String browseForFile(){
-    
+    public String browseForFile()
+    {
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //Limits selected files to the following types. TODO fix list
         fileopen.setAcceptAllFileFilterUsed(false);
         fileopen.setMultiSelectionEnabled(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
-        fileopen.setFileFilter(filter);
+        /* PLEASE NOTE THIS IS NOT DYNAMIC!!!! WILL NEED TO GET ALLOWED FILE TYPES BASED ON PRINTER */
+        fileopen.setFileFilter(new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl"));
         int ret = fileopen.showDialog(null, "Open file");
 
-        if (ret == JFileChooser.APPROVE_OPTION) {
+        if (ret == JFileChooser.APPROVE_OPTION) 
+        {
             File file = fileopen.getSelectedFile();
             //Inputs the file location into the textbox "fileName"
             return file.toString().replaceAll("'", "");
         }
+        
         return null;
         
     }
