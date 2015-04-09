@@ -970,5 +970,24 @@ public class SQLMethods
         }
         return res;
     }
+	
+	public ResultSet getCurrentTime()
+	{
+        res = null;
+        try 
+		{
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT (DATE_FORMAT(NOW(), '%Y-%m-%d_%H-%i-%s'))"
+			);
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } 
+		catch (Exception e) 
+		{
+            e.printStackTrace();
+        }
+        return res;
+	}
     
 }

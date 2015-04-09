@@ -1,6 +1,5 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /*
@@ -8,6 +7,7 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 public class TomSoftMain extends javax.swing.JFrame {
 
     LaserCutterMain LaserMain;

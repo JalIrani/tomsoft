@@ -1,5 +1,5 @@
 package ObjectLabEnterpriseSoftware;
-
+//UtilController.getCurrentTimeFromDB();
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -15,11 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author Matt
- * @programmer Morgan
- */
 public class StudentSubmission extends javax.swing.JFrame {
 
     /**
@@ -38,21 +33,6 @@ public class StudentSubmission extends javax.swing.JFrame {
         
         sqlMethods = new SQLMethods();
         home = new TomSoftMain();
-        
-        /*
-        Fetch available classes
-        */
-         
-        /*
-        ResultSet result2 = sqlMethods.getCurrentClasses();
-        try {
-            while (result2.next()) {
-                classBox.addItem(result2.getString("className") + " " + result2.getString("classSection"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PrinterBuild.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -135,6 +115,11 @@ public class StudentSubmission extends javax.swing.JFrame {
         getContentPane().add(jLabel2_FirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 95, 20));
 
         fileLocation.setEditable(false);
+        fileLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileLocationActionPerformed(evt);
+            }
+        });
         getContentPane().add(fileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 200, 20));
 
         Browse.setText("Browse");
@@ -364,7 +349,7 @@ public class StudentSubmission extends javax.swing.JFrame {
                 printer = (String) printerBox.getSelectedItem();
                 
                   //***********Calls UtilController Method to move file to the Submit location
-                UtilController.moveFileToSubmitLocation(fileLocation, inst, sqlMethods, printer, fName, lName, splittedCourse[0], splittedCourse[1], fileName, email);
+                UtilController.moveFileToSubmitLocation(fileLocation, inst, printer, fName, lName, splittedCourse[0], splittedCourse[1], fileName, email);
                
                 //***********GUI For CONFIRMATION (Proper place needed)  ****************
                   JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
@@ -377,9 +362,8 @@ public class StudentSubmission extends javax.swing.JFrame {
             
     }
     
-    
-    
-          private void Reset_StudentSubmissionFields(){
+          private void Reset_StudentSubmissionFields()
+		  {
               
                 //*********** resets fields  //***********
                 //dispose();
@@ -437,6 +421,10 @@ public class StudentSubmission extends javax.swing.JFrame {
     private void classBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_classBoxActionPerformed
+
+    private void fileLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileLocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileLocationActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

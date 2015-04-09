@@ -24,8 +24,11 @@ public class UtilController
     
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
+		/*
+		Establish connection to DB
+		*/
+		SQLMethods dbconn = new SQLMethods();
+		ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
         InstanceCall cloudStorageOperations = new InstanceCall();
         
         try 
@@ -122,7 +125,6 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
-        
         
         ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateSubmitted);
                         
@@ -308,19 +310,25 @@ public class UtilController
         return classesAvailble;
     }
     
-    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, InstanceCall inst, SQLMethods sqlMethods, String printer, String fName, String lName, String Class, String section, String fileName, String email){
-        String fileLoc = "";
+    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, InstanceCall inst, String printer, String fName, String lName, String Class, String section, String fileName, String email)
+	{
+		/*
+		Establish connection to DB
+		*/
+		SQLMethods dbconn = new SQLMethods();
+		
+		String fileLoc = "";
         try 
         {
-           
             //********* Copies the Student Submition to the Directory ********
             org.apache.commons.io.FileUtils.copyFileToDirectory(new File(fileLocation.getText()), new File(inst.getSubmission()));
-            
+            System.out.println(fileLocation.getText() + "This is a test to get old filename");
+
            //********* Stores File Location ******** 
             fileLoc = inst.getSubmission() + new File(fileLocation.getText()).getName();
-            
+
             //********* inserts Student Submission in Data Base *********
-            sqlMethods.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc.replace("\\", "\\\\"), email);
+            dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc.replace("\\", "\\\\"), email);
             
             java.util.concurrent.TimeUnit.SECONDS.sleep(2);
         }
@@ -337,5 +345,34 @@ public class UtilController
 				
     }//end moveFileToSubmitLocation
 
-    
+	public static String getCurrentTimeFromDB()
+	{
+		/*
+		Establish connection to DB
+		*/
+		SQLMethods dbconn = new SQLMethods();
+		
+		/*
+		Parse result as single string
+		*/
+		String currTime = null;
+		ResultSet res = dbconn.getCurrentTime();
+		String arr = null;
+		try
+		{
+			int count=1;
+			while (res.next()) 
+			{
+				currTime = res.getString(count);
+				count++;
+			}
+		}
+		catch (SQLException sqlerror)
+		{
+			sqlerror.printStackTrace();
+		}
+		
+		System.out.println(currTime);
+		return (String)currTime.trim();
+	}
 }
