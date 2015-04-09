@@ -3,12 +3,9 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
@@ -17,7 +14,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -72,7 +68,8 @@ public class StudentSubmission extends javax.swing.JFrame {
         }
 
         addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+			@Override
+			public void windowClosing(WindowEvent e) {
                 // close sockets, etc
                 home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
