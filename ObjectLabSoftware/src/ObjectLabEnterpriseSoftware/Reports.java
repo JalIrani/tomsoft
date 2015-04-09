@@ -1,5 +1,8 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -11,17 +14,17 @@ import javax.swing.table.DefaultTableModel;
 public class Reports extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
-    FileManager inst;
-
+    private FileManager inst;
     private int reportID = 0;
-
-    UtilController controller;
-    String[] headers;
-    ArrayList<String> printers;
+    private UtilController controller;
+    private String[] headers;
+    private ArrayList<String> printers;
+    
     /**
      * Creates new form Reports
      */
-    public Reports() {
+    public Reports() 
+    {
         this.controller = new UtilController();
         headers = UtilController.getReportColumnHeaders(reportID);
         //TODO: this information should come from the database
@@ -29,10 +32,25 @@ public class Reports extends javax.swing.JFrame {
         printers.add("Zcorp");
         printers.add("Objet");
         printers.add("SolidScape");
-//        printers.add("LaserCutter");
+        
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    /* If they close the program then close out the window properly */
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        );
+        
     }
 
-    public void ReportsPage() {
+    public void ReportsPage() 
+    {
         initComponents();
         model = (DefaultTableModel) reportsTable.getModel();
         for (ArrayList<Object> retval1 : UtilController.updateReportTableData(reportID)){ 
@@ -172,8 +190,8 @@ public class Reports extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        setVisible(false);
         dispose();
+        new TomSoftMain().setVisible(true); 
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
