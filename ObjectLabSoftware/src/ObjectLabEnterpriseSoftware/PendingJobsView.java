@@ -103,7 +103,7 @@ public class PendingJobsView extends javax.swing.JFrame
                 ApprovedButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, -1, -1));
+        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 290, 90, 20));
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
@@ -112,7 +112,7 @@ public class PendingJobsView extends javax.swing.JFrame
                 RejectButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, -1));
+        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 20));
 
         openFileInProgram.setText("Review File");
         openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
