@@ -230,11 +230,15 @@ public class UtilController
                 return FAILURE;
             }
             
-            /* Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so */
+            /* 
+			Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
+			*/
             dbconn.delete("pendingjobs", primaryKey);
             dbconn.closeDBConnection();
             
-            emailMessage = "Dear " + fName + " " + lName + " , \n\nAfter analyzing your file submission, " + file + ", we have found an error in your file: \n" + reasonForRejection + "\nPlease fix this error and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            emailMessage = "Dear " + fName + " " + lName + " , \n\nAfter analyzing your file submission, " 
+					+ file + ", we have found an error in your file: \n" + reasonForRejection
+					+ "\nPlease fix this error and resubmit." + "\n\nThank you,\nObject Lab Staff";
             return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
         }
         catch (SQLException ex) 
@@ -245,7 +249,6 @@ public class UtilController
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         dbconn.closeDBConnection();
         return FAILURE;
     }
@@ -263,13 +266,18 @@ public class UtilController
 
         try 
         { 
-            /* If the row exist, then query for the PK and then use that to update the pendingjobs table fileLocation. -Nick */
+            /* 
+			If the row exist, then query for the PK and then use that to update 
+			the pendingjobs table fileLocation. -Nick 
+			*/
             if (result.next())
             {
                 ID = result.getString("idJobs");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() 
+						+ "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
                 String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
+                String currentFileLocation = cloudStorageOperations.getSubmission() 
+						+ "\\" + fileName;
                 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
@@ -465,49 +473,47 @@ public class UtilController
         return classesAvailble;
     }
     
-    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, FileManager inst, String printer, String fName, String lName, String Class, String section, String fileName, String email)
+    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, String printer, 
+			String fName, String lName, String Class, String section, String fileName, String email)
 	{
 		/*
 		Establish connection to DB
 		*/
 		SQLMethods dbconn = new SQLMethods();
 		
-		String fileLoc = "";
         try 
         {
-			
-           //********* Create New File Location With Appended Filename ******** 
-            fileLoc = inst.getSubmission() + fileName;
+			/*
+			Get  file location 
+			*/
+			FileManager instance = new FileManager();
+			String fileLoc = instance.getSubmission() + fileName;
 			fileLoc = fileLoc.replace("\\", "\\\\");
-			System.out.println("Get file location:" + fileLoc);
-			
-			
-            //********* Copies the Student Submition to the Directory ********
-			File oldFile = new File(fileLocation.getText());
-			System.out.println("old:" + oldFile.getName());
-			
-			File newFile = new File(fileLoc);
-			System.out.println("new:" + newFile.getName());
 
-            org.apache.commons.io.FileUtils.copyFile(oldFile, newFile);
+			/*
+			Now copy the old file to the new file locatio
+			*/
+            org.apache.commons.io.FileUtils.copyFile(new File(fileLocation.getText()), new File(fileLoc));
 
-            //********* inserts Student Submission in Data Base *********
+			/*
+			NOTE: THERE SHOULD BE VERIFICATION OF SUCCESSFUL COPY sHERE BEFORE INSERTING INTO DB
+			*/
+			
+            /*
+			Insert the copied file into pending jobs
+			*/
             dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc, email);
-            
-            java.util.concurrent.TimeUnit.SECONDS.sleep(2);
         }
         
         catch (IOException e) 
         {
             javax.swing.JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
         } 
-        
-        catch (InterruptedException ex)
-        {
-            Logger.getLogger(StudentSubmission.class.getName()).log(Level.SEVERE, null, ex);
-        }
-				
-    }//end moveFileToSubmitLocation
+		/*
+		Close the DB connection
+		*/
+		dbconn.closeDBConnection();
+    }
 
 	public static String getCurrentTimeFromDB()
 	{
@@ -521,7 +527,6 @@ public class UtilController
 		*/
 		String currTime = null;
 		ResultSet res = dbconn.getCurrentTime();
-		String arr = null;
 		try
 		{
 			int count=1;
@@ -535,10 +540,13 @@ public class UtilController
 		{
 			sqlError.printStackTrace();
 		}
+		
 		/*
 		Append a "_" so that project names can be differentiated from timestamp
 		*/
 		currTime = "_" + currTime; 
+		dbconn.closeDBConnection();
+		
 		return (String)currTime.trim();
 	}
      /**

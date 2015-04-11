@@ -42,7 +42,6 @@ public class EmailUtils
         {
             Logger.getLogger(EmailUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return message;
     }
     
@@ -71,10 +70,11 @@ public class EmailUtils
                     }
                 }
         );
-        
-        /* This MUST be the last thing initalized since there are so many vars to init prior to setting the contents of the email */
+        /* 
+		This MUST be the last thing initalized since there are so 
+		many vars to init prior to setting the contents of the email 
+		*/
         emailContent = setEmailContents();
-    
     }
     
     public boolean send() 
