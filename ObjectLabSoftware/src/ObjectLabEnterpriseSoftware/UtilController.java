@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.io.FileUtils;
 import static org.apache.commons.io.FileUtils.directoryContains;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
@@ -180,62 +181,73 @@ public class UtilController
     
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
-		/*
-		Establish connection to DB
-		*/
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
-        FileManager cloudStorageOperations = new FileManager();
 
         try 
         {
+            String emailadr, emailMessage, primaryKey;
+            File locationOfRejectedFiles, rejectionFile;
+            FileManager cloudStorageOperations = new FileManager();
+            
+            /* Query the DB for our emailadr here */
             if (results.next()) 
             {
-                /*
-                   This checks to see if the file exists in the rejected location if it does the rejection will fail
-                    and the file that is in the reject location will be deleted. *hot fix for bug*
-                   If the file does not exist it is moved into the rejected location and the entry in the DB for that
-                    submission will be deleted. An email is sent to the user that the file was not accepted.
-                    -Nick 
-                */
-                File locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());
-                
-                /* Create rejected directory if it does not exist */
-                FileManager fm = new FileManager();
-                if(!fm.doesFileExist(fm.getRejected()))
-                    fm.create(fm.getRejected());
-                
-                if(!directoryContains(locationOfRejectedFiles, new File(cloudStorageOperations.getRejected() + file)))
-                {
-                    org.apache.commons.io.FileUtils.moveFileToDirectory(new File(cloudStorageOperations.getSubmission() + file), locationOfRejectedFiles, true);
-                    
-                    //SendEmail rejectionEmail = new SendEmail(fName, lName, reasonForRejection, file, results.getString("idJobs"));
-                    EmailUtils sendEmails = new EmailUtils(fName, lName, reasonForRejection, file, results.getString("idJobs"));
-                    sendEmails.Send();
-                    //rejectionEmail.Send();
-                    
-                    dbconn.delete("pendingjobs", results.getString("idJobs"));
-                    dbconn.closeDBConnection();
-                    
-                    return SUCCESS;
-                }
-                else
-                {
-                    System.out.println("File deleted");
-                    org.apache.commons.io.FileUtils.forceDelete(new File(cloudStorageOperations.getRejected() + file));
-                }
-                
+                primaryKey = results.getString("idJobs");
+                ResultSet queryResultEmailAdr = dbconn.searchPendingWithID(primaryKey);
+                    if(queryResultEmailAdr.next())
+                    {
+                        emailadr = queryResultEmailAdr.getString("email");
+                    }
+                    else
+                    {
+                        dbconn.closeDBConnection();
+                        return FAILURE;
+                    }
+            }
+            else
+            {
+                dbconn.closeDBConnection();
+                return FAILURE;
             }
             
+            /* Create rejected directory if it does not exist
+            if(!cloudStorageOperations.doesFileExist(cloudStorageOperations.getRejected()))
+                    cloudStorageOperations.create(cloudStorageOperations.getRejected());
+            */
+            
+            /* Move our rejected file to the rejected files directory */
+            locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());    
+            rejectionFile = new File(cloudStorageOperations.getSubmission() + file);
+            
+            if(rejectionFile.exists())
+            {
+                FileUtils.moveFileToDirectory(rejectionFile, locationOfRejectedFiles, true);
+            }
+            else
+            {
+                dbconn.closeDBConnection();
+                return FAILURE;
+            }
+            
+            /* Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so */
+            dbconn.delete("pendingjobs", primaryKey);
             dbconn.closeDBConnection();
-            return FAILURE;
-        } 
-        catch (SQLException | IOException ex) 
+            
+            emailMessage = "Dear " + fName + " " + lName + " , \n\nAfter analyzing your file submission, " + file + ", we have found an error in your file: \n" + reasonForRejection + "\nPlease fix this error and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
+        }
+        catch (SQLException ex) 
         {
             System.out.println("Program crashed in reject subm\n" + ex);
-            dbconn.closeDBConnection();
-            return FAILURE;
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        dbconn.closeDBConnection();
+        return FAILURE;
     }
     
     public static void approveStudentSubmission(String fileName, String firstName, String lastName, String printer, String dateStarted, double volume)
