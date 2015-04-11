@@ -11,15 +11,11 @@ package ObjectLabEnterpriseSoftware;
  */
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 // Notice, do not import com.mysql.jdbc.*
 // or you will have problems!
@@ -34,7 +30,6 @@ public class SQLMethods
     public SQLMethods() 
     {
         /* To resolve hostname to an IP adr */
-        NsLookup look = new NsLookup();
         File f = new File("C:\\Sync\\computername.txt");
         String line, ip = "";
         
@@ -51,33 +46,11 @@ public class SQLMethods
             // Always close files.
             bufferedReader.close();
         }
-        catch (FileNotFoundException ex) 
-        {
-            System.out.println("Unable to open file!");
-            String temp = JOptionPane.showInputDialog("Please enter the exact name of the computer hosting the database server: ");
-            ip = look.resolve(temp);
-            //create and write to file
-            
-            try 
-            {
-                PrintWriter writer = new PrintWriter("C:\\Sync\\computername.txt", "UTF-8");
-                writer.println(temp);
-                writer.close();
-            } 
-            catch (FileNotFoundException ex1) 
-            {
-                Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex1);
-            } 
-            catch (UnsupportedEncodingException ex1) 
-            {
-                Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE, null, ex1);
-            } 
-        } 
         catch (IOException ex) 
         {
             System.out.println("Couldn't read file! IOException!");
+			ex.printStackTrace();
         }
-
         url = "jdbc:mysql://" + ip + ":3306/";
         connectToDatabase("com.mysql.jdbc.Driver", url + "jobsdb", "admin", "password");
     }
@@ -297,8 +270,8 @@ public class SQLMethods
                 case 3:
                     stmt = this.conn.prepareStatement
                     (
-                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
-        "cyanBinder, cubicInches, noModels, runTime "
+                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" 
+						+ "cyanBinder, cubicInches, noModels, runTime "
                         + " from Zcorp "
                         + "order by "
                         + "dateRun;"
