@@ -106,7 +106,8 @@ public class UtilController
         {
             row = sheet.createRow(i);
             if(i == 0){
-               for(int j = 0; j < header.length; j++){
+               for(int j = 0; j < header.length; j++)
+			   {
                    cell = row.createCell(j);
                    cell.setCellValue(header[j]);
                }
@@ -132,7 +133,8 @@ public class UtilController
         
     }
     
-    public static void exportReportsForPrinters(ArrayList<Object> printers){
+    public static void exportReportsForPrinters(ArrayList<Object> printers)
+	{
     
         FileManager fileManager = new FileManager();
         
@@ -153,8 +155,10 @@ public class UtilController
             for (int i = 0; i < data.size()+1; i++) 
             {
                 row = sheet.createRow(i);
-                if(i == 0){
-                   for(int j = 0; j < data.get(i).size(); j++){
+                if(i == 0)
+				{
+                   for(int j = 0; j < data.get(i).size(); j++)
+				   {
                        cell = row.createCell(j);
                        cell.setCellValue(columnHeaders[j]);
                    }
@@ -171,10 +175,12 @@ public class UtilController
         }
         boolean didSave = fileManager.saveReport("MasterReport", wb);
 
-        if(didSave){
+        if(didSave)
+		{
             JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File");
         }
-        else{
+        else
+		{
             JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
         }
     }
@@ -335,10 +341,12 @@ public class UtilController
      * Check if the file exists in the given filepath. If it doesn't, prompt the user to search for the file. 
      * If user is unable to find the file, delete it from the database.
      */
-    public static boolean checkFileExists(String filepath){
+    public static boolean checkFileExists(String filepath)
+	{
         boolean exists = new FileManager().doesFileExist(filepath);
         //If the files does not exist and the user does not locate it
-        if(!exists){
+        if(!exists)
+		{
             //TODO: update file location in database
         }
         return true;
