@@ -12,7 +12,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StudentSubmission extends javax.swing.JFrame 
 {
-	
     ButtonGroup group;
     String printer;
     TomSoftMain home;
