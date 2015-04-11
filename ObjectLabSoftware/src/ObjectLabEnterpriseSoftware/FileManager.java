@@ -20,11 +20,8 @@ import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 
-/**
- *
- * @author Miguel+Emily
- */
-public class FileManager {
+public class FileManager 
+{
     
     private final String submission;
     private final String drive;
@@ -48,7 +45,8 @@ public class FileManager {
 
 
     //Sets default locations that will be shared by all installations
-    public FileManager() {
+    public FileManager() 
+	{
         //Use the directory provided on piazza and change the file paths below to test
         drive = "C:\\Sync";
         rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
@@ -69,9 +67,11 @@ public class FileManager {
         INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
     }
     
-    public boolean deleteFile(String path){
+    public boolean deleteFile(String path)
+	{
         File newDir = new File(path);
-        if(newDir.exists()){
+        if(newDir.exists())
+		{
             newDir.delete();
         }
         
