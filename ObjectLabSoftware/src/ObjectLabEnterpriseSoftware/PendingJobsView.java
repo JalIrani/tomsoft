@@ -31,8 +31,15 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
+        System.out.println("ROW COUNT: " + pendingJobsView.getRowCount());
+        /* Clears up the rows in the view's model. */
+        for(int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
+            pendingJobsView.removeRow(rows);
+        
+        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view) 
             pendingJobsView.addRow(row.toArray());
+        System.out.println("ROW COUNT AFTER: " + pendingJobsView.getRowCount());
     }
     
     public PendingJobsView() 
@@ -231,9 +238,14 @@ public class PendingJobsView extends javax.swing.JFrame
            );
 
            if(success)
+           {
                JOptionPane.showMessageDialog(new JFrame(), "Email sent succesfully!");
+               updateView(allFileTableModel, UtilController.updatePendingTableData());
+           }
            else
+           {
                JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
+           }
         }
     }//GEN-LAST:event_RejectButtonActionPerformed
     
@@ -298,6 +310,7 @@ public class PendingJobsView extends javax.swing.JFrame
                     (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER),
                     volume
                 );
+                updateView(allFileTableModel, UtilController.updatePendingTableData());
             }        
         }
          
