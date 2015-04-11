@@ -242,9 +242,9 @@ public class UtilController
             dbconn.delete("pendingjobs", primaryKey);
             dbconn.closeDBConnection();
             
-            emailMessage = "Dear " + fName + " " + lName + " , \n\nAfter analyzing your file submission, " 
-					+ file + ", we have found an error in your file: \n" + reasonForRejection
-					+ "\nPlease fix this error and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, " 
+					+ file + ", we have found the following error: \n\nComment: " + reasonForRejection
+					+ "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
             return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
         }
         catch (SQLException ex) 

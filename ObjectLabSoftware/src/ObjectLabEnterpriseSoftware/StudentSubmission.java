@@ -346,16 +346,18 @@ public class StudentSubmission extends javax.swing.JFrame
                 UtilController.moveFileToSubmitLocation(fileLocation, printer, fName, 
 						lName, splittedCourse[0], splittedCourse[1], fileName, email);
                
-                /*
-				GUI For CONFIRMATION (Proper place needed)
-				*/
-                  JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
-                  dispose();
-                 /*
+                JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
+                dispose();
+                new TomSoftMain().setVisible(true); 
+            }
+			else
+			{
+				dispose();
+				/*
 				 Reset fields
 				 */
-                Reset_StudentSubmissionFields();                   
-            }       
+                Reset_StudentSubmissionFields(); 
+			}
     }
     
 	private void Reset_StudentSubmissionFields()
