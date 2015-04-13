@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -759,5 +760,15 @@ public class UtilController
         ResultSet res = dbconn.searchPrinterSettings(printer);
         
         dbconn.closeDBConnection();
+    }
+    public static void saveButtonActionPerformed(java.awt.event.ActionEvent evt, SQLMethods dba, DefaultListModel currentClassListModel) {                                        
+        // SET all classes in current's current value to true and all else to false
+        dba.setAllClassesInvisible();
+        for (int i = 0; i < currentClassListModel.getSize(); i++) {
+            String[] parts = currentClassListModel.elementAt(i).toString().split(" ");
+            //String part1 = parts[0]; // classNumber
+            //String part2 = parts[1]; // sectionNumber
+            dba.updateCurrentClasses(parts[0] + " " + parts[1], parts[2]);
+        }
     }
 }
