@@ -348,11 +348,17 @@ public class Options extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        //class(ex. ART 101.001) stored in the database
-        UtilController.saveButtonActionPerformed(evt, dba, currentClassListModel);
-        
+        // SET all classes in current's current value to true and all else to false
+        dba.setAllClassesInvisible();
+        for (int i = 0; i < currentClassListModel.getSize(); i++) {
+            String[] parts = currentClassListModel.elementAt(i).toString().split(" ");
+            //String part1 = parts[0]; // classNumber
+            //String part2 = parts[1]; // sectionNumber
+            dba.updateCurrentClasses(parts[0] + " " + parts[1], parts[2]);
+        }
         dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu EditMenu;
