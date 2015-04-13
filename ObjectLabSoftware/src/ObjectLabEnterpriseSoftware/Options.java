@@ -292,7 +292,7 @@ public class Options extends javax.swing.JFrame {
     }
     
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
-        if (className.getText().equals("") | classNumber.getText().equals("") | sectionNumber.getText().equals("")) {
+        if (className.getText().trim().equals("") | classNumber.getText().trim().equals("") | sectionNumber.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter all three values", "Add Error", JOptionPane.ERROR_MESSAGE);
         } else {
             //allClassListModel.addElement(className.getText() + " " + classNumber.getText() + "." + sectionNumber.getText());
@@ -308,7 +308,7 @@ public class Options extends javax.swing.JFrame {
 
             int i;
             boolean found = false;
-            String input = className.getText() + " " + classNumber.getText() + " " + sectionNumber.getText();
+            String input = className.getText().trim() + " " + classNumber.getText() + " " + sectionNumber.getText();
             input = input.toLowerCase();
             for (i = 0; i < allClassListModel.getSize(); i++) {
                 if (allClassListModel.elementAt(i).toString().toLowerCase().equals(input)) {
@@ -319,7 +319,7 @@ public class Options extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Class already in all class list", "Add Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 allClassListModel.addElement(input.toUpperCase());
-                dba.insertIntoClasses(className.getText().toUpperCase()+ " " + classNumber.getText(), sectionNumber.getText());
+                dba.insertIntoClasses(className.getText().trim().toUpperCase()+ " " + classNumber.getText(), sectionNumber.getText());
             }
         }
 
