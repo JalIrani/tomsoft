@@ -9,47 +9,46 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.DefaultListModel;
 
-/**
- *
- * @author jayj8892
- */
-public class LaserCutterMain extends javax.swing.JFrame {
+public class LaserCutterMain extends javax.swing.JFrame 
+{
 
     /**
      * Creates new form LaserCutterMain
      */
     static DefaultListModel allFileListModel = new DefaultListModel();
-    static Calculations calc;
     public static ObjetPref Settings;
     static SQLMethods dba;
     DefaultListModel currentFileListModel = new DefaultListModel();
-    private static FileManager instance;
     public static Reports reports;
     TomSoftMain home;
-    public void LaserCutterMainStart() {
-        calc = new Calculations();
+    public void LaserCutterMainStart() 
+	{
         home = new TomSoftMain();
         dba = new SQLMethods();
         reports = new Reports();
-        instance = new FileManager();
         initComponents();
 
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try 
+		{
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+			{
+                if ("Windows".equals(info.getName())) 
+				{
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-
                     break;
-
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+		{
             java.util.logging.Logger.getLogger(LaserCutterMain.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-         addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+         addWindowListener(new WindowAdapter() 
+		 {
+            public void windowClosing(WindowEvent e) 
+			{
                 // close sockets, etc
                 home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
@@ -59,7 +58,8 @@ public class LaserCutterMain extends javax.swing.JFrame {
         setVisible(true);
     }
     
-    public LaserCutterMain() {
+    public LaserCutterMain() 
+	{
         initComponents();
     }
 
@@ -195,7 +195,8 @@ public class LaserCutterMain extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) 
+	{
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -220,8 +221,10 @@ public class LaserCutterMain extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable() 
+		{
+            public void run() 
+			{
                 new LaserCutterMain().setVisible(true);
             }
         });
