@@ -8,27 +8,13 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
+import javax.swing.JPanel;
 
-/**
- *
- * @author Saurabh
- */
 public class ZCorpDialog extends javax.swing.JFrame {
-
-    InstanceCall instance;
-
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";
@@ -57,21 +43,26 @@ public class ZCorpDialog extends javax.swing.JFrame {
         //par = parent;
 
         initComponents();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try 
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            {
+                if ("Windows".equals(info.getName())) 
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } 
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             java.util.logging.Logger.getLogger(ZCorpDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         setUp(build, count);
     }
 
-    public void ZCorpDialogStart() {
-        instance = new InstanceCall();
+    public void ZCorpDialogStart() 
+    {
         setTitle("Add Information about" + new File(BPath.getText()).getName());
         hideErrorFields();
         Date date = Calendar.getInstance().getTime();
@@ -82,38 +73,21 @@ public class ZCorpDialog extends javax.swing.JFrame {
         //File BPathfile = new File(BPath.getText().replace("\\", "\\\\"));
         setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent we) {
-                String ObjButtons[] = {"Yes", "No"};
-                int PromptResult = JOptionPane.showOptionDialog(null, "Save as an Open Build?", "Save", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-                if (PromptResult == JOptionPane.YES_OPTION) {
-                    gatherScrapThenExit();
-                    PrinterBuild.selectAllFiles("ZCorp");
-                    dispose();
-                } else {
-                    ResultSet r = ZCorpMain.dba.searchPendingByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while(r.next()){
-                            ZCorpMain.dba.updatePendingJobsBuildName(r.getString("buildName"), r.getString("fileName"));
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ResultSet s = ZCorpMain.dba.searchZCorpByBuildName(new File(BPath.getText()).getName());
-                    try {
-                        while(s.next()){
-                            ZCorpMain.dba.deleteByBuildName(s.getString("buildName"), "zcorp");
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    UtilController.revertBuild(new File(BPath.getText()).getName(), "zcorp");
+                    returnHome();
                     dispose();
                 }
             }
-        });
+        );
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -165,8 +139,6 @@ public class ZCorpDialog extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(370, 542));
@@ -335,83 +307,107 @@ public class ZCorpDialog extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("Help");
-
-        jMenuItem3.setText("Contents");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private boolean validateForm() {
-        try {
+    
+    private boolean validateForm() 
+    {
+        try 
+        {
             monoBinder = Double.parseDouble(mono.getText());
             monoError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (mono.getText().isEmpty()) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (mono.getText().isEmpty()) 
+            {
                 monoError.setText("*Empty Field");
                 monoError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 monoError.setText("*Numbers only");
                 monoError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             yellowBinder = Double.parseDouble(yellow.getText());
             yellowError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (yellow.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (yellow.getText().equals("")) 
+            {
                 yellowError.setText("*Empty Field");
                 yellowError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 yellowError.setText("*Numbers only");
                 yellowError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             magentaBuilder = Double.parseDouble(magenta.getText());
             magentaError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (magenta.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (magenta.getText().equals("")) 
+            {
                 magentaError.setText("*Empty Field");
                 magentaError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 magentaError.setText("*Numbers only");
                 magentaError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             cyanBuilder = Double.parseDouble(cyan.getText());
             cyanError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (cyan.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (cyan.getText().equals("")) 
+            {
                 cyanError.setText("*Empty Field");
                 cyanError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 cyanError.setText("*Numbers only");
                 cyanError.setVisible(true);
             }
             return false;
         }
-        try {
+        
+        try 
+        {
             cubicInches = Double.parseDouble(volume.getText());
             volumeError.setVisible(false);
-        } catch (NumberFormatException e) {
-            if (volume.getText().equals("")) {
+        } 
+        catch (NumberFormatException e) 
+        {
+            if (volume.getText().equals("")) 
+            {
                 volumeError.setText("*Empty Field");
                 volumeError.setVisible(true);
-            } else {
+            } 
+            else 
+            {
                 volumeError.setText("*Numbers only");
                 volumeError.setVisible(true);
             }
@@ -419,16 +415,18 @@ public class ZCorpDialog extends javax.swing.JFrame {
         }
         return true;
     }
-
-    private void populateFromDB(ResultSet r) throws SQLException {
-        mono.setText(r.getString("monoBinder"));
-        magenta.setText(r.getString("magentaBinder"));
-        cyan.setText(r.getString("cyanBinder"));
-        yellow.setText(r.getString("yelloBinder"));
-        comment.setText("comment");
+    
+    public static void returnHome() {
+        
+        PrinterBuild.home.studentSubmissionButton.setVisible(false);
+        PrinterBuild.home.setPrintersVisible(false);
+        PrinterBuild.home.setVisible(true);
     }
+
+    
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        if (validateForm()) {
+        if (validateForm()) 
+        {
             Integer day = Integer.parseInt(days.getSelectedItem().toString());
             Integer hr = Integer.parseInt(hours.getSelectedItem().toString());
             Integer min = Integer.parseInt(minutes.getSelectedItem().toString());
@@ -441,96 +439,23 @@ public class ZCorpDialog extends javax.swing.JFrame {
             //buildName = file.getName();
             modelAmount = Integer.parseInt(numOfModels.getText());
             comments = comment.getText();
-        //hideErrorFields();
 
-            //this is stuff about price
-            ResultSet res = ZCorpMain.dba.searchPrinterSettings("zcorp");
-            try {
-                if (res.next()) {
-                    monoPrice = Double.parseDouble(res.getString("materialCostPerUnit"));
-                    yellowPrice = Double.parseDouble(res.getString("materialCostPerUnit2"));
-                    magentaPrice = Double.parseDouble(res.getString("materialCostPerUnit3"));
-                    cyanPrice = Double.parseDouble(res.getString("materialCostPerUnit4"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            //now dealing with buildCost
-            try {
-                buildCost = Calculations.ZcorpCost(cubicInches);
-
-            } catch (Exception e) {
-                errFree = false;
-            }
-            //Checks if there were errors
-            if (errFree) {
-                try {
-                    //This is where we would add the call to the method that udpates things in completed Jobs
-                    //Updates project cost in pending
-                    ZCorpMain.calc.BuildtoProjectCost(buildName, "Zcorp", buildCost);
-
-                    ResultSet res2 = ZCorpMain.dba.searchPendingByBuildName(buildName);
-                    ArrayList list = new ArrayList();
-                    try {
-                        while (res2.next()) {
-                            list.add(res2.getString("buildName"));
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    Iterator itr = list.iterator();
-                    //Date date = Calendar.getInstance().getTime();
-                    //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                    while (itr.hasNext()) {
-                        ResultSet res3 = ZCorpMain.dba.searchPendingByBuildName(itr.next().toString());
-                        if (res3.next()) {
-                            System.out.println("Now doing this shiz");
-                            String ID = res3.getString("idJobs");
-                            System.out.println(ID);
-                            String Printer = res3.getString("printer");
-                            String firstName = res3.getString("firstName");
-                            String lastName = res3.getString("lastName");
-                            String course = res3.getString("course");
-                            String section = res3.getString("section");
-                            String fileName = res3.getString("fileName");
-                            System.out.println(fileName);
-
-                            File newDir = new File(ZCorpMain.getInstance().getZcorpPrinted());
-                            FileUtils.moveFileToDirectory(new File(ZCorpMain.getInstance().getZcorpToPrint() + fileName), newDir, true);
-
-                            String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                            String dateStarted = res3.getString("dateStarted");
-                            String Status = "completed";
-                            String Email = res3.getString("Email");
-                            String Comment = res3.getString("comment");
-                            String nameOfBuild = res3.getString("buildName");
-                            double volume = Double.parseDouble(res3.getString("volume"));
-                            double cost = Double.parseDouble(res3.getString("cost"));
-
-                            ZCorpMain.dba.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, cost);
-                            ZCorpMain.dba.delete("pendingjobs", ID);
-                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                        }
-                    }
-
-                    // if there is no matching record
-                    ZCorpMain.dba.insertIntoZcorp(buildName, monoBinder, yellowBinder, magentaBuilder, cyanBuilder, cubicInches, modelAmount, comments, buildCost, "complete");
-                } catch (IOException ex) {
-                    Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ZCorpDialog.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                dispose();
-            } else {
+            if(!UtilController.submitBuildInfoToDB(buildName, "zcorp"))
+              JOptionPane.showMessageDialog(new JPanel(), "Build was not created.", "Warning", JOptionPane.WARNING_MESSAGE);  
+            
+            returnHome();
+            dispose();
+            
+        } 
+        else 
+        {
                 System.out.println("ERRORS");
                 JOptionPane.showMessageDialog(null, "There were errors that prevented your build information from being submitted to the database. \nPlease consult the red error text on screen.");
-            }
         }
     }//GEN-LAST:event_submitBtnActionPerformed
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+    {
         monoError.setVisible(false);
         yellowError.setVisible(false);
         magentaError.setVisible(false);
@@ -547,15 +472,6 @@ public class ZCorpDialog extends javax.swing.JFrame {
         rpr.ReportsPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + ZCorpMain.getInstance().getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void BPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BPathActionPerformed
@@ -564,63 +480,6 @@ public class ZCorpDialog extends javax.swing.JFrame {
         numOfModels.setText("" + countNumOfModels);
     }
 
-    /**
-     * Searches if build already exists in database and removes it if not
-     */
-    private void gatherScrapThenExit() {
-        //ResultSet ls = ZCorpMain.dba.searchZCorpByBuildName(BPath.getText());
-        String buildPath = BPath.getText();
-        //buildPath = buildPath.replace("\\", "\\\\");
-        File file = new File(buildPath);
-        String bName = file.getName();//buildName isgood
-
-        int noModels = Integer.parseInt(numOfModels.getText());
-        //add try catches here for all doubles
-        double monoVar = 0.0, yellowVar = 0.0, magentaVar = 0.0, cyanVar = 0.0;
-
-        if (mono.getText().length() > 0) {
-            try {
-                monoVar = Double.parseDouble(mono.getText());
-            } catch (NumberFormatException e) {
-                monoVar = 0.0;
-            }
-        }
-        if (yellow.getText().length() > 0) {
-            try {
-                yellowVar = Double.parseDouble(yellow.getText());
-            } catch (NumberFormatException e) {
-                yellowVar = 0.0;
-            }
-        }
-        if (magenta.getText().length() > 0) {
-            try {
-                magentaVar = Double.parseDouble(magenta.getText());
-            } catch (NumberFormatException e) {
-                magentaVar = 0.0;
-            }
-        }
-        if (cyan.getText().length() > 0) {
-            try {
-                cyanVar = Double.parseDouble(cyan.getText());
-            } catch (NumberFormatException e) {
-                cyanVar = 0.0;
-            }
-        }
-        String Comments = comment.getText();
-
-        double Cost = 0;
-        double CubInches;
-        if (volume.getText().isEmpty()) {
-            CubInches = 0.0;
-        } else {
-            CubInches = Double.parseDouble(volume.getText());
-        }
-        // System.out.println("Okay .. here are the values: build:" + bName+" mono:" +monoVar+" yellow:" +yellowVar + " magenta:"+magentaVar+ " cyan:" +cyanVar + " vol:"+CubInches+" model:"+noModels+" comments:"+Comments+" cost:"+Cost);
-        System.out.println("inserting stuff into zcorp");
-        ZCorpMain.dba.insertIntoZcorp(bName, monoVar, yellowVar, magentaVar, cyanVar, CubInches, noModels, Comments, Cost, "incomplete");
-        System.out.println("should be inserted now");
-
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -649,10 +508,8 @@ public class ZCorpDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField magenta;
