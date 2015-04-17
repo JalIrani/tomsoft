@@ -113,6 +113,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jScrollPane4 = new javax.swing.JScrollPane();
         PendingTable = new javax.swing.JTable();
         backToMainMenu = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -133,7 +134,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jTextArea1.setText("Art 101-001\nArt 201-002\nArt 401-004\nArt 501-005\nArt 601-006\nArt 701-007\nArt 801-009");
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pending Jobs");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -143,21 +144,23 @@ public class PendingJobsView extends javax.swing.JFrame
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 470, 10));
 
+        ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
         ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApprovedButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, -1, -1));
+        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 290, 90, 20));
 
+        RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
         RejectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RejectButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 20));
 
         openFileInProgram.setText("Review File");
         openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +168,7 @@ public class PendingJobsView extends javax.swing.JFrame
                 openFileInProgramActionPerformed(evt);
             }
         });
-        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 140, 20));
+        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, 20));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -186,7 +189,7 @@ public class PendingJobsView extends javax.swing.JFrame
         });
         jScrollPane4.setViewportView(PendingTable);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 250));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 240));
 
         backToMainMenu.setText("Back to Main Menu");
         backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +197,10 @@ public class PendingJobsView extends javax.swing.JFrame
                 backToMainMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 130, 20));
+        getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 130, 20));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 500, 340));
 
         jMenu1.setText("File");
 
@@ -353,7 +359,7 @@ public class PendingJobsView extends javax.swing.JFrame
     
     /* This button when pressed will pull up the options menu for editing courses and choosing a "current" course. */
     private void showClassEditorOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showClassEditorOptionsActionPerformed
-       new Options().OptionsStart();
+       new ClassOptionsView().OptionsStart();
     }//GEN-LAST:event_showClassEditorOptionsActionPerformed
 
     private void openFileInProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileInProgramActionPerformed
@@ -403,6 +409,7 @@ public class PendingJobsView extends javax.swing.JFrame
     private javax.swing.JButton RejectButton;
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

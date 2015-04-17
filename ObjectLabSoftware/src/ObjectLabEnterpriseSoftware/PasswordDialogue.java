@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ObjectLabEnterpriseSoftware;
 
-/**
- *
- * @author Spence
- */
+
 public class PasswordDialogue extends javax.swing.JFrame {
 
     /**
@@ -114,7 +106,7 @@ public class PasswordDialogue extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
     private javax.swing.JPasswordField Password;

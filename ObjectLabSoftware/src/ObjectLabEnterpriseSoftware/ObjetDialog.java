@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ObjetDialog extends javax.swing.JFrame {
+    private static final TomSoftMain home = new TomSoftMain();
     static String materialType = "";
     static String fileName = "";
     static String buildName = "";
@@ -436,10 +437,8 @@ public class ObjetDialog extends javax.swing.JFrame {
    
    public static void returnHome() 
    {
-        
-        PrinterBuild.home.studentSubmissionButton.setVisible(false);
-        PrinterBuild.home.setPrintersVisible(false);
-        PrinterBuild.home.setVisible(true);
+        home.setPrintersVisible(false);
+        home.setVisible(true);
     }
    
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed

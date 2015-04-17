@@ -15,10 +15,10 @@ import javax.swing.table.DefaultTableModel;
 public class PrinterBuild extends javax.swing.JFrame 
 {
     private static String printerSelectedForBuildProcess;
-    public static TomSoftMain home;    
-    public static DefaultTableModel fileTableModel;
-    public static int countNumOfModels;
-    public static String BuildPrinter;
+    private static TomSoftMain home;    
+    private static DefaultTableModel fileTableModel;
+    private static int countNumOfModels;
+    private static String BuildPrinter;
     FileManager inst;
         
     private void clearEntries(DefaultTableModel fileTableModel) 
@@ -70,7 +70,6 @@ public class PrinterBuild extends javax.swing.JFrame
 
     public void startMakeBuildProcess(String printerSelectedToMakeBuildFor) 
     {
-        home = new TomSoftMain();
         inst = new FileManager();
         
         initComponents();
@@ -173,7 +172,6 @@ public class PrinterBuild extends javax.swing.JFrame
      */
     public static void returnHome() {
         
-        home.studentSubmissionButton.setVisible(false);
         home.setPrintersVisible(false);
         home.setVisible(true);
     }

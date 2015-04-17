@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ZCorpDialog extends javax.swing.JFrame {
+    private static final TomSoftMain home = new TomSoftMain();
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";
@@ -416,11 +417,10 @@ public class ZCorpDialog extends javax.swing.JFrame {
         return true;
     }
     
-    public static void returnHome() {
-        
-        PrinterBuild.home.studentSubmissionButton.setVisible(false);
-        PrinterBuild.home.setPrintersVisible(false);
-        PrinterBuild.home.setVisible(true);
+    public static void returnHome() 
+    {
+        home.setPrintersVisible(false);
+        home.setVisible(true);
     }
 
     
