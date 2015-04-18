@@ -229,6 +229,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         //else if not in database "invailid TU ID, enter vaild or create new student"
         else{
             errorIdLabel.setText("");
+            dispose();
             studentSys.studentSubmissionStart();
         }
         
