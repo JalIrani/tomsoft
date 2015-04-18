@@ -55,7 +55,6 @@ public class AddPrinter extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(530, 475));
-        setPreferredSize(new java.awt.Dimension(300, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -74,7 +73,7 @@ public class AddPrinter extends javax.swing.JFrame {
                 removeFieldButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(removeFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
+        getContentPane().add(removeFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 100, 20));
 
         fieldL0.setText("Field:");
         getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
@@ -85,7 +84,7 @@ public class AddPrinter extends javax.swing.JFrame {
                 addFieldButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, -1, -1));
+        getContentPane().add(addFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 90, 20));
 
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +92,7 @@ public class AddPrinter extends javax.swing.JFrame {
                 saveBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
+        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 90, 20));
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +100,7 @@ public class AddPrinter extends javax.swing.JFrame {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 100, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 720));
