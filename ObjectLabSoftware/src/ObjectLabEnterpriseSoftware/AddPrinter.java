@@ -19,7 +19,8 @@ public class AddPrinter extends javax.swing.JFrame {
     private int y = 90;
     //Current count of labels and fields
     private int count = 0;
-    private int countMax=15;
+    private int countMax = 15;
+
     public void AddPrinterStart() {
         initComponents();
         setVisible(true);
@@ -127,79 +128,89 @@ public class AddPrinter extends javax.swing.JFrame {
         //home.studentSubmissionButton.setVisible(false);
         dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
-    
-    
+
+
     private void addFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFieldButtonActionPerformed
-	    boolean add=true;
-	    if(printerNameTF.getText().equals("")||tfield0.getText().equals("")){
-		    JOptionPane.showMessageDialog(this,"Please fill out the previous fields before adding new ones.");
-		    add=false;
-	    }
-	    if(count!=0&&add==true){
-		   for(int i = 0; i < count; i++){
-			if(fields.get(i).getText().equals("")){
-				add=false;
-				JOptionPane.showMessageDialog(this,"Please fill out the previous fields before adding new ones.");
-				break;
-			}
-		} 
-	    }
-	    if(count<=countMax&&add==true){
-		tfield = new JTextField();
-		tfield.setName("tfield"+count);
-		fields.add(tfield);
-		tlabel = new JLabel();
-		tlabel.setName("fieldL"+count);
-		tlabel.setText("Field #"+count);
-		labels.add(tlabel);
-		y+=30;
-		getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1),4);
-		getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(30, y, -1, -1),3);
-		fields.get(count).setVisible(true);
-		labels.get(count).setVisible(true);
-		count++;
-		revalidate();
-		repaint();
-	    }
-	    if(count==0)
-		    removeFieldButton.enable();
-	    else
-		    removeFieldButton.disable();
+        boolean add = true;
+        if (printerNameTF.getText().equals("") || tfield0.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please fill out the previous fields before adding new ones.");
+            add = false;
+        }
+        if (count != 0 && add == true) {
+            for (int i = 0; i < count; i++) {
+                if (fields.get(i).getText().equals("")) {
+                    add = false;
+                    JOptionPane.showMessageDialog(this, "Please fill out the previous fields before adding new ones.");
+                    break;
+                }
+            }
+        }
+        if (count <= countMax && add == true) {
+            tfield = new JTextField();
+            tfield.setName("tfield" + count);
+            fields.add(tfield);
+            tlabel = new JLabel();
+            tlabel.setName("fieldL" + count);
+            tlabel.setText("Field #" + count);
+            labels.add(tlabel);
+            y += 30;
+            getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1), 4);
+            getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(30, y, -1, -1), 3);
+            fields.get(count).setVisible(true);
+            labels.get(count).setVisible(true);
+            count++;
+            revalidate();
+            repaint();
+        }
+        if (count == 0) {
+            removeFieldButton.enable();
+        } else {
+            removeFieldButton.disable();
+        }
     }//GEN-LAST:event_addFieldButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-	    boolean exit=true;
-	    if(printerNameTF.getText().equals("")||tfield0.getText().equals("")){
-		    JOptionPane.showMessageDialog(this,"Cannot save with empty fields!");
-		    exit=false;
-	    }
-	    if(exit==true)
-		for(int i = 0; i < count; i++){
-			if(fields.get(i).getText().equals("")){
-				exit=false;
-				JOptionPane.showMessageDialog(this,"Cannot save with empty fields!");
-				break;
-			}
-		}
-	    if(exit==true)
-		    dispose();
+        boolean exit = true;
+        
+        if (printerNameTF.getText().equals("") || tfield0.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
+            exit = false;
+        }
+
+        if (exit) {
+            for (int i = 0; i < count; i++) {
+                if (fields.get(i).getText().equals("")) {
+                    exit = false;
+                    JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
+                    break;
+                }
+            }
+        }
+
+        if (exit) {
+            for (JTextField field : fields) {
+                // field.getText();
+            }
+                    
+            dispose();
+        }
     }//GEN-LAST:event_saveBtnActionPerformed
 
         private void removeFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFieldButtonActionPerformed
-		if(count!=0){
-			y-=30;
-			count--;
-			getContentPane().remove(fields.get(count));
-			getContentPane().remove(labels.get(count));
-			fields.remove(count);
-			labels.remove(count);
-			revalidate();
-			repaint();
-		}
+            if (count != 0) {
+                y -= 30;
+                count--;
+                getContentPane().remove(fields.get(count));
+                getContentPane().remove(labels.get(count));
+                fields.remove(count);
+                labels.remove(count);
+                revalidate();
+                repaint();
+            }
         }//GEN-LAST:event_removeFieldButtonActionPerformed
 
 
