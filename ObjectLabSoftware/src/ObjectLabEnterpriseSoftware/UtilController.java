@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.io.FileUtils;
 import static org.apache.commons.io.FileUtils.directoryContains;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
@@ -105,7 +106,8 @@ public class UtilController
         {
             row = sheet.createRow(i);
             if(i == 0){
-               for(int j = 0; j < header.length; j++){
+               for(int j = 0; j < header.length; j++)
+			   {
                    cell = row.createCell(j);
                    cell.setCellValue(header[j]);
                }
@@ -131,7 +133,8 @@ public class UtilController
         
     }
     
-    public static void exportReportsForPrinters(ArrayList<Object> printers){
+    public static void exportReportsForPrinters(ArrayList<Object> printers)
+	{
     
         FileManager fileManager = new FileManager();
         
@@ -152,8 +155,10 @@ public class UtilController
             for (int i = 0; i < data.size()+1; i++) 
             {
                 row = sheet.createRow(i);
-                if(i == 0){
-                   for(int j = 0; j < data.get(i).size(); j++){
+                if(i == 0)
+				{
+                   for(int j = 0; j < data.get(i).size(); j++)
+				   {
                        cell = row.createCell(j);
                        cell.setCellValue(columnHeaders[j]);
                    }
@@ -170,72 +175,88 @@ public class UtilController
         }
         boolean didSave = fileManager.saveReport("MasterReport", wb);
 
-        if(didSave){
+        if(didSave)
+		{
             JOptionPane.showMessageDialog(new JFrame(), "Succesfully Exported File");
         }
-        else{
+        else
+		{
             JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
         }
     }
     
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
-		/*
-		Establish connection to DB
-		*/
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
-        FileManager cloudStorageOperations = new FileManager();
 
         try 
         {
+            String emailadr, emailMessage, primaryKey;
+            File locationOfRejectedFiles, rejectionFile;
+            FileManager cloudStorageOperations = new FileManager();
+            
+            /* Query the DB for our emailadr here */
             if (results.next()) 
             {
-                /*
-                   This checks to see if the file exists in the rejected location if it does the rejection will fail
-                    and the file that is in the reject location will be deleted. *hot fix for bug*
-                   If the file does not exist it is moved into the rejected location and the entry in the DB for that
-                    submission will be deleted. An email is sent to the user that the file was not accepted.
-                    -Nick 
-                */
-                File locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());
-                
-                /* Create rejected directory if it does not exist */
-                FileManager fm = new FileManager();
-                if(!fm.doesFileExist(fm.getRejected()))
-                    fm.create(fm.getRejected());
-                
-                if(!directoryContains(locationOfRejectedFiles, new File(cloudStorageOperations.getRejected() + file)))
-                {
-                    org.apache.commons.io.FileUtils.moveFileToDirectory(new File(cloudStorageOperations.getSubmission() + file), locationOfRejectedFiles, true);
-                    
-                    //SendEmail rejectionEmail = new SendEmail(fName, lName, reasonForRejection, file, results.getString("idJobs"));
-                    EmailUtils sendEmails = new EmailUtils(fName, lName, reasonForRejection, file, results.getString("idJobs"));
-                    sendEmails.Send();
-                    //rejectionEmail.Send();
-                    
-                    dbconn.delete("pendingjobs", results.getString("idJobs"));
-                    dbconn.closeDBConnection();
-                    
-                    return SUCCESS;
-                }
-                else
-                {
-                    System.out.println("File deleted");
-                    org.apache.commons.io.FileUtils.forceDelete(new File(cloudStorageOperations.getRejected() + file));
-                }
-                
+                primaryKey = results.getString("idJobs");
+                ResultSet queryResultEmailAdr = dbconn.searchPendingWithID(primaryKey);
+                    if(queryResultEmailAdr.next())
+                    {
+                        emailadr = queryResultEmailAdr.getString("email");
+                    }
+                    else
+                    {
+                        dbconn.closeDBConnection();
+                        return FAILURE;
+                    }
+            }
+            else
+            {
+                dbconn.closeDBConnection();
+                return FAILURE;
             }
             
+            /* Create rejected directory if it does not exist
+            if(!cloudStorageOperations.doesFileExist(cloudStorageOperations.getRejected()))
+                    cloudStorageOperations.create(cloudStorageOperations.getRejected());
+            */
+            
+            /* Move our rejected file to the rejected files directory */
+            locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());    
+            rejectionFile = new File(cloudStorageOperations.getSubmission() + file);
+            
+            if(rejectionFile.exists())
+            {
+                FileUtils.moveFileToDirectory(rejectionFile, locationOfRejectedFiles, true);
+            }
+            else
+            {
+                dbconn.closeDBConnection();
+                return FAILURE;
+            }
+            
+            /* 
+			Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
+			*/
+            dbconn.delete("pendingjobs", primaryKey);
             dbconn.closeDBConnection();
-            return FAILURE;
-        } 
-        catch (SQLException | IOException ex) 
+            
+            emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, " 
+					+ file + ", we have found the following error: \n\nComment: " + reasonForRejection
+					+ "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
+        }
+        catch (SQLException ex) 
         {
             System.out.println("Program crashed in reject subm\n" + ex);
-            dbconn.closeDBConnection();
-            return FAILURE;
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        dbconn.closeDBConnection();
+        return FAILURE;
     }
     
     public static void approveStudentSubmission(String fileName, String firstName, String lastName, String printer, String dateStarted, double volume)
@@ -251,13 +272,18 @@ public class UtilController
 
         try 
         { 
-            /* If the row exist, then query for the PK and then use that to update the pendingjobs table fileLocation. -Nick */
+            /* 
+			If the row exist, then query for the PK and then use that to update 
+			the pendingjobs table fileLocation. -Nick 
+			*/
             if (result.next())
             {
                 ID = result.getString("idJobs");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() 
+						+ "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
                 String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
+                String currentFileLocation = cloudStorageOperations.getSubmission() 
+						+ "\\" + fileName;
                 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
@@ -315,10 +341,12 @@ public class UtilController
      * Check if the file exists in the given filepath. If it doesn't, prompt the user to search for the file. 
      * If user is unable to find the file, delete it from the database.
      */
-    public static boolean checkFileExists(String filepath){
+    public static boolean checkFileExists(String filepath)
+	{
         boolean exists = new FileManager().doesFileExist(filepath);
         //If the files does not exist and the user does not locate it
-        if(!exists){
+        if(!exists)
+		{
             //TODO: update file location in database
         }
         return true;
@@ -453,49 +481,47 @@ public class UtilController
         return classesAvailble;
     }
     
-    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, FileManager inst, String printer, String fName, String lName, String Class, String section, String fileName, String email)
+    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, String printer, 
+			String fName, String lName, String Class, String section, String fileName, String email)
 	{
 		/*
 		Establish connection to DB
 		*/
 		SQLMethods dbconn = new SQLMethods();
 		
-		String fileLoc = "";
         try 
         {
-			
-           //********* Create New File Location With Appended Filename ******** 
-            fileLoc = inst.getSubmission() + fileName;
+			/*
+			Get  file location 
+			*/
+			FileManager instance = new FileManager();
+			String fileLoc = instance.getSubmission() + fileName;
 			fileLoc = fileLoc.replace("\\", "\\\\");
-			System.out.println("Get file location:" + fileLoc);
-			
-			
-            //********* Copies the Student Submition to the Directory ********
-			File oldFile = new File(fileLocation.getText());
-			System.out.println("old:" + oldFile.getName());
-			
-			File newFile = new File(fileLoc);
-			System.out.println("new:" + newFile.getName());
 
-            org.apache.commons.io.FileUtils.copyFile(oldFile, newFile);
+			/*
+			Now copy the old file to the new file locatio
+			*/
+            org.apache.commons.io.FileUtils.copyFile(new File(fileLocation.getText()), new File(fileLoc));
 
-            //********* inserts Student Submission in Data Base *********
+			/*
+			NOTE: THERE SHOULD BE VERIFICATION OF SUCCESSFUL COPY sHERE BEFORE INSERTING INTO DB
+			*/
+			
+            /*
+			Insert the copied file into pending jobs
+			*/
             dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc, email);
-            
-            java.util.concurrent.TimeUnit.SECONDS.sleep(2);
         }
         
         catch (IOException e) 
         {
             javax.swing.JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
         } 
-        
-        catch (InterruptedException ex)
-        {
-            Logger.getLogger(StudentSubmission.class.getName()).log(Level.SEVERE, null, ex);
-        }
-				
-    }//end moveFileToSubmitLocation
+		/*
+		Close the DB connection
+		*/
+		dbconn.closeDBConnection();
+    }
 
 	public static String getCurrentTimeFromDB()
 	{
@@ -509,7 +535,6 @@ public class UtilController
 		*/
 		String currTime = null;
 		ResultSet res = dbconn.getCurrentTime();
-		String arr = null;
 		try
 		{
 			int count=1;
@@ -523,10 +548,13 @@ public class UtilController
 		{
 			sqlError.printStackTrace();
 		}
+		
 		/*
 		Append a "_" so that project names can be differentiated from timestamp
 		*/
 		currTime = "_" + currTime; 
+		dbconn.closeDBConnection();
+		
 		return (String)currTime.trim();
 	}
      /**

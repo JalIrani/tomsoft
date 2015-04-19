@@ -20,11 +20,8 @@ import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 
-/**
- *
- * @author Miguel+Emily
- */
-public class FileManager {
+public class FileManager 
+{
     
     private final String submission;
     private final String drive;
@@ -48,7 +45,8 @@ public class FileManager {
 
 
     //Sets default locations that will be shared by all installations
-    public FileManager() {
+    public FileManager() 
+	{
         //Use the directory provided on piazza and change the file paths below to test
         drive = "C:\\Sync";
         rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
@@ -69,9 +67,11 @@ public class FileManager {
         INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
     }
     
-    public boolean deleteFile(String path){
+    public boolean deleteFile(String path)
+	{
         File newDir = new File(path);
-        if(newDir.exists()){
+        if(newDir.exists())
+		{
             newDir.delete();
         }
         
@@ -105,26 +105,30 @@ public class FileManager {
         {
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
-        
+        }   
         return true;
     }
     
     public boolean approveFile(String FileName, String printer){
     
         File newDir = new File(drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
-            try {
+            try 
+			{
                 org.apache.commons.io.FileUtils.moveFileToDirectory(new File(submission + "\\" + FileName), newDir, true);
-            } catch (FileExistsException e) {
+            } catch (FileExistsException e) 
+			{
                 org.apache.commons.io.FileUtils.deleteQuietly(new File(newDir.getAbsoluteFile() + FileName));
                 newDir = new File(drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
-                try {
+                try 
+				{
                     org.apache.commons.io.FileUtils.moveFileToDirectory(new File(submission + "\\" + FileName), newDir, true);
-                } catch (IOException ex) {
+                } catch (IOException ex) 
+				{
                     //Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
                     return false;
                 }
-            } catch (IOException ex) {
+            } catch (IOException ex) 
+			{
                 //Logger.getLogger(ApprovePage.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
@@ -132,16 +136,21 @@ public class FileManager {
         return true;
     }
     
-    public boolean saveReport(String name, Workbook wb){
+    public boolean saveReport(String name, Workbook wb)
+	{
         
-        try {
+        try 
+		{
             FileOutputStream out = new FileOutputStream(excelFilePath + name + ".xls");
             wb.write(out);
             out.close();
-        } catch (FileNotFoundException ex) {
+        } 
+		catch (FileNotFoundException ex) 
+		{
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } catch (IOException ex) {
+        } catch (IOException ex) 
+		{
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -149,11 +158,15 @@ public class FileManager {
         return true;
     }
     
-    public boolean submitFile(String fileLocation){
+    public boolean submitFile(String fileLocation)
+	{
         
-        try {
+        try 
+		{
             org.apache.commons.io.FileUtils.copyFileToDirectory(new File(fileLocation), new File(submission));
-        } catch (IOException ex) {
+        } 
+		catch (IOException ex) 
+		{
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -172,9 +185,11 @@ public class FileManager {
      */
     public static void moveFileToNewDirectory(File srcFile,File destDir,boolean createDestDir)
     {
-        try {
+        try 
+		{
             org.apache.commons.io.FileUtils.moveFileToDirectory(srcFile ,destDir ,createDestDir);
-        } catch (IOException ex) {
+        } catch (IOException ex) 
+		{
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -200,17 +215,23 @@ public class FileManager {
         
     }
     
-    public boolean zipFilesTo(String zipFileName){
+    public boolean zipFilesTo(String zipFileName)
+	{
         String zipTo =  ZIPPED_FOLDER + zipFileName + ".zip";
-        try {
+        try 
+		{
             zip(INPUT_FOLDER, zipTo);
-        } catch (IOException ex) {
+        } 
+		catch (IOException ex) 
+		{
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
            return true;
     }
-    public static void zip(String inputFolder,String targetZippedFolder)  throws IOException {
+	
+    public static void zip(String inputFolder,String targetZippedFolder)  throws IOException 
+	{
 
         FileOutputStream fileOutputStream = null;
 
@@ -226,7 +247,9 @@ public class FileManager {
         zipOutputStream.close();
     }
 
-    public static void zipFolder(ZipOutputStream zipOutputStream,File inputFolder, String parentName)  throws IOException {
+    public static void zipFolder(ZipOutputStream zipOutputStream,
+			File inputFolder, String parentName)  throws IOException 
+	{
  
         String myname = parentName +inputFolder.getName()+"\\";
 
@@ -245,7 +268,9 @@ public class FileManager {
         zipOutputStream.closeEntry();
     }
 
-    public static void zipFile(File inputFile,String parentName,ZipOutputStream zipOutputStream) throws IOException{
+    public static void zipFile(File inputFile,String parentName,
+			ZipOutputStream zipOutputStream) throws IOException
+	{
  
         // A ZipEntry represents a file entry in the zip archive
         // We name the ZipEntry after the original file's name
@@ -262,7 +287,8 @@ public class FileManager {
 
         // Read the input file by chucks of 1024 bytes
         // and write the read bytes to the zip stream
-        while ((bytesRead = fileInputStream.read(buf)) > 0) {
+        while ((bytesRead = fileInputStream.read(buf)) > 0) 
+		{
             
             zipOutputStream.write(buf, 0, bytesRead);
         }
@@ -275,132 +301,152 @@ public class FileManager {
     /**
      * @return the zcorpToPrint
      */
-    public String getZcorpToPrint() {
+    public String getZcorpToPrint() 
+	{
         return zcorpToPrint;
     }
 
     /**
      * @param zcorpToPrint the zcorpToPrint to set
      */
-    public void setZcorpToPrint(String zcorpToPrint) {
+    public void setZcorpToPrint(String zcorpToPrint) 
+	{
         this.zcorpToPrint = zcorpToPrint;
     }
 
     /**
      * @return the zcorpToBuild
      */
-    public String getZcorpToBuild() {
+    public String getZcorpToBuild() 
+	{
         return zcorpToBuild;
     }
 
     /**
      * @return the solidscapeToPrint
      */
-    public String getSolidscapeToPrint() {
+    public String getSolidscapeToPrint() 
+	{
         return solidscapeToPrint;
     }
 
     /**
      * @return the solidscapeToBuild
      */
-    public String getSolidscapeToBuild() {
+    public String getSolidscapeToBuild() 
+	{
         return solidscapeToBuild;
     }
 
     /**
      * @return the zcorpToBuildDir
      */
-    public String getZcorpToBuildDir() {
+    public String getZcorpToBuildDir() 
+	{
         return zcorpToBuildDir;
     }
 
     /**
      * @return the objetToPrint
      */
-    public String getObjetToPrint() {
+    public String getObjetToPrint() 
+	{
         return objetToPrint;
     }
 
     /**
      * @return the objetToBuild
      */
-    public String getObjetToBuild() {
+    public String getObjetToBuild() 
+	{
         return objetToBuild;
     }
 
     /**
      * @return the zcorpPrinted
      */
-    public String getZcorpPrinted() {
+    public String getZcorpPrinted() 
+	{
         return zcorpPrinted;
     }
 
     /**
      * @return the solidscapePrinted
      */
-    public String getSolidscapePrinted() {
+    public String getSolidscapePrinted() 
+	{
         return solidscapePrinted;
     }
 
     /**
      * @return the objetPrinted
      */
-    public String getObjetPrinted() {
+    public String getObjetPrinted() 
+	{
         return objetPrinted;
     }
 
     /**
      * @return the PDF
      */
-    public String getPDFAdmin() {
+    public String getPDFAdmin() 
+	{
         return PDFAdmin;
     }
 
         /**
      * @return the PDF
      */
-    public String getPDFStudent() {
+    public String getPDFStudent() 
+	{
         return PDFStudent;
     }
     
     /**
      * @return the submitted
      */
-    public String getSubmitted() {
+    public String getSubmitted() 
+	{
         return submitted;
     }
 
     /**
      * @return the submission
      */
-    public String getSubmission() {
+    public String getSubmission() 
+	{
         return submission;
     }
 
     /**
      * @return the drive
      */
-    public String getDrive() {
+    public String getDrive() 
+	{
         return drive;
     }
 
     /**
      * @return the rejected
      */
-    public String getRejected() {
+    public String getRejected() 
+	{
         return rejected;
     }
        
    //added getters
-     public String getExcelFilePath() {
+     public String getExcelFilePath() 
+	 {
         return excelFilePath;
     }
 
-    public String getINPUT_FOLDER() {
+    public String getINPUT_FOLDER() 
+	{
         return INPUT_FOLDER;
     }
 
-    public String getZIPPED_FOLDER() {
+    public String getZIPPED_FOLDER() 
+	{
         return ZIPPED_FOLDER;
     }
 }//end of class

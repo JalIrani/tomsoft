@@ -31,8 +31,15 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
+        System.out.println("ROW COUNT: " + pendingJobsView.getRowCount());
+        /* Clears up the rows in the view's model. */
+        for(int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
+            pendingJobsView.removeRow(rows);
+        
+        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view) 
             pendingJobsView.addRow(row.toArray());
+        System.out.println("ROW COUNT AFTER: " + pendingJobsView.getRowCount());
     }
     
     public PendingJobsView() 
@@ -211,23 +218,35 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
+        String desc;
         
-         /* Hand off the data in the selected row found in our tablemodel to this method so we can 
-          * reject the correct file -Nick 
-          */
-        boolean success = UtilController.rejectStudentSubmission
-        ( 
-                (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER), 
-                (String) allFileTableModel.getValueAt(userSelectedRow, FIRST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(userSelectedRow, LAST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(userSelectedRow, DATE_PROJECT_STARTED_COLUMN_NUMBER),
-                 JOptionPane.showInputDialog(new java.awt.Frame(), "Enter in reject description: ")
-        );
+        desc = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter in reject description: ");
         
-        if(success)
-            JOptionPane.showMessageDialog(new JFrame(), "Email sent succesfully!");
-        else
-            JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
+        if(desc != null)
+        {
+
+            /* Hand off the data in the selected row found in our tablemodel to this method so we can 
+             * reject the correct file -Nick 
+             */
+           boolean success = UtilController.rejectStudentSubmission
+           ( 
+                   (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER), 
+                   (String) allFileTableModel.getValueAt(userSelectedRow, FIRST_NAME_COLUMN_NUMBER),
+                   (String) allFileTableModel.getValueAt(userSelectedRow, LAST_NAME_COLUMN_NUMBER),
+                   (String) allFileTableModel.getValueAt(userSelectedRow, DATE_PROJECT_STARTED_COLUMN_NUMBER),
+                    desc
+           );
+
+           if(success)
+           {
+               JOptionPane.showMessageDialog(new JFrame(), "Email sent succesfully!");
+               updateView(allFileTableModel, UtilController.updatePendingTableData());
+           }
+           else
+           {
+               JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
+           }
+        }
     }//GEN-LAST:event_RejectButtonActionPerformed
     
     /**
@@ -237,22 +256,32 @@ public class PendingJobsView extends javax.swing.JFrame
       */
     private static double getDouble(String msg, double min, double max)
     {
+        String tmp;
         do
         {
             
-            String tmp = JOptionPane.showInputDialog(null, msg);
-            Scanner inputChecker = new Scanner(tmp);
-            double volume;
+            tmp = JOptionPane.showInputDialog(null, msg);
             
-            if(inputChecker.hasNextDouble())
+            if(tmp != null)
             {
-                volume = inputChecker.nextDouble();
-                if(volume >= min && volume <= max)
-                    return volume;
+                Scanner inputChecker = new Scanner(tmp);
+                double volume;
+
+                if(inputChecker.hasNextDouble())
+                {
+                    volume = inputChecker.nextDouble();
+                    if(volume >= min && volume <= max)
+                        return volume;
+                }
+                else
+                {
+                    if(inputChecker.hasNext())
+                        inputChecker.next();
+                }
             }
             else
             {
-                inputChecker.next();
+                return -1;
             }
             
         } while (true);
@@ -260,25 +289,29 @@ public class PendingJobsView extends javax.swing.JFrame
     
     private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
+        int maxVolume = 10000; /* Will need to have this in a cfg file.... */
         
         if (userSelectedRow > -1) 
         {
             int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
-            double volume = getDouble("Enter volume (in cubic inches): ", 1, 10000);   
-             
-            /* Hand off the data in the selected row found in our tablemodel to this method so we can 
-                approve the correct file to be printed... -Nick 
-            */
-            UtilController.approveStudentSubmission
-            (
-                (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, PRINTER_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER),
-                volume
-            );
-                    
+            double volume = getDouble("Enter volume (in cubic inches): ", 1, maxVolume);   
+            
+            if(volume >= 1)
+            {             
+                /* Hand off the data in the selected row found in our tablemodel to this method so we can 
+                    approve the correct file to be printed... -Nick 
+                */
+                UtilController.approveStudentSubmission
+                (
+                    (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, PRINTER_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER),
+                    volume
+                );
+                updateView(allFileTableModel, UtilController.updatePendingTableData());
+            }        
         }
          
     }//GEN-LAST:event_ApprovedButtonActionPerformed

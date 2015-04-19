@@ -3,10 +3,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.swing.ButtonGroup;
@@ -14,26 +10,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class StudentSubmission extends javax.swing.JFrame {
-
-    /**
-     * Creates new form NewJFrame
-     */
-    SQLMethods sqlMethods;
-    FileManager inst;
+public class StudentSubmission extends javax.swing.JFrame 
+{
     ButtonGroup group;
     String printer;
     TomSoftMain home;
 
     public void studentSubmissionStart() 
 	{
-        inst = new FileManager();
         initComponents();
         hideErrorFields();
-        
-        sqlMethods = new SQLMethods();
         home = new TomSoftMain();
-        
         try 
 		{
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
@@ -45,12 +32,12 @@ public class StudentSubmission extends javax.swing.JFrame {
                 }
             }
         } 
-		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | 
+				javax.swing.UnsupportedLookAndFeelException ex) 
 		{
             java.util.logging.Logger.getLogger(StudentSubmission.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
         addWindowListener(new WindowAdapter() 
 		{
 			@Override
@@ -260,7 +247,8 @@ public class StudentSubmission extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void hideErrorFields() {
+    private void hideErrorFields() 
+	{
         //visibility wasn't an option to set from the beginning.
         error_NoFileLocationSelected.setVisible(false);
         error_NoFirstName.setVisible(false);
@@ -270,36 +258,44 @@ public class StudentSubmission extends javax.swing.JFrame {
         error_NoPrinterSelected.setVisible(false);
     }
     
-    private boolean errCheck() {
+    private boolean errCheck() 
+	{
         boolean isErr = false;
         hideErrorFields();
-        if (fileLocation.getText().isEmpty()) {
+        if (fileLocation.getText().isEmpty()) 
+		{
             error_NoFileLocationSelected.setVisible(true);
             error_NoFileLocationSelected.setText("Select a File!");
             isErr = true;
         }
 
-        if (firstName.getText().isEmpty()) {
+        if (firstName.getText().isEmpty()) 
+		{
             error_NoFirstName.setVisible(true);
             error_NoFirstName.setText("Cannot be empty.");
             isErr = true;
         }
 
-        if (lastName.getText().isEmpty()) {
+        if (lastName.getText().isEmpty()) 
+		{
             error_NoLastName.setVisible(true);
             error_NoLastName.setText("Cannot be empty.");
             isErr = true;
         }
 
         //Simple Email Validation Using a JAVA MAIL method
-        if (emailInfo.getText().isEmpty()) {
+        if (emailInfo.getText().isEmpty()) 
+		{
             error_NoEmail.setVisible(true);
             error_NoEmail.setText("Cannot be empty.");
             isErr = true;
-        } else {
-            try {
+        } else 
+		{
+            try 
+			{
                 new InternetAddress(emailInfo.getText()).validate();
-            } catch (AddressException e) {
+            } catch (AddressException e) 
+			{
                 error_NoEmail.setVisible(true);
                 error_NoEmail.setText("Invalid Email!");
                 isErr = true;
@@ -307,72 +303,68 @@ public class StudentSubmission extends javax.swing.JFrame {
         }
         //End Email Validation
 
-        if (classBox.getSelectedIndex() == -1) {
+        if (classBox.getSelectedIndex() == -1) 
+		{
             error_NoClassSelected.setVisible(true);
             error_NoClassSelected.setText("Select Option!");
             isErr = true;
         }
 
-        if (printerBox.getSelectedIndex() == -1) {
+        if (printerBox.getSelectedIndex() == -1) 
+		{
             error_NoPrinterSelected.setVisible(true);
             error_NoPrinterSelected.setText("Select Option!");
             isErr = true;
-        }
-
-	/* This checks for a duplicate file submission by querying the pendingjobs table and then
-           traversing through the ResultSet for a match from the user input and an entry in the DB.
-        */
-        ResultSet existing = sqlMethods.searchPending();
-        try {
-            while (existing.next()) {
-                String temp = existing.getString("filename");
-                if (temp.substring(temp.lastIndexOf("\\") + 1).equals(projName.getText())) {
-                    isErr = true;
-                    JOptionPane.showMessageDialog(new java.awt.Frame(), "Filename already exists. Please rename your STL file.");
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentSubmission.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
+        }		
         return isErr;
     }
 
-
     private void Student_SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Student_SubmitActionPerformed
-        //Once Submit is Pressed
-            // checks to see if stl files with same name exists
-            if (errCheck() == false) {
-                 //***********Stores Values in Textfeilds //***********
+			/*
+			Verifies user and file information is inputted in its entirety
+			*/
+            if (errCheck() == false) 
+			{
+                /*
+				Stores Values in Textfeilds
+				*/
                 String fileName = projName.getText();
                 String fName = firstName.getText();
                 String lName = lastName.getText();
                 String email = emailInfo.getText();
                 
-                //***********break down course string to course and section//***********
+                /* 
+				Split String to course and section
+				*/
                 String classText = (String) classBox.getSelectedItem();
                 String[] splittedCourse = classText.split("\\s");
                 printer = (String) printerBox.getSelectedItem();
                 
-                  //***********Calls UtilController Method to move file to the Submit location
-                UtilController.moveFileToSubmitLocation(fileLocation, inst, printer, fName, lName, splittedCourse[0], splittedCourse[1], fileName, email);
+                /*
+				Moves file to the Submission location and inserts into pending jobs
+				*/
+                UtilController.moveFileToSubmitLocation(fileLocation, printer, fName, 
+						lName, splittedCourse[0], splittedCourse[1], fileName, email);
                
-                //***********GUI For CONFIRMATION (Proper place needed)  ****************
-                  JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
-                  dispose();
-                 //***********resets fields//***********
-                Reset_StudentSubmissionFields();
-                
-                
+                JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
+                dispose();
+                new TomSoftMain().setVisible(true); 
             }
-            
+			else
+			{
+				dispose();
+				/*
+				 Reset fields
+				 */
+                Reset_StudentSubmissionFields(); 
+			}
     }
     
-          private void Reset_StudentSubmissionFields()
-		  {
-              
-                //*********** resets fields  //***********
-                //dispose();
+	private void Reset_StudentSubmissionFields()
+	{
+                /*
+				Reset fields
+				*/
                 setVisible(false);
                 fileLocation.setText(null);
                 projName.setText(null);
@@ -381,17 +373,13 @@ public class StudentSubmission extends javax.swing.JFrame {
                 emailInfo.setText(null);
                 classBox.setSelectedItem(null);
                 printerBox.setSelectedItem(null);
-                setVisible(true);
-        
-    
+                setVisible(true);   
     }//GEN-LAST:event_Student_SubmitActionPerformed
-
 
     private void BrowseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BrowseMouseClicked
         //Creates "JFileChooser" file browser
-        JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
-        //FileFilter filter = new FileNameExtensionFilter("STL files", ".stl");
-        //fileopen.addChoosableFileFilter(filter);
+        JFileChooser fileopen = new JFileChooser();  
+		//in brackets, add Syncthing directory or new Drive's address for default location
         fileopen.setAcceptAllFileFilterUsed(false);
         fileopen.setMultiSelectionEnabled(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
@@ -414,7 +402,8 @@ public class StudentSubmission extends javax.swing.JFrame {
         // TODO add your handling code here:
         try 
 		{
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFStudent());
+			FileManager instance = new FileManager();
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
         } 
 		catch (IOException e) 
 		{
@@ -437,7 +426,6 @@ public class StudentSubmission extends javax.swing.JFrame {
     private void fileLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileLocationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fileLocationActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Browse;
@@ -470,4 +458,3 @@ public class StudentSubmission extends javax.swing.JFrame {
     private javax.swing.JTextField projName;
     // End of variables declaration//GEN-END:variables
 }
-

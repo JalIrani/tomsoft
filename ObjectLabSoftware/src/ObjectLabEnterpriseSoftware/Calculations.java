@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-//hello I am just testing GitHub
 package ObjectLabEnterpriseSoftware;
 
 import java.sql.ResultSet;
@@ -12,29 +5,30 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Alexander
- */
-public class Calculations {
+public class Calculations 
+{
 
     static SQLMethods dba;
     static SolidscapePref SSPref;
     static String[][] array;
     static ResultSet res;
 
-    public Calculations() {
+    public Calculations() 
+	{
         array = new String[50][2];
         dba = new SQLMethods();
     }
 
-    public static void BuildtoProjectCost(String BuildName, String Printer, double priceOfBuild) {
+    public static void BuildtoProjectCost(String BuildName, String Printer, double priceOfBuild) 
+	{
         int x = 0;
         double totalVolume = 0;
         res = dba.searchPendingByBuildName(BuildName);
         //System.out.println("OK ... associated thingies");
-        try {
-            while (res.next()) {
+        try 
+		{
+            while (res.next()) 
+			{
                 array[x][0] = res.getString("idJobs");
                 array[x][1] = res.getString("volume");
                 totalVolume = totalVolume + Double.parseDouble(res.getString("volume"));
@@ -81,12 +75,16 @@ public class Calculations {
         return allTime * Price; //* cost
     }
 
-    public static double ObjetCost(Double buildConsumed, String MaterialType) {
+    public static double ObjetCost(Double buildConsumed, String MaterialType) 
+	{
         ResultSet res = dba.searchPrinterSettings("Objet");
         double Price = 0;
-        try {
-            if (res.next()) {
-                switch (MaterialType) {
+        try 
+		{
+            if (res.next()) 
+			{
+                switch (MaterialType) 
+				{
                     case "VeroWhitePlus":
                         Price = Double.parseDouble(res.getString("materialCostPerUnit"));
                         break;
@@ -104,11 +102,11 @@ public class Calculations {
                         break;
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex) 
+		{
             System.out.println("SQL Exception occured.");
         }
         double percentCartUsed = buildConsumed / 1000;
         return Price * percentCartUsed;
     }
-
 }
