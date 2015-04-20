@@ -249,24 +249,16 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void addArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrowActionPerformed
-		int i;
-		boolean found = false;
-		for (i = 0; i < currentClassListModel.getSize(); i++)
+		if (currentClassListModel.contains(allClassList.getSelectedValue()))
 		{
-			if (currentClassListModel.elementAt(i).equals(allClassList.getSelectedValue()))
-			{
-				found = true;
-			}
-		}
-		if (found)
-		{
-			JOptionPane.showMessageDialog(null, "Class already in current class list", "Add Error", JOptionPane.ERROR_MESSAGE);
-		} else
+			JOptionPane.showMessageDialog(null, "Class already in current class list", 
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		} 
+		else
 		{
 			currentClassListModel.addElement(allClassList.getSelectedValue());
 			allClassListModel.removeElement(allClassList.getSelectedValue());
 		}
-
     }//GEN-LAST:event_addArrowActionPerformed
 
     private void removeArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeArrowActionPerformed
@@ -285,30 +277,26 @@ public class ClassOptionsView extends javax.swing.JFrame
 		if (className.getText().equals("") | classNumber.getText().equals("") | sectionNumber.getText().equals(""))
 		{
 			JOptionPane.showMessageDialog(null, "Please enter all three values", "Add Error", JOptionPane.ERROR_MESSAGE);
-		} else
+		} 
+		else
 		{
-		hideOptions();
-		setVisible(true);
-
-			int i;
-			boolean found = false;
-			String input = className.getText() + " " + classNumber.getText() + " " + sectionNumber.getText();
-			input = input.toLowerCase();
-			for (i = 0; i < allClassListModel.getSize(); i++)
+			String input = className.getText().toUpperCase() + " " + 
+					classNumber.getText() + " " + sectionNumber.getText();
+			DefaultListModel temp = new DefaultListModel();
+			temp.addElement(input);
+			System.out.print(temp.elementAt(0).toString() + " This is it");
+			if(allClassListModel.contains(temp.elementAt(0)) || currentClassListModel.contains(temp.elementAt(0)))
 			{
-				if (allClassListModel.elementAt(i).toString().toLowerCase().equals(input))
-				{
-					found = true;
-				}
-			}
-			if (found)
-			{
-				JOptionPane.showMessageDialog(null, "Class already in all class list", "Add Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Class already in all class list", 
+						"Add Error", JOptionPane.ERROR_MESSAGE);
 			} else
 			{
 				allClassListModel.addElement(input.toUpperCase());
 				UtilController.insertNewClass(className.getText().toUpperCase(), classNumber.getText(), sectionNumber.getText());
 			}
+			temp.clear();
+			hideOptions();
+			addNewClass.setVisible(true);
 		}
 
     }//GEN-LAST:event_addNewButtonActionPerformed
