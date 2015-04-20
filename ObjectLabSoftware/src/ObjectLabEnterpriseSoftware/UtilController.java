@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -772,6 +773,35 @@ public class UtilController
         }
     }
     
-    
+    public static boolean addDevice(Device deviceModel)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        String deviceName = deviceModel.getDeviceName();
+        ArrayList<String> fieldNames = deviceModel.getFieldNames();
+        ArrayList<String> fileExt = deviceModel.getFileExtensions();
+        
+        /* Insert our printer into the printer table. For right now just adding in the first
+           file extension added from UI (DB does not support multiple file extensions)
+        */
+        dbconn.insertIntoPrinter(deviceName, deviceModel.getFileExtensions().get(0));
+        
+        /* Code for newer updated DB
+
+            dbconn.insertIntoPrinter(deviceName);
+            
+            for(String ext : fileExt)
+                dbconn.insertIntoFileExtension(deviceName, ext);
+        
+            for(String trackableField : fieldNames)
+                dbconn.insertIntoCustom(deviceName, trackableField, deviceModel.getFieldType(trackableField));
+        */
+        
+        /* insert the custom field names for the printer into the database table custom_printer_column_names */
+        for(String trackableField : fieldNames)
+            dbconn.insertIntoCustom(deviceName, trackableField);
+        
+        dbconn.closeDBConnection();
+        return true;
+    }
     
 }

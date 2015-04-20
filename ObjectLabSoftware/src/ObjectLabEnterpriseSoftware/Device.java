@@ -32,8 +32,8 @@ public class Device
     {
         deviceName = name;
         fileExtensions = ext;
-        fieldNames = null;
-        fields = null;
+        fieldNames = new ArrayList<>();
+        fields = new HashMap<>();
     }
     
     public void setDeviceName(String n)
@@ -72,6 +72,11 @@ public class Device
     public ArrayList<String> getFileExtensions()
     {
         return fileExtensions;
+    }
+    
+    public ArrayList<String> getFieldNames()
+    {
+        return fieldNames;
     }
     
     public HashMap<String, Object> getTrackableFields()
