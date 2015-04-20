@@ -757,21 +757,24 @@ public class UtilController
      */
     public static void retrievePrinterSettings(String printer)
     {
-        
         SQLMethods dbconn = new SQLMethods();
         ResultSet res = dbconn.searchPrinterSettings(printer);
         
         dbconn.closeDBConnection();
     }
-    public static void saveButtonActionPerformed(java.awt.event.ActionEvent evt, SQLMethods dba, DefaultListModel currentClassListModel) {                                        
-        // SET all classes in current's current value to true and all else to false
-        dba.setAllClassesInvisible();
-        for (int i = 0; i < currentClassListModel.getSize(); i++) {
+    public static void saveButtonActionPerformed(java.awt.event.ActionEvent evt, DefaultListModel currentClassListModel) 
+	{
+		SQLMethods dbconn = new SQLMethods(); 
+	
+		// SET all classes in current's current value to true and all else to false
+        dbconn.setAllClassesInvisible();
+        for (int i = 0; i < currentClassListModel.getSize(); i++) 
+		{
             String[] parts = currentClassListModel.elementAt(i).toString().split(" ");
-            //String part1 = parts[0]; // classNumber
-            //String part2 = parts[1]; // sectionNumber
-            dba.updateCurrentClasses(parts[0] + " " + parts[1], parts[2]);
+            dbconn.updateCurrentClasses(parts[0] + " " + parts[1], parts[2]);
         }
+		
+		dbconn.closeDBConnection();
     }
     
     public static boolean addDevice(Device deviceModel)

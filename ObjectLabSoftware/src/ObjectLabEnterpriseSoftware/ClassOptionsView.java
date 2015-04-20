@@ -1,14 +1,8 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 
 public class ClassOptionsView extends javax.swing.JFrame
 {
@@ -20,12 +14,9 @@ public class ClassOptionsView extends javax.swing.JFrame
 	DefaultListModel currentClassListModel = UtilController.returnCurrentClassesArray();
 	FileManager Inst;
 	MainView home;
-	SQLMethods dba;
-	
+
 	public void OptionsStart()
 	{
-		dba = new SQLMethods();
-
 		Inst = new FileManager();
 		home = new MainView();
 		initComponents();
@@ -283,7 +274,6 @@ public class ClassOptionsView extends javax.swing.JFrame
 			JOptionPane.showMessageDialog(null, "Please enter all three values", "Add Error", JOptionPane.ERROR_MESSAGE);
 		} else
 		{
-			//allClassListModel.addElement(className.getText() + " " + classNumber.getText() + "." + sectionNumber.getText());
 			addNewClass.setVisible(true);
 			classNameL.setVisible(false);
 			classNumberL.setVisible(false);
@@ -311,7 +301,9 @@ public class ClassOptionsView extends javax.swing.JFrame
 			} else
 			{
 				allClassListModel.addElement(input.toUpperCase());
+				SQLMethods dba = new SQLMethods(); 
 				dba.insertIntoClasses(className.getText().toUpperCase() + " " + classNumber.getText(), sectionNumber.getText());
+				dba.closeDBConnection();
 			}
 		}
 
@@ -343,7 +335,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
 		//class(ex. ART 101.001) stored in the database
-		UtilController.saveButtonActionPerformed(evt, dba, currentClassListModel);
+		UtilController.saveButtonActionPerformed(evt, currentClassListModel);
 
 		dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
