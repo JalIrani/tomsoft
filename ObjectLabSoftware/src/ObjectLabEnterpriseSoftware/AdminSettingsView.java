@@ -12,14 +12,14 @@ import java.awt.event.WindowEvent;
  *
  * @author Saurabh
  */
-public class AdminSettings extends javax.swing.JFrame {
-    TomSoftMain home;
+public class AdminSettingsView extends javax.swing.JFrame {
+    TomSoftMainView home;
 
     /**
      * Creates new form adminSettings
      */
-    public AdminSettings() {
-        home = new TomSoftMain();
+    public AdminSettingsView() {
+        home = new TomSoftMainView();
         initComponents();
         setTitle("TomSoft Admin Settings");
         setLocationRelativeTo(null);
@@ -31,7 +31,7 @@ public class AdminSettings extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminSettings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminSettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
           addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -70,7 +70,7 @@ public class AdminSettings extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 143, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 143, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 320, 10));
 
         addPrinterButton.setText("Add Printer");
@@ -79,7 +79,7 @@ public class AdminSettings extends javax.swing.JFrame {
                 addPrinterButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, 20));
+        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, -1));
 
         jButton5.setText("Cancel");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -94,9 +94,9 @@ public class AdminSettings extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
         jLabel2.setBackground(new java.awt.Color(40, 41, 40));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/backgroundrender.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel2.setOpaque(true);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 230));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -108,7 +108,7 @@ public class AdminSettings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
         private void addPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrinterButtonActionPerformed
-		AddPrinter ap = new AddPrinter();
+		AddPrinterView ap = new AddPrinterView();
 		ap.AddPrinterStart();
         }//GEN-LAST:event_addPrinterButtonActionPerformed
 

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 /*
  * 
  */
-public class Reports extends javax.swing.JFrame {
+public class ReportsView extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
     private FileManager inst;
@@ -23,7 +23,7 @@ public class Reports extends javax.swing.JFrame {
     /**
      * Creates new form Reports
      */
-    public Reports() 
+    public ReportsView() 
     {
         this.controller = new UtilController();
         headers = UtilController.getReportColumnHeaders(reportID);
@@ -164,7 +164,7 @@ public class Reports extends javax.swing.JFrame {
     });
     getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
 
-    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
     jLabel5.setText("jLabel5");
     getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
 
@@ -190,7 +190,7 @@ public class Reports extends javax.swing.JFrame {
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         dispose();
-        new TomSoftMain().setVisible(true); 
+        new TomSoftMainView().setVisible(true); 
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed

@@ -223,7 +223,7 @@
     <Component class="javax.swing.JLabel" name="newStudent">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/ObjectLabEnterpriseSoftware/backgroundrender.png"/>
+          <Image iconType="3" name="/ObjectLabEnterpriseSoftware/images/render_bg.png"/>
         </Property>
       </Properties>
       <Constraints>

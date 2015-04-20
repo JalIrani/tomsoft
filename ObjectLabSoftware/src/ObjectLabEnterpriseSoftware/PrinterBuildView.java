@@ -1,6 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
-import static ObjectLabEnterpriseSoftware.ZCorpDialog.buildName;
+import static ObjectLabEnterpriseSoftware.ZCorpDialogView.buildName;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-public class PrinterBuild extends javax.swing.JFrame 
+public class PrinterBuildView extends javax.swing.JFrame 
 {
     private static String printerSelectedForBuildProcess;
-    private static TomSoftMain home;    
+    private static TomSoftMainView home;    
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String BuildPrinter;
@@ -87,7 +87,7 @@ public class PrinterBuild extends javax.swing.JFrame
         } 
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
         {
-            java.util.logging.Logger.getLogger(PrinterBuild.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrinterBuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         printerSelectedForBuildProcess = printerSelectedToMakeBuildFor;
@@ -132,17 +132,17 @@ public class PrinterBuild extends javax.swing.JFrame
             //let's sequentially open Zcorp windows FOR EACH build-based STL file
             if(printerSelectedForBuildProcess.equals("zcorp")) 
             {
-                ZCorpDialog zd = new ZCorpDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
+                ZCorpDialogView zd = new ZCorpDialogView(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
                 zd.ZCorpDialogStart();
             }
             else if(printerSelectedForBuildProcess.equals("objet"))
             {
-                ObjetDialog od = new ObjetDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
+                ObjetDialogView od = new ObjetDialogView(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
                 od.ObjetDialogStart();
             }
             else if(printerSelectedForBuildProcess.equals("solidscape"))
             {
-                SolidscapeDialog sd = new SolidscapeDialog(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
+                SolidscapeDialogView sd = new SolidscapeDialogView(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
                 sd.SolidscapeDialogStart();
             }
             else
@@ -159,16 +159,16 @@ public class PrinterBuild extends javax.swing.JFrame
     
     /**
      * This method is used to return to the homescreen after exiting select windows
-     *
-     * It is called from the following methods:
-     *      PrinterBuild.startMakingBuildProcess.windowClosing
-     *      PrinterBuild.closeBtnActionPerformed
-     *      ObjetDialog.ObjetDialogStart.windowClosing
-     *      ObjetDialog.submitBtnActionPerformed
-     *      ZCorpDialog.ZCorpDialogStart.windowClosing
-     *      ZCorpDialog.submitBtnActionPerformed
-     *      SolidscapeDialog.SolidscapeDialogStart.windowClosing
-     *      SolidscapeDialog.submitBtnActionPerformed
+
+ It is called from the following methods:
+      PrinterBuildView.startMakingBuildProcess.windowClosing
+      PrinterBuildView.closeBtnActionPerformed
+      ObjetDialogView.ObjetDialogStart.windowClosing
+      ObjetDialogView.submitBtnActionPerformed
+      ZCorpDialogView.ZCorpDialogStart.windowClosing
+      ZCorpDialogView.submitBtnActionPerformed
+      SolidscapeDialogView.SolidscapeDialogStart.windowClosing
+      SolidscapeDialogView.submitBtnActionPerformed
      */
     public static void returnHome() {
         
@@ -319,7 +319,7 @@ public class PrinterBuild extends javax.swing.JFrame
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 360, 350));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 410, 540));
 
         fileMenu.setText("File");
@@ -391,7 +391,7 @@ public class PrinterBuild extends javax.swing.JFrame
    
     private void reportsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsMenuActionPerformed
         // TODO add your handling code here:
-        Reports reports = new Reports();
+        ReportsView reports = new ReportsView();
         reports.ReportsPage();
     }//GEN-LAST:event_reportsMenuActionPerformed
 

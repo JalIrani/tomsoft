@@ -1,12 +1,12 @@
 package ObjectLabEnterpriseSoftware;
 
 
-public class PasswordDialogue extends javax.swing.JFrame {
+public class PasswordDialogView extends javax.swing.JFrame {
 
     /**
      * Creates new form PasswordDialogue
      */
-    public PasswordDialogue() {
+    public PasswordDialogView() {
         initComponents();
     }
 
@@ -48,7 +48,7 @@ public class PasswordDialogue extends javax.swing.JFrame {
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 57, -1, -1));
         getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 136, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg")));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 160, 100));
 
         pack();
@@ -89,20 +89,21 @@ public class PasswordDialogue extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PasswordDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PasswordDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PasswordDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PasswordDialogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PasswordDialogue().setVisible(true);
+                new PasswordDialogView().setVisible(true);
             }
         });
     }

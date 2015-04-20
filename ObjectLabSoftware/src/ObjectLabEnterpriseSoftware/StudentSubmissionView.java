@@ -10,17 +10,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class StudentSubmission extends javax.swing.JFrame 
+public class StudentSubmissionView extends javax.swing.JFrame 
 {
     ButtonGroup group;
     String printer;
-    TomSoftMain home;
+    TomSoftMainView home;
 
     public void studentSubmissionStart() 
 	{
         initComponents();
         hideErrorFields();
-        home = new TomSoftMain();
+        home = new TomSoftMainView();
         try 
 		{
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
@@ -35,7 +35,7 @@ public class StudentSubmission extends javax.swing.JFrame
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | 
 				javax.swing.UnsupportedLookAndFeelException ex) 
 		{
-            java.util.logging.Logger.getLogger(StudentSubmission.class
+            java.util.logging.Logger.getLogger(StudentSubmissionView.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         addWindowListener(new WindowAdapter() 
@@ -225,7 +225,7 @@ public class StudentSubmission extends javax.swing.JFrame
         firstName.setName("firstName"); // NOI18N
         getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 200, -1));
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 360));
 
         editMenu.setText("Help");
@@ -347,7 +347,7 @@ public class StudentSubmission extends javax.swing.JFrame
                
                 JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
                 dispose();
-                new TomSoftMain().setVisible(true); 
+                new TomSoftMainView().setVisible(true); 
             }
 			else
 			{
