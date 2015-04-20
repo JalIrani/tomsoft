@@ -164,7 +164,7 @@ public class ReportsView extends javax.swing.JFrame {
     });
     getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
 
-    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
     jLabel5.setText("jLabel5");
     getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
 

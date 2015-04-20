@@ -305,7 +305,7 @@ public class ObjetDialogView extends javax.swing.JFrame {
         ResolutionLbl.setText("Resolution:");
         getContentPane().add(ResolutionLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, 20));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 480, 530));
 

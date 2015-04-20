@@ -237,7 +237,7 @@ public class SolidscapeDialogView extends javax.swing.JFrame {
         Resolution.setText("Resolution:");
         getContentPane().add(Resolution, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 144, 100, 20));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 450, 360));
 
         jMenu1.setText("File");

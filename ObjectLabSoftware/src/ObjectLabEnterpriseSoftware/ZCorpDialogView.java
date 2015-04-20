@@ -293,7 +293,7 @@ public class ZCorpDialogView extends javax.swing.JFrame {
         runTimeError.setText("Error Text");
         getContentPane().add(runTimeError, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 329, 220, 20));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -26, 480, 520));
 
         jMenu1.setText("File");

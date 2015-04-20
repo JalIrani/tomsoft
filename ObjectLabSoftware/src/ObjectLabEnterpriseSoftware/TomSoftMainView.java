@@ -157,7 +157,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
         });
         getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 130, 30));
 
-        newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/backgroundrender.png"))); // NOI18N
+        newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
         getContentPane().add(newStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
 
         pack();

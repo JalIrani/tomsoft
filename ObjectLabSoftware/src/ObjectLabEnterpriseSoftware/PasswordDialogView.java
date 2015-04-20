@@ -48,7 +48,7 @@ public class PasswordDialogView extends javax.swing.JFrame {
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 57, -1, -1));
         getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 136, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg")));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 160, 100));
 
         pack();

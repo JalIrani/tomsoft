@@ -199,7 +199,7 @@ public class PendingJobsView extends javax.swing.JFrame
         });
         getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 130, 20));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 500, 340));
 
         jMenu1.setText("File");

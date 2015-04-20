@@ -124,7 +124,7 @@ public class NewStudentView extends javax.swing.JFrame {
         });
         getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 100, -1));
 
-        netIDlEntry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/backgroundrender.png"))); // NOI18N
+        netIDlEntry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
         getContentPane().add(netIDlEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();

@@ -211,7 +211,7 @@ public class ClassOptionsView extends javax.swing.JFrame {
         });
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 540, 450));
 
         EditMenu.setText("Help");
