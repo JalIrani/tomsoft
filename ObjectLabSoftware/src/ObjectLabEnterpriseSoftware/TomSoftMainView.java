@@ -22,8 +22,8 @@ public class TomSoftMainView extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
-        //pendingSys = new PendingJobsView();
-        //studentSys = new StudentSubmissionView();
+        pendingSys = new PendingJobsView();
+        studentSys = new StudentSubmissionView();
         newStudentSys = new NewStudentView();
         
         //Allows only integers for student ID
