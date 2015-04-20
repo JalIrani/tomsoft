@@ -2,6 +2,7 @@ package ObjectLabEnterpriseSoftware;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,6 +36,7 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    labels.add(printerNameL);
 	    labels.add(fileExtensionL);
 	    labels.add(fieldL0);
+	    boxes.add(numberCB);
 	    setVisible(true);
 	}
 
@@ -175,13 +177,13 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    tlabel.setText("Field #" + (count - 1));
 	    labels.add(tlabel);
 	    cbox = new JCheckBox();
-	    cbox.setName("numberCB" + (count - 3));
+	    cbox.setName("numberCB" + (count - 2));
 	    cbox.setText("Number Value");
 	    boxes.add(cbox);
 	    y += 30;
 	    getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1), 4);
 	    getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(30, y, -1, -1), 3);
-	    getContentPane().add(boxes.get(count - 3), new org.netbeans.lib.awtextra.AbsoluteConstraints(230, y, -1, -1), 5);
+	    getContentPane().add(boxes.get(count - 2), new org.netbeans.lib.awtextra.AbsoluteConstraints(230, y, -1, -1), 5);
 	    fields.get(count).setVisible(true);
 	    labels.get(count).setVisible(true);
 	    boxes.get(count - 3).setVisible(true);
@@ -220,24 +222,26 @@ public class AddPrinterView extends javax.swing.JFrame {
 		    break;
 	    }
 	}
-	//Add all values to the device class here
+	//Save printer device here
 	if (exit == true) {
-	    /*WORK IN PROGESS
 	    //First two textfields are name and file extension.
-	    device.setDeviceName(printerNameTF.getText());
-	    ArrayList ext = new ArrayList(Arrays.asList(fileExtensionTF.getText().split(",")));
-	    ArrayList<String> values = new ArrayList<String>();
+	    //Create new device object using these.
+	    device = new Device(printerNameTF.getText(),
+		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(","))));
+	    HashMap<String,Object> values = new HashMap<String,Object>();
+	    ArrayList<String> names = new ArrayList<String>();
 	    //Fields start at index 2
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
 		if(boxes.get(i-2).isSelected()==true)
-		    device.addField(fields.get(i).getText(), new Double("0"));
+		    values.put(fields.get(i).getText(), new Double("0"));
 		else
-		    device.addField(fields.get(i).getText(), "");
-		values.add(fields.get(i).getText());
+		    values.put(fields.get(i).getText(), "");
+		names.add(fields.get(i).getText());
 	    }
-	    device.setFieldNames(values);
-		    */
+	    device.setFieldNames(names);
+	    //Add device to database/file here
+	    JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to printer list!");
 	    dispose();
 	}
     }//GEN-LAST:event_saveBtnActionPerformed
