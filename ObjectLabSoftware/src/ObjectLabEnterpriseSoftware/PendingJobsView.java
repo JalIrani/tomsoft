@@ -399,7 +399,7 @@ public class PendingJobsView extends javax.swing.JFrame
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         // TODO add your handling code here:
         dispose();
-        new TomSoftMainView().setVisible(true); 
+        new MainView().setVisible(true); 
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
 

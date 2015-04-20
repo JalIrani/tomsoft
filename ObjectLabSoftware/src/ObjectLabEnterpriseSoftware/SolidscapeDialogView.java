@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SolidscapeDialogView extends javax.swing.JFrame {
-    private static final TomSoftMainView home = new TomSoftMainView();
+    private static final MainView home = new MainView();
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";

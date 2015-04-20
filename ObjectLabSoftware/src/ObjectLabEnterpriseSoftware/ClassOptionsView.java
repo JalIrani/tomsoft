@@ -26,12 +26,12 @@ public class ClassOptionsView extends javax.swing.JFrame {
     DefaultListModel currentClassListModel = new DefaultListModel();
     FileManager Inst;
     SQLMethods dba;
-    TomSoftMainView home;
+    MainView home;
 
     public void OptionsStart() {
         dba = new SQLMethods();
         Inst = new FileManager();
-        home = new TomSoftMainView();
+        home = new MainView();
         initComponents();
         addNewClass.setVisible(true);
         classNameL.setVisible(false);

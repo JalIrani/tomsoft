@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-public class TomSoftMainView extends javax.swing.JFrame {
+public class MainView extends javax.swing.JFrame {
 
     NewStudentView newStudentSys;
     PendingJobsView pendingSys;
@@ -18,7 +18,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
     boolean show;
     String PASS = "ForwardMotion";
 
-    public TomSoftMainView() {
+    public MainView() {
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
@@ -47,7 +47,8 @@ public class TomSoftMainView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -69,7 +70,8 @@ public class TomSoftMainView extends javax.swing.JFrame {
         helpButton = new javax.swing.JMenu();
         userGuideButton = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -89,8 +91,10 @@ public class TomSoftMainView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentButton.setText("New Student");
-        newStudentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        newStudentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 newStudentButtonActionPerformed(evt);
             }
         });
@@ -100,16 +104,20 @@ public class TomSoftMainView extends javax.swing.JFrame {
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 130, 20));
 
-        studentIdString.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentIdString.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentIdStringActionPerformed(evt);
             }
         });
         getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 130, 30));
 
         studentButton.setText("Student");
-        studentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentButtonActionPerformed(evt);
             }
         });
@@ -118,32 +126,40 @@ public class TomSoftMainView extends javax.swing.JFrame {
         zcorpButton.setText("ZCorp");
         zcorpButton.setToolTipText("");
         zcorpButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        zcorpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        zcorpButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 zcorpButtonActionPerformed(evt);
             }
         });
         getContentPane().add(zcorpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 130, 30));
 
         solidscapeButton.setText("Solidscape");
-        solidscapeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        solidscapeButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 solidscapeButtonActionPerformed(evt);
             }
         });
         getContentPane().add(solidscapeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 130, 30));
 
         AdminButton.setText("Administrator");
-        AdminButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AdminButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AdminButtonActionPerformed(evt);
             }
         });
         getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 130, 30));
 
         openProjectsButton.setText("Projects");
-        openProjectsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openProjectsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openProjectsButtonActionPerformed(evt);
             }
         });
@@ -151,24 +167,30 @@ public class TomSoftMainView extends javax.swing.JFrame {
 
         objetButton.setText("Objet");
         objetButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        objetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        objetButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 objetButtonActionPerformed(evt);
             }
         });
         getContentPane().add(objetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 130, 30));
 
         settingsButton.setText("Settings");
-        settingsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        settingsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 settingsButtonActionPerformed(evt);
             }
         });
         getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 130, 30));
 
         ReportsButton.setText("Reports");
-        ReportsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ReportsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ReportsButtonActionPerformed(evt);
             }
         });
@@ -180,8 +202,10 @@ public class TomSoftMainView extends javax.swing.JFrame {
         helpButton.setText("Help");
 
         userGuideButton.setText("User Guide");
-        userGuideButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userGuideButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 userGuideButtonActionPerformed(evt);
             }
         });
@@ -318,8 +342,72 @@ public class TomSoftMainView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TomSoftMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -396,7 +484,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TomSoftMainView().setVisible(true);
+                new MainView().setVisible(true);
             }
         });
     }

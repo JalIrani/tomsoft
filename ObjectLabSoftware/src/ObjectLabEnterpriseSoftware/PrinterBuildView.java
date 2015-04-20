@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class PrinterBuildView extends javax.swing.JFrame 
 {
     private static String printerSelectedForBuildProcess;
-    private static TomSoftMainView home;    
+    private static MainView home;    
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String BuildPrinter;
