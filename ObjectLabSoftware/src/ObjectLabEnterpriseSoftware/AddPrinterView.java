@@ -42,7 +42,6 @@ public class AddPrinterView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         printerNameTF = new javax.swing.JTextField();
@@ -60,9 +59,6 @@ public class AddPrinterView extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         EditMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
-        jLabel4.setPreferredSize(new java.awt.Dimension(600, 300));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(530, 475));
@@ -238,7 +234,6 @@ public class AddPrinterView extends javax.swing.JFrame {
     private javax.swing.JTextField fileExtensionTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSeparator jSeparator1;
