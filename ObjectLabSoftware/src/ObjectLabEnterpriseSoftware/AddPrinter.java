@@ -199,9 +199,23 @@ public class AddPrinter extends javax.swing.JFrame {
                 break;
             }
         }
+	if(exit==true){
+		for (int i = 0; i < count; i++){
+			for(int j = 0; j < count; j++){
+				if(i!=j&&fields.get(i).getText().equals(
+					fields.get(j).getText())){
+					exit = false;
+					JOptionPane.showMessageDialog(this, "Cannot save with duplicate fields");
+					break;
+				}
+			}
+			if(exit==false)
+				break;
+		}
+	}
 	//Add all values to the device class here
 	ArrayList<String> values = new ArrayList<String>();
-        if (exit) {
+        if (exit==true) {
             for (int i = 0; i < count; i++) {
                 values.add(fields.get(i).getText());
             }
