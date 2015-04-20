@@ -25,7 +25,6 @@ public class ClassOptionsView extends javax.swing.JFrame
     {
         /* Updates tables */
         updateView();
-		
 		hideOptions();
 		setVisible(true);
 	}
