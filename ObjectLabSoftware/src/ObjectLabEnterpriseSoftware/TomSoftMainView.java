@@ -1,6 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.util.Locale;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -23,7 +24,20 @@ public class TomSoftMainView extends javax.swing.JFrame {
         setPrintersVisible(false);
         //pendingSys = new PendingJobsView();
         //studentSys = new StudentSubmissionView();
-        //newStudentSys = new NewStudentView();
+        newStudentSys = new NewStudentView();
+        
+        //Allows only integers for student ID
+        studentIdString.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+          char c = e.getKeyChar();
+          if (!((c >= '0') && (c <= '9') ||
+             (c == KeyEvent.VK_BACK_SPACE) ||
+             (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            e.consume();
+          }
+        }
+  });
     }
 
     /**
@@ -51,6 +65,9 @@ public class TomSoftMainView extends javax.swing.JFrame {
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
         newStudent = new javax.swing.JLabel();
+        MenuBar = new javax.swing.JMenuBar();
+        helpButton = new javax.swing.JMenu();
+        userGuideButton = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -160,6 +177,20 @@ public class TomSoftMainView extends javax.swing.JFrame {
         newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
         getContentPane().add(newStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
 
+        helpButton.setText("Help");
+
+        userGuideButton.setText("User Guide");
+        userGuideButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userGuideButtonActionPerformed(evt);
+            }
+        });
+        helpButton.add(userGuideButton);
+
+        MenuBar.add(helpButton);
+
+        setJMenuBar(MenuBar);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -222,6 +253,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
         setPrintersVisible(false);
+        
         String id = studentIdString.getText();//DB team this is to store String
         if(id.length() != 7){
             errorIdLabel.setText("TU ID must be 7 digits");   
@@ -238,16 +270,20 @@ public class TomSoftMainView extends javax.swing.JFrame {
     }//GEN-LAST:event_studentButtonActionPerformed
 
     private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
-        // TODO add your handling code here:
+           // TODO add your handling code here:
         
     }//GEN-LAST:event_studentIdStringActionPerformed
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         // TODO add your handling code here:
-        newStudentSys.NewStudentMainStart();
+        newStudentSys.NewStudentViewStart();
         dispose();
         
     }//GEN-LAST:event_newStudentButtonActionPerformed
+
+    private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userGuideButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {
         AdminSettingsView ad = new AdminSettingsView();
@@ -367,8 +403,10 @@ public class TomSoftMainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdminButton;
+    private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton ReportsButton;
     private javax.swing.JLabel errorIdLabel;
+    private javax.swing.JMenu helpButton;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -381,6 +419,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
     private javax.swing.JButton solidscapeButton;
     private javax.swing.JButton studentButton;
     private javax.swing.JTextField studentIdString;
+    private javax.swing.JMenuItem userGuideButton;
     private javax.swing.JButton zcorpButton;
     // End of variables declaration//GEN-END:variables
 }

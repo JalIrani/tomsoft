@@ -19,7 +19,7 @@ public class NewStudentView extends javax.swing.JFrame {
     public static SQLMethods dba;
     TomSoftMainView home;
     
-    public void NewStudentMainStart(){
+    public void NewStudentViewStart(){
         
         home = new TomSoftMainView();
         dba = new SQLMethods();
