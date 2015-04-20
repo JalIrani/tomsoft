@@ -10,18 +10,18 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
-public class NewStudent extends javax.swing.JFrame {
+public class NewStudentView extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewStudent
+     * Creates new form NewStudentView
      */
     
     public static SQLMethods dba;
-    TomSoftMain home;
+    TomSoftMainView home;
     
     public void NewStudentMainStart(){
         
-        home = new TomSoftMain();
+        home = new TomSoftMainView();
         dba = new SQLMethods();
         initComponents();
         
@@ -38,7 +38,7 @@ public class NewStudent extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
          addWindowListener(new WindowAdapter() {
@@ -52,7 +52,7 @@ public class NewStudent extends javax.swing.JFrame {
         
         setVisible(true);
     }
-    //public NewStudent() {  
+    //public NewStudentView() {  
     //}
     
     
@@ -172,20 +172,21 @@ public class NewStudent extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewStudent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewStudent().setVisible(true);
+                new NewStudentView().setVisible(true);
             }
         });
     }

@@ -9,21 +9,21 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-public class TomSoftMain extends javax.swing.JFrame {
+public class TomSoftMainView extends javax.swing.JFrame {
 
-    NewStudent newStudentSys;
+    NewStudentView newStudentSys;
     PendingJobsView pendingSys;
-    StudentSubmission studentSys;
+    StudentSubmissionView studentSys;
     boolean show;
     String PASS = "ForwardMotion";
 
-    public TomSoftMain() {
+    public TomSoftMainView() {
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
         pendingSys = new PendingJobsView();
-        studentSys = new StudentSubmission();
-        newStudentSys = new NewStudent();
+        studentSys = new StudentSubmissionView();
+        newStudentSys = new NewStudentView();
     }
 
     /**
@@ -167,7 +167,7 @@ public class TomSoftMain extends javax.swing.JFrame {
     private void solidscapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solidscapeButtonActionPerformed
         // TODO add your handling code here:
         UtilController.retrievePrinterSettings("solidscape");
-        PrinterBuild Build = new PrinterBuild();
+        PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess("solidscape");
         dispose();
     }//GEN-LAST:event_solidscapeButtonActionPerformed
@@ -181,13 +181,13 @@ public class TomSoftMain extends javax.swing.JFrame {
     private void zcorpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zcorpButtonActionPerformed
         // TODO add your handling code here:
         UtilController.retrievePrinterSettings("zcorp");
-        PrinterBuild Build = new PrinterBuild();
+        PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess("zcorp");
         dispose();
     }//GEN-LAST:event_zcorpButtonActionPerformed
 
     private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
-        PasswordDialogue dialogue = new PasswordDialogue();
+        PasswordDialogView dialogue = new PasswordDialogView();
         dialogue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dialogue.setAlwaysOnTop(true);
         dialogue.setVisible(true);
@@ -207,14 +207,14 @@ public class TomSoftMain extends javax.swing.JFrame {
     private void objetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetButtonActionPerformed
         // TODO add your handling code here:
         UtilController.retrievePrinterSettings("objet");
-        PrinterBuild Build = new PrinterBuild();
+        PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess("objet");
         dispose();
     }//GEN-LAST:event_objetButtonActionPerformed
 
     private void ReportsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportsButtonActionPerformed
         // TODO add your handling code here:
-        Reports reports = new Reports();
+        ReportsView reports = new ReportsView();
         reports.ReportsPage();
         dispose();
     }//GEN-LAST:event_ReportsButtonActionPerformed
@@ -250,7 +250,7 @@ public class TomSoftMain extends javax.swing.JFrame {
     }//GEN-LAST:event_newStudentButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        AdminSettings ad = new AdminSettings();
+        AdminSettingsView ad = new AdminSettingsView();
         ad.setVisible(true);
         dispose();
     }
@@ -282,8 +282,40 @@ public class TomSoftMain extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TomSoftMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TomSoftMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -328,7 +360,7 @@ public class TomSoftMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TomSoftMain().setVisible(true);
+                new TomSoftMainView().setVisible(true);
             }
         });
     }

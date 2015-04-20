@@ -28,7 +28,7 @@ public class PendingJobsView extends javax.swing.JFrame
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
 
     private final DefaultTableModel allFileTableModel;
-    static Reports reports = null;
+    static ReportsView reports = null;
     private static FileManager inst = null;
 
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
@@ -47,7 +47,7 @@ public class PendingJobsView extends javax.swing.JFrame
     public PendingJobsView() 
     {
         inst = new FileManager();
-        reports = new Reports();
+        reports = new ReportsView();
          /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
@@ -399,7 +399,7 @@ public class PendingJobsView extends javax.swing.JFrame
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         // TODO add your handling code here:
         dispose();
-        new TomSoftMain().setVisible(true); 
+        new TomSoftMainView().setVisible(true); 
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
 

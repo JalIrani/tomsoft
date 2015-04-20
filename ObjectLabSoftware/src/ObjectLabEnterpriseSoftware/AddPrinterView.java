@@ -5,10 +5,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class AddPrinter extends javax.swing.JFrame {
+public class AddPrinterView extends javax.swing.JFrame {
 
     /**
-     * Creates new form AddPrinter
+     * Creates new form AddPrinterView
      */
     JTextField tfield;
     JLabel tlabel;

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 /*
  * 
  */
-public class Reports extends javax.swing.JFrame {
+public class ReportsView extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
     private FileManager inst;
@@ -23,7 +23,7 @@ public class Reports extends javax.swing.JFrame {
     /**
      * Creates new form Reports
      */
-    public Reports() 
+    public ReportsView() 
     {
         this.controller = new UtilController();
         headers = UtilController.getReportColumnHeaders(reportID);
@@ -190,7 +190,7 @@ public class Reports extends javax.swing.JFrame {
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         dispose();
-        new TomSoftMain().setVisible(true); 
+        new TomSoftMainView().setVisible(true); 
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed

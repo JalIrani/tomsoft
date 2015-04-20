@@ -14,8 +14,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class ZCorpDialog extends javax.swing.JFrame {
-    private static final TomSoftMain home = new TomSoftMain();
+public class ZCorpDialogView extends javax.swing.JFrame {
+    private static final TomSoftMainView home = new TomSoftMainView();
     static String fileName = "";
     static String buildName = "";
     static String dateRun = "";
@@ -39,7 +39,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
     /**
      * Creates new form ZCorpDialog
      */
-    public ZCorpDialog(java.awt.Frame parent, boolean modal, String build, int count) {
+    public ZCorpDialogView(java.awt.Frame parent, boolean modal, String build, int count) {
         //super(parent, modal);
         //par = parent;
 
@@ -57,7 +57,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
         } 
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
         {
-            java.util.logging.Logger.getLogger(ZCorpDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ZCorpDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         setUp(build, count);
     }
@@ -468,7 +468,7 @@ public class ZCorpDialog extends javax.swing.JFrame {
     }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        Reports rpr = new Reports();
+        ReportsView rpr = new ReportsView();
         rpr.ReportsPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 

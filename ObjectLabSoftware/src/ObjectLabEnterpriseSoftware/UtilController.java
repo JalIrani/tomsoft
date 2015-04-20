@@ -605,9 +605,9 @@ public class UtilController
      * It takes the information previously stored in the Database and removes it.
      * 
      * This method is called in:
-     *      ZCorpDialog.ZCorpDialogStart.WindowClosing
-     *      SolidscapeDialog.SolidscapeDialogStart.WindowClosing
-     *      ObjetDialog.ObjetDialogStart.WindowClosing
+      ZCorpDialogView.ZCorpDialogStart.WindowClosing
+      SolidscapeDialogView.SolidscapeDialogStart.WindowClosing
+      ObjetDialogView.ObjetDialogStart.WindowClosing
      * 
      * @param buildPath 
      * @param printer 
@@ -633,10 +633,10 @@ public class UtilController
     
     /**
      * This method is called when an administrator submits a printer build. It takes the information they typed in and stores it in the database.
-     * This method is called in:
-     *      ZCorpDialog.ZCorpDialogStart.submitBtnActionPerformed
-     *      SolidscapeDialog.SolidscapeDialogStart.submitBtnActionPerformed
-     *      ObjetDialog.ObjetDialogStart.submitBtnActionPerformed
+ This method is called in:
+      ZCorpDialogView.ZCorpDialogStart.submitBtnActionPerformed
+      SolidscapeDialogView.SolidscapeDialogStart.submitBtnActionPerformed
+      ObjetDialogView.ObjetDialogStart.submitBtnActionPerformed
      * 
      * @param buildName The name of the build, used to gather information from the database.
      * @param printer this gets the name of the printer, 
@@ -724,13 +724,13 @@ public class UtilController
             switch (printer) 
             {
                 case "zcorp":
-                    dbconn.insertIntoZcorp(buildName, ZCorpDialog.monoBinder, ZCorpDialog.yellowBinder, ZCorpDialog.magentaBuilder, ZCorpDialog.cyanBuilder, ZCorpDialog.cubicInches, ZCorpDialog.modelAmount, ZCorpDialog.comments, 0.00/*placeholder since cost isn't being used*/, "complete");
+                    dbconn.insertIntoZcorp(buildName, ZCorpDialogView.monoBinder, ZCorpDialogView.yellowBinder, ZCorpDialogView.magentaBuilder, ZCorpDialogView.cyanBuilder, ZCorpDialogView.cubicInches, ZCorpDialogView.modelAmount, ZCorpDialogView.comments, 0.00/*placeholder since cost isn't being used*/, "complete");
                     break;
                 case "solidscape":
-                    dbconn.insertIntoSolidscape(buildName, SolidscapeDialog.modelAmount, SolidscapeDialog.ResolutionVar, SolidscapeDialog.buildTime, SolidscapeDialog.comments, 0.00/*placeholder since cost isn't being used*/);
+                    dbconn.insertIntoSolidscape(buildName, SolidscapeDialogView.modelAmount, SolidscapeDialogView.ResolutionVar, SolidscapeDialogView.buildTime, SolidscapeDialogView.comments, 0.00/*placeholder since cost isn't being used*/);
                     break;
                 case "objet":
-                    dbconn.insertIntoObjet(buildName, ObjetDialog.BuildConsumed, ObjetDialog.SupportConsumed, ObjetDialog.modelAmount,  ObjetDialog.materialType, ObjetDialog.Resolution, ObjetDialog.comments, 0.00 /*placeholder since cost isn't being used*/);
+                    dbconn.insertIntoObjet(buildName, ObjetDialogView.BuildConsumed, ObjetDialogView.SupportConsumed, ObjetDialogView.modelAmount,  ObjetDialogView.materialType, ObjetDialogView.Resolution, ObjetDialogView.comments, 0.00 /*placeholder since cost isn't being used*/);
                     break;
             }        
         } 

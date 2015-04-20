@@ -12,14 +12,14 @@ import java.awt.event.WindowEvent;
  *
  * @author Saurabh
  */
-public class AdminSettings extends javax.swing.JFrame {
-    TomSoftMain home;
+public class AdminSettingsView extends javax.swing.JFrame {
+    TomSoftMainView home;
 
     /**
      * Creates new form adminSettings
      */
-    public AdminSettings() {
-        home = new TomSoftMain();
+    public AdminSettingsView() {
+        home = new TomSoftMainView();
         initComponents();
         setTitle("TomSoft Admin Settings");
         setLocationRelativeTo(null);
@@ -31,7 +31,7 @@ public class AdminSettings extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminSettings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminSettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
           addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -108,7 +108,7 @@ public class AdminSettings extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
         private void addPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrinterButtonActionPerformed
-		AddPrinter ap = new AddPrinter();
+		AddPrinterView ap = new AddPrinterView();
 		ap.AddPrinterStart();
         }//GEN-LAST:event_addPrinterButtonActionPerformed
 
