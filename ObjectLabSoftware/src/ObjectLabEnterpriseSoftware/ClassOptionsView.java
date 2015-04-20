@@ -1,26 +1,37 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class ClassOptionsView extends javax.swing.JFrame
 {
+	private DefaultListModel allClassListModel;
+	private DefaultListModel currentClassListModel;
+	
+	private static FileManager inst = null;
+	
+    private void updateView()
+    {
+		allClassListModel = UtilController.returnClassesArray();
+		currentClassListModel = UtilController.returnCurrentClassesArray();
+		allClassList.setModel(allClassListModel);
+		currentClassList.setModel(currentClassListModel);
+    }
+	
+    public void OptionsStart() 
+    {
+        /* Updates tables */
+        updateView();
+		
+		hideOptions();
+		setVisible(true);
+	}
 
-	/**
-	 * Creates new form ClassOptionsView
-	 */
-	DefaultListModel allClassListModel = UtilController.returnClassesArray();
-	DefaultListModel currentClassListModel = UtilController.returnCurrentClassesArray();
-	FileManager Inst;
-	MainView home;
-
-	public void OptionsStart()
+	public void hideOptions()
 	{
-		Inst = new FileManager();
-		home = new MainView();
-		initComponents();
-		addNewClass.setVisible(true);
 		classNameL.setVisible(false);
 		classNumberL.setVisible(false);
 		sectionNumberL.setVisible(false);
@@ -29,12 +40,30 @@ public class ClassOptionsView extends javax.swing.JFrame
 		sectionNumber.setVisible(false);
 		cancelButton.setVisible(false);
 		addNewButton.setVisible(false);
-		allClassList.setModel(allClassListModel);
-		currentClassList.setModel(currentClassListModel);
-
-		setVisible(true);
 	}
-
+	public ClassOptionsView() 
+    {
+        inst = new FileManager();
+         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
+        initComponents();
+        
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    /* 
+					If they close the program then close out the window properly 
+					*/
+                    dispose();
+                    System.exit(0);
+                }
+            }
+        );
+    }
+		
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -203,22 +232,20 @@ public class ClassOptionsView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void addNewClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewClassActionPerformed
-		// TODO add your handling code here:
-		addNewClass.setVisible(false);
-		classNameL.setVisible(true);
-		classNumberL.setVisible(true);
-		sectionNumberL.setVisible(true);
-		className.setVisible(true);
-		classNumber.setVisible(true);
-		sectionNumber.setVisible(true);
-		cancelButton.setVisible(true);
-		addNewButton.setVisible(true);
+        addNewClass.setVisible(false);
+        classNameL.setVisible(true);
+        classNumberL.setVisible(true);
+        sectionNumberL.setVisible(true);
+        className.setVisible(true);
+        classNumber.setVisible(true);
+        sectionNumber.setVisible(true);
+        cancelButton.setVisible(true);
+        addNewButton.setVisible(true);
 		//saves added class to the database in future
-
     }//GEN-LAST:event_addNewClassActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-
+        addNewClass.setVisible(true);
 		dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
@@ -244,29 +271,16 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_addArrowActionPerformed
 
     private void removeArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeArrowActionPerformed
-		int i;
-		for (i = 0; i < currentClassListModel.getSize(); i++)
+        int i;
+        for (i = 0; i < currentClassListModel.getSize(); i++) 
 		{
-			if (currentClassListModel.elementAt(i).equals(currentClassList.getSelectedValue()))
+            if (currentClassListModel.elementAt(i).equals(currentClassList.getSelectedValue())) 
 			{
-				updateAvailableColumn(currentClassListModel.elementAt(i));
-				currentClassListModel.removeElementAt(i);
-			}
-		}
-
+				allClassListModel.addElement(currentClassListModel.elementAt(i));
+                currentClassListModel.removeElementAt(i);
+            }
+        }
     }//GEN-LAST:event_removeArrowActionPerformed
-	private void updateAvailableColumn(Object o)
-	{
-		int i;
-		for (i = 0; i < allClassListModel.getSize(); i++)
-		{
-			if (allClassListModel.elementAt(i).equals(o))
-			{
-				return;
-			}
-		}
-		allClassListModel.addElement(currentClassListModel.elementAt(i));
-	}
 
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
 		if (className.getText().equals("") | classNumber.getText().equals("") | sectionNumber.getText().equals(""))
@@ -274,15 +288,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 			JOptionPane.showMessageDialog(null, "Please enter all three values", "Add Error", JOptionPane.ERROR_MESSAGE);
 		} else
 		{
-			addNewClass.setVisible(true);
-			classNameL.setVisible(false);
-			classNumberL.setVisible(false);
-			sectionNumberL.setVisible(false);
-			className.setVisible(false);
-			classNumber.setVisible(false);
-			sectionNumber.setVisible(false);
-			cancelButton.setVisible(false);
-			addNewButton.setVisible(false);
+		hideOptions();
+		setVisible(true);
 
 			int i;
 			boolean found = false;
@@ -310,21 +317,13 @@ public class ClassOptionsView extends javax.swing.JFrame
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
 		// TODO add your handling code here:
 		addNewClass.setVisible(true);
-		classNameL.setVisible(false);
-		classNumberL.setVisible(false);
-		sectionNumberL.setVisible(false);
-		className.setVisible(false);
-		classNumber.setVisible(false);
-		sectionNumber.setVisible(false);
-		cancelButton.setVisible(false);
-		addNewButton.setVisible(false);
+		hideOptions();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-		// TODO add your handling code here:
 		try
 		{
-			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + Inst.getPDFAdmin());
+			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
 		} catch (IOException e)
 		{
 			JOptionPane.showMessageDialog(null, "Error");  //print the error
@@ -334,7 +333,6 @@ public class ClassOptionsView extends javax.swing.JFrame
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
 		//class(ex. ART 101.001) stored in the database
 		UtilController.saveButtonActionPerformed(evt, currentClassListModel);
-
 		dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
 
