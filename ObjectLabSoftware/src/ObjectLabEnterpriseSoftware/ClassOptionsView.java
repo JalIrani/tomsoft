@@ -3,10 +3,12 @@ package ObjectLabEnterpriseSoftware;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 
 public class ClassOptionsView extends javax.swing.JFrame
 {
@@ -14,15 +16,16 @@ public class ClassOptionsView extends javax.swing.JFrame
 	/**
 	 * Creates new form ClassOptionsView
 	 */
-	DefaultListModel allClassListModel = new DefaultListModel();
-	DefaultListModel currentClassListModel = new DefaultListModel();
+	DefaultListModel allClassListModel = UtilController.returnClassesArray();
+	DefaultListModel currentClassListModel = UtilController.returnCurrentClassesArray();
 	FileManager Inst;
-	SQLMethods dba;
 	MainView home;
-
+	SQLMethods dba;
+	
 	public void OptionsStart()
 	{
 		dba = new SQLMethods();
+
 		Inst = new FileManager();
 		home = new MainView();
 		initComponents();
@@ -36,30 +39,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 		cancelButton.setVisible(false);
 		addNewButton.setVisible(false);
 		allClassList.setModel(allClassListModel);
-		ResultSet result2 = dba.getClasses();
-		try
-		{
-			while (result2.next())
-			{
-				allClassListModel.addElement(result2.getString("className") + " " + result2.getString("classSection"));
-			}
-		} catch (SQLException ex)
-		{
-			Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
 		currentClassList.setModel(currentClassListModel);
-		ResultSet result3 = dba.getCurrentClasses();
-		try
-		{
-			while (result3.next())
-			{
-				currentClassListModel.addElement(result3.getString("className") + " " + result3.getString("classSection"));
-			}
-		} catch (SQLException ex)
-		{
-			Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
-		}
 
 		setVisible(true);
 	}

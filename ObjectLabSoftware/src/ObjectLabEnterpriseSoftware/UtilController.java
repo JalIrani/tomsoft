@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
 import static org.apache.commons.io.FileUtils.directoryContains;
@@ -803,5 +804,43 @@ public class UtilController
         dbconn.closeDBConnection();
         return true;
     }
-    
+	
+    public static DefaultListModel returnClassesArray()
+    {
+        SQLMethods dbconn = new SQLMethods();
+		ResultSet result2 = dbconn.getClasses();
+		DefaultListModel classList = new DefaultListModel();;
+		try
+		{
+			while (result2.next())
+			{
+				classList.addElement(result2.getString("className") + " " + result2.getString("classSection"));
+			}
+		} catch (SQLException ex)
+		{
+			Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	    dbconn.closeDBConnection();
+        return classList;
+    }
+	public static DefaultListModel returnCurrentClassesArray()
+    {
+        SQLMethods dbconn = new SQLMethods();
+		ResultSet result2 = dbconn.getCurrentClasses();
+		DefaultListModel classList = new DefaultListModel();
+		try
+		{
+			while (result2.next())
+			{
+				classList.addElement(result2.getString("className") + " " + result2.getString("classSection"));
+			}
+		} catch (SQLException ex)
+		{
+			Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	    dbconn.closeDBConnection();
+        return classList;
+    }
 }
