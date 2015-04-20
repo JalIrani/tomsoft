@@ -301,9 +301,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 			} else
 			{
 				allClassListModel.addElement(input.toUpperCase());
-				SQLMethods dba = new SQLMethods(); 
-				dba.insertIntoClasses(className.getText().toUpperCase() + " " + classNumber.getText(), sectionNumber.getText());
-				dba.closeDBConnection();
+				UtilController.insertNewClass(className.getText().toUpperCase(), classNumber.getText(), sectionNumber.getText());
 			}
 		}
 

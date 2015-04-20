@@ -846,4 +846,14 @@ public class UtilController
 	    dbconn.closeDBConnection();
         return classList;
     }
+	
+	public static void insertNewClass(String className, String classNumber, String sectionNumber)
+	{
+		SQLMethods dbconn = new SQLMethods(); 
+		
+		dbconn.insertIntoClasses(className + " " + classNumber, sectionNumber);
+		
+		dbconn.closeDBConnection();
+	}
+	
 }
