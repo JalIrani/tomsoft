@@ -8,21 +8,28 @@ import javax.swing.JTextField;
 public class AddPrinterView extends javax.swing.JFrame {
 
     /**
-     * Creates new form AddPrinterView
+     * Creates new form AddPrinter
      */
+    Device device;
     JTextField tfield;
     JLabel tlabel;
     //ArrayList of text fields and labels for adding and removing
     ArrayList<JTextField> fields = new ArrayList<JTextField>();
     ArrayList<JLabel> labels = new ArrayList<JLabel>();
     //Positioning variable for labels and fields
-    private int y = 90;
+    private int y = 120;
+    private final int COUNTMAX = 15;
+    private final int COUNTMIN = 3;
     //Current count of labels and fields
-    private int count = 0;
-    private int countMax = 15;
-
+    private int count = COUNTMIN;
     public void AddPrinterStart() {
         initComponents();
+	fields.add(printerNameTF);
+	fields.add(fileExtensionTF);
+	fields.add(fieldTF0);
+	labels.add(printerNameL);
+	labels.add(fileExtensionL);
+	labels.add(fieldL0);
         setVisible(true);
     }
 
@@ -39,13 +46,16 @@ public class AddPrinterView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         printerNameTF = new javax.swing.JTextField();
-        tfield0 = new javax.swing.JTextField();
+        fileExtensionTF = new javax.swing.JTextField();
         printerNameL = new javax.swing.JLabel();
         removeFieldButton = new javax.swing.JButton();
         fieldL0 = new javax.swing.JLabel();
         addFieldButton = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        fieldTF0 = new javax.swing.JTextField();
+        tfield1 = new javax.swing.JTextField();
+        fileExtensionL = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         EditMenu = new javax.swing.JMenu();
@@ -63,7 +73,7 @@ public class AddPrinterView extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 21, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
-        getContentPane().add(tfield0, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 124, -1));
+        getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 124, -1));
 
         printerNameL.setText("Printer Name:");
         getContentPane().add(printerNameL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
@@ -77,7 +87,7 @@ public class AddPrinterView extends javax.swing.JFrame {
         getContentPane().add(removeFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 100, 20));
 
         fieldL0.setText("Field:");
-        getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+        getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         addFieldButton.setText("Add Field");
         addFieldButton.addActionListener(new java.awt.event.ActionListener() {
@@ -103,8 +113,19 @@ public class AddPrinterView extends javax.swing.JFrame {
         });
         getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 100, 20));
 
+        fieldTF0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldTF0ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(fieldTF0, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
+        getContentPane().add(tfield1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 124, -1));
+
+        fileExtensionL.setText("File Ext.:");
+        getContentPane().add(fileExtensionL, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 220));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 370));
 
         EditMenu.setText("Help");
 
@@ -132,11 +153,10 @@ public class AddPrinterView extends javax.swing.JFrame {
 
     private void addFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFieldButtonActionPerformed
         boolean add = true;
-        if (printerNameTF.getText().equals("") || tfield0.getText().equals("")) {
+        /*if (printerNameTF.getText().equals("") || tfield0.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please fill out the previous fields before adding new ones.");
             add = false;
-        }
-        if (count != 0 && add == true) {
+        }*/
             for (int i = 0; i < count; i++) {
                 if (fields.get(i).getText().equals("")) {
                     add = false;
@@ -144,14 +164,14 @@ public class AddPrinterView extends javax.swing.JFrame {
                     break;
                 }
             }
-        }
-        if (count <= countMax && add == true) {
+        
+        if (count <= COUNTMAX && add == true) {
             tfield = new JTextField();
-            tfield.setName("tfield" + count);
+            tfield.setName("tfield" + (count-1));
             fields.add(tfield);
             tlabel = new JLabel();
-            tlabel.setName("fieldL" + count);
-            tlabel.setText("Field #" + count);
+            tlabel.setName("fieldL" + (count-1));
+            tlabel.setText("Field #" + (count-1));
             labels.add(tlabel);
             y += 30;
             getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1), 4);
@@ -162,11 +182,6 @@ public class AddPrinterView extends javax.swing.JFrame {
             revalidate();
             repaint();
         }
-        if (count == 0) {
-            removeFieldButton.enable();
-        } else {
-            removeFieldButton.disable();
-        }
     }//GEN-LAST:event_addFieldButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -175,33 +190,28 @@ public class AddPrinterView extends javax.swing.JFrame {
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         boolean exit = true;
-        
-        if (printerNameTF.getText().equals("") || tfield0.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
-            exit = false;
+	device = new Device();
+	//Check all text fields to make sure they aren't empty
+        for (int i = 0; i < count; i++) {
+            if (fields.get(i).getText().equals("")) {
+                exit = false;
+                JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
+                break;
+            }
         }
-
+	//Add all values to the device class here
+	ArrayList<String> values = new ArrayList<String>();
         if (exit) {
             for (int i = 0; i < count; i++) {
-                if (fields.get(i).getText().equals("")) {
-                    exit = false;
-                    JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
-                    break;
-                }
+                values.add(fields.get(i).getText());
             }
-        }
-
-        if (exit) {
-            for (JTextField field : fields) {
-                // field.getText();
-            }
-                    
+	    device.setFieldNames(values);
             dispose();
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
         private void removeFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFieldButtonActionPerformed
-            if (count != 0) {
+            if (count != COUNTMIN) {
                 y -= 30;
                 count--;
                 getContentPane().remove(fields.get(count));
@@ -213,12 +223,19 @@ public class AddPrinterView extends javax.swing.JFrame {
             }
         }//GEN-LAST:event_removeFieldButtonActionPerformed
 
+        private void fieldTF0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTF0ActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_fieldTF0ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu EditMenu;
     private javax.swing.JButton addFieldButton;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel fieldL0;
+    private javax.swing.JTextField fieldTF0;
+    private javax.swing.JLabel fileExtensionL;
+    private javax.swing.JTextField fileExtensionTF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -229,6 +246,6 @@ public class AddPrinterView extends javax.swing.JFrame {
     private javax.swing.JTextField printerNameTF;
     private javax.swing.JButton removeFieldButton;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JTextField tfield0;
+    private javax.swing.JTextField tfield1;
     // End of variables declaration//GEN-END:variables
 }
