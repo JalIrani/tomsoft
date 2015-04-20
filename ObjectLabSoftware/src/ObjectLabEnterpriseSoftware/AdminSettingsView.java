@@ -70,7 +70,7 @@ public class AdminSettingsView extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 143, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 143, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 320, 10));
 
         addPrinterButton.setText("Add Printer");
@@ -79,7 +79,7 @@ public class AdminSettingsView extends javax.swing.JFrame {
                 addPrinterButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, 20));
+        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, -1));
 
         jButton5.setText("Cancel");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
