@@ -86,6 +86,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="printerNameL">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Printer Name:"/>
       </Properties>
       <Constraints>
@@ -109,11 +110,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="fieldL0">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Field:"/>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="Field #1:"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="50" y="120" width="-1" height="-1"/>
+          <AbsoluteConstraints x="30" y="120" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -166,13 +168,6 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfield1">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="90" y="90" width="124" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="numberCB">
       <Properties>
         <Property name="text" type="java.lang.String" value="Number Value"/>
@@ -185,6 +180,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="fileExtensionL">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="File Ext.:"/>
       </Properties>
       <Constraints>
