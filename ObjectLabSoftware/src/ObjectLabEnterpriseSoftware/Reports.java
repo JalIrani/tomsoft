@@ -27,9 +27,10 @@ public class Reports extends javax.swing.JFrame {
     {
         this.controller = new UtilController();
         printers = UtilController.getListOfPrinters();
-        selectedPrinter = printers.get(0);
-        headers = UtilController.getReportColumnHeaders(selectedPrinter);
-        
+        if(printers.size() > 0){
+            selectedPrinter = printers.get(0);
+            headers = UtilController.getReportColumnHeaders(selectedPrinter);
+        }
         addWindowListener
         (
             new WindowAdapter() 
