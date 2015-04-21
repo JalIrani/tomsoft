@@ -8,23 +8,24 @@ import javax.swing.JOptionPane;
 
 public class ClassOptionsView extends javax.swing.JFrame
 {
+
 	private DefaultListModel allClassListModel;
 	private DefaultListModel currentClassListModel;
-	
+
 	private static FileManager inst = null;
-	
-    private void updateView()
-    {
+
+	private void updateView()
+	{
 		allClassListModel = UtilController.returnClassesArray();
 		currentClassListModel = UtilController.returnCurrentClassesArray();
 		allClassList.setModel(allClassListModel);
 		currentClassList.setModel(currentClassListModel);
-    }
-	
-    public void OptionsStart() 
-    {
-        /* Updates tables */
-        updateView();
+	}
+
+	public void OptionsStart()
+	{
+		/* Updates tables */
+		updateView();
 		hideOptions();
 		setVisible(true);
 	}
@@ -40,29 +41,29 @@ public class ClassOptionsView extends javax.swing.JFrame
 		cancelButton.setVisible(false);
 		addNewButton.setVisible(false);
 	}
-	public ClassOptionsView() 
-    {
-        inst = new FileManager();
-         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
-        initComponents();
-        
-        addWindowListener
-        (
-            new WindowAdapter() 
-            {
-                @Override
-                public void windowClosing(WindowEvent we) 
-                {
-                    /* 
-					If they close the program then close out the window properly 
-					*/
-                    dispose();
-                    System.exit(0);
-                }
-            }
-        );
-    }
-		
+
+	public ClassOptionsView()
+	{
+		inst = new FileManager();
+		/* Creates are PendingJobs UI window componet and grabs its data model for our uses */
+		initComponents();
+
+		addWindowListener(
+				new WindowAdapter()
+				{
+					@Override
+					public void windowClosing(WindowEvent we)
+					{
+						/* 
+						 If they close the program then close out the window properly 
+						 */
+						dispose();
+						System.exit(0);
+					}
+				}
+		);
+	}
+
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
@@ -231,30 +232,29 @@ public class ClassOptionsView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void addNewClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewClassActionPerformed
-        addNewClass.setVisible(false);
-        classNameL.setVisible(true);
-        classNumberL.setVisible(true);
-        sectionNumberL.setVisible(true);
-        className.setVisible(true);
-        classNumber.setVisible(true);
-        sectionNumber.setVisible(true);
-        cancelButton.setVisible(true);
-        addNewButton.setVisible(true);
+		addNewClass.setVisible(false);
+		classNameL.setVisible(true);
+		classNumberL.setVisible(true);
+		sectionNumberL.setVisible(true);
+		className.setVisible(true);
+		classNumber.setVisible(true);
+		sectionNumber.setVisible(true);
+		cancelButton.setVisible(true);
+		addNewButton.setVisible(true);
 		//saves added class to the database in future
     }//GEN-LAST:event_addNewClassActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        addNewClass.setVisible(true);
+		addNewClass.setVisible(true);
 		dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void addArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrowActionPerformed
 		if (currentClassListModel.contains(allClassList.getSelectedValue()))
 		{
-			JOptionPane.showMessageDialog(null, "Class already in current class list", 
+			JOptionPane.showMessageDialog(null, "Class already in current class list",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} 
-		else
+		} else
 		{
 			currentClassListModel.addElement(allClassList.getSelectedValue());
 			allClassListModel.removeElement(allClassList.getSelectedValue());
@@ -262,43 +262,60 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_addArrowActionPerformed
 
     private void removeArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeArrowActionPerformed
-        int i;
-        for (i = 0; i < currentClassListModel.getSize(); i++) 
+		int i;
+		for (i = 0; i < currentClassListModel.getSize(); i++)
 		{
-            if (currentClassListModel.elementAt(i).equals(currentClassList.getSelectedValue())) 
+			if (currentClassListModel.elementAt(i).equals(currentClassList.getSelectedValue()))
 			{
 				allClassListModel.addElement(currentClassListModel.elementAt(i));
-                currentClassListModel.removeElementAt(i);
-            }
-        }
+				currentClassListModel.removeElementAt(i);
+			}
+		}
     }//GEN-LAST:event_removeArrowActionPerformed
 
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
-		if (className.getText().equals("") | classNumber.getText().equals("") | sectionNumber.getText().equals(""))
+		if (className.getText().equals("") | classNumber.getText().equals("")
+				| sectionNumber.getText().equals(""))
 		{
-			JOptionPane.showMessageDialog(null, "Please enter all three values", "Add Error", JOptionPane.ERROR_MESSAGE);
-		} 
-		else
+			JOptionPane.showMessageDialog(null, "Please enter all three Class Values",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		} else if (className.getText().contains(" ") | classNumber.getText().contains(" ")
+				| sectionNumber.getText().contains(" "))
 		{
-			String input = className.getText().toUpperCase() + " " + 
-					classNumber.getText() + " " + sectionNumber.getText();
+			JOptionPane.showMessageDialog(null, "Class Values can only be one word each",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		} else if (!classNumber.getText().matches("[0-9]+")
+				| !sectionNumber.getText().matches("[0-9]+"))
+		{
+			JOptionPane.showMessageDialog(null, "Class Number and Section Numbers must "
+					+ "contain only numbers",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		} else if (!className.getText().matches("^[a-zA-Z]*$"))
+		{
+			JOptionPane.showMessageDialog(null, "Class Name must only contain "
+					+ "letters.",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		} else
+		{
+			String input = className.getText().toUpperCase() + " "
+					+ classNumber.getText() + " " + sectionNumber.getText();
 			DefaultListModel temp = new DefaultListModel();
 			temp.addElement(input);
-			System.out.print(temp.elementAt(0).toString() + " This is it");
-			if(allClassListModel.contains(temp.elementAt(0)) || currentClassListModel.contains(temp.elementAt(0)))
+
+			if (allClassListModel.contains(temp.elementAt(0)) || currentClassListModel.contains(temp.elementAt(0)))
 			{
-				JOptionPane.showMessageDialog(null, "Class already in all class list", 
+				JOptionPane.showMessageDialog(null, "Class already in all class list",
 						"Add Error", JOptionPane.ERROR_MESSAGE);
 			} else
 			{
 				allClassListModel.addElement(input.toUpperCase());
 				UtilController.insertNewClass(className.getText().toUpperCase(), classNumber.getText(), sectionNumber.getText());
 			}
+
 			temp.clear();
 			hideOptions();
 			addNewClass.setVisible(true);
 		}
-
     }//GEN-LAST:event_addNewButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
