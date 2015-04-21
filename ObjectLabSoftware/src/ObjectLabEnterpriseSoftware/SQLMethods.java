@@ -892,7 +892,7 @@ public class SQLMethods
     public void insertIntoClasses(String course, String second) {
         try {
             stmt = this.conn.prepareStatement(
-                    "INSERT INTO classes (className, classSection, current) VALUES('" + course + "','" + second + "', false)");
+                    "INSERT INTO class (class_name, class_section, current) VALUES('" + course + "','" + second + "', false)");
             System.out.println(stmt);
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -977,7 +977,7 @@ public class SQLMethods
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM classes "
+                    + "FROM class "
                     + "WHERE "
                     + "current = false");
             System.out.println(stmt);
@@ -993,7 +993,7 @@ public class SQLMethods
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM classes "
+                    + "FROM class "
                     + "WHERE "
                     + "current = true");
             System.out.println(stmt);
@@ -1011,7 +1011,7 @@ public class SQLMethods
             stmt = this.conn.prepareStatement
             (
                     "SELECT printer"
-                    + " FROM printers"
+                    + " FROM printer"
             );
             System.out.println(stmt);
             res = stmt.executeQuery();
