@@ -235,50 +235,43 @@ public class SQLMethods
         }
     }
 
-    public ResultSet getReport(int reportID) 
+    public ResultSet getListOfPrinters(){
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("select printer_name from printer");
+            res = stmt.executeQuery();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return res;
+    }
+    
+    public ResultSet getReport(String printer_name) 
     {
         res = null;
         try 
         {
-            switch (reportID){
-                case 0:
-                    stmt = this.conn.prepareStatement
+            stmt = this.conn.prepareStatement
                     (
-                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
-        "cyanBinder, cubicInches, noModels, runTime "
-                        + " from Zcorp "
-                        + "order by "
-                        + "dateRun;"
+                        "SELECT " +
+                        "cbd.build_name, " +
+                        "cpcn.custom_field_name, " +
+                        "cbd.column_field_data, " +
+                        "pb.total_runtime_seconds, " +
+                        "pb.number_of_models " +
+                        "FROM " +
+                        "column_build_data cbd " +
+                        "join custom_printer_column_names cpcn " +
+                        "on cbd.column_name_id = cpcn.column_names_id " +
+                        "join printer_build pb " +
+                        "on pb.build_name = cbd.build_name " +
+                        "where pb.printer_name = '"+printer_name+"' " +
+                        "order by build_name, custom_field_name;"
                     );
-                    break;
-                case 1:
-                    stmt = this.conn.prepareStatement
-                    (
-                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n" +
-                        "buildMaterials from objet "+
-                        " order by "+
-                        " daterun;"
-                    );
-                    break;
-                case 2:
-                    stmt = this.conn.prepareStatement
-                    (
-                        "select buildname, dateRun, noModels, runtime from solidscape " +
-                        " order by daterun;"
-                    );
-                    break;
-                case 3:
-                    stmt = this.conn.prepareStatement
-                    (
-                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" 
-						+ "cyanBinder, cubicInches, noModels, runTime "
-                        + " from Zcorp "
-                        + "order by "
-                        + "dateRun;"
-                    );
-                    break;
-            }
-            
             
             res = stmt.executeQuery();
         } 
@@ -290,58 +283,30 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet getReport(String column, String value, int reportID) 
+    public ResultSet getReport(String column, String value, String printer_name) 
     {
         res = null;
         try 
         {
-            switch (reportID){
-                case 0:
-                    stmt = this.conn.prepareStatement
+            stmt = this.conn.prepareStatement
                     (
-                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
-        "cyanBinder, cubicInches, noModels, runTime "
-                        + " from Zcorp "
-                        + " where "
-                        + column + " = '" + value + "' "
-                        + "order by "
-                        + "dateRun;"
+                        "SELECT " +
+                        "cbd.build_name, " +
+                        "cpcn.custom_field_name, " +
+                        "cbd.column_field_data, " +
+                        "pb.total_runtime_seconds, " +
+                        "pb.number_of_models " +
+                        "FROM " +
+                        "column_build_data cbd " +
+                        "join custom_printer_column_names cpcn " +
+                        "on cbd.column_name_id = cpcn.column_names_id " +
+                        "join printer_build pb " +
+                        "on pb.build_name = cbd.build_name " +
+                        "where pb.printer_name = '"+printer_name+"' " +
+                        " and " +
+                        column + " = '" + value + "' " +
+                        "order by build_name, custom_field_name;"
                     );
-                    break;
-                case 1:
-                    stmt = this.conn.prepareStatement
-                    (
-                        "select buildname, daterun, buildconsumed, supportconsumed, noModels,\n"
-                        + "buildMaterials from objet "
-                        + " where "
-                        + column + " = '" + value + "' "
-                        + " order by "
-                        + " daterun;"
-                    );
-                    break;
-                case 2:
-                    stmt = this.conn.prepareStatement
-                    (
-                        "select buildname, dateRun, noModels, runtime from solidscape "
-                        + " where "
-                        + column + " = '" + value + "' "
-                        + " order by daterun;"
-                        
-                    );
-                    break;
-                case 3:
-                    stmt = this.conn.prepareStatement
-                    (
-                        "select buildname, dateRun, monobinder, yellowBinder, magentaBinder,\n" +
-        "cyanBinder, cubicInches, noModels, runTime "
-                        + " from Zcorp "
-                        + " where "
-                        + column + " = '" + value + "' "
-                        + "order by "
-                        + "dateRun;"
-                    );
-                    break;
-            }
             
             res = stmt.executeQuery();
         } 

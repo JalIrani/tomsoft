@@ -41,11 +41,34 @@ public class UtilController
         }
     }
     
-    public static String[] getReportColumnHeaders(int reportID){
+    public static ArrayList<String> getListOfPrinters(){
+        try {
+            
+            SQLMethods dbconn = new SQLMethods();
+            ResultSet queryResult = dbconn.getListOfPrinters();
+            ResultSetMetaData rsmd = queryResult.getMetaData();
+            ArrayList<String> printers = new ArrayList<String>();
+            ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
+            //System.out.println(rsmd.getColumnName(5));
+            //printers = data.get(0);
+            for(int i = 0; i < data.size();i++){
+                    printers.add(data.get(i).get(0).toString());
+            }
+            
+            dbconn.closeDBConnection();
+            return printers;
+
+        } catch (SQLException ex) {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static String[] getReportColumnHeaders(String printer_name){
         try 
 		{
             SQLMethods dbconn = new SQLMethods();
-            ResultSet queryResult = dbconn.getReport(reportID);
+            ResultSet queryResult = dbconn.getReport(printer_name);
             /* Must process results found in ResultSet before the connection is closed! */
             
             ResultSetMetaData rsmd = queryResult.getMetaData();
@@ -65,10 +88,10 @@ public class UtilController
         return null;
     }
     
-    public static ArrayList<ArrayList<Object>> updateReportTableData(int reportID) 
+    public static ArrayList<ArrayList<Object>> updateReportTableData(String printer_name) 
     {     
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getReport(reportID);
+        ResultSet queryResult = dbconn.getReport(printer_name);
         
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
         
@@ -79,10 +102,10 @@ public class UtilController
         
     }
     
-    public static ArrayList<ArrayList<Object>> updateReportTableData(String column, String value, int reportID) 
+    public static ArrayList<ArrayList<Object>> updateReportTableData(String column, String value, String printer_name) 
     {     
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getReport(column, value, reportID);
+        ResultSet queryResult = dbconn.getReport(column, value, printer_name);
         
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
         
@@ -133,7 +156,7 @@ public class UtilController
         
     }
     
-    public static void exportReportsForPrinters(ArrayList<Object> printers)
+    public static void exportReportsForPrinters(ArrayList<String> printers)
 	{
     
         FileManager fileManager = new FileManager();
@@ -146,29 +169,31 @@ public class UtilController
         
         for(int x = 0; x < printers.size(); x++){
         
-            sheet = wb.createSheet((String) printers.get(x));
-            columnHeaders = getReportColumnHeaders(x);
-            data = updateReportTableData(x);
+            sheet = wb.createSheet(printers.get(x));
+            columnHeaders = getReportColumnHeaders(printers.get(x));
+            data = updateReportTableData(printers.get(x));
             Row row = null;
             Cell cell = null;
-            
-            for (int i = 0; i < data.size()+1; i++) 
+            if(data.size() > 0)
             {
-                row = sheet.createRow(i);
-                if(i == 0)
-				{
-                   for(int j = 0; j < data.get(i).size(); j++)
-				   {
-                       cell = row.createCell(j);
-                       cell.setCellValue(columnHeaders[j]);
-                   }
-                }
-                else
+                for (int i = 0; i < data.size()+1; i++) 
                 {
-                    for (int j = 0; j < data.get(i-1).size(); j++) 
+                    row = sheet.createRow(i);
+                    if(i == 0)
                     {
-                        cell = row.createCell(j);
-                        cell.setCellValue((String) data.get(i-1).get(j));
+                       for(int j = 0; j < data.get(i).size(); j++)
+                        {
+                           cell = row.createCell(j);
+                           cell.setCellValue(columnHeaders[j]);
+                       }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < data.get(i-1).size(); j++) 
+                        {
+                            cell = row.createCell(j);
+                            cell.setCellValue((String) data.get(i-1).get(j));
+                        }
                     }
                 }
             }

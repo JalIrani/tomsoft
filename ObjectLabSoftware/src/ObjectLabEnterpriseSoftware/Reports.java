@@ -15,7 +15,7 @@ public class Reports extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
     private FileManager inst;
-    private int reportID = 0;
+    private String selectedPrinter;
     private UtilController controller;
     private String[] headers;
     private ArrayList<String> printers;
@@ -26,12 +26,9 @@ public class Reports extends javax.swing.JFrame {
     public Reports() 
     {
         this.controller = new UtilController();
-        headers = UtilController.getReportColumnHeaders(reportID);
-        //TODO: this information should come from the database
-        printers = new ArrayList<String>();
-        printers.add("Zcorp");
-        printers.add("Objet");
-        printers.add("SolidScape");
+        printers = UtilController.getListOfPrinters();
+        selectedPrinter = printers.get(0);
+        headers = UtilController.getReportColumnHeaders(selectedPrinter);
         
         addWindowListener
         (
@@ -53,7 +50,7 @@ public class Reports extends javax.swing.JFrame {
     {
         initComponents();
         model = (DefaultTableModel) reportsTable.getModel();
-        for (ArrayList<Object> retval1 : UtilController.updateReportTableData(reportID)){ 
+        for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
             model.addRow(retval1.toArray());
         }
         setVisible(true);
@@ -208,7 +205,7 @@ public class Reports extends javax.swing.JFrame {
             
             model = (DefaultTableModel) reportsTable.getModel();
             System.out.println(searchFilter.getSelectedItem().toString());
-            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim(), reportID)){ 
+            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim(), selectedPrinter)){ 
                 model.addRow(retval1.toArray());
             }
 
@@ -239,10 +236,10 @@ public class Reports extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         
         //System.out.println(evt.getItem().toString());
-        reportID = printers.indexOf(evt.getItem().toString());
+        selectedPrinter = evt.getItem().toString();
         //System.out.println(report);
         
-        headers = UtilController.getReportColumnHeaders(reportID);
+        headers = UtilController.getReportColumnHeaders(selectedPrinter);
         while (model.getRowCount() > 0) {
                 model.removeRow(0);
             }
@@ -251,7 +248,7 @@ public class Reports extends javax.swing.JFrame {
             headers));
             model = (DefaultTableModel) reportsTable.getModel();
             searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
-            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(reportID)){ 
+            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
                 model.addRow(retval1.toArray());
             }
         
@@ -259,11 +256,8 @@ public class Reports extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
+        UtilController.exportReportsForPrinters(printers);
         
-        
-        for(String printer : printers){
-            
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
