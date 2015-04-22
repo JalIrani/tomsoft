@@ -62,7 +62,7 @@ public class FileManager
         objetToPrint = drive + "\\ObjectLabPrinters\\Objet\\ToPrint\\";
         objetPrinted = drive + "\\ObjectLabPrinters\\Objet\\Printed\\";
         objetToBuild = drive + "\\ObjectLabPrinters\\Objet\\Build Files\\";
-        excelFilePath = drive + "\\Export\\";
+        excelFilePath = drive + "\\ObjectLabPrinters\\Export\\";
         ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
         INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
     }
@@ -85,7 +85,7 @@ public class FileManager
                 return true;
     */
     
-    public boolean doesFileExist(String path)
+    public static boolean doesFileExist(String path)
     {
         return new File(path).exists();
     }
