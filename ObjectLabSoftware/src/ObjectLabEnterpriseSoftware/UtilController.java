@@ -156,9 +156,10 @@ public class UtilController
         
     }
     
-    public static void exportReportsForPrinters(ArrayList<String> printers)
+    public static void exportReportsForPrinters()
 	{
-    
+        
+        ArrayList<String> printers = getListOfPrinters();
         FileManager fileManager = new FileManager();
         
         Workbook wb = new HSSFWorkbook();
@@ -784,5 +785,21 @@ public class UtilController
         ResultSet res = dbconn.searchPrinterSettings(printer);
         
         dbconn.closeDBConnection();
+    }
+    //added by Emily
+    //method to archive folders 
+    public static void archive (){
+        try {
+            //exportReportsForPrinters();
+            FileManager.zip("C:\\Sync\\ObjectLabPrinters\\", "C:\\Sync\\Archive.zip");
+            if(FileManager.doesFileExist("C:\\Sync\\Archive.zip")){
+                JOptionPane.showMessageDialog(new JFrame(), "Archive Successful");
+            }
+            else{
+                JOptionPane.showMessageDialog(new JFrame(), "Archive Failed");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
