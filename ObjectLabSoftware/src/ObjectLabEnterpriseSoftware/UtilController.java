@@ -1,6 +1,4 @@
-/*
- *
- */
+
 package ObjectLabEnterpriseSoftware;
 
 import java.io.File;
@@ -17,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
 import static org.apache.commons.io.FileUtils.directoryContains;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -790,9 +791,12 @@ public class UtilController
     //method to archive folders 
     public static void archive (){
         try {
-            //exportReportsForPrinters();
-            FileManager.zip("C:\\Sync\\ObjectLabPrinters\\", "C:\\Sync\\Archive.zip");
-            if(FileManager.doesFileExist("C:\\Sync\\Archive.zip")){
+            exportReportsForPrinters();
+            String fileName = new String();
+            String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+            fileName = "Archive "+date;
+            FileManager.zip("C:\\Sync\\ObjectLabPrinters\\", "C:\\Sync\\"+fileName+".zip");
+            if(FileManager.doesFileExist("C:\\Sync\\"+fileName+".zip")){
                 JOptionPane.showMessageDialog(new JFrame(), "Archive Successful");
             }
             else{
