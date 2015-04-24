@@ -14,13 +14,13 @@ public class StudentSubmissionView extends javax.swing.JFrame
 {
     ButtonGroup group;
     String printer;
-    TomSoftMainView home;
+    MainView home;
 
     public void studentSubmissionStart() 
 	{
         initComponents();
         hideErrorFields();
-        home = new TomSoftMainView();
+        home = new MainView();
         try 
 		{
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
@@ -347,7 +347,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
                
                 JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
                 dispose();
-                new TomSoftMainView().setVisible(true); 
+                new MainView().setVisible(true); 
             }
 			else
 			{

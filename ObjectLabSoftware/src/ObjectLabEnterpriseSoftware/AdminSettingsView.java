@@ -13,13 +13,13 @@ import java.awt.event.WindowEvent;
  * @author Saurabh
  */
 public class AdminSettingsView extends javax.swing.JFrame {
-    TomSoftMainView home;
+    MainView home;
 
     /**
      * Creates new form adminSettings
      */
     public AdminSettingsView() {
-        home = new TomSoftMainView();
+        home = new MainView();
         initComponents();
         setTitle("TomSoft Admin Settings");
         setLocationRelativeTo(null);

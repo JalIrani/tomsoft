@@ -1,6 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.util.Locale;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -9,7 +10,7 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-public class TomSoftMainView extends javax.swing.JFrame {
+public class MainView extends javax.swing.JFrame {
 
     NewStudentView newStudentSys;
     PendingJobsView pendingSys;
@@ -17,13 +18,26 @@ public class TomSoftMainView extends javax.swing.JFrame {
     boolean show;
     String PASS = "ForwardMotion";
 
-    public TomSoftMainView() {
+    public MainView() {
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
         pendingSys = new PendingJobsView();
         studentSys = new StudentSubmissionView();
         newStudentSys = new NewStudentView();
+        
+        //Allows only integers for student ID
+        studentIdString.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+          char c = e.getKeyChar();
+          if (!((c >= '0') && (c <= '9') ||
+             (c == KeyEvent.VK_BACK_SPACE) ||
+             (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            e.consume();
+          }
+        }
+  });
     }
 
     /**
@@ -33,7 +47,8 @@ public class TomSoftMainView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -51,8 +66,12 @@ public class TomSoftMainView extends javax.swing.JFrame {
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
         newStudent = new javax.swing.JLabel();
+        MenuBar = new javax.swing.JMenuBar();
+        helpButton = new javax.swing.JMenu();
+        userGuideButton = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -72,8 +91,10 @@ public class TomSoftMainView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentButton.setText("New Student");
-        newStudentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        newStudentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 newStudentButtonActionPerformed(evt);
             }
         });
@@ -83,16 +104,20 @@ public class TomSoftMainView extends javax.swing.JFrame {
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 130, 20));
 
-        studentIdString.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentIdString.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentIdStringActionPerformed(evt);
             }
         });
         getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 130, 30));
 
         studentButton.setText("Student");
-        studentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentButtonActionPerformed(evt);
             }
         });
@@ -101,32 +126,40 @@ public class TomSoftMainView extends javax.swing.JFrame {
         zcorpButton.setText("ZCorp");
         zcorpButton.setToolTipText("");
         zcorpButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        zcorpButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        zcorpButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 zcorpButtonActionPerformed(evt);
             }
         });
         getContentPane().add(zcorpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 130, 30));
 
         solidscapeButton.setText("Solidscape");
-        solidscapeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        solidscapeButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 solidscapeButtonActionPerformed(evt);
             }
         });
         getContentPane().add(solidscapeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 130, 30));
 
         AdminButton.setText("Administrator");
-        AdminButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AdminButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AdminButtonActionPerformed(evt);
             }
         });
         getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 130, 30));
 
         openProjectsButton.setText("Projects");
-        openProjectsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openProjectsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openProjectsButtonActionPerformed(evt);
             }
         });
@@ -134,24 +167,30 @@ public class TomSoftMainView extends javax.swing.JFrame {
 
         objetButton.setText("Objet");
         objetButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        objetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        objetButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 objetButtonActionPerformed(evt);
             }
         });
         getContentPane().add(objetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 130, 30));
 
         settingsButton.setText("Settings");
-        settingsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        settingsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 settingsButtonActionPerformed(evt);
             }
         });
         getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 130, 30));
 
         ReportsButton.setText("Reports");
-        ReportsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ReportsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ReportsButtonActionPerformed(evt);
             }
         });
@@ -159,6 +198,22 @@ public class TomSoftMainView extends javax.swing.JFrame {
 
         newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
         getContentPane().add(newStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
+
+        helpButton.setText("Help");
+
+        userGuideButton.setText("User Guide");
+        userGuideButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                userGuideButtonActionPerformed(evt);
+            }
+        });
+        helpButton.add(userGuideButton);
+
+        MenuBar.add(helpButton);
+
+        setJMenuBar(MenuBar);
 
         pack();
         setLocationRelativeTo(null);
@@ -222,6 +277,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
         setPrintersVisible(false);
+        
         String id = studentIdString.getText();//DB team this is to store String
         if(id.length() != 7){
             errorIdLabel.setText("TU ID must be 7 digits");   
@@ -238,16 +294,20 @@ public class TomSoftMainView extends javax.swing.JFrame {
     }//GEN-LAST:event_studentButtonActionPerformed
 
     private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
-        // TODO add your handling code here:
+           // TODO add your handling code here:
         
     }//GEN-LAST:event_studentIdStringActionPerformed
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         // TODO add your handling code here:
-        newStudentSys.NewStudentMainStart();
+        newStudentSys.NewStudentViewStart();
         dispose();
         
     }//GEN-LAST:event_newStudentButtonActionPerformed
+
+    private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userGuideButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {
         AdminSettingsView ad = new AdminSettingsView();
@@ -282,93 +342,24 @@ public class TomSoftMainView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TomSoftMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TomSoftMainView().setVisible(true);
+                new MainView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AdminButton;
+    private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton ReportsButton;
     private javax.swing.JLabel errorIdLabel;
+    private javax.swing.JMenu helpButton;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -381,6 +372,7 @@ public class TomSoftMainView extends javax.swing.JFrame {
     private javax.swing.JButton solidscapeButton;
     private javax.swing.JButton studentButton;
     private javax.swing.JTextField studentIdString;
+    private javax.swing.JMenuItem userGuideButton;
     private javax.swing.JButton zcorpButton;
     // End of variables declaration//GEN-END:variables
 }
