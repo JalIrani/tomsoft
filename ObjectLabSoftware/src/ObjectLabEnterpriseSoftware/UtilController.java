@@ -808,7 +808,7 @@ public class UtilController
         /* Insert our printer into the printer table. For right now just adding in the first
          file extension added from UI (DB does not support multiple file extensions)
          */
-        dbconn.insertIntoPrinter(deviceName);
+        dbconn.insertIntoPrinter(deviceName, true);
 
         for (String ext : fileExt)
         {
