@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class ClassOptionsView extends javax.swing.JFrame
 {
+	private static final String NAME_OF_PAGE = "Class Management";
 
 	private DefaultListModel allClassListModel;
 	private DefaultListModel currentClassListModel;
@@ -132,7 +133,8 @@ public class ClassOptionsView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OLI - Class Management");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

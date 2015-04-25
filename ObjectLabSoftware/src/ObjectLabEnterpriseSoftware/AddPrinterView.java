@@ -8,11 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class AddPrinterView extends javax.swing.JFrame {
+public class AddPrinterView extends javax.swing.JFrame 
+{
+	private static final String NAME_OF_PAGE = "Add Printer";
 
-	/**
-	 * Creates new form AddPrinter
-	 */
 	Device device;
 	JTextField tfield;
 	JLabel tlabel;
@@ -68,7 +67,8 @@ public class AddPrinterView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OLI - Add Printer");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

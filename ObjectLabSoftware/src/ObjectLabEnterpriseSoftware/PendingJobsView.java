@@ -11,16 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-/* DefaultTableModel
- * This is the class that is going to store all of the data returned from any queries to 
- *  update the view for this class. For a better explanation on Jtables, and the various ways its
- *  data can be represented see: http://docs.oracle.com/javase/7/docs/api/javax/swing/table/DefaultTableModel.html
- *  -Nick
-*/
+
 import javax.swing.table.DefaultTableModel; 
 
 public class PendingJobsView extends javax.swing.JFrame
 {
+	private static final String NAME_OF_PAGE =  "Pending Jobs";
+
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
     private static final int LAST_NAME_COLUMN_NUMBER = 2;
@@ -133,7 +130,8 @@ public class PendingJobsView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("OLI - Pending Jobs");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuildView extends javax.swing.JFrame 
 {
+	private static final String NAME_OF_PAGE = "Build File Creator";
+	
     private static String printerSelectedForBuildProcess;
     private static MainView home;    
     private static DefaultTableModel fileTableModel;
@@ -228,7 +230,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OLI - Build File Creator");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

@@ -29,7 +29,15 @@ public class UtilController
 
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
-
+	
+	private static final String SOFTWARE_NAME = "OLI";
+	private static final String SOFTWARE_VERSION = "v0.6"; //Should be dynamic
+	
+	public static String getPageName(String pageName)
+	{
+		return SOFTWARE_NAME + " " + SOFTWARE_VERSION + " - " + pageName;
+	}
+	
     private static void print(ArrayList<ArrayList<Object>> q)
     {
         for (int i = 0; i < q.size(); i++)

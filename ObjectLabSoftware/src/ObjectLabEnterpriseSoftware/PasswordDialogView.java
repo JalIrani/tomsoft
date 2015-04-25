@@ -1,11 +1,10 @@
 package ObjectLabEnterpriseSoftware;
 
 
-public class PasswordDialogView extends javax.swing.JFrame {
-
-    /**
-     * Creates new form PasswordDialogue
-     */
+public class PasswordDialogView extends javax.swing.JFrame 
+{
+    private static final String NAME_OF_PAGE =  "Admin Password";
+	
     public PasswordDialogView() {
         initComponents();
     }
@@ -26,7 +25,8 @@ public class PasswordDialogView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("OLI - Admin Password");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Administrator Password:");

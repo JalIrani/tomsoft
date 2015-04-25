@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * 
- */
-public class ReportsView extends javax.swing.JFrame {
+public class ReportsView extends javax.swing.JFrame 
+{
+	private static final String NAME_OF_PAGE = "Reports";
 
     private static DefaultTableModel model;
     private FileManager inst;
@@ -85,7 +84,8 @@ public class ReportsView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("OLI - Reports");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));

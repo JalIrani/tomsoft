@@ -14,8 +14,11 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class ObjetDialogView extends javax.swing.JFrame {
-    private static final MainView home = new MainView();
+public class ObjetDialogView extends javax.swing.JFrame 
+{
+	private static final String NAME_OF_PAGE = "Objet Data Entry";
+    
+	private static final MainView home = new MainView();
     static String materialType = "";
     static String fileName = "";
     static String buildName = "";
@@ -143,7 +146,8 @@ public class ObjetDialogView extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("OLI - Objet Data Entry");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(370, 363));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
