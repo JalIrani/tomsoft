@@ -229,8 +229,6 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    //Create new device object using these.
 	    device = new Device(printerNameTF.getText(),
 		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(","))));
-	    HashMap<String,Object> values = new HashMap<String,Object>();
-	    ArrayList<String> names = new ArrayList<String>();
 	    //Fields start at index 2
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
@@ -238,9 +236,7 @@ public class AddPrinterView extends javax.swing.JFrame {
 		    device.addField(fields.get(i).getText(), new Double("0"));
 		else
 		    device.addField(fields.get(i).getText(), "");
-		names.add(fields.get(i).getText());
 	    }
-	    device.setFieldNames(names);
 	    //Add device to database/file here
 	    JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
 	    dispose();
