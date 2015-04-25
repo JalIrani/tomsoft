@@ -46,7 +46,7 @@ public class UtilController
     public static ArrayList<String> getListOfPrinters()
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getListOfPrinters();
+        ResultSet queryResult = dbconn.getAvailablePrinters();
         ArrayList<String> printers = new ArrayList<String>();
         ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
 
