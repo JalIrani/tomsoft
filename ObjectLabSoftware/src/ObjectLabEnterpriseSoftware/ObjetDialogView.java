@@ -100,8 +100,7 @@ public class ObjetDialogView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         BPath = new javax.swing.JTextField();
         dateRunTxt = new javax.swing.JTextField();
@@ -148,6 +147,7 @@ public class ObjetDialogView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(370, 363));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -174,10 +174,8 @@ public class ObjetDialogView extends javax.swing.JFrame
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 117, 95, 20));
 
         submitBtn.setText("Submit");
-        submitBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        submitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitBtnActionPerformed(evt);
             }
         });
@@ -275,10 +273,8 @@ public class ObjetDialogView extends javax.swing.JFrame
         SupportConError.setText("Error Text");
         getContentPane().add(SupportConError, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, 20));
 
-        BuildConsumedText.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BuildConsumedText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuildConsumedTextActionPerformed(evt);
             }
         });
@@ -297,10 +293,8 @@ public class ObjetDialogView extends javax.swing.JFrame
         material.setSelectedItem(null);
         getContentPane().add(material, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 110, -1));
 
-        ResolutionText.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ResolutionText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResolutionTextActionPerformed(evt);
             }
         });
@@ -322,10 +316,8 @@ public class ObjetDialogView extends javax.swing.JFrame
         jMenu1.setText("File");
 
         jMenuItem2.setText("Reports");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });

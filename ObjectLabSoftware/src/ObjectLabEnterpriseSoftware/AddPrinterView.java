@@ -46,8 +46,7 @@ public class AddPrinterView extends javax.swing.JFrame
 	 */
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -69,6 +68,7 @@ public class AddPrinterView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -84,10 +84,8 @@ public class AddPrinterView extends javax.swing.JFrame
         getContentPane().add(printerNameL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         removeFieldButton.setText("Remove Field");
-        removeFieldButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        removeFieldButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeFieldButtonActionPerformed(evt);
             }
         });
@@ -98,39 +96,31 @@ public class AddPrinterView extends javax.swing.JFrame
         getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         addFieldButton.setText("Add Field");
-        addFieldButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        addFieldButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addFieldButtonActionPerformed(evt);
             }
         });
         getContentPane().add(addFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 90, 20));
 
         saveBtn.setText("Save");
-        saveBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
             }
         });
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 90, 20));
 
         cancelBtn.setText("Cancel");
-        cancelBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
             }
         });
         getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 100, 20));
 
-        fieldTF0.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        fieldTF0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldTF0ActionPerformed(evt);
             }
         });
@@ -149,10 +139,8 @@ public class AddPrinterView extends javax.swing.JFrame
         EditMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });

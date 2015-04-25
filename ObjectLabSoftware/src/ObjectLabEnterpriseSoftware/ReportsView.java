@@ -62,8 +62,7 @@ public class ReportsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         searchFilter = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -86,13 +85,12 @@ public class ReportsView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
-        searchFilter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        searchFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
             }
         });
@@ -108,10 +106,8 @@ public class ReportsView extends javax.swing.JFrame
 
         searchBtn.setText("Search");
         searchBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        searchBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchBtnActionPerformed(evt);
             }
         });
@@ -119,10 +115,8 @@ public class ReportsView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 76, 682, 10));
 
         jButton1.setText("Export Master Report");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -134,10 +128,8 @@ public class ReportsView extends javax.swing.JFrame
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
         jComboBox1.setName("PrinterSelection"); // NOI18N
-        jComboBox1.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
             }
         });
@@ -155,10 +147,8 @@ public class ReportsView extends javax.swing.JFrame
 
     exportBtn.setText("Export");
     exportBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    exportBtn.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
-        {
+    exportBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
             exportBtnActionPerformed(evt);
         }
     });
@@ -166,10 +156,8 @@ public class ReportsView extends javax.swing.JFrame
 
     closeBtn.setText("Close");
     closeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    closeBtn.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
-        {
+    closeBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
             closeBtnActionPerformed(evt);
         }
     });
@@ -185,10 +173,8 @@ public class ReportsView extends javax.swing.JFrame
     jMenu2.setText("Help");
 
     jMenuItem1.setText("Contents");
-    jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
-        {
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
             jMenuItem1ActionPerformed(evt);
         }
     });
