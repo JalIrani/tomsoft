@@ -85,7 +85,7 @@ public class FileManager
                 return true;
     */
     
-    public boolean doesFileExist(String path)
+    public static boolean doesFileExist(String path)
     {
         return new File(path).exists();
     }

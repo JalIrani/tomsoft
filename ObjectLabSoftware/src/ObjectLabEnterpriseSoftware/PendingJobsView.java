@@ -72,8 +72,6 @@ public class PendingJobsView extends javax.swing.JFrame
         /* Updates table */
         updateView(allFileTableModel, UtilController.updatePendingTableData());
         setVisible(true);
-        
-        
     }
     
     /**

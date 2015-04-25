@@ -15,7 +15,7 @@ public class ReportsView extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
     private FileManager inst;
-    private int reportID = 0;
+    private String selectedPrinter;
     private UtilController controller;
     private String[] headers;
     private ArrayList<String> printers;
@@ -26,13 +26,11 @@ public class ReportsView extends javax.swing.JFrame {
     public ReportsView() 
     {
         this.controller = new UtilController();
-        headers = UtilController.getReportColumnHeaders(reportID);
-        //TODO: this information should come from the database
-        printers = new ArrayList<String>();
-        printers.add("Zcorp");
-        printers.add("Objet");
-        printers.add("SolidScape");
-        
+        printers = UtilController.getListOfPrinters();
+        if(printers.size() > 0){
+            selectedPrinter = printers.get(0);
+            headers = UtilController.getReportColumnHeaders(selectedPrinter);
+        }
         addWindowListener
         (
             new WindowAdapter() 
@@ -52,7 +50,7 @@ public class ReportsView extends javax.swing.JFrame {
     {
         initComponents();
         model = (DefaultTableModel) reportsTable.getModel();
-        for (ArrayList<Object> retval1 : UtilController.updateReportTableData(reportID)){ 
+        for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
             model.addRow(retval1.toArray());
         }
         setVisible(true);
@@ -65,7 +63,8 @@ public class ReportsView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         searchFilter = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -90,8 +89,10 @@ public class ReportsView extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
-        searchFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        searchFilter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 searchFilterActionPerformed(evt);
             }
         });
@@ -107,8 +108,10 @@ public class ReportsView extends javax.swing.JFrame {
 
         searchBtn.setText("Search");
         searchBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        searchBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 searchBtnActionPerformed(evt);
             }
         });
@@ -116,8 +119,10 @@ public class ReportsView extends javax.swing.JFrame {
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 76, 682, 10));
 
         jButton1.setText("Export Master Report");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -129,8 +134,10 @@ public class ReportsView extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
         jComboBox1.setName("PrinterSelection"); // NOI18N
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        jComboBox1.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
                 jComboBox1ItemStateChanged(evt);
             }
         });
@@ -148,8 +155,10 @@ public class ReportsView extends javax.swing.JFrame {
 
     exportBtn.setText("Export");
     exportBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    exportBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+    exportBtn.addActionListener(new java.awt.event.ActionListener()
+    {
+        public void actionPerformed(java.awt.event.ActionEvent evt)
+        {
             exportBtnActionPerformed(evt);
         }
     });
@@ -157,12 +166,14 @@ public class ReportsView extends javax.swing.JFrame {
 
     closeBtn.setText("Close");
     closeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-    closeBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+    closeBtn.addActionListener(new java.awt.event.ActionListener()
+    {
+        public void actionPerformed(java.awt.event.ActionEvent evt)
+        {
             closeBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
+    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 330, 60, -1));
 
     jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
     jLabel5.setText("jLabel5");
@@ -174,8 +185,10 @@ public class ReportsView extends javax.swing.JFrame {
     jMenu2.setText("Help");
 
     jMenuItem1.setText("Contents");
-    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+    {
+        public void actionPerformed(java.awt.event.ActionEvent evt)
+        {
             jMenuItem1ActionPerformed(evt);
         }
     });
@@ -207,7 +220,7 @@ public class ReportsView extends javax.swing.JFrame {
             
             model = (DefaultTableModel) reportsTable.getModel();
             System.out.println(searchFilter.getSelectedItem().toString());
-            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim(), reportID)){ 
+            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim(), selectedPrinter)){ 
                 model.addRow(retval1.toArray());
             }
 
@@ -238,10 +251,10 @@ public class ReportsView extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         
         //System.out.println(evt.getItem().toString());
-        reportID = printers.indexOf(evt.getItem().toString());
+        selectedPrinter = evt.getItem().toString();
         //System.out.println(report);
         
-        headers = UtilController.getReportColumnHeaders(reportID);
+        headers = UtilController.getReportColumnHeaders(selectedPrinter);
         while (model.getRowCount() > 0) {
                 model.removeRow(0);
             }
@@ -250,7 +263,7 @@ public class ReportsView extends javax.swing.JFrame {
             headers));
             model = (DefaultTableModel) reportsTable.getModel();
             searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
-            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(reportID)){ 
+            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
                 model.addRow(retval1.toArray());
             }
         
@@ -258,11 +271,8 @@ public class ReportsView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
+        UtilController.exportReportsForPrinters();
         
-        
-        for(String printer : printers){
-            
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
