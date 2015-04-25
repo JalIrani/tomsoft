@@ -235,9 +235,9 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
 		if(boxes.get(i-2).isSelected()==true)
-		    values.put(fields.get(i).getText(), new Double("0"));
+		    device.addField(fields.get(i).getText(), new Double("0"));
 		else
-		    values.put(fields.get(i).getText(), "");
+		    device.addField(fields.get(i).getText(), "");
 		names.add(fields.get(i).getText());
 	    }
 	    device.setFieldNames(names);
