@@ -791,22 +791,6 @@ public ResultSet selectAcceptedFiles(String printer)
         
 	// END OF DELETE METHODS
 	// _____________________________________________________________________________________________________________________
-
-
-    public ResultSet getListOfPrinters(){
-        res = null;
-        try
-        {
-            stmt = this.conn.prepareStatement("select printer_name from printer");
-            res = stmt.executeQuery();
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-        
-        return res;
-    }
     
     @Deprecated
     public ResultSet getReport(String printer_name) 
@@ -1354,14 +1338,12 @@ public ResultSet selectAcceptedFiles(String printer)
         return res;
     }
     
-    /* not really deprecated... newer DB table needs an update for current value */
-    @Deprecated
     public ResultSet getCurrentClasses() {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
-                    + "FROM classes "
+                    + "FROM class "
                     + "WHERE "
                     + "current = true");
             System.out.println(stmt);
@@ -1372,15 +1354,14 @@ public ResultSet selectAcceptedFiles(String printer)
         return res;
     }
     
-    @Deprecated
     public ResultSet getAvailablePrinters() 
     {
         res = null;
         try {
             stmt = this.conn.prepareStatement
             (
-                    "SELECT printer"
-                    + " FROM printers"
+                    "SELECT printer_name"
+                    + " FROM printer"
             );
             System.out.println(stmt);
             res = stmt.executeQuery();
