@@ -221,6 +221,7 @@ public class MainView extends javax.swing.JFrame {
         dialogue.setAlwaysOnTop(true);
         dialogue.setVisible(true);
         dialogue.setLocationRelativeTo(this);
+        dialogue.setResizable(false);
         /* 
         Currently bypasses what is typed into dialogue for ease of testing
         password.equals(PASS) 

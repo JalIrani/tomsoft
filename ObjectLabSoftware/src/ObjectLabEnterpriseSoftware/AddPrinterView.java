@@ -61,6 +61,7 @@ public class AddPrinterView extends javax.swing.JFrame {
         cancelBtn = new javax.swing.JButton();
         fieldTF0 = new javax.swing.JTextField();
         numberCB = new javax.swing.JCheckBox();
+        studentSubmissionCB = new javax.swing.JCheckBox();
         fileExtensionL = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -128,6 +129,15 @@ public class AddPrinterView extends javax.swing.JFrame {
 
         numberCB.setText("Number Value");
         getContentPane().add(numberCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, -1, -1));
+
+        studentSubmissionCB.setSelected(true);
+        studentSubmissionCB.setText("Require Student Submission");
+        studentSubmissionCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentSubmissionCBActionPerformed(evt);
+            }
+        });
+        getContentPane().add(studentSubmissionCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
         fileExtensionL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fileExtensionL.setText("File Ext.:");
@@ -238,6 +248,8 @@ public class AddPrinterView extends javax.swing.JFrame {
 		else
 		    device.addField(fields.get(i).getText(), "");
 	    }
+            //device.setRequireSubmission(studentSubmissionCB.isSelected());
+            
 	    //Add device to database
             if(UtilController.addDevice(device)==true)
                 JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
@@ -267,6 +279,18 @@ public class AddPrinterView extends javax.swing.JFrame {
 		// TODO add your handling code here:
         }//GEN-LAST:event_fieldTF0ActionPerformed
 
+    private void studentSubmissionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSubmissionCBActionPerformed
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        if(studentSubmissionCB.isSelected()==false){
+            
+            if(JOptionPane.showConfirmDialog(null, "Students will not be required to submit reports for this printer when this is unchecked.\nAre you sure you want to do this?  "
+                    + "\nWe recommend clicking 'No' if unsure.","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
+                studentSubmissionCB.setSelected(false);
+            else
+                studentSubmissionCB.setSelected(true);
+        }
+    }//GEN-LAST:event_studentSubmissionCBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu EditMenu;
@@ -286,5 +310,6 @@ public class AddPrinterView extends javax.swing.JFrame {
     private javax.swing.JTextField printerNameTF;
     private javax.swing.JButton removeFieldButton;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JCheckBox studentSubmissionCB;
     // End of variables declaration//GEN-END:variables
 }
