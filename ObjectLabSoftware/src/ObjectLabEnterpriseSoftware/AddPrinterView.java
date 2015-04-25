@@ -14,6 +14,7 @@ public class AddPrinterView extends javax.swing.JFrame {
 	 * Creates new form AddPrinter
 	 */
 	Device device;
+        UtilController util = new UtilController();
 	JTextField tfield;
 	JLabel tlabel;
 	JCheckBox cbox;
@@ -237,8 +238,11 @@ public class AddPrinterView extends javax.swing.JFrame {
 		else
 		    device.addField(fields.get(i).getText(), "");
 	    }
-	    //Add device to database/file here
-	    JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
+	    //Add device to database
+            if(util.addDevice(device)==true)
+                JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
+            else
+                JOptionPane.showMessageDialog(this, "There was an error with the database while saving the printer.");
 	    dispose();
 	}
     }//GEN-LAST:event_saveBtnActionPerformed
