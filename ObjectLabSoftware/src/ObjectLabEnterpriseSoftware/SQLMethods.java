@@ -359,12 +359,13 @@ public ResultSet selectAcceptedFiles(String printer)
 		}
 	}
         
-        public void insertIntoPrinter(String printer)
+        public void insertIntoPrinter(String printer, boolean submit)
 	{
 		try
 		{
-			stmt = conn.prepareStatement("INSERT INTO printer (printer_name, current, total_run_time) values (?, 'current', 0);");
+			stmt = conn.prepareStatement("INSERT INTO printer (printer_name, current, total_run_time,student_submission) values (?, 'current', 0, ?);");
 			stmt.setString(1, printer);
+                        stmt.setBoolean(2, submit);
 			stmt.executeUpdate();
 		} catch (Exception e)
 		{
