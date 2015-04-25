@@ -479,7 +479,7 @@ public class UtilController
          */
 
         SQLMethods dbconn = new SQLMethods();
-        ResultSet classesAvailableResult = dbconn.getCurrentClasses();
+        ResultSet classesAvailableResult = dbconn.getClasses(true);
         ArrayList<ArrayList<Object>> classesAvailableAL = readyOutputForViewPage(classesAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
@@ -827,10 +827,10 @@ public class UtilController
         return true;
     }
 
-    public static DefaultListModel returnClassesArray()
+    private static DefaultListModel returnClassesArray(boolean status)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result2 = dbconn.getClasses();
+        ResultSet result2 = dbconn.getClasses(status);
         DefaultListModel classList = new DefaultListModel();;
         try
         {
@@ -846,32 +846,22 @@ public class UtilController
         dbconn.closeDBConnection();
         return classList;
     }
-
-    public static DefaultListModel returnCurrentClassesArray()
+    
+    public static DefaultListModel returnNonCurrentClasses()
     {
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet result2 = dbconn.getCurrentClasses();
-        DefaultListModel classList = new DefaultListModel();
-        try
-        {
-            while (result2.next())
-            {
-                classList.addElement(result2.getString("className") + " " + result2.getString("classSection"));
-            }
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        dbconn.closeDBConnection();
-        return classList;
+        return returnClassesArray(false);
     }
-
-    public static void insertNewClass(String className, String classNumber, String sectionNumber)
+    
+    public static DefaultListModel returnCurrentClasses()
+    {
+        return returnClassesArray(true);
+    }
+    
+    public static void insertNewClass(String className, String classNumber, String sectionNumber, String professor)
     {
         SQLMethods dbconn = new SQLMethods();
 
-        dbconn.insertIntoClasses(className + " " + classNumber, sectionNumber);
+        dbconn.insertIntoClasses(className + " " + classNumber, sectionNumber, professor);
 
         dbconn.closeDBConnection();
     }

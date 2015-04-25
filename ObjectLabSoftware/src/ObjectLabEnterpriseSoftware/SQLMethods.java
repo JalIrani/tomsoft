@@ -1247,10 +1247,9 @@ public ResultSet selectAcceptedFiles(String printer)
         }
     }
     
-    @Deprecated
     public void setAllClassesInvisible() {
         try {
-            stmt = this.conn.prepareStatement("UPDATE classes SET current = false");
+            stmt = this.conn.prepareStatement("UPDATE class SET current = false");
             System.out.println(stmt);
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -1258,11 +1257,10 @@ public ResultSet selectAcceptedFiles(String printer)
         }
     }
 
-    @Deprecated
     public void updateCurrentClasses(String course, String section) {
         try {
             stmt = this.conn.prepareStatement(
-                    "UPDATE classes "
+                    "UPDATE class "
                     + "SET current = true WHERE className = ? and classSection = ?");
             stmt.setString(1, course);
             stmt.setString(2, section);
@@ -1320,32 +1318,17 @@ public ResultSet selectAcceptedFiles(String printer)
             e.printStackTrace();
         }
     }
-
-    @Deprecated
-    public ResultSet getClasses() {
-        res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM classes "
-                    + "WHERE "
-                    + "current = false");
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
     
-    public ResultSet getCurrentClasses() {
-        res = null;
+    public ResultSet getClasses(boolean status) {
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
                     + "FROM class "
                     + "WHERE "
-                    + "current = true");
+                    + "current = ?;");
+            
+            stmt.setBoolean(1, status);
+            
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
@@ -1363,7 +1346,7 @@ public ResultSet selectAcceptedFiles(String printer)
                     "SELECT printer_name"
                     + " FROM printer"
             );
-            System.out.println(stmt);
+            System.out.println(stmt + " HELLO THERE");
             res = stmt.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
