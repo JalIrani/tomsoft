@@ -21,7 +21,6 @@ public class AdminSettingsView extends javax.swing.JFrame {
     public AdminSettingsView() {
         home = new MainView();
         initComponents();
-        setTitle("TomSoft Admin Settings");
         setLocationRelativeTo(null);
           try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
