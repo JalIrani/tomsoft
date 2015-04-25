@@ -12,6 +12,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StudentSubmissionView extends javax.swing.JFrame 
 {
+	private static final String NAME_OF_PAGE = "Student Submission";
+
     ButtonGroup group;
     String printer;
     MainView home;
@@ -90,7 +92,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OLI - Student Submission");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
         setMinimumSize(new java.awt.Dimension(507, 390));

@@ -12,16 +12,14 @@ import java.awt.event.WindowEvent;
  *
  * @author Saurabh
  */
-public class AdminSettingsView extends javax.swing.JFrame {
-    MainView home;
+public class AdminSettingsView extends javax.swing.JFrame 
+{
+	private static final String NAME_OF_PAGE = "Settings";
+	MainView home;
 
-    /**
-     * Creates new form adminSettings
-     */
     public AdminSettingsView() {
         home = new MainView();
         initComponents();
-        setTitle("TomSoft Admin Settings");
         setLocationRelativeTo(null);
           try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -61,7 +59,8 @@ public class AdminSettingsView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("OLI - Settings");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

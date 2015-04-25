@@ -359,12 +359,13 @@ public ResultSet selectAcceptedFiles(String printer)
 		}
 	}
         
-        public void insertIntoPrinter(String printer)
+        public void insertIntoPrinter(String printer, boolean submit)
 	{
 		try
 		{
-			stmt = conn.prepareStatement("INSERT INTO printer (printer_name, current, total_run_time) values (?, 'current', 0);");
+			stmt = conn.prepareStatement("INSERT INTO printer (printer_name, current, total_run_time,student_submission) values (?, 'current', 0, ?);");
 			stmt.setString(1, printer);
+                        stmt.setBoolean(2, submit);
 			stmt.executeUpdate();
 		} catch (Exception e)
 		{
@@ -1235,22 +1236,9 @@ public ResultSet selectAcceptedFiles(String printer)
         }
     }
     
-    @Deprecated
-    public void insertIntoClasses(String course, String second) {
-        try {
-            stmt = this.conn.prepareStatement(
-                    "INSERT INTO class (class_name, class_section, current) VALUES('" + course + "','" + second + "', false)");
-            System.out.println(stmt);
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @Deprecated
     public void setAllClassesInvisible() {
         try {
-            stmt = this.conn.prepareStatement("UPDATE classes SET current = false");
+            stmt = this.conn.prepareStatement("UPDATE class SET current = false");
             System.out.println(stmt);
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -1258,14 +1246,12 @@ public ResultSet selectAcceptedFiles(String printer)
         }
     }
 
-    @Deprecated
-    public void updateCurrentClasses(String course, String section) {
+    public void updateCurrentClasses(int pk) {
         try {
             stmt = this.conn.prepareStatement(
-                    "UPDATE classes "
-                    + "SET current = true WHERE className = ? and classSection = ?");
-            stmt.setString(1, course);
-            stmt.setString(2, section);
+                    "UPDATE class "
+                    + "SET current = true where class_id=?;");
+            stmt.setInt(1, pk);
             System.out.println(stmt);
             stmt.executeUpdate();
 
@@ -1320,32 +1306,17 @@ public ResultSet selectAcceptedFiles(String printer)
             e.printStackTrace();
         }
     }
-
-    @Deprecated
-    public ResultSet getClasses() {
-        res = null;
-        try {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM classes "
-                    + "WHERE "
-                    + "current = false");
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
     
-    public ResultSet getCurrentClasses() {
-        res = null;
+    public ResultSet getClasses(boolean status) {
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT * "
                     + "FROM class "
                     + "WHERE "
-                    + "current = true");
+                    + "current = ?;");
+            
+            stmt.setBoolean(1, status);
+            
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
@@ -1363,7 +1334,7 @@ public ResultSet selectAcceptedFiles(String printer)
                     "SELECT printer_name"
                     + " FROM printer"
             );
-            System.out.println(stmt);
+            System.out.println(stmt + " HELLO THERE");
             res = stmt.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();

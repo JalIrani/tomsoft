@@ -3,11 +3,13 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class ClassOptionsView extends javax.swing.JFrame
 {
+	private static final String NAME_OF_PAGE = "Class Management";
 
 	private DefaultListModel allClassListModel;
 	private DefaultListModel currentClassListModel;
@@ -16,10 +18,16 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	private void updateView()
 	{
-		allClassListModel = UtilController.returnClassesArray();
-		currentClassListModel = UtilController.returnCurrentClassesArray();
-		allClassList.setModel(allClassListModel);
-		currentClassList.setModel(currentClassListModel);
+            if(allClassListModel != null)
+                allClassListModel.clear();
+            
+            if(currentClassListModel != null)
+                currentClassListModel.clear();
+            
+            allClassListModel = UtilController.returnNonCurrentClasses(); /* false */
+            currentClassListModel = UtilController.returnCurrentClasses(); /* true */
+            allClassList.setModel(allClassListModel);
+            currentClassList.setModel(currentClassListModel);
 	}
 
 	public void OptionsStart()
@@ -37,6 +45,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 		sectionNumberL.setVisible(false);
 		className.setVisible(false);
 		classNumber.setVisible(false);
+                classProfessor.setVisible(false);
+                classProfessorL.setVisible(false);
 		sectionNumber.setVisible(false);
 		cancelButton.setVisible(false);
 		addNewButton.setVisible(false);
@@ -44,6 +54,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	public ClassOptionsView()
 	{
+            allClassListModel = null;
+                currentClassListModel = null;
 		inst = new FileManager();
 		/* Creates are PendingJobs UI window componet and grabs its data model for our uses */
 		initComponents();
@@ -71,7 +83,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 	 */
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -98,12 +111,15 @@ public class ClassOptionsView extends javax.swing.JFrame
         addNewButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
+        classProfessor = new javax.swing.JTextField();
+        classProfessorL = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         EditMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -117,7 +133,8 @@ public class ClassOptionsView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OLI - Class Management");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -127,20 +144,24 @@ public class ClassOptionsView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
 
         addNewClass.setText("Add New Class");
-        addNewClass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addNewClass.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 addNewClassActionPerformed(evt);
             }
         });
         getContentPane().add(addNewClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         cancelBtn.setText("Cancel");
-        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cancelBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, -1, -1));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
 
         jScrollPane3.setViewportView(allClassList);
 
@@ -160,16 +181,20 @@ public class ClassOptionsView extends javax.swing.JFrame
 
         addArrow.setText("Add ->");
         addArrow.setPreferredSize(new java.awt.Dimension(60, 23));
-        addArrow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addArrow.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 addArrowActionPerformed(evt);
             }
         });
         getContentPane().add(addArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 90, -1));
 
         removeArrow.setText("<- Remove");
-        removeArrow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        removeArrow.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 removeArrowActionPerformed(evt);
             }
         });
@@ -188,37 +213,57 @@ public class ClassOptionsView extends javax.swing.JFrame
         getContentPane().add(sectionNumberL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         addNewButton.setText("Add");
-        addNewButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addNewButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 addNewButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addNewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, -1, -1));
+        getContentPane().add(addNewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cancelButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 cancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, -1, -1));
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
 
         saveBtn.setText("Save");
-        saveBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        saveBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 saveBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
+        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, -1, -1));
+
+        classProfessor.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                classProfessorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(classProfessor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 120, -1));
+
+        classProfessorL.setText("Professor:");
+        getContentPane().add(classProfessorL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 80, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 540, 450));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 540, 510));
 
         EditMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem1ActionPerformed(evt);
             }
         });
@@ -239,6 +284,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 		sectionNumberL.setVisible(true);
 		className.setVisible(true);
 		classNumber.setVisible(true);
+                classProfessor.setVisible(true);
+                classProfessorL.setVisible(true);
 		sectionNumber.setVisible(true);
 		cancelButton.setVisible(true);
 		addNewButton.setVisible(true);
@@ -276,9 +323,9 @@ public class ClassOptionsView extends javax.swing.JFrame
 
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
 		if (className.getText().equals("") | classNumber.getText().equals("")
-				| sectionNumber.getText().equals(""))
+				| sectionNumber.getText().equals("") | classProfessor.getText().equals(""))
 		{
-			JOptionPane.showMessageDialog(null, "Please enter all three Class Values",
+			JOptionPane.showMessageDialog(null, "Please enter all Class Values",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		} else if (className.getText().contains(" ") | classNumber.getText().contains(" ")
 				| sectionNumber.getText().contains(" "))
@@ -291,9 +338,9 @@ public class ClassOptionsView extends javax.swing.JFrame
 			JOptionPane.showMessageDialog(null, "Class Number and Section Numbers must "
 					+ "contain only numbers",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else if (!className.getText().matches("^[a-zA-Z]*$"))
+		} else if (!className.getText().matches("^[a-zA-Z]*$") | !classProfessor.getText().trim().matches("^[a-zA-Z]*$"))
 		{
-			JOptionPane.showMessageDialog(null, "Class Name must only contain "
+			JOptionPane.showMessageDialog(null, "Class Name and Professor Name must only contain "
 					+ "letters.",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		} else
@@ -310,12 +357,13 @@ public class ClassOptionsView extends javax.swing.JFrame
 			} else
 			{
 				allClassListModel.addElement(input.toUpperCase());
-				UtilController.insertNewClass(className.getText().toUpperCase(), classNumber.getText(), sectionNumber.getText());
+				UtilController.insertNewClass(className.getText().toUpperCase(), classNumber.getText(), sectionNumber.getText(), classProfessor.getText());
 			}
 
 			temp.clear();
 			hideOptions();
 			addNewClass.setVisible(true);
+                        updateView();
 		}
     }//GEN-LAST:event_addNewButtonActionPerformed
 
@@ -336,10 +384,19 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-		//class(ex. ART 101.001) stored in the database
-		UtilController.saveButtonActionPerformed(evt, currentClassListModel);
-		dispose();
+        ArrayList<String> classes = new ArrayList<>();
+        
+        for (int i = 0; i < currentClassListModel.getSize(); i++)
+            classes.add(currentClassListModel.elementAt(i).toString());
+        
+        UtilController.updateAvailableClasses(classes);
+        dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void classProfessorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_classProfessorActionPerformed
+    {//GEN-HEADEREND:event_classProfessorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_classProfessorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -354,6 +411,8 @@ public class ClassOptionsView extends javax.swing.JFrame
     private javax.swing.JLabel classNameL;
     private javax.swing.JTextField classNumber;
     private javax.swing.JLabel classNumberL;
+    private javax.swing.JTextField classProfessor;
+    private javax.swing.JLabel classProfessorL;
     private javax.swing.JList currentClassList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

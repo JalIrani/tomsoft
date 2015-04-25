@@ -12,12 +12,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
-public class NewStudentView extends javax.swing.JFrame {
+public class NewStudentView extends javax.swing.JFrame 
+{
+	private static final String NAME_OF_PAGE = "New Student";
 
-    /**
-     * Creates new form NewStudentView
-     */
-    
     public static SQLMethods dba;
     MainView home;
     
@@ -94,7 +92,8 @@ public class NewStudentView extends javax.swing.JFrame {
         netIDlEntry = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("OLI - New Student");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
+        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N

@@ -29,7 +29,15 @@ public class UtilController
 
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
-
+	
+	private static final String SOFTWARE_NAME = "OLI";
+	private static final String SOFTWARE_VERSION = "v0.6"; //Should be dynamic
+	
+	public static String getPageName(String pageName)
+	{
+		return SOFTWARE_NAME + " " + SOFTWARE_VERSION + " - " + pageName;
+	}
+	
     private static void print(ArrayList<ArrayList<Object>> q)
     {
         for (int i = 0; i < q.size(); i++)
@@ -264,6 +272,8 @@ public class UtilController
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
                     + file + ", we have found the following error: \n\nComment: " + reasonForRejection
                     + "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            //Backup email
+            //TowsonOli@gmail.com passwordTowson
             return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
         } catch (SQLException ex)
         {
@@ -479,7 +489,7 @@ public class UtilController
          */
 
         SQLMethods dbconn = new SQLMethods();
-        ResultSet classesAvailableResult = dbconn.getCurrentClasses();
+        ResultSet classesAvailableResult = dbconn.getClasses(true);
         ArrayList<ArrayList<Object>> classesAvailableAL = readyOutputForViewPage(classesAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
@@ -785,18 +795,16 @@ public class UtilController
         }
     }
 
-    public static void saveButtonActionPerformed(java.awt.event.ActionEvent evt, DefaultListModel currentClassListModel)
+    public static void updateAvailableClasses(ArrayList<String> classData)
     {
         SQLMethods dbconn = new SQLMethods();
 
         // SET all classes in current's current value to true and all else to false
         dbconn.setAllClassesInvisible();
-        for (int i = 0; i < currentClassListModel.getSize(); i++)
-        {
-            String[] parts = currentClassListModel.elementAt(i).toString().split(" ");
-            dbconn.updateCurrentClasses(parts[0] + " " + parts[1], parts[2]);
-        }
-
+        
+        for(String currentClass : classData)
+            dbconn.updateCurrentClasses(Integer.parseInt(currentClass.split(" ")[0]));
+        
         dbconn.closeDBConnection();
     }
 
@@ -810,7 +818,7 @@ public class UtilController
         /* Insert our printer into the printer table. For right now just adding in the first
          file extension added from UI (DB does not support multiple file extensions)
          */
-        dbconn.insertIntoPrinter(deviceName);
+        dbconn.insertIntoPrinter(deviceName, true);
 
         for (String ext : fileExt)
         {
@@ -827,16 +835,16 @@ public class UtilController
         return true;
     }
 
-    public static DefaultListModel returnClassesArray()
+    private static DefaultListModel returnClassesArray(boolean status)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result2 = dbconn.getClasses();
+        ResultSet result2 = dbconn.getClasses(status);
         DefaultListModel classList = new DefaultListModel();;
         try
         {
             while (result2.next())
             {
-                classList.addElement(result2.getString("className") + " " + result2.getString("classSection"));
+                classList.addElement(result2.getString("class_id") + " " + result2.getString("class_name") + " " + result2.getString("class_section"));
             }
         } catch (SQLException ex)
         {
@@ -846,32 +854,22 @@ public class UtilController
         dbconn.closeDBConnection();
         return classList;
     }
-
-    public static DefaultListModel returnCurrentClassesArray()
+    
+    public static DefaultListModel returnNonCurrentClasses()
     {
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet result2 = dbconn.getCurrentClasses();
-        DefaultListModel classList = new DefaultListModel();
-        try
-        {
-            while (result2.next())
-            {
-                classList.addElement(result2.getString("className") + " " + result2.getString("classSection"));
-            }
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        dbconn.closeDBConnection();
-        return classList;
+        return returnClassesArray(false);
     }
-
-    public static void insertNewClass(String className, String classNumber, String sectionNumber)
+    
+    public static DefaultListModel returnCurrentClasses()
+    {
+        return returnClassesArray(true);
+    }
+    
+    public static void insertNewClass(String className, String classNumber, String sectionNumber, String professor)
     {
         SQLMethods dbconn = new SQLMethods();
 
-        dbconn.insertIntoClasses(className + " " + classNumber, sectionNumber);
+        dbconn.insertIntoClasses(className + " " + classNumber, sectionNumber, professor);
 
         dbconn.closeDBConnection();
     }
