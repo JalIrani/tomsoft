@@ -22,7 +22,11 @@ public class AddPrinterView extends javax.swing.JFrame {
 	ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	ArrayList<JCheckBox> boxes = new ArrayList<JCheckBox>();
 	//Positioning variable for labels and fields
-	private int y = 120;
+        private int xTF;
+        private int xL;
+        private int xB;
+	private int y;
+        private int yOffset = 30;
 	private final int COUNTMAX = 15;
 	private final int COUNTMIN = 3;
 	//Current count of labels and fields
@@ -37,6 +41,10 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    labels.add(fileExtensionL);
 	    labels.add(fieldL0);
 	    boxes.add(numberCB);
+            xTF=fieldTF0.getX();
+            xL=fieldL0.getX();
+            xB=numberCB.getX();
+            y=fieldTF0.getY();
 	    setVisible(true);
 	}
 
@@ -78,7 +86,7 @@ public class AddPrinterView extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 21, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
-        getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 124, -1));
+        getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
 
         printerNameL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         printerNameL.setText("Printer Name:");
@@ -94,7 +102,7 @@ public class AddPrinterView extends javax.swing.JFrame {
 
         fieldL0.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fieldL0.setText("Field #1:");
-        getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         addFieldButton.setText("Add Field");
         addFieldButton.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +118,7 @@ public class AddPrinterView extends javax.swing.JFrame {
                 saveBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 90, 20));
+        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 90, 20));
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -118,30 +126,30 @@ public class AddPrinterView extends javax.swing.JFrame {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 100, 20));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 100, 20));
 
         fieldTF0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldTF0ActionPerformed(evt);
             }
         });
-        getContentPane().add(fieldTF0, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
+        getContentPane().add(fieldTF0, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 124, -1));
 
         numberCB.setText("Number Value");
-        getContentPane().add(numberCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, -1, -1));
+        getContentPane().add(numberCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, -1, -1));
 
         studentSubmissionCB.setSelected(true);
-        studentSubmissionCB.setText("Require Student Submission");
+        studentSubmissionCB.setText("Require Student Submission (recommended)");
         studentSubmissionCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentSubmissionCBActionPerformed(evt);
             }
         });
-        getContentPane().add(studentSubmissionCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+        getContentPane().add(studentSubmissionCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, -1, 20));
 
         fileExtensionL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fileExtensionL.setText("File Ext.:");
-        getContentPane().add(fileExtensionL, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        getContentPane().add(fileExtensionL, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 370));
@@ -192,10 +200,10 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    cbox.setName("numberCB" + (count - 2));
 	    cbox.setText("Number Value");
 	    boxes.add(cbox);
-	    y += 30;
-	    getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(90, y, 124, -1), 4);
-	    getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(30, y, -1, -1), 3);
-	    getContentPane().add(boxes.get(count - 2), new org.netbeans.lib.awtextra.AbsoluteConstraints(230, y, -1, -1), 5);
+	    y += yOffset;
+	    getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xTF, y, 124, -1), 4);
+	    getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xL, y, -1, -1), 3);
+	    getContentPane().add(boxes.get(count - 2), new org.netbeans.lib.awtextra.AbsoluteConstraints(xB, y, -1, -1), 5);
 	    fields.get(count).setVisible(true);
 	    labels.get(count).setVisible(true);
 	    boxes.get(count - 2).setVisible(true);
@@ -239,7 +247,7 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    //First two textfields are name and file extension.
 	    //Create new device object using these.
 	    device = new Device(printerNameTF.getText(),
-		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(","))));
+		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(" "))));
 	    //Fields start at index 2
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
@@ -262,7 +270,7 @@ public class AddPrinterView extends javax.swing.JFrame {
 
         private void removeFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFieldButtonActionPerformed
 	    if (count != COUNTMIN) {
-		y -= 30;
+		y -= yOffset;
 		count--;
 		getContentPane().remove(fields.get(count));
 		getContentPane().remove(labels.get(count));
@@ -280,11 +288,9 @@ public class AddPrinterView extends javax.swing.JFrame {
         }//GEN-LAST:event_fieldTF0ActionPerformed
 
     private void studentSubmissionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSubmissionCBActionPerformed
-        int dialogButton = JOptionPane.YES_NO_OPTION;
         if(studentSubmissionCB.isSelected()==false){
-            
-            if(JOptionPane.showConfirmDialog(null, "Students will not be required to submit reports for this printer when this is unchecked.\nAre you sure you want to do this?  "
-                    + "\nWe recommend clicking 'No' if unsure.","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
+            if(JOptionPane.showConfirmDialog(null, "Continue? Students will NOT be required to submit reports for this device if unchecked (which IS recommended for lazer cutters). "
+                    + "We recommend selecting 'No' and keeping checked if unsure.","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
                 studentSubmissionCB.setSelected(false);
             else
                 studentSubmissionCB.setSelected(true);
