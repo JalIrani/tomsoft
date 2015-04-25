@@ -2,7 +2,6 @@ package ObjectLabEnterpriseSoftware;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,15 +15,15 @@ public class AddPrinterView extends javax.swing.JFrame
     JLabel tlabel;
     JCheckBox cbox;
     //ArrayList of text fields and labels for adding and removing
-    ArrayList<JTextField> fields = new ArrayList<JTextField>();
-    ArrayList<JLabel> labels = new ArrayList<JLabel>();
-    ArrayList<JCheckBox> boxes = new ArrayList<JCheckBox>();
+    ArrayList<JTextField> fields = new ArrayList<>();
+    ArrayList<JLabel> labels = new ArrayList<>();
+    ArrayList<JCheckBox> boxes = new ArrayList<>();
     //Positioning variable for labels and fields
     private int xTF;
     private int xL;
     private int xB;
     private int y;
-    private int yOffset = 30;
+    private final int YSPACING = 30;
     private final int COUNTMAX = 15;
     private final int COUNTMIN = 3;
     //Current count of labels and fields
@@ -198,7 +197,7 @@ public class AddPrinterView extends javax.swing.JFrame
 	    cbox.setName("numberCB" + (count - 2));
 	    cbox.setText("Number Value");
 	    boxes.add(cbox);
-	    y += yOffset;
+	    y += YSPACING;
 	    getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xTF, y, 124, -1), 4);
 	    getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xL, y, -1, -1), 3);
 	    getContentPane().add(boxes.get(count - 2), new org.netbeans.lib.awtextra.AbsoluteConstraints(xB, y, -1, -1), 5);
@@ -267,7 +266,7 @@ public class AddPrinterView extends javax.swing.JFrame
 
         private void removeFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFieldButtonActionPerformed
 	    if (count != COUNTMIN) {
-		y -= yOffset;
+		y -= YSPACING;
 		count--;
 		getContentPane().remove(fields.get(count));
 		getContentPane().remove(labels.get(count));
