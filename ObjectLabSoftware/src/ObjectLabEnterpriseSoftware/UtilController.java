@@ -516,8 +516,7 @@ public class UtilController
         return classesAvailble;
     }
 
-    public static void moveFileToSubmitLocation(javax.swing.JTextField fileLocation, String printer,
-            String fName, String lName, String Class, String section, String fileName, String email)
+    public static void submitStudentFile(int userID, String fileLocation, String fileName, String printerName, int classFK)
     {
         /*
          Establish connection to DB
@@ -527,24 +526,18 @@ public class UtilController
         try
         {
             /*
-             Get  file location 
+                Get new file location for submission location
              */
             FileManager instance = new FileManager();
-            String fileLoc = instance.getSubmission() + fileName;
-            fileLoc = fileLoc.replace("\\", "\\\\");
+            String newFileLoc = instance.getSubmission() + fileName;
+            newFileLoc = newFileLoc.replace("\\", "\\\\");
 
             /*
-             Now copy the old file to the new file locatio
+                Now copy the old file to the new file location
              */
-            org.apache.commons.io.FileUtils.copyFile(new File(fileLocation.getText()), new File(fileLoc));
-
-            /*
-             NOTE: THERE SHOULD BE VERIFICATION OF SUCCESSFUL COPY sHERE BEFORE INSERTING INTO DB
-             */
-            /*
-             Insert the copied file into pending jobs
-             */
-            dbconn.insertIntoPendingJobs(printer, fName, lName, Class, section, fileName, fileLoc, email);
+            FileUtils.copyFile(new File(fileLocation), new File(newFileLoc));
+            dbconn.insertIntoJob(fileName, newFileLoc, classFK, userID, printerName);
+            
         } catch (IOException e)
         {
             javax.swing.JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
@@ -868,9 +861,31 @@ public class UtilController
     public static void insertNewClass(String className, String classNumber, String sectionNumber, String professor)
     {
         SQLMethods dbconn = new SQLMethods();
-
+        System.out.println(className + " " + classNumber + " " + sectionNumber + " " + professor);
         dbconn.insertIntoClasses(className + " " + classNumber, sectionNumber, professor);
 
         dbconn.closeDBConnection();
     }
+    
+    public static boolean userIDExist(int id)
+    {
+        boolean temp = false;
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet usersCountQuery = dbconn.selectIDcount("users", id);
+        try
+        {
+            usersCountQuery.first();
+            if (usersCountQuery.getInt(1) > 0)
+            {
+                temp = true;
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dbconn.closeDBConnection();
+        return temp;
+    }
+
 }

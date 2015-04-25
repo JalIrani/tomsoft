@@ -10,36 +10,41 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-public class MainView extends javax.swing.JFrame 
+public class MainView extends javax.swing.JFrame
 {
-	private static final String NAME_OF_PAGE = "Home";
-		
+
+    private static final String NAME_OF_PAGE = "Home";
+
     NewStudentView newStudentSys;
     PendingJobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
     String PASS = "ForwardMotion";
 
-    public MainView() {
+    public MainView()
+    {
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
         pendingSys = new PendingJobsView();
         studentSys = new StudentSubmissionView();
         newStudentSys = new NewStudentView();
-        
+
         //Allows only integers for student ID
-        studentIdString.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-          char c = e.getKeyChar();
-          if (!((c >= '0') && (c <= '9') ||
-             (c == KeyEvent.VK_BACK_SPACE) ||
-             (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            e.consume();
-          }
-        }
-  });
+        studentIdString.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9')
+                        || (c == KeyEvent.VK_BACK_SPACE)
+                        || (c == KeyEvent.VK_DELETE)))
+                {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
     }
 
     /**
@@ -248,13 +253,15 @@ public class MainView extends javax.swing.JFrame
         dialogue.setVisible(true);
         dialogue.setLocationRelativeTo(this);
         /* 
-        Currently bypasses what is typed into dialogue for ease of testing
-        password.equals(PASS) 
-        */
-        if (true) {
+         Currently bypasses what is typed into dialogue for ease of testing
+         password.equals(PASS) 
+         */
+        if (true)
+        {
             //studentSubmissionButton.setVisible(false);
             setPrintersVisible(true);
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Incorrect password! Access Denied!");
         }
     }//GEN-LAST:event_AdminButtonActionPerformed
@@ -276,45 +283,55 @@ public class MainView extends javax.swing.JFrame
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
         setPrintersVisible(false);
+        int id;
         
-        String id = studentIdString.getText();//DB team this is to store String
-        if(id.length() != 7){
-            errorIdLabel.setText("TU ID must be 7 digits");   
+       String idString = studentIdString.getText();//DB team this is to store String
+      
+       id = Integer.parseInt(idString);
+       
+        if (idString.length() != 7)
+        {
+            errorIdLabel.setText("USER ID must be 7 digits");
         }
-        //else if not in database "invailid TU ID, enter vaild or create new student"
-        else{
+        else if (UtilController.userIDExist(id))
+        { 
+            
             errorIdLabel.setText("");
             dispose();
-            studentSys.studentSubmissionStart();
+            studentSys.studentSubmissionStart(id);
         }
-        
+        else{
+             errorIdLabel.setText("USER ID does not exist");
+        }
 
-        //dispose();
+        
     }//GEN-LAST:event_studentButtonActionPerformed
 
     private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
            // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_studentIdStringActionPerformed
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
         // TODO add your handling code here:
         newStudentSys.NewStudentViewStart();
         dispose();
-        
+
     }//GEN-LAST:event_newStudentButtonActionPerformed
 
     private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userGuideButtonActionPerformed
 
-    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt)
+    {
         AdminSettingsView ad = new AdminSettingsView();
         ad.setVisible(true);
         dispose();
     }
 
-    public void setPrintersVisible(boolean isVisible) {
+    public void setPrintersVisible(boolean isVisible)
+    {
         settingsButton.setVisible(isVisible);
         openProjectsButton.setVisible(isVisible);
         zcorpButton.setVisible(isVisible);
@@ -326,28 +343,35 @@ public class MainView extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Windows".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
 
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new MainView().setVisible(true);
             }
         });
