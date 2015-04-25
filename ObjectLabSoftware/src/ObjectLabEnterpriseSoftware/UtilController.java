@@ -785,18 +785,16 @@ public class UtilController
         }
     }
 
-    public static void saveButtonActionPerformed(java.awt.event.ActionEvent evt, DefaultListModel currentClassListModel)
+    public static void updateAvailableClasses(ArrayList<String> classData)
     {
         SQLMethods dbconn = new SQLMethods();
 
         // SET all classes in current's current value to true and all else to false
         dbconn.setAllClassesInvisible();
-        for (int i = 0; i < currentClassListModel.getSize(); i++)
-        {
-            String[] parts = currentClassListModel.elementAt(i).toString().split(" ");
-            dbconn.updateCurrentClasses(parts[0] + " " + parts[1], parts[2]);
-        }
-
+        
+        for(String currentClass : classData)
+            dbconn.updateCurrentClasses(Integer.parseInt(currentClass.split(" ")[0]));
+        
         dbconn.closeDBConnection();
     }
 
@@ -836,7 +834,7 @@ public class UtilController
         {
             while (result2.next())
             {
-                classList.addElement(result2.getString("className") + " " + result2.getString("classSection"));
+                classList.addElement(result2.getString("class_id") + " " + result2.getString("class_name") + " " + result2.getString("class_section"));
             }
         } catch (SQLException ex)
         {

@@ -1245,13 +1245,12 @@ public ResultSet selectAcceptedFiles(String printer)
         }
     }
 
-    public void updateCurrentClasses(String course, String section) {
+    public void updateCurrentClasses(int pk) {
         try {
             stmt = this.conn.prepareStatement(
                     "UPDATE class "
-                    + "SET current = true WHERE className = ? and classSection = ?");
-            stmt.setString(1, course);
-            stmt.setString(2, section);
+                    + "SET current = true where class_id=?;");
+            stmt.setInt(1, pk);
             System.out.println(stmt);
             stmt.executeUpdate();
 

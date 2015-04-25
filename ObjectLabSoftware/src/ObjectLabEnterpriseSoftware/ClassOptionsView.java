@@ -3,6 +3,7 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -371,9 +372,13 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-		//class(ex. ART 101.001) stored in the database
-		UtilController.saveButtonActionPerformed(evt, currentClassListModel);
-		dispose();
+        ArrayList<String> classes = new ArrayList<>();
+        
+        for (int i = 0; i < currentClassListModel.getSize(); i++)
+            classes.add(currentClassListModel.elementAt(i).toString());
+        
+        UtilController.updateAvailableClasses(classes);
+        dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void classProfessorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_classProfessorActionPerformed
