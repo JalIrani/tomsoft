@@ -143,7 +143,7 @@ public class ObjetDialogView extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Objet Data Entry");
+        setTitle("OLI - Objet Data Entry");
         setMinimumSize(new java.awt.Dimension(370, 363));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

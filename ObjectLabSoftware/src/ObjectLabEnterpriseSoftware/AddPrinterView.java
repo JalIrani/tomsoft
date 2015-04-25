@@ -14,7 +14,6 @@ public class AddPrinterView extends javax.swing.JFrame {
 	 * Creates new form AddPrinter
 	 */
 	Device device;
-        UtilController util = new UtilController();
 	JTextField tfield;
 	JLabel tlabel;
 	JCheckBox cbox;
@@ -69,6 +68,7 @@ public class AddPrinterView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OLI - Add Printer");
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -234,16 +234,17 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
 		if(boxes.get(i-2).isSelected()==true)
-		    device.addField(fields.get(i).getText(), new Double("0"));
+                    device.addField(fields.get(i).getText(), new Double("0"));
 		else
 		    device.addField(fields.get(i).getText(), "");
 	    }
 	    //Add device to database
-            if(util.addDevice(device)==true)
+            if(UtilController.addDevice(device)==true)
                 JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
             else
                 JOptionPane.showMessageDialog(this, "There was an error with the database while saving the printer.");
-	    dispose();
+	    
+            dispose();
 	}
     }//GEN-LAST:event_saveBtnActionPerformed
 
