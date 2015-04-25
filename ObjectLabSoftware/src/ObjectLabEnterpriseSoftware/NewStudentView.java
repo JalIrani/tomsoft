@@ -6,6 +6,8 @@
 
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -51,6 +53,19 @@ public class NewStudentView extends javax.swing.JFrame {
         });
         
         setVisible(true);
+        //only accepts integers for new student TU ID
+        tuIDEntry.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+          char c = e.getKeyChar();
+          if (!((c >= '0') && (c <= '9') ||
+             (c == KeyEvent.VK_BACK_SPACE) ||
+             (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            e.consume();
+          }
+        }
+  });
+        
     }
     //public NewStudentView() {  
     //}
@@ -79,6 +94,7 @@ public class NewStudentView extends javax.swing.JFrame {
         netIDlEntry = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OLI - New Student");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -113,6 +129,12 @@ public class NewStudentView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+
+        tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tuIDEntryActionPerformed(evt);
+            }
+        });
         getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 100, -1));
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, -1));
@@ -154,6 +176,10 @@ public class NewStudentView extends javax.swing.JFrame {
     private void emailEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailEntryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailEntryActionPerformed
+
+    private void tuIDEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tuIDEntryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tuIDEntryActionPerformed
 
     /**
      * @param args the command line arguments

@@ -68,6 +68,7 @@ public class AddPrinterView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OLI - Add Printer");
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -229,21 +230,21 @@ public class AddPrinterView extends javax.swing.JFrame {
 	    //Create new device object using these.
 	    device = new Device(printerNameTF.getText(),
 		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(","))));
-	    HashMap<String,Object> values = new HashMap<String,Object>();
-	    ArrayList<String> names = new ArrayList<String>();
 	    //Fields start at index 2
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
 		if(boxes.get(i-2).isSelected()==true)
-		    values.put(fields.get(i).getText(), new Double("0"));
+                    device.addField(fields.get(i).getText(), new Double("0"));
 		else
-		    values.put(fields.get(i).getText(), "");
-		names.add(fields.get(i).getText());
+		    device.addField(fields.get(i).getText(), "");
 	    }
-	    device.setFieldNames(names);
-	    //Add device to database/file here
-	    JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
-	    dispose();
+	    //Add device to database
+            if(UtilController.addDevice(device)==true)
+                JOptionPane.showMessageDialog(this, device.getDeviceName()+" was saved and added to the printer list!");
+            else
+                JOptionPane.showMessageDialog(this, "There was an error with the database while saving the printer.");
+	    
+            dispose();
 	}
     }//GEN-LAST:event_saveBtnActionPerformed
 
