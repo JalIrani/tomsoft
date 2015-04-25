@@ -1235,18 +1235,6 @@ public ResultSet selectAcceptedFiles(String printer)
         }
     }
     
-    @Deprecated
-    public void insertIntoClasses(String course, String second) {
-        try {
-            stmt = this.conn.prepareStatement(
-                    "INSERT INTO class (class_name, class_section, current) VALUES('" + course + "','" + second + "', false)");
-            System.out.println(stmt);
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     public void setAllClassesInvisible() {
         try {
             stmt = this.conn.prepareStatement("UPDATE class SET current = false");
