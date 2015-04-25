@@ -6,18 +6,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
-import static org.apache.commons.io.FileUtils.directoryContains;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -49,29 +45,16 @@ public class UtilController
 
     public static ArrayList<String> getListOfPrinters()
     {
-        try
-        {
-
-            SQLMethods dbconn = new SQLMethods();
-            ResultSet queryResult = dbconn.getListOfPrinters();
-            ResultSetMetaData rsmd = queryResult.getMetaData();
-            ArrayList<String> printers = new ArrayList<String>();
-            ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
-            //System.out.println(rsmd.getColumnName(5));
-            //printers = data.get(0);
-            for (int i = 0; i < data.size(); i++)
-            {
-                printers.add(data.get(i).get(0).toString());
-            }
-
-            dbconn.closeDBConnection();
-            return printers;
-
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getListOfPrinters();
+        ArrayList<String> printers = new ArrayList<String>();
+        ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
+        
+        for (ArrayList<Object> data1 : data)
+            printers.add(data1.get(0).toString());
+        
+        dbconn.closeDBConnection();
+        return printers;
     }
 
     public static String[] getReportColumnHeaders(String printer_name)
@@ -778,24 +761,6 @@ public class UtilController
         return true;
     }
 
-    /**
-     * This method finds the printer build class for its respective printer
-     *
-     * It is called from the following methods:
-     * TomSoftMain.solidscapeButtonActionPerformed
-     * TomSoftMain.objetButtonActionPerformed
-     * TomSoftMain.zcorpButtonActionPerformed
-     *
-     * @param printer the printer that the user wants to use
-     */
-    public static void retrievePrinterSettings(String printer)
-    {
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet res = dbconn.searchPrinterSettings(printer);
-
-        dbconn.closeDBConnection();
-    }
-
     public static void archive()
     {
         try
@@ -843,24 +808,14 @@ public class UtilController
         /* Insert our printer into the printer table. For right now just adding in the first
          file extension added from UI (DB does not support multiple file extensions)
          */
-        dbconn.insertIntoPrinter(deviceName, deviceModel.getFileExtensions().get(0));
-
-        /* Code for newer updated DB
-
-         dbconn.insertIntoPrinter(deviceName);
+        dbconn.insertIntoPrinter(deviceName);
             
          for(String ext : fileExt)
-         dbconn.insertIntoFileExtension(deviceName, ext);
+            dbconn.insertIntoAcceptedFiles(deviceName, ext);
         
          for(String trackableField : fieldNames)
-         dbconn.insertIntoCustom(deviceName, trackableField, deviceModel.getFieldType(trackableField));
-         */
-        /* insert the custom field names for the printer into the database table custom_printer_column_names */
-        for (String trackableField : fieldNames)
-        {
-            dbconn.insertIntoCustom(deviceName, trackableField);
-        }
-
+            dbconn.insertIntoCustom(deviceName, trackableField, deviceModel.getFieldType(trackableField));
+         
         dbconn.closeDBConnection();
         return true;
     }

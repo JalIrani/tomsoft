@@ -221,7 +221,6 @@ public class MainView extends javax.swing.JFrame {
 
     private void solidscapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solidscapeButtonActionPerformed
         // TODO add your handling code here:
-        UtilController.retrievePrinterSettings("solidscape");
         PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess("solidscape");
         dispose();
@@ -235,7 +234,6 @@ public class MainView extends javax.swing.JFrame {
 
     private void zcorpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zcorpButtonActionPerformed
         // TODO add your handling code here:
-        UtilController.retrievePrinterSettings("zcorp");
         PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess("zcorp");
         dispose();
@@ -261,7 +259,6 @@ public class MainView extends javax.swing.JFrame {
 
     private void objetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetButtonActionPerformed
         // TODO add your handling code here:
-        UtilController.retrievePrinterSettings("objet");
         PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess("objet");
         dispose();

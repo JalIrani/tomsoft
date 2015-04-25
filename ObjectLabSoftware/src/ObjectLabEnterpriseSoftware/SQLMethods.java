@@ -296,17 +296,6 @@ public ResultSet selectBuildData(int id) {
 		}
 	}
 
-	public void insertIntoPrinter(String printer, String fileExtention) {
-		try {
-			stmt = conn.prepareStatement("INSERT INTO printer (printer_name, file_extension, current) values (?,?, 'current')");
-			stmt.setString(1, printer);
-			stmt.setString(2, fileExtention);
-			stmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void insertIntoUsers(int idusers, String firstName, String lastName,
 			String email) {
 		try {
@@ -351,17 +340,6 @@ public ResultSet selectBuildData(int id) {
 			stmt.setInt(1, buildid);
 			stmt.setInt(2, columnid);
 			stmt.setString(3, data);
-			stmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void insertIntoCustom(String printer, String name) {
-		try {
-			stmt = conn.prepareStatement("insert into custom_printer_column_names ( printer_name, custom_field_name) values (?,?)");
-			stmt.setString(1, printer);
-			stmt.setString(2, name);
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
