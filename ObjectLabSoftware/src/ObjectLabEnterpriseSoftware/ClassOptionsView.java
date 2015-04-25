@@ -17,10 +17,16 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	private void updateView()
 	{
-		allClassListModel = UtilController.returnNonCurrentClasses(); /* false */
-		currentClassListModel = UtilController.returnCurrentClasses(); /* true */
-		allClassList.setModel(allClassListModel);
-		currentClassList.setModel(currentClassListModel);
+            if(allClassListModel != null)
+                allClassListModel.clear();
+            
+            if(currentClassListModel != null)
+                currentClassListModel.clear();
+            
+            allClassListModel = UtilController.returnNonCurrentClasses(); /* false */
+            currentClassListModel = UtilController.returnCurrentClasses(); /* true */
+            allClassList.setModel(allClassListModel);
+            currentClassList.setModel(currentClassListModel);
 	}
 
 	public void OptionsStart()
@@ -47,6 +53,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	public ClassOptionsView()
 	{
+            allClassListModel = null;
+                currentClassListModel = null;
 		inst = new FileManager();
 		/* Creates are PendingJobs UI window componet and grabs its data model for our uses */
 		initComponents();
@@ -352,6 +360,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 			temp.clear();
 			hideOptions();
 			addNewClass.setVisible(true);
+                        updateView();
 		}
     }//GEN-LAST:event_addNewButtonActionPerformed
 
