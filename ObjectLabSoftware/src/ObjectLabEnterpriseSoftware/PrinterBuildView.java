@@ -15,8 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class PrinterBuildView extends javax.swing.JFrame 
 {
-	private static final String NAME_OF_PAGE = "Build File Creator";
-	
+    private static final String NAME_OF_PAGE = "Build File Creator";	
     private static String printerSelectedForBuildProcess;
     private static MainView home;    
     private static DefaultTableModel fileTableModel;
@@ -253,7 +252,6 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
 
         Submit_Button.setText("Submit");
-        Submit_Button.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         Submit_Button.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -261,10 +259,9 @@ public class PrinterBuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 470, 70, 20));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 90, 20));
 
         closeBtn.setText("Close");
-        closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         closeBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -272,7 +269,7 @@ public class PrinterBuildView extends javax.swing.JFrame
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 470, 60, 20));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 80, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Choose STL files from build: ");
@@ -292,7 +289,6 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
 
         browseBtn.setText("Browse");
-        browseBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         browseBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -505,6 +501,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         lukeIsScared[0] = "heehaw";
         
         printerInputTable.setModel(new javax.swing.table.DefaultTableModel(lukeIsScared, 1));
+        
     }//GEN-LAST:event_confirmBuildButtonActionPerformed
 
 
