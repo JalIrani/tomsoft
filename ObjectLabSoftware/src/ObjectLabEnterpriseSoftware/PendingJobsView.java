@@ -11,16 +11,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-/* DefaultTableModel
- * This is the class that is going to store all of the data returned from any queries to 
- *  update the view for this class. For a better explanation on Jtables, and the various ways its
- *  data can be represented see: http://docs.oracle.com/javase/7/docs/api/javax/swing/table/DefaultTableModel.html
- *  -Nick
-*/
+
 import javax.swing.table.DefaultTableModel; 
 
 public class PendingJobsView extends javax.swing.JFrame
 {
+	private static final String NAME_OF_PAGE =  "Pending Jobs";
+
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
     private static final int LAST_NAME_COLUMN_NUMBER = 2;
@@ -97,7 +94,8 @@ public class PendingJobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -119,7 +117,8 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -133,7 +132,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("OLI - Pending Jobs");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -144,8 +143,10 @@ public class PendingJobsView extends javax.swing.JFrame
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ApprovedButtonActionPerformed(evt);
             }
         });
@@ -153,16 +154,20 @@ public class PendingJobsView extends javax.swing.JFrame
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        RejectButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 RejectButtonActionPerformed(evt);
             }
         });
         getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 20));
 
         openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openFileInProgramActionPerformed(evt);
             }
         });
@@ -170,18 +175,23 @@ public class PendingJobsView extends javax.swing.JFrame
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "Project Name", "First Name", "Last Name", "Printer", "Date Submitted"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -190,8 +200,10 @@ public class PendingJobsView extends javax.swing.JFrame
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 240));
 
         backToMainMenu.setText("Back to Main Menu");
-        backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        backToMainMenu.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 backToMainMenuActionPerformed(evt);
             }
         });
@@ -203,16 +215,20 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu1.setText("File");
 
         jMenuItem1.setText("Reports");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem1ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem1);
 
         showClassEditorOptions.setText("Class Settings");
-        showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 showClassEditorOptionsActionPerformed(evt);
             }
         });
@@ -223,8 +239,10 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu2.setText("Help");
 
         jMenuItem2.setText("Contents");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem2ActionPerformed(evt);
             }
         });

@@ -14,7 +14,10 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class SolidscapeDialogView extends javax.swing.JFrame {
+public class SolidscapeDialogView extends javax.swing.JFrame 
+{
+	private static final String NAME_OF_PAGE = "Solidscape Data Entry";
+
     private static final MainView home = new MainView();
     static String fileName = "";
     static String buildName = "";
@@ -92,7 +95,8 @@ public class SolidscapeDialogView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         BPath = new javax.swing.JTextField();
         dateRunTxt = new javax.swing.JTextField();
@@ -126,14 +130,16 @@ public class SolidscapeDialogView extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("OLI");
+        setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setMinimumSize(new java.awt.Dimension(370, 363));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BPath.setEditable(false);
-        BPath.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        BPath.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 BPathActionPerformed(evt);
             }
         });
@@ -158,8 +164,10 @@ public class SolidscapeDialogView extends javax.swing.JFrame {
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 117, 95, 20));
 
         submitBtn.setText("Submit");
-        submitBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 submitBtnActionPerformed(evt);
             }
         });
@@ -244,8 +252,10 @@ public class SolidscapeDialogView extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem2.setText("Reports");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem2ActionPerformed(evt);
             }
         });
