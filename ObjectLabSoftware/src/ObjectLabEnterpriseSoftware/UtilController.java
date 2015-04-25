@@ -49,10 +49,12 @@ public class UtilController
         ResultSet queryResult = dbconn.getListOfPrinters();
         ArrayList<String> printers = new ArrayList<String>();
         ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
-        
+
         for (ArrayList<Object> data1 : data)
+        {
             printers.add(data1.get(0).toString());
-        
+        }
+
         dbconn.closeDBConnection();
         return printers;
     }
@@ -809,13 +811,18 @@ public class UtilController
          file extension added from UI (DB does not support multiple file extensions)
          */
         dbconn.insertIntoPrinter(deviceName);
-            
-         for(String ext : fileExt)
+
+        for (String ext : fileExt)
+        {
             dbconn.insertIntoAcceptedFiles(deviceName, ext);
-        
-         for(String trackableField : fieldNames)
-            dbconn.insertIntoCustom(deviceName, trackableField, deviceModel.getFieldType(trackableField));
-         
+        }
+
+        for (String trackableField : fieldNames)
+        {
+            boolean isNumerical = deviceModel.getFieldType(trackableField) == Device.TYPE_DOUBLE;
+            dbconn.insertIntoCustom(deviceName, trackableField, isNumerical);
+        }
+
         dbconn.closeDBConnection();
         return true;
     }
