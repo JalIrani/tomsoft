@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * and open the template in the editor.
  */
 public class MainView extends javax.swing.JFrame {
-
+   
     NewStudentView newStudentSys;
     PendingJobsView pendingSys;
     StudentSubmissionView studentSys;
