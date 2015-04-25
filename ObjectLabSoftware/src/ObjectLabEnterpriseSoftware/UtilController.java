@@ -264,6 +264,8 @@ public class UtilController
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
                     + file + ", we have found the following error: \n\nComment: " + reasonForRejection
                     + "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            //Backup email
+            //TowsonOli@gmail.com passwordTowson
             return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
         } catch (SQLException ex)
         {
