@@ -79,6 +79,7 @@ public class NewStudentView extends javax.swing.JFrame {
         netIDlEntry = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OLI - New Student");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N

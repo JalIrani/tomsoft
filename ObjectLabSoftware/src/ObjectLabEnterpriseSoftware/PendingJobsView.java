@@ -133,7 +133,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Pending Jobs");
+        setTitle("OLI - Pending Jobs");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

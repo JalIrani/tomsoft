@@ -228,7 +228,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Build File Creator");
+        setTitle("OLI - Build File Creator");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
