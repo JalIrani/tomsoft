@@ -44,7 +44,6 @@ public class ReportsView extends javax.swing.JFrame {
                 }
             }
         );
-        
     }
 
     public void ReportsPage() 
@@ -86,7 +85,7 @@ public class ReportsView extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
@@ -174,9 +173,9 @@ public class ReportsView extends javax.swing.JFrame {
             closeBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 327, 54, -1));
+    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 330, 60, -1));
 
-    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/black and white bg.jpg"))); // NOI18N
+    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
     jLabel5.setText("jLabel5");
     getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
 
@@ -204,7 +203,7 @@ public class ReportsView extends javax.swing.JFrame {
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         dispose();
-        new TomSoftMain().setVisible(true); 
+        new MainView().setVisible(true); 
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
