@@ -1,0 +1,838 @@
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Ignore:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+64-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 7.0.0
+Open URL:	http://java.com/download
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Ignore:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+64-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 7.0.0
+Open URL:	http://java.com/download
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Ignore:		1.8.0_31
+64-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+64-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+Error msg:	This application requires a Java Runtime Environment 8.0.0
+Open URL:	http://java.com/download
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Ignore:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+64-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 8.0.0
+Open URL:	http://java.com/download
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Ignore:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+64-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 8.0.0
+Open URL:	http://java.com/download
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe"
+Args length:	78/32768 chars
+Exit code:	0
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe"
+Args length:	78/32768 chars
+Exit code:	0
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	0
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	0
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	0
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	0
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Error msg:	An error occurred while starting the application.
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Error msg:	An error occurred while starting the application.
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Error msg:	An error occurred while starting the application.
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Check launcher:	C:\Program Files (x86)\Java\jre7\bin\javaw.exe (OK)
+Match:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Ignore:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+32-bit search:	SOFTWARE\IBM\Java2 Runtime Environment...
+64-bit search:	SOFTWARE\IBM\Java Development Kit...
+32-bit search:	SOFTWARE\IBM\Java Development Kit...
+Error msg:	This application requires a Java Runtime Environment 1.9.0
+Open URL:	http://java.com/download
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	259
+
+
+Version:	3.7
+CmdLine:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\.
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.7.0_75
+Ignore:		1.7.0_75
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_25
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_25\bin\javaw.exe (not found)
+Ignore:		1.8.0_25
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_31
+Check launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe (OK)
+Match:		1.8.0_31
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7
+Ignore:		1.7
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.7.0_07
+Ignore:		1.7.0_07
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8
+Ignore:		1.8
+Check:		SOFTWARE\JavaSoft\Java Development Kit\1.8.0_20
+Ignore:		1.8.0_20
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+Runtime used:	1.8.0_31 (32-bit)
+Launcher:	C:\Program Files (x86)\Java\jre1.8.0_31\bin\javaw.exe
+Launcher args:	-jar "C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI2.exe"
+Args length:	79/32768 chars
+Exit code:	0
