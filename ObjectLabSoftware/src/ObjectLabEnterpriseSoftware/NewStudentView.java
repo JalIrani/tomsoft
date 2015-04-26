@@ -91,6 +91,7 @@ public class NewStudentView extends javax.swing.JFrame
         firstNameEntry = new javax.swing.JTextField();
         lastNameEntry = new javax.swing.JTextField();
         emailEntry = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         netIDlEntry = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -128,7 +129,7 @@ public class NewStudentView extends javax.swing.JFrame
                 submitActionPerformed(evt);
             }
         });
-        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
 
         tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +146,14 @@ public class NewStudentView extends javax.swing.JFrame
             }
         });
         getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 170, -1));
+
+        jButton1.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
 
         netIDlEntry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
         getContentPane().add(netIDlEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 420));
@@ -166,10 +175,7 @@ public class NewStudentView extends javax.swing.JFrame
 		    JOptionPane.showMessageDialog(this,"Cannot save with empty fields!");
 		    exit=false;
 	    }
-	    if(exit==true)
-                    home.setPrintersVisible(true);
-                    home.setVisible(true);
-		    dispose();
+	    
         if (emailEntry.getText().isEmpty()) 
 		{
             exit = false;
@@ -183,8 +189,11 @@ public class NewStudentView extends javax.swing.JFrame
                 exit = false;
             }
         }
-        if(!exit)
-                System.out.println("ERROR EMAIL TEST FIELD IS MESSED");
+        if(exit==true){
+            home.setVisible(true);
+            dispose();
+        }else
+            System.out.println("ERROR EMAIL TEST FIELD IS MESSED");
         
     }//GEN-LAST:event_submitActionPerformed
 
@@ -195,6 +204,11 @@ public class NewStudentView extends javax.swing.JFrame
     private void tuIDEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tuIDEntryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tuIDEntryActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        home.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +251,7 @@ public class NewStudentView extends javax.swing.JFrame
     private javax.swing.JLabel emailExtension;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameEntry;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameEntry;
     private javax.swing.JLabel netID;
