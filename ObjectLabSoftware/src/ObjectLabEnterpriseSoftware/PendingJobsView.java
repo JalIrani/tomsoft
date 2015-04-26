@@ -17,12 +17,11 @@ import javax.swing.table.DefaultTableModel;
 public class PendingJobsView extends javax.swing.JFrame
 {
 	private static final String NAME_OF_PAGE =  "Pending Jobs";
-
-    private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
-    private static final int FIRST_NAME_COLUMN_NUMBER = 1;
-    private static final int LAST_NAME_COLUMN_NUMBER = 2;
-    private static final int PRINTER_COLUMN_NUMBER = 3;
-    private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
+	/* "Job ID", "File Path", "Submission Date" */
+	private static final int JOB_ID = 0;
+    private static final int PROJECT_FILE_PATH = 1;
+	private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 2;
+    
 
     private final DefaultTableModel allFileTableModel;
     static ReportsView reports = null;
@@ -94,7 +93,8 @@ public class PendingJobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -116,7 +116,8 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -141,8 +142,10 @@ public class PendingJobsView extends javax.swing.JFrame
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ApprovedButtonActionPerformed(evt);
             }
         });
@@ -150,16 +153,20 @@ public class PendingJobsView extends javax.swing.JFrame
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        RejectButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 RejectButtonActionPerformed(evt);
             }
         });
         getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 20));
 
         openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openFileInProgramActionPerformed(evt);
             }
         });
@@ -167,18 +174,23 @@ public class PendingJobsView extends javax.swing.JFrame
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
-                "Project Name", "First Name", "Last Name", "Printer", "Date Submitted"
+            new String []
+            {
+                "Job ID", "File Path", "Submission Date"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
+        )
+        {
+            boolean[] canEdit = new boolean []
+            {
                 false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
@@ -187,8 +199,10 @@ public class PendingJobsView extends javax.swing.JFrame
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 240));
 
         backToMainMenu.setText("Back to Main Menu");
-        backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        backToMainMenu.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 backToMainMenuActionPerformed(evt);
             }
         });
@@ -200,16 +214,20 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu1.setText("File");
 
         jMenuItem1.setText("Reports");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem1ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem1);
 
         showClassEditorOptions.setText("Class Settings");
-        showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 showClassEditorOptionsActionPerformed(evt);
             }
         });
@@ -220,8 +238,10 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu2.setText("Help");
 
         jMenuItem2.setText("Contents");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem2ActionPerformed(evt);
             }
         });
@@ -237,21 +257,23 @@ public class PendingJobsView extends javax.swing.JFrame
 
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
+		System.out.println("User selected row: " + userSelectedRow);
         String desc;
         
         desc = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter in reject description: ");
         
         if(desc != null)
         {
-
             /* Hand off the data in the selected row found in our tablemodel to this method so we can 
              * reject the correct file -Nick 
+			private static final int JOB_ID = 0;
+    private static final int PROJECT_FILE_PATH = 1;
+	private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 2;
              */
            boolean success = UtilController.rejectStudentSubmission
            ( 
-                   (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER), 
-                   (String) allFileTableModel.getValueAt(userSelectedRow, FIRST_NAME_COLUMN_NUMBER),
-                   (String) allFileTableModel.getValueAt(userSelectedRow, LAST_NAME_COLUMN_NUMBER),
+                   (String) allFileTableModel.getValueAt(userSelectedRow, JOB_ID), 
+				   (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_FILE_PATH), 
                    (String) allFileTableModel.getValueAt(userSelectedRow, DATE_PROJECT_STARTED_COLUMN_NUMBER),
                     desc
            );
@@ -319,13 +341,16 @@ public class PendingJobsView extends javax.swing.JFrame
             {             
                 /* Hand off the data in the selected row found in our tablemodel to this method so we can 
                     approve the correct file to be printed... -Nick 
-                */
+			private static final int JOB_ID = 0;
+    private static final int PROJECT_FILE_PATH = 1;
+	private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 2;
+             */
                 UtilController.approveStudentSubmission
                 (
-                    (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, PRINTER_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, JOB_ID),
+//                    (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
+//                    (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_FILE_PATH),
                     (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER),
                     volume
                 );
@@ -370,9 +395,9 @@ public class PendingJobsView extends javax.swing.JFrame
             */
             File fileLocation = UtilController.getFilePath
             (
-                (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
+//                (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
+//                (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
+                (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_FILE_PATH),
                 (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER)
             );
             //TODO: display popup/error if this is false

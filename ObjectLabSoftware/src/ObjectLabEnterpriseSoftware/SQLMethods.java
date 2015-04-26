@@ -101,12 +101,14 @@ public class SQLMethods
         return res;
     }
 
+	// I deprecated this because it says select all but it is not selecting all
+	@Deprecated
     public ResultSet selectAllPrintStatus(String status)
     {// select all info from job based onstatus ((probably that not useful)
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status= ?;");
+            stmt = this.conn.prepareStatement("SELECT job_id, file_path, submission_date FROM job WHERE status= ?;");
             stmt.setString(1, status);
             res = stmt.executeQuery();
         } catch (SQLException e)
@@ -762,7 +764,7 @@ public class SQLMethods
 
 	// END OF UPDATE METHODS
     // _____________________________________________________________________________________________________________________
-	// BEGINGING OF DELETE METHODS
+	// BEGINNING OF DELETE METHODS
     // _____________________________________________________________________________________________________________________
     public void deletebyID(int id)
     {
@@ -840,6 +842,19 @@ public class SQLMethods
         {
             e.printStackTrace();
         }
+    }
+    
+    public void clearData(){
+    
+        try
+        {
+            stmt = conn.prepareStatement("call clearTables();");
+            stmt.executeUpdate();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
     }
 
     public void deleteFromAdmin(int id)
@@ -1021,14 +1036,15 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
+	@Deprecated
+    public ResultSet searchID(String fileName) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT job_id, file_path "
                     + "FROM job  "
                     + "WHERE "
-                    + "AND file_name = ? ;");
+                    + "file_name = ? ;");
             stmt.setString(1, fileName); 
             System.out.println(stmt);
             res = stmt.executeQuery();
