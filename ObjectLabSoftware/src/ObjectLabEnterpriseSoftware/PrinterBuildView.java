@@ -498,6 +498,8 @@ public class PrinterBuildView extends javax.swing.JFrame
     {//GEN-HEADEREND:event_printerNameComboBoxActionPerformed
         updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
         BuildPrinter = (String) printerNameComboBox.getSelectedItem();
+        ArrayList<String> printerHeaders = UtilController.returnTableHeader(buildName);
+        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
     }//GEN-LAST:event_printerNameComboBoxActionPerformed
 
 
