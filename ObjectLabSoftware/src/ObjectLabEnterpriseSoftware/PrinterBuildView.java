@@ -6,8 +6,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -487,19 +490,44 @@ public class PrinterBuildView extends javax.swing.JFrame
 					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
-        ArrayList<String> printerHeaders = UtilController.returnTableHeader(buildName);
         
-        
-        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
-        
+        ArrayList<Object> printerHeaders;
+        try
+        {
+            printerHeaders = UtilController.returnTableHeader(BuildPrinter);
+           // printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
+
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_confirmBuildButtonActionPerformed
 
     private void printerNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printerNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_printerNameComboBoxActionPerformed
         updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
         BuildPrinter = (String) printerNameComboBox.getSelectedItem();
-        ArrayList<String> printerHeaders = UtilController.returnTableHeader(buildName);
-        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
+        Object[] printerFields;
+        System.out.println(BuildPrinter);
+        ArrayList<Object> printerHeaders = new ArrayList();
+        try
+        {
+            printerHeaders = UtilController.returnTableHeader(BuildPrinter);
+            printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        for(int i = 0; i<printerHeaders.size(); i++){
+//            System.out.println(printerHeaders.get(i).toString());
+//        }
+        printerFields = printerHeaders.toArray();
+        for(int i= 0; i<printerFields.length;i++){
+            System.out.println(printerFields[i]);
+        }
+        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerFields, 1));
+
     }//GEN-LAST:event_printerNameComboBoxActionPerformed
 
 

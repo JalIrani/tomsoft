@@ -323,8 +323,8 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = ?;");
-            stmt.setString(1, printer);
+            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = '" +printer+"';");
+            //stmt.setString(1, printer);
             res = stmt.executeQuery();
         } catch (SQLException e)
         {
@@ -1387,6 +1387,29 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement(
                     "SELECT (DATE_FORMAT(NOW(), '%Y-%m-%d_%H-%i-%s'))"
+            );
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
+    /*
+    This is a method that retrieve custom_field_names from custom_printer_column_names. 
+    I use this to dynamically update the enter build info in the tables
+    The other methods meant to do this were not working. ~Sean Gahagan
+    */
+    public ResultSet forSean(String printer)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement(
+                    "SELECT custom_field_name FROM custom_printer_column_names WHERE printer_name = '"+printer+"'"
+                    
             );
             System.out.println(stmt);
             res = stmt.executeQuery();

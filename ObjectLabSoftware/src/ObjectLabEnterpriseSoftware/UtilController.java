@@ -396,6 +396,7 @@ public class UtilController
 
             for (int column = 1; column <= columnCount; column++)
             {
+
                 columnNames.add(meta.getColumnName(column));
             }
         } catch (SQLException ex)
@@ -885,11 +886,16 @@ public class UtilController
         dbconn.closeDBConnection();
         return temp;
     }
-     public static ArrayList<String> returnTableHeader(String printerName){
+     public static ArrayList<Object> returnTableHeader(String printerName) throws SQLException{
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.selectTableHeader(printerName);
-        ArrayList<String> printerHeaders = getColumnNames(queryResult);
-        return printerHeaders;
+        ArrayList<Object> toSend = new ArrayList();
+        printerName = printerName.trim();
+        ResultSet queryResult = dbconn.forSean(printerName);
+        while(queryResult.next()){
+            
+            toSend.add(queryResult.getString(1));
+        }
+        return toSend;
     }
     public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
     {
