@@ -25,6 +25,7 @@ public class NewStudentView extends javax.swing.JFrame
         
         home = new MainView();
         dba = new SQLMethods();
+        this.setLocationRelativeTo(home);
         initComponents();
         
         
@@ -87,6 +88,7 @@ public class NewStudentView extends javax.swing.JFrame
         tuID = new javax.swing.JLabel();
         emailExtension = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
         tuIDEntry = new javax.swing.JTextField();
         firstNameEntry = new javax.swing.JTextField();
         lastNameEntry = new javax.swing.JTextField();
@@ -128,14 +130,24 @@ public class NewStudentView extends javax.swing.JFrame
                 submitActionPerformed(evt);
             }
         });
-        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 70, -1));
+
+        cancel.setText("Cancel");
+        cancel.setMaximumSize(new java.awt.Dimension(65, 23));
+        cancel.setMinimumSize(new java.awt.Dimension(65, 23));
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
         tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tuIDEntryActionPerformed(evt);
             }
         });
-        getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 100, -1));
+        getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 100, -1));
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, -1));
 
@@ -197,6 +209,12 @@ public class NewStudentView extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_tuIDEntryActionPerformed
 
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        home.setPrintersVisible(true);
+        home.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_cancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -234,6 +252,7 @@ public class NewStudentView extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancel;
     private javax.swing.JTextField emailEntry;
     private javax.swing.JLabel emailExtension;
     private javax.swing.JLabel firstName;
