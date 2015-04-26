@@ -449,7 +449,7 @@ public class UtilController
     public static ArrayList<ArrayList<Object>> updatePendingTableData()
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchPending();
+        ResultSet queryResult = dbconn.searchPending(); 
 
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
 
@@ -891,7 +891,7 @@ public class UtilController
     public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
 	{
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchJobsStatusPrinter("pending", printerName);
+        ResultSet queryResult = dbconn.searchJobsStatusPrinter("approved", printerName);
 		
 		ArrayList<ArrayList<Object>> parsedResult = readyOutputForViewPage(queryResult);
 		

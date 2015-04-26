@@ -964,27 +964,10 @@ public class SQLMethods
         return res;
     }
 
-    @Deprecated
     public ResultSet searchPending()
     {
-        res = null;
-        try
-        {
-            stmt = this.conn.prepareStatement(
-                    "SELECT filename, firstName, lastName, printer, dateStarted "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "status = 'pending'"
-            );
-
-            res = stmt.executeQuery();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return res;
-    }
+		return selectAllPrintStatus("pending");
+	}
 
     @Deprecated
     public ResultSet searchPrintersByBuildName(String buildName, String printer)
