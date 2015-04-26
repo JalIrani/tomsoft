@@ -1435,7 +1435,7 @@ public class SQLMethods
                     "SELECT printer_name"
                     + " FROM printer"
             );
-            System.out.println(stmt + " HELLO THERE");
+            System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e)
         {
