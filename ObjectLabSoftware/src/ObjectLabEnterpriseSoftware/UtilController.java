@@ -448,7 +448,7 @@ public class UtilController
     public static ArrayList<ArrayList<Object>> updatePendingTableData()
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchPending(); 
+        ResultSet queryResult = dbconn.searchJobsStatus("pending"); 
 
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
 
