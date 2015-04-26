@@ -355,33 +355,6 @@ public class SQLMethods
     // _____________________________________________________________________________________________________________________
 	// BEGGINING OF INSERT METHODS
     // _____________________________________________________________________________________________________________________
-    public String createDynamicQuery(String printer) throws SQLException
-    {
-        ResultSet temp = selectTableHeader(printer);
-        temp.beforeFirst();
-        temp.next();
-        temp.next();
-        String statement1 = "", statement2 = "";
-        while (temp.isAfterLast() == false)
-        {
-            temp.previous();
-            String attr = temp.getString(1);
-            statement1 = statement1 + " sum( " + attr + ") as " + attr + ", ";
-            statement2 = statement2 + " case when custom_field_name  = \'" + attr + "\' then column_field_data end as " + attr + ",";
-            temp.next();
-            temp.next();
-        }
-        temp.previous();
-        String attr = temp.getString(1);
-        statement1 = statement1 + " sum( " + attr + ") as " + attr;
-        statement2 = statement2 + " case when custom_field_name  = \'" + attr + "\' then column_field_data end as " + attr;
-        return "select report.build_name," + statement1 + " from (Select printer_build.build_name, " + statement2 + " From printer_build, column_build_data, custom_printer_column_names "
-                + " where printer_build.printer_name = custom_printer_column_names.printer_name"
-                + " AND column_build_data.build_name= printer_build.build_name"
-                + " AND custom_printer_column_names.column_names_id=column_build_data.column_name_id "
-                + " AND printer_build.printer_name=" + printer + "\'"
-                + " ) report group by report.build_name;";
-    }
 
     public void insertIntoClasses(String className, String classSection, String professor)
     {
