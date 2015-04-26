@@ -887,5 +887,16 @@ public class UtilController
         dbconn.closeDBConnection();
         return temp;
     }
-
+	
+    public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
+	{
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.searchJobsStatusPrinter("pending", printerName);
+		
+		ArrayList<ArrayList<Object>> parsedResult = readyOutputForViewPage(queryResult);
+		
+		dbconn.closeDBConnection();
+		
+		return parsedResult;
+	}
 }

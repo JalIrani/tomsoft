@@ -31,19 +31,18 @@ public class PrinterBuildView extends javax.swing.JFrame
             fileTableModel.removeRow(0);
     }
     
-    private void updateView(String selectedPrinter)
-    {
-        clearEntries(fileTableModel);
-            
-        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(selectedPrinter);
-            
-        for (ArrayList<Object> retval1 : retval)
-        {
-            /* We need to account for the checkbox by adding in a boolean value = false as the first value. */
-            retval1.add(0, (Boolean) false);
-            fileTableModel.addRow(retval1.toArray());
-        }
-    }
+//    private void updateView(String selectedPrinter)
+//    {
+//        clearEntries(fileTableModel);
+//            
+//        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(selectedPrinter);
+//            
+//        for (ArrayList<Object> retval1 : retval)
+//        {
+//            retval1.add(0, (Boolean) false);
+//            fileTableModel.addRow(retval1.toArray());
+//        }
+//    }
     
     private boolean valididateUserInput() 
     {
@@ -151,7 +150,19 @@ public class PrinterBuildView extends javax.swing.JFrame
         home.setVisible(true);
         dispose();
     }
-
+	
+	private static void updateView(ArrayList<ArrayList<Object>> view)
+    {
+        System.out.println("ROW COUNT: " + fileTableModel.getRowCount());
+        /* Clears up the rows in the view's model. */
+        for(int rows = fileTableModel.getRowCount() - 1; rows >= 0; rows--)
+            fileTableModel.removeRow(rows);
+        
+        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
+        for (ArrayList<Object> row : view) 
+            fileTableModel.addRow(row.toArray());
+        System.out.println("ROW COUNT AFTER: " + fileTableModel.getRowCount());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,6 +184,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         jList1 = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jSeparator1 = new javax.swing.JSeparator();
         Submit_Button = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
@@ -209,6 +222,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         jTextArea1.setRows(5);
         jTextArea1.setText("Art 101-001\nArt 201-002\nArt 401-004\nArt 501-005\nArt 601-006\nArt 701-007\nArt 801-009");
         jScrollPane1.setViewportView(jTextArea1);
+
+        jScrollPane5.setViewportView(jTextPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -315,6 +330,13 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
+        printerNameComboBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printerNameComboBoxActionPerformed(evt);
+            }
+        });
         getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, -1));
 
         printerInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
@@ -438,7 +460,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         }
         
         if (!filepathToSelectedPrinterBuild.getText().isEmpty())
-            updateView((String) printerNameComboBox.getSelectedItem());
+            updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
         
     }//GEN-LAST:event_browseBtnActionPerformed
    
@@ -473,6 +495,11 @@ public class PrinterBuildView extends javax.swing.JFrame
         
     }//GEN-LAST:event_confirmBuildButtonActionPerformed
 
+    private void printerNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printerNameComboBoxActionPerformed
+    {//GEN-HEADEREND:event_printerNameComboBoxActionPerformed
+        updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
+    }//GEN-LAST:event_printerNameComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
@@ -495,8 +522,10 @@ public class PrinterBuildView extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTable printerInputTable;
     private javax.swing.JComboBox printerNameComboBox;
     private javax.swing.JMenuItem reportsMenu;
