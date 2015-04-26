@@ -245,31 +245,30 @@ public class MainView extends javax.swing.JFrame
         // TODO add your handling code here:
         setPrintersVisible(false);
         int id;
-        
-       String idString = studentIdString.getText();//DB team this is to store String
-      
-       id = Integer.parseInt(idString);
-       
+
+        String idString = studentIdString.getText();//DB team this is to store String
+
         if (idString.length() != 7)
         {
             errorIdLabel.setText("USER ID must be 7 digits");
-        }
-        else if (UtilController.userIDExist(id))
-        { 
-            
-            errorIdLabel.setText("");
-            dispose();
-            studentSys.studentSubmissionStart(id);
-        }
-        else{
-             errorIdLabel.setText("USER ID does not exist");
+        } else
+        {
+            id = Integer.parseInt(idString);
+            if (UtilController.userIDExist(id))
+            {
+                errorIdLabel.setText("");
+                dispose();
+                studentSys.studentSubmissionStart(id);
+            } else
+            {
+                errorIdLabel.setText("USER ID does not exist");
+            }
         }
 
-        
     }//GEN-LAST:event_studentButtonActionPerformed
 
     private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
-           // TODO add your handling code here:
+        // TODO add your handling code here:
 
     }//GEN-LAST:event_studentIdStringActionPerformed
 
