@@ -991,29 +991,6 @@ public class SQLMethods
         }
         return res;
     }
-
-    @Deprecated
-    public ResultSet searchPendingWithID(String ID)
-    {
-        res = null;
-        try
-        {
-            stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM pendingjobs "
-                    + "WHERE "
-                    + "status = 'pending' "
-                    + "AND idJobs = ?");
-            stmt.setString(1, ID);
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
     @Deprecated
     public ResultSet searchIncompletePendingByBuild(String buildName)
     {
@@ -1057,29 +1034,35 @@ public class SQLMethods
         return res;
     }
 
-    @Deprecated
-    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted)
-    {
+    public ResultSet searchWithJobID(int ID) {
         res = null;
-        try
-        {
+        try {
             stmt = this.conn.prepareStatement(
-                    "SELECT idJobs, filePath "
-                    + "FROM " + table + " "
+                    "SELECT * "
+                    + "FROM job "
                     + "WHERE "
-                    + "firstName = ? "
-                    + "AND lastName = ? "
-                    + "AND fileName = ? "
-                    + "AND dateStarted = ?");
-            //stmt.setString(, table);
-            stmt.setString(1, firstName);
-            stmt.setString(2, lastName);
-            stmt.setString(3, fileName);
-            stmt.setString(4, dateStarted);
+                    + "AND job_id = ?");
+            stmt.setInt(1,ID );
             System.out.println(stmt);
             res = stmt.executeQuery();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
+    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
+        res = null;
+        try {
+            stmt = this.conn.prepareStatement(
+                    "SELECT job_id, file_path "
+                    + "FROM job  "
+                    + "WHERE "
+                    + "AND file_name = ? ;");
+            stmt.setString(1, fileName); 
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return res;
