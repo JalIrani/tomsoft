@@ -279,9 +279,6 @@ public class JobsView extends javax.swing.JFrame
            boolean success = UtilController.rejectStudentSubmission
            ( 
                    (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER), 
-                   (String) allFileTableModel.getValueAt(userSelectedRow, FIRST_NAME_COLUMN_NUMBER),
-                   (String) allFileTableModel.getValueAt(userSelectedRow, LAST_NAME_COLUMN_NUMBER),
-                   (String) allFileTableModel.getValueAt(userSelectedRow, DATE_PROJECT_STARTED_COLUMN_NUMBER),
                     desc
            );
 
@@ -356,10 +353,6 @@ public class JobsView extends javax.swing.JFrame
                 UtilController.approveStudentSubmission
                 (
                     (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, PRINTER_COLUMN_NUMBER),
-                    (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER),
                     volume
                 );
                 updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));

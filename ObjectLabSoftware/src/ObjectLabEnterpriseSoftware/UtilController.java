@@ -240,14 +240,14 @@ public class UtilController
         }
     }
 
-    public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
+    public static boolean rejectStudentSubmission(String file, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
         ResultSet results = dbconn.searchID((file) );
 
         try
         {
-            String emailadr, emailMessage, primaryKey;
+            String emailadr, emailMessage, primaryKey, fName, lName;
             File locationOfRejectedFiles, rejectionFile;
             FileManager cloudStorageOperations = new FileManager();
 
@@ -256,10 +256,13 @@ public class UtilController
             {
                 primaryKey = results.getString("job_id");
                 
-                ResultSet queryResultEmailAdr = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
-                if (queryResultEmailAdr.next())
+                ResultSet queryResultData = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
+                if (queryResultData.next())
                 {
-                    emailadr = queryResultEmailAdr.getString("email");
+                    emailadr = queryResultData.getString("email");
+                    fName=queryResultData.getString("first_name");
+                    lName=queryResultData.getString("last_name");
+                    
                 } else
                 {
                     dbconn.closeDBConnection();
@@ -312,7 +315,7 @@ public class UtilController
         return FAILURE;
     }
 
-    public static void approveStudentSubmission(String fileName, String firstName, String lastName, String printer, String dateStarted, double volume)
+    public static void approveStudentSubmission(String fileName, double volume)
     {
         /* Make the connection to our DB and query for the PK of pendingjobs which is a combination of
          all the fields input in the searchID method call
@@ -331,17 +334,16 @@ public class UtilController
              */
             if (result.next())
             {
-                ID = result.getString("idJobs");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive()
-                        + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
+                ID = result.getString("job_id");
+                String printer=result.getString("printer_name");
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
                 String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission()
-                        + "\\" + fileName;
+                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
                  */
-                org.apache.commons.io.FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
+                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedFileLocation), true);
 
                 /* In order to properly update the file location we need to gurantee there are '\\' seperating
                  *  the dir names.
@@ -349,9 +351,9 @@ public class UtilController
                  *  the DB will not contain the correct file location.
                  *   - Nick
                  */
-                dbconn.updatePendingJobVolume(ID, volume);
-                dbconn.updatePendingJobFLocation(ID, updatedFileLocation.replace("\\", "\\\\"));
-                dbconn.approve(ID);
+                dbconn.updateJobVolume(Integer.parseInt(ID), volume);
+                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedFileLocation.replace("\\", "\\\\"));
+                dbconn.changeJobStatus(Integer.parseInt(ID), "approved");
                 dbconn.closeDBConnection();
             }
         } catch (SQLException | IOException ex)

@@ -513,22 +513,22 @@ public class SQLMethods
     // _____________________________________________________________________________________________________________________
 	// BEGGINIGNG OF UPDATE METHODS
     // _____________________________________________________________________________________________________________________
-    public void changeJobStatus(String file_name, String status)
+    public void changeJobStatus(int id, String status)
             throws SQLException
     {
-        stmt = this.conn.prepareStatement("UPDATE job SET status = ? WHERE file_name = ?;");
+        stmt = this.conn.prepareStatement("UPDATE job SET status = ? WHERE job_id = ?;");
         stmt.setString(1, status);
-        stmt.setString(2, file_name);
+        stmt.setInt(2, id);
         stmt.executeUpdate();
     }
 
-    public void updateJobFLocation(String filename, String fLocation)
+    public void updateJobFLocation(int id, String fLocation)
     {
         try
         {
-            stmt = this.conn.prepareStatement("UPDATE job SET file_path = ?" + " WHERE file_name = ?;");
+            stmt = this.conn.prepareStatement("UPDATE job SET file_path = ?" + " WHERE job_id = ?;");
             stmt.setString(1, fLocation);
-            stmt.setString(2, filename);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
@@ -537,13 +537,13 @@ public class SQLMethods
         }
     }
 
-    public void updateJobVolume(String file_name, double volume)
+    public void updateJobVolume(int id, double volume)
     {
         try
         {
             stmt = this.conn.prepareStatement("UPDATE job SET volume = "
-                    + volume + " WHERE file_name = ?;");
-            stmt.setString(1, file_name);
+                    + volume + " WHERE job_id = ?;");
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
@@ -1029,7 +1029,7 @@ public class SQLMethods
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT job_id, file_path "
+                    "SELECT job_id, file_path ,printer_name "
                     + "FROM job  "
                     + "WHERE "
                     + " file_name = ? ;");
@@ -1069,12 +1069,12 @@ public class SQLMethods
     }
 
     @Deprecated
-    public void updatePendingJobFLocation(String idJob, String fLocation)
+    public void updatePendingJobFLocation(int idJob, String fLocation)
     {
         try
         {
             stmt = this.conn.prepareStatement(
-                    "UPDATE pendingjobs"
+                    "UPDATE jobs"
                     + " SET filePath = '" + fLocation + "'"
                     + " WHERE idJobs = '" + idJob + "'"
             );
