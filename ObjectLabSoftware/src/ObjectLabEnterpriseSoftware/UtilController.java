@@ -90,7 +90,8 @@ public class UtilController
         }
         return null;
     }
-     public static String[] getStatusJobsHeaders(String status)
+    
+    public static String[] getStatusJobsHeaders(String status)
     {
         try
         {
@@ -114,9 +115,7 @@ public class UtilController
         }
         return null;
     }
-
-    
-
+     
     public static ArrayList<ArrayList<Object>> updateReportTableData(String printer_name)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -469,13 +468,10 @@ public class UtilController
         return retval;
     }
 
-    /* I'm still considering making the return type the array of arrylists<String> since it is more general
-     * than having the UI pass in its table model -Nick
-     */
-    public static ArrayList<ArrayList<Object>> updatePendingTableData()
+    public static ArrayList<ArrayList<Object>> updatePendingTableData(String status)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchJobsStatus("pending"); 
+        ResultSet queryResult = dbconn.searchJobsStatus(status); 
 
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
 

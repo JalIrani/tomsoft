@@ -15,7 +15,7 @@ public class MainView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Home";
 
     NewStudentView newStudentSys;
-    PendingJobsView pendingSys;
+    JobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
     String PASS = "ForwardMotion";
@@ -25,7 +25,7 @@ public class MainView extends javax.swing.JFrame
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
-        pendingSys = new PendingJobsView();
+        pendingSys = new JobsView();
         studentSys = new StudentSubmissionView();
         newStudentSys = new NewStudentView();
 
