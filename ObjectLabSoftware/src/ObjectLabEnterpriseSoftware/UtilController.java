@@ -66,7 +66,6 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
-
     public static String[] getReportColumnHeaders(String printer_name)
     {
         try
@@ -91,6 +90,8 @@ public class UtilController
         }
         return null;
     }
+
+    
 
     public static ArrayList<ArrayList<Object>> updateReportTableData(String printer_name)
     {
@@ -219,7 +220,7 @@ public class UtilController
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
+        ResultSet results = dbconn.searchID(Integer.parseInt(file) );
 
         try
         {
@@ -292,7 +293,7 @@ public class UtilController
          all the fields input in the searchID method call
          */
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateStarted);
+        ResultSet result = dbconn.searchID(Integer.parseInt(fileName) );
         FileManager cloudStorageOperations = new FileManager();
 
         String ID;
@@ -343,13 +344,13 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
 
-        ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateSubmitted);
+        ResultSet result = dbconn.searchID(Integer.parseInt(fileName) );
 
         try
         {
             if (result.next())
             {
-                filePath = new File(result.getString("filePath"));
+                filePath = new File(result.getString("file_path"));
             }
         } catch (SQLException ex)
         {
