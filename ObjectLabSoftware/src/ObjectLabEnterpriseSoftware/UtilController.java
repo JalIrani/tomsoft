@@ -764,7 +764,7 @@ public class UtilController
         return true;
     }
 
-    public static void archive()
+   public static void archive(String from, String to)
     {
         try
         {
@@ -772,8 +772,10 @@ public class UtilController
             String fileName = new String();
             String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
             fileName = "Archive " + date;
-            FileManager.zip("C:\\Sync\\ObjectLabPrinters\\", "C:\\Sync\\" + fileName + ".zip");
-            if (FileManager.doesFileExist("C:\\Sync\\" + fileName + ".zip"))
+            System.out.println((from.replace("\\", "\\\\") + "\\\\") + " : " + (to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip"));
+            FileManager.zip((from.replace("\\", "\\\\") + "\\\\"), (to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip"));
+            
+            if (FileManager.doesFileExist((to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip")))
             {
                 JOptionPane.showMessageDialog(new JFrame(), "Archive Successful");
             } else
