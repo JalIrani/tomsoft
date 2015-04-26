@@ -101,6 +101,8 @@ public class SQLMethods
         return res;
     }
 
+	// I deprecated this because it says select all but it is not selecting all
+	@Deprecated
     public ResultSet selectAllPrintStatus(String status)
     {// select all info from job based onstatus ((probably that not useful)
         res = null;
