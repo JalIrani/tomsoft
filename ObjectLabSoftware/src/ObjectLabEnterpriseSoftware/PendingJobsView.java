@@ -24,13 +24,26 @@ public class PendingJobsView extends javax.swing.JFrame
     private static final int PRINTER_COLUMN_NUMBER = 3;
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
 
-    private final DefaultTableModel allFileTableModel;
+    private DefaultTableModel allFileTableModel;
     static ReportsView reports = null;
     private static FileManager inst = null;
 
+    private static String[] getTableHeaders(ArrayList<ArrayList<Object>> results)
+    {
+        String[] printersAvailble = new String[results.size()];
+        
+        for (int row = 0; row < results.size(); row++)
+            printersAvailble[row] = (String) results.get(row).get(0);
+        
+        return printersAvailble;
+    }
+    
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         System.out.println("ROW COUNT: " + pendingJobsView.getRowCount());
+        
+        pendingJobsView.setColumnIdentifiers(getTableHeaders(view));
+        
         /* Clears up the rows in the view's model. */
         for(int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
             pendingJobsView.removeRow(rows);
@@ -94,7 +107,8 @@ public class PendingJobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -116,7 +130,8 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -141,8 +156,10 @@ public class PendingJobsView extends javax.swing.JFrame
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ApprovedButtonActionPerformed(evt);
             }
         });
@@ -150,90 +167,98 @@ public class PendingJobsView extends javax.swing.JFrame
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        RejectButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 RejectButtonActionPerformed(evt);
             }
         });
         getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 20));
 
         openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openFileInProgramActionPerformed(evt);
             }
         });
         getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, 20));
 
         PendingTable.setAutoCreateRowSorter(true);
-        PendingTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        PendingTable.setModel(new javax.swing.table.DefaultTableModel()
+            {
+                boolean[] canEdit = new boolean []
+                {
+                    false, false, false, false
+                };
 
-            },
-            new String [] {
-                "Project Name", "First Name", "Last Name", "Printer", "Date Submitted"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
+                public boolean isCellEditable(int rowIndex, int columnIndex)
+                {
+                    return canEdit [columnIndex];
+                }
+            });
+            jScrollPane4.setViewportView(PendingTable);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(PendingTable);
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 240));
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 240));
+            backToMainMenu.setText("Back to Main Menu");
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    backToMainMenuActionPerformed(evt);
+                }
+            });
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 130, 20));
 
-        backToMainMenu.setText("Back to Main Menu");
-        backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backToMainMenuActionPerformed(evt);
-            }
-        });
-        getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 130, 20));
+            jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 500, 340));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 500, 340));
+            jMenu1.setText("File");
 
-        jMenu1.setText("File");
+            jMenuItem1.setText("Reports");
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    jMenuItem1ActionPerformed(evt);
+                }
+            });
+            jMenu1.add(jMenuItem1);
 
-        jMenuItem1.setText("Reports");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
+            showClassEditorOptions.setText("Class Settings");
+            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    showClassEditorOptionsActionPerformed(evt);
+                }
+            });
+            jMenu1.add(showClassEditorOptions);
 
-        showClassEditorOptions.setText("Class Settings");
-        showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showClassEditorOptionsActionPerformed(evt);
-            }
-        });
-        jMenu1.add(showClassEditorOptions);
+            jMenuBar1.add(jMenu1);
 
-        jMenuBar1.add(jMenu1);
+            jMenu2.setText("Help");
 
-        jMenu2.setText("Help");
+            jMenuItem2.setText("Contents");
+            jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    jMenuItem2ActionPerformed(evt);
+                }
+            });
+            jMenu2.add(jMenuItem2);
 
-        jMenuItem2.setText("Contents");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem2);
+            jMenuBar1.add(jMenu2);
 
-        jMenuBar1.add(jMenu2);
+            setJMenuBar(jMenuBar1);
 
-        setJMenuBar(jMenuBar1);
-
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+            setLocationRelativeTo(null);
+        }// </editor-fold>//GEN-END:initComponents
 
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
