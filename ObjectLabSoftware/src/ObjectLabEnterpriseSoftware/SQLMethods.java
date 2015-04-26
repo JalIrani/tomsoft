@@ -552,13 +552,13 @@ public class SQLMethods
         }
     }
 
-    public void updatePendingJobsBuildName(int build, String fileName)
+    public void updatePendingJobsBuildName(String build, int fileName)
     {
         try
         {
-            stmt = this.conn.prepareStatement("UPDATE job SET build_id = ? WHERE file_name = ?;");
-            stmt.setInt(1, build);
-            stmt.setString(2, fileName);
+            stmt = this.conn.prepareStatement("UPDATE job SET build_name = ? WHERE job_id = ?;");
+            stmt.setString(1, build);
+            stmt.setInt(2, fileName);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
