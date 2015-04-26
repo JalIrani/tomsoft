@@ -885,16 +885,18 @@ public class UtilController
         dbconn.closeDBConnection();
         return temp;
     }
-	
+     public static ArrayList<String> returnTableHeader(String printerName){
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.selectTableHeader(printerName);
+        ArrayList<String> printerHeaders = getColumnNames(queryResult);
+        return printerHeaders;
+    }
     public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
-	{
+    {
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.searchJobsStatusPrinter("approved", printerName);
-		
-		ArrayList<ArrayList<Object>> parsedResult = readyOutputForViewPage(queryResult);
-		
-		dbconn.closeDBConnection();
-		
-		return parsedResult;
-	}
+        ArrayList<ArrayList<Object>> parsedResult = readyOutputForViewPage(queryResult);
+        dbconn.closeDBConnection();
+        return parsedResult;
+    }
 }

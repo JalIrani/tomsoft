@@ -487,17 +487,17 @@ public class PrinterBuildView extends javax.swing.JFrame
 					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
-        String printerSelected = (String) printerNameComboBox.getSelectedItem();
-        Object[] lukeIsScared = new Object[1];
-        lukeIsScared[0] = "heehaw";
+        ArrayList<String> printerHeaders = UtilController.returnTableHeader(buildName);
         
-        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(lukeIsScared, 1));
+        
+        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
         
     }//GEN-LAST:event_confirmBuildButtonActionPerformed
 
     private void printerNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printerNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_printerNameComboBoxActionPerformed
         updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
+        BuildPrinter = (String) printerNameComboBox.getSelectedItem();
     }//GEN-LAST:event_printerNameComboBoxActionPerformed
 
 
