@@ -1009,7 +1009,7 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet searchID(String table, String firstName, String lastName, int fileName, String dateStarted) {
+    public ResultSet searchID( int id) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
@@ -1017,7 +1017,7 @@ public class SQLMethods
                     + "FROM job  "
                     + "WHERE "
                     + " job_id = ? ;");
-            stmt.setInt(1, fileName); 
+            stmt.setInt(1, id); 
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
