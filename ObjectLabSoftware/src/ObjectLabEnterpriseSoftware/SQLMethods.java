@@ -996,10 +996,10 @@ public class SQLMethods
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM job "
+                    "SELECT file_name as fileName, submission_date, class_name, class_section, first_name, last_name, email "
+                    + "FROM job, users, class "
                     + "WHERE "
-                    + "AND job_id = ?");
+                    + "job_id = ? AND towson_id=student_id AND job.class_id= class.class_id ");
             stmt.setInt(1,ID );
             System.out.println(stmt);
             res = stmt.executeQuery();
@@ -1009,15 +1009,15 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
+    public ResultSet searchID(String table, String firstName, String lastName, int fileName, String dateStarted) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT job_id, file_path "
                     + "FROM job  "
                     + "WHERE "
-                    + "AND file_name = ? ;");
-            stmt.setString(1, fileName); 
+                    + " job_id = ? ;");
+            stmt.setInt(1, fileName); 
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
