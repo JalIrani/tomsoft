@@ -177,6 +177,7 @@ public class NewStudentView extends javax.swing.JFrame
 		{
             try 
 			{
+                UtilController.insertNewStudent(tuID, firstName, lastName, email);
                 new InternetAddress(emailEntry.getText()).validate();
             } catch (AddressException e) 
 			{

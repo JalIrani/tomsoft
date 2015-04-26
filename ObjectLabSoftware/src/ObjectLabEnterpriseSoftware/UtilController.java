@@ -876,6 +876,16 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
+    public static void insertNewStudent(String tuID, String firstName, String lastName, String email)
+    {
+        int id = Integer.parseInt(tuID);
+        SQLMethods dbconn = new SQLMethods();
+        System.out.println(tuID + " " + firstName + " " + lastName + " " + email);
+        dbconn.insertIntoUsers(id, firstName, lastName, email);
+
+        dbconn.closeDBConnection();
+    }
+    
     public static boolean userIDExist(int id)
     {
         boolean temp = false;
