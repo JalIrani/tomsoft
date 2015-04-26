@@ -27,22 +27,12 @@ public class PendingJobsView extends javax.swing.JFrame
     private DefaultTableModel allFileTableModel;
     static ReportsView reports = null;
     private static FileManager inst = null;
-
-    private static String[] getTableHeaders(ArrayList<ArrayList<Object>> results)
-    {
-        String[] printersAvailble = new String[results.size()];
-        
-        for (int row = 0; row < results.size(); row++)
-            printersAvailble[row] = (String) results.get(row).get(0);
-        
-        return printersAvailble;
-    }
     
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         System.out.println("ROW COUNT: " + pendingJobsView.getRowCount());
         
-        pendingJobsView.setColumnIdentifiers(getTableHeaders(view));
+        pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders("pending"));
         
         /* Clears up the rows in the view's model. */
         for(int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
@@ -263,7 +253,8 @@ public class PendingJobsView extends javax.swing.JFrame
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
         String desc;
-        
+        if (userSelectedRow >= 0) 
+        {
         desc = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter in reject description: ");
         
         if(desc != null)
@@ -290,6 +281,10 @@ public class PendingJobsView extends javax.swing.JFrame
            {
                JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
            }
+        }
+        } else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
         }
     }//GEN-LAST:event_RejectButtonActionPerformed
     

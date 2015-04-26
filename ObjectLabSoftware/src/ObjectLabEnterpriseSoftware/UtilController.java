@@ -90,6 +90,30 @@ public class UtilController
         }
         return null;
     }
+     public static String[] getStatusJobsHeaders(String status)
+    {
+        try
+        {
+            SQLMethods dbconn = new SQLMethods();
+            ResultSet queryResult = dbconn.searchJobsStatus(status);
+            /* Must process results found in ResultSet before the connection is closed! */
+
+            ResultSetMetaData rsmd = queryResult.getMetaData();
+            String[] headers = new String[rsmd.getColumnCount()];
+            //System.out.println(rsmd.getColumnName(5));
+            for (int i = 1; i <= rsmd.getColumnCount(); i++)
+            {
+                headers[i - 1] = rsmd.getColumnName(i);
+            }
+
+            dbconn.closeDBConnection();
+            return headers;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     
 
