@@ -29,6 +29,7 @@ public class ArchiveView extends javax.swing.JFrame {
     JFrame report;
    
     File archiveDirectory = null;
+    AdminSettingsView settings;
     /**
      * Creates new form ArchiveView
      */
@@ -47,7 +48,7 @@ public class ArchiveView extends javax.swing.JFrame {
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         report.setEnabled(false);
-        
+        settings = new AdminSettingsView();
         this.addWindowListener( new WindowAdapter()
         {
             @Override
@@ -75,6 +76,7 @@ public class ArchiveView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Arhiving");
@@ -122,6 +124,14 @@ public class ArchiveView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, -1, -1));
+
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -183,6 +193,11 @@ public class ArchiveView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        settings.AdminSettingsViewStart();
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -221,6 +236,7 @@ public class ArchiveView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

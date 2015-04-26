@@ -10,8 +10,10 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
     
     private static final String NAME_OF_PAGE = "Remove Class/Printer";
     private static SQLMethods sql = new SQLMethods();
+    AdminSettingsView settings;
     public void removeClassPrinterStart() {
         initComponents();
+        settings = new AdminSettingsView();
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -25,7 +27,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        closeButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         classComboBox = new javax.swing.JComboBox();
         titleLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -40,13 +42,13 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        closeButton.setText("Close");
-        closeButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeButtonActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 70, -1));
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 70, -1));
 
         classComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.returnAvailableClasses()));
         classComboBox.setSelectedItem(null);
@@ -91,9 +93,10 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        settings.AdminSettingsViewStart();
         dispose();
-    }//GEN-LAST:event_closeButtonActionPerformed
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed
         if(classComboBox.getSelectedItem()!=null){
@@ -156,9 +159,9 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelButton;
     private javax.swing.JComboBox classComboBox;
     private javax.swing.JLabel classLabel;
-    private javax.swing.JButton closeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox printerComboBox;

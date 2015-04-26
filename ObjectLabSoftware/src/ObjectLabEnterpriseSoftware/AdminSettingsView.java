@@ -17,7 +17,7 @@ public class AdminSettingsView extends javax.swing.JFrame
 	private static final String NAME_OF_PAGE = "Settings";
 	MainView home;
 
-    public AdminSettingsView() {
+    public void AdminSettingsViewStart() {
         home = new MainView();
         initComponents();
         setLocationRelativeTo(null);
@@ -122,27 +122,31 @@ public class AdminSettingsView extends javax.swing.JFrame
         // TODO add your handling code here:
         ClassOptionsView op = new ClassOptionsView();
         op.OptionsStart();
+        dispose();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
         private void addPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrinterButtonActionPerformed
 		AddPrinterView ap = new AddPrinterView();
 		ap.AddPrinterStart();
+                dispose();
         }//GEN-LAST:event_addPrinterButtonActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        home.setPrintersVisible(false);
         home.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          ArchiveView archive = new ArchiveView(this);
+         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         RemoveClassPrinterView remove = new RemoveClassPrinterView();
         remove.removeClassPrinterStart();
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

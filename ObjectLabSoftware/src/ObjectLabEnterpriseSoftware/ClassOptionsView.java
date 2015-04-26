@@ -13,6 +13,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	private DefaultListModel allClassListModel;
 	private DefaultListModel currentClassListModel;
+        
+        AdminSettingsView settings;
 
 	private static FileManager inst = null;
 
@@ -59,7 +61,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 		inst = new FileManager();
 		/* Creates are PendingJobs UI window componet and grabs its data model for our uses */
 		initComponents();
-
+                settings = new AdminSettingsView();
 		addWindowListener(
 				new WindowAdapter()
 				{
@@ -273,6 +275,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
 		addNewClass.setVisible(true);
+                settings.AdminSettingsViewStart();
 		dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 

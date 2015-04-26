@@ -12,6 +12,7 @@ public class AddPrinterView extends javax.swing.JFrame
 	private static final String NAME_OF_PAGE = "Add Printer";
 
     ArrayList<String> currentDevices = UtilController.getListOfPrinters();
+    AdminSettingsView settings;
     Device device;
     JTextField tfield;
     JLabel tlabel;
@@ -33,6 +34,7 @@ public class AddPrinterView extends javax.swing.JFrame
 
     public void AddPrinterStart() {
         initComponents();
+        settings = new AdminSettingsView();
         fields.add(printerNameTF);
         fields.add(fileExtensionTF);
         fields.add(fieldTF0);
@@ -166,7 +168,7 @@ public class AddPrinterView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-	    //home.studentSubmissionButton.setVisible(false);
+	    settings.AdminSettingsViewStart();
 	    dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 

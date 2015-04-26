@@ -279,7 +279,7 @@ public class MainView extends javax.swing.JFrame
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
         AdminSettingsView ad = new AdminSettingsView();
-        ad.setVisible(true);
+        ad.AdminSettingsViewStart();
         dispose();
     }
 
