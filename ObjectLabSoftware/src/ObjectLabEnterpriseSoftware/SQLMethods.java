@@ -552,7 +552,7 @@ public class SQLMethods
         }
     }
 
-    public void updatePendingJobsBuildName(String build, int fileName)
+    public void updateJobBuildName(String build, int fileName)//SEAN USE THIS/
     {
         try
         {
