@@ -358,7 +358,6 @@ public class UtilController
 
         dbconn.closeDBConnection();
         return filePath;
-
     }
 
     /**
@@ -406,7 +405,6 @@ public class UtilController
         }
 
         return columnNames;
-
     }
 
     /* This function is called to take the query result "ResultSet" return type form a DB query and re-format it into 
