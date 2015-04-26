@@ -149,7 +149,7 @@ public class PrinterBuildView extends javax.swing.JFrame
      */
     public void returnHome() {
         
-        home.setPrintersVisible(false);
+        home.setPrintersVisible(true);
         home.setVisible(true);
         dispose();
     }

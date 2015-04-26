@@ -19,6 +19,7 @@ public class ReportsView extends javax.swing.JFrame
     private String[] headers;
     private ArrayList<String> printers;
     
+    
     /**
      * Creates new form Reports
      */
@@ -26,6 +27,7 @@ public class ReportsView extends javax.swing.JFrame
     {
         this.controller = new UtilController();
         printers = UtilController.getListOfPrinters();
+        setLocationRelativeTo(null);
         if(printers.size() > 0){
             selectedPrinter = printers.get(0);
             headers = UtilController.getReportColumnHeaders(selectedPrinter);
@@ -191,7 +193,9 @@ public class ReportsView extends javax.swing.JFrame
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         dispose();
-        new MainView().setVisible(true); 
+        MainView home = new MainView();
+        home.setVisible(true);
+        home.setPrintersVisible(true);
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed

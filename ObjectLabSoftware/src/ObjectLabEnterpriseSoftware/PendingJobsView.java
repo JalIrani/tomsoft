@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class PendingJobsView extends javax.swing.JFrame
 {
-	private static final String NAME_OF_PAGE =  "Pending Jobs";
+    private static final String NAME_OF_PAGE =  "Pending Jobs";
 
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
@@ -27,6 +27,8 @@ public class PendingJobsView extends javax.swing.JFrame
     private final DefaultTableModel allFileTableModel;
     static ReportsView reports = null;
     private static FileManager inst = null;
+    
+    MainView home;
 
     private static void updateView(DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
@@ -48,7 +50,7 @@ public class PendingJobsView extends javax.swing.JFrame
          /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
-        
+        setLocationRelativeTo(null);
         addWindowListener
         (
             new WindowAdapter() 
@@ -394,7 +396,9 @@ public class PendingJobsView extends javax.swing.JFrame
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         // TODO add your handling code here:
         dispose();
-        new MainView().setVisible(true); 
+        MainView home = new MainView();
+        home.setVisible(true);
+        home.setPrintersVisible(true);
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
 
