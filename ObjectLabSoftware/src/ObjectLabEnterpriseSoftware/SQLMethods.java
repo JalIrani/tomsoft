@@ -602,7 +602,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = conn.prepareStatement("UPDATE job SET status = ? WHERE submission_id = ?  ");
+            stmt = conn.prepareStatement("UPDATE job SET status = ? WHERE job_id = ?  ");
             stmt.setString(1, statusUpdate);
             stmt.setInt(2, primaryKey);
             stmt.executeUpdate();
@@ -781,12 +781,12 @@ public class SQLMethods
         }
     }
 
-    public void deleteFromJob(String filename)
+    public void deleteFromJob(int id)
     {
         try
         {
-            stmt = conn.prepareStatement("DELETE FROM job WHERE file_name = ?; ");
-            stmt.setString(1, filename);
+            stmt = conn.prepareStatement("DELETE FROM job WHERE job_id = ?; ");
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -1025,15 +1025,15 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet searchID( int id) {
+    public ResultSet searchID( String id) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT job_id, file_path "
                     + "FROM job  "
                     + "WHERE "
-                    + " job_id = ? ;");
-            stmt.setInt(1, id); 
+                    + " file_name = ? ;");
+            stmt.setString(1, id); 
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {

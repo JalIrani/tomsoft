@@ -244,7 +244,7 @@ public class UtilController
     public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet results = dbconn.searchID(Integer.parseInt(file) );
+        ResultSet results = dbconn.searchID((file) );
 
         try
         {
@@ -255,7 +255,8 @@ public class UtilController
             /* Query the DB for our emailadr here */
             if (results.next())
             {
-                primaryKey = results.getString("idJobs");
+                primaryKey = results.getString("job_id");
+                
                 ResultSet queryResultEmailAdr = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
                 if (queryResultEmailAdr.next())
                 {
@@ -291,7 +292,8 @@ public class UtilController
             /* 
              Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
              */
-            dbconn.delete("pendingjobs", primaryKey);
+            
+            dbconn.updateStatus( "rejected",Integer.parseInt(primaryKey));
             dbconn.closeDBConnection();
 
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
@@ -317,7 +319,7 @@ public class UtilController
          all the fields input in the searchID method call
          */
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result = dbconn.searchID(Integer.parseInt(fileName) );
+        ResultSet result = dbconn.searchID((fileName) );
         FileManager cloudStorageOperations = new FileManager();
 
         String ID;
@@ -368,7 +370,7 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
 
-        ResultSet result = dbconn.searchID(Integer.parseInt(fileName) );
+        ResultSet result = dbconn.searchID((fileName) );
 
         try
         {
