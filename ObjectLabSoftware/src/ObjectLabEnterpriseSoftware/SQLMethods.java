@@ -149,6 +149,22 @@ public class SQLMethods
 
         return res;
     }
+    public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users  " + "WHERE status = ? AND Users.towson_id = Job.student_id AND job.class.id= class.class_id;");
+            stmt.setString(1, status);
+            
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
 
     public ResultSet searchPrintersByBuildName(int buildId)
     {
