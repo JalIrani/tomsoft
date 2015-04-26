@@ -30,6 +30,9 @@ public class ReportsView extends javax.swing.JFrame
             selectedPrinter = printers.get(0);
             headers = UtilController.getReportColumnHeaders(selectedPrinter);
         }
+        else{
+            headers = new String[1];
+        }
         addWindowListener
         (
             new WindowAdapter() 

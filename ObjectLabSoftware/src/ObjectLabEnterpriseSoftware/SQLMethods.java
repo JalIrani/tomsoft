@@ -898,27 +898,13 @@ public class SQLMethods
 
 	// END OF DELETE METHODS
     // _____________________________________________________________________________________________________________________
-    @Deprecated
     public ResultSet getReport(String printer_name)
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement(
-                    "SELECT "
-                    + "cbd.build_name, "
-                    + "cpcn.custom_field_name, "
-                    + "cbd.column_field_data, "
-                    + "pb.total_runtime_seconds, "
-                    + "pb.number_of_models "
-                    + "FROM "
-                    + "column_build_data cbd "
-                    + "join custom_printer_column_names cpcn "
-                    + "on cbd.column_name_id = cpcn.column_names_id "
-                    + "join printer_build pb "
-                    + "on pb.build_name = cbd.build_name "
-                    + "where pb.printer_name = '" + printer_name + "' "
-                    + "order by build_name, custom_field_name;"
+                    "call report('" + printer_name + "');"
             );
 
             res = stmt.executeQuery();
@@ -930,29 +916,13 @@ public class SQLMethods
         return res;
     }
 
-    @Deprecated
     public ResultSet getReport(String column, String value, String printer_name)
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement(
-                    "SELECT "
-                    + "cbd.build_name, "
-                    + "cpcn.custom_field_name, "
-                    + "cbd.column_field_data, "
-                    + "pb.total_runtime_seconds, "
-                    + "pb.number_of_models "
-                    + "FROM "
-                    + "column_build_data cbd "
-                    + "join custom_printer_column_names cpcn "
-                    + "on cbd.column_name_id = cpcn.column_names_id "
-                    + "join printer_build pb "
-                    + "on pb.build_name = cbd.build_name "
-                    + "where pb.printer_name = '" + printer_name + "' "
-                    + " and "
-                    + column + " = '" + value + "' "
-                    + "order by build_name, custom_field_name;"
+                    "call reportFiltered('" + printer_name + "','" + column + "','" + value + "');"
             );
 
             res = stmt.executeQuery();
