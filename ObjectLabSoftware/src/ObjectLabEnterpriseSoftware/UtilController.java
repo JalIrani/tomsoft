@@ -332,17 +332,16 @@ public class UtilController
              */
             if (result.next())
             {
-                ID = result.getString("idJobs");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive()
-                        + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
+                ID = result.getString("job_id");
+                printer=result.getString("printer_name");
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
                 String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission()
-                        + "\\" + fileName;
+                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
                  */
-                org.apache.commons.io.FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
+                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedFileLocation), true);
 
                 /* In order to properly update the file location we need to gurantee there are '\\' seperating
                  *  the dir names.
@@ -350,9 +349,9 @@ public class UtilController
                  *  the DB will not contain the correct file location.
                  *   - Nick
                  */
-                dbconn.updatePendingJobVolume(ID, volume);
-                dbconn.updatePendingJobFLocation(ID, updatedFileLocation.replace("\\", "\\\\"));
-                dbconn.approve(ID);
+                dbconn.updateJobVolume(Integer.parseInt(ID), volume);
+                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedFileLocation.replace("\\", "\\\\"));
+                dbconn.changeJobStatus(Integer.parseInt(ID), "approved");
                 dbconn.closeDBConnection();
             }
         } catch (SQLException | IOException ex)
