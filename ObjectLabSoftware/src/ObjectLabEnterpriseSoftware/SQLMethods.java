@@ -108,7 +108,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT job_id, file_path, submission_date FROM job WHERE status= ?;");
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status= ?;");
             stmt.setString(1, status);
             res = stmt.executeQuery();
         } catch (SQLException e)
@@ -355,33 +355,6 @@ public class SQLMethods
     // _____________________________________________________________________________________________________________________
 	// BEGGINING OF INSERT METHODS
     // _____________________________________________________________________________________________________________________
-    public String createDynamicQuery(String printer) throws SQLException
-    {
-        ResultSet temp = selectTableHeader(printer);
-        temp.beforeFirst();
-        temp.next();
-        temp.next();
-        String statement1 = "", statement2 = "";
-        while (temp.isAfterLast() == false)
-        {
-            temp.previous();
-            String attr = temp.getString(1);
-            statement1 = statement1 + " sum( " + attr + ") as " + attr + ", ";
-            statement2 = statement2 + " case when custom_field_name  = \'" + attr + "\' then column_field_data end as " + attr + ",";
-            temp.next();
-            temp.next();
-        }
-        temp.previous();
-        String attr = temp.getString(1);
-        statement1 = statement1 + " sum( " + attr + ") as " + attr;
-        statement2 = statement2 + " case when custom_field_name  = \'" + attr + "\' then column_field_data end as " + attr;
-        return "select report.build_name," + statement1 + " from (Select printer_build.build_name, " + statement2 + " From printer_build, column_build_data, custom_printer_column_names "
-                + " where printer_build.printer_name = custom_printer_column_names.printer_name"
-                + " AND column_build_data.build_name= printer_build.build_name"
-                + " AND custom_printer_column_names.column_names_id=column_build_data.column_name_id "
-                + " AND printer_build.printer_name=" + printer + "\'"
-                + " ) report group by report.build_name;";
-    }
 
     public void insertIntoClasses(String className, String classSection, String professor)
     {
@@ -764,7 +737,7 @@ public class SQLMethods
 
 	// END OF UPDATE METHODS
     // _____________________________________________________________________________________________________________________
-	// BEGINNING OF DELETE METHODS
+	// BEGINGING OF DELETE METHODS
     // _____________________________________________________________________________________________________________________
     public void deletebyID(int id)
     {
@@ -1036,15 +1009,14 @@ public class SQLMethods
         return res;
     }
     
-	@Deprecated
-    public ResultSet searchID(String fileName) {
+    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT job_id, file_path "
                     + "FROM job  "
                     + "WHERE "
-                    + "file_name = ? ;");
+                    + "AND file_name = ? ;");
             stmt.setString(1, fileName); 
             System.out.println(stmt);
             res = stmt.executeQuery();
@@ -1423,10 +1395,13 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement(
-                    "SELECT custom_field_name FROM custom_printer_column_names WHERE printer_name = '"+printer+"'"
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT custom_field_name FROM custom_printer_column_names WHERE printer_name = ?;"
                     
             );
+            
+            stmt.setString(1, printer);
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e)
