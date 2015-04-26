@@ -896,6 +896,7 @@ public class UtilController
         dbconn.closeDBConnection();
         return temp;
     }
+    
      public static ArrayList<Object> returnTableHeader(String printerName) throws SQLException{
         SQLMethods dbconn = new SQLMethods();
         ArrayList<Object> toSend = new ArrayList();
@@ -905,8 +906,10 @@ public class UtilController
             
             toSend.add(queryResult.getString(1));
         }
+        dbconn.closeDBConnection();
         return toSend;
     }
+     
     public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
     {
         SQLMethods dbconn = new SQLMethods();

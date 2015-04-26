@@ -1395,10 +1395,13 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement(
-                    "SELECT custom_field_name FROM custom_printer_column_names WHERE printer_name = '"+printer+"'"
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT custom_field_name FROM custom_printer_column_names WHERE printer_name = ?;"
                     
             );
+            
+            stmt.setString(1, printer);
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e)
