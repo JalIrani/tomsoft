@@ -78,8 +78,7 @@ public class NewStudentView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         newStudentLabel = new javax.swing.JLabel();
         firstName = new javax.swing.JLabel();
@@ -96,7 +95,6 @@ public class NewStudentView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        setAlwaysOnTop(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -125,19 +123,15 @@ public class NewStudentView extends javax.swing.JFrame
         getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, 30));
 
         submit.setText("Submit");
-        submit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
         getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
 
-        tuIDEntry.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tuIDEntryActionPerformed(evt);
             }
         });
@@ -145,10 +139,8 @@ public class NewStudentView extends javax.swing.JFrame
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, -1));
 
-        emailEntry.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        emailEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailEntryActionPerformed(evt);
             }
         });
