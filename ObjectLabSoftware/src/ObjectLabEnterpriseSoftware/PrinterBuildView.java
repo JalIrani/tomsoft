@@ -173,7 +173,6 @@ public class PrinterBuildView extends javax.swing.JFrame
         jList1 = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        PrinterBuildHeader = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         Submit_Button = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
@@ -215,10 +214,6 @@ public class PrinterBuildView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        PrinterBuildHeader.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        PrinterBuildHeader.setText("x");
-        getContentPane().add(PrinterBuildHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
 
         Submit_Button.setText("Submit");
@@ -317,7 +312,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 360, 190));
 
         jLabel2.setText("Select Printer:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, -1, -1));
 
         printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
         getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 110, -1));
@@ -382,20 +377,23 @@ public class PrinterBuildView extends javax.swing.JFrame
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
         if(!submit())
-              JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);  
+              JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", 
+					  JOptionPane.WARNING_MESSAGE);  
          buildInfo = new ArrayList();
 
         //making sure a printer was selected before enter build is alowed to function
         if (printerNameComboBox.getSelectedItem().equals(""))
         {
-            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", 
+					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
         Vector buildData = (Vector) modelA.getDataVector().elementAt(0);
 
         if (buildData.contains(null))
         {
-            JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", 
+					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
         } else
         {
             for (int i = 0; i < buildData.size(); i++)
@@ -463,7 +461,8 @@ public class PrinterBuildView extends javax.swing.JFrame
     {//GEN-HEADEREND:event_confirmBuildButtonActionPerformed
         if (printerNameComboBox.getSelectedItem().equals(""))
         {
-            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", 
+					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
         String printerSelected = (String) printerNameComboBox.getSelectedItem();
@@ -477,7 +476,6 @@ public class PrinterBuildView extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
-    public static javax.swing.JLabel PrinterBuildHeader;
     private javax.swing.JButton Submit_Button;
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildLbl;
