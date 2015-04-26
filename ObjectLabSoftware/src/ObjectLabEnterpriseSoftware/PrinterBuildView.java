@@ -491,7 +491,7 @@ public class PrinterBuildView extends javax.swing.JFrame
             return;
         }
         
-        ArrayList<Object> printerHeaders;
+        ArrayList<ArrayList<Object>> printerHeaders;
         try
         {
             printerHeaders = UtilController.returnTableHeader(BuildPrinter);
@@ -510,7 +510,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         BuildPrinter = (String) printerNameComboBox.getSelectedItem();
         Object[] printerFields;
         System.out.println(BuildPrinter);
-        ArrayList<Object> printerHeaders = new ArrayList();
+        ArrayList<ArrayList<Object>> printerHeaders = new <ArrayList<Object>>ArrayList();
         try
         {
             printerHeaders = UtilController.returnTableHeader(BuildPrinter);
@@ -522,7 +522,7 @@ public class PrinterBuildView extends javax.swing.JFrame
 //        for(int i = 0; i<printerHeaders.size(); i++){
 //            System.out.println(printerHeaders.get(i).toString());
 //        }
-        printerFields = printerHeaders.toArray();
+        printerFields = printerHeaders.get(0).toArray();
         for(int i= 0; i<printerFields.length;i++){
             System.out.println(printerFields[i]);
         }

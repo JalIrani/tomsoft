@@ -897,15 +897,20 @@ public class UtilController
         return temp;
     }
     
-     public static ArrayList<Object> returnTableHeader(String printerName) throws SQLException{
+     public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
         SQLMethods dbconn = new SQLMethods();
-        ArrayList<Object> toSend = new ArrayList();
+        ArrayList<ArrayList<Object>> toSend = new ArrayList();
+        ArrayList<Object> fillData = new ArrayList();
+        ArrayList<Object> fillType = new ArrayList();
         printerName = printerName.trim();
         ResultSet queryResult = dbconn.forSean(printerName);
+        //putting data into an array of arrays
         while(queryResult.next()){
-            
-            toSend.add(queryResult.getString(1));
+            fillData.add(queryResult.getString(1));
+            fillType.add(queryResult.getString(2));
         }
+        toSend.add(fillData);
+        toSend.add(fillType);
         dbconn.closeDBConnection();
         return toSend;
     }
