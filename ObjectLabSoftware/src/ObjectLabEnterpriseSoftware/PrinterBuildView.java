@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 public class PrinterBuildView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Build File Creator";	
-    private static String printerSelectedForBuildProcess;
     private static MainView home;    
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
@@ -32,11 +31,11 @@ public class PrinterBuildView extends javax.swing.JFrame
             fileTableModel.removeRow(0);
     }
     
-    private void updateView()
+    private void updateView(String selectedPrinter)
     {
         clearEntries(fileTableModel);
             
-        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(printerSelectedForBuildProcess);
+        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(selectedPrinter);
             
         for (ArrayList<Object> retval1 : retval)
         {
@@ -73,12 +72,11 @@ public class PrinterBuildView extends javax.swing.JFrame
         }
     }
 
-    public void startMakeBuildProcess(String printerSelectedToMakeBuildFor) 
+    public void startMakeBuildProcess() 
     {
         inst = new FileManager();
         
         initComponents();
-        PrinterBuildHeader.setText(printerSelectedToMakeBuildFor + " Build Creator");
         try 
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
@@ -95,7 +93,6 @@ public class PrinterBuildView extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(PrinterBuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-        printerSelectedForBuildProcess = printerSelectedToMakeBuildFor;
         countNumOfModels = 0;
         fileTableModel = (DefaultTableModel) stlFileTable.getModel();
         ErrorText.setVisible(false);
@@ -109,14 +106,10 @@ public class PrinterBuildView extends javax.swing.JFrame
                dispose();
             }
         });
-        
     }
 
     private boolean submit() 
     {
-        if(!printerSelectedForBuildProcess.equals("zcorp") && !printerSelectedForBuildProcess.equals("solidscape") && !printerSelectedForBuildProcess.equals("objet"))
-            return false;
-        
         countNumOfModels = 0;
         if (valididateUserInput()) 
         {
@@ -132,29 +125,6 @@ public class PrinterBuildView extends javax.swing.JFrame
                     countNumOfModels++;
                 }
             }
-            
-            //now number of models are set
-            //let's sequentially open Zcorp windows FOR EACH build-based STL file
-            if(printerSelectedForBuildProcess.equals("zcorp")) 
-            {
-                ZCorpDialogView zd = new ZCorpDialogView(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
-                zd.ZCorpDialogStart();
-            }
-            else if(printerSelectedForBuildProcess.equals("objet"))
-            {
-                ObjetDialogView od = new ObjetDialogView(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
-                od.ObjetDialogStart();
-            }
-            else if(printerSelectedForBuildProcess.equals("solidscape"))
-            {
-                SolidscapeDialogView sd = new SolidscapeDialogView(new java.awt.Frame(), true, filepathToSelectedPrinterBuild.getText(), countNumOfModels);
-                sd.SolidscapeDialogStart();
-            }
-            else
-            {
-                /* Enter some sort of error text here */
-            }
-            
             dispose();
             return true;
         }
@@ -179,6 +149,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         
         home.setPrintersVisible(false);
         home.setVisible(true);
+        //dispose();
     }
 
 
@@ -347,10 +318,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 360, 190));
 
         jLabel2.setText("Select Printer:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
-        getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 110, -1));
+        getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 110, -1));
 
         printerInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         printerInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
@@ -470,7 +441,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         }
         
         if (!filepathToSelectedPrinterBuild.getText().isEmpty())
-            updateView();
+            updateView((String) printerNameComboBox.getSelectedItem());
         
     }//GEN-LAST:event_browseBtnActionPerformed
    

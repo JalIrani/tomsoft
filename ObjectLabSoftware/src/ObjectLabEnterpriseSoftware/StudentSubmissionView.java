@@ -60,7 +60,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1_FileLocation = new javax.swing.JLabel();
         jLabel2_FirstName = new javax.swing.JLabel();
@@ -110,8 +111,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(jLabel2_FirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 95, 20));
 
         fileLocation.setEditable(false);
-        fileLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        fileLocation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 fileLocationActionPerformed(evt);
             }
         });
@@ -119,13 +122,17 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         Browse.setText("Browse");
         Browse.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Browse.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        Browse.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 BrowseMouseClicked(evt);
             }
         });
-        Browse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Browse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 BrowseActionPerformed(evt);
             }
         });
@@ -144,6 +151,13 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(jLabel4_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 95, 20));
 
         emailInfo.setName("email"); // NOI18N
+        emailInfo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                emailInfoActionPerformed(evt);
+            }
+        });
         getContentPane().add(emailInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 200, -1));
 
         projName.setEditable(false);
@@ -165,8 +179,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         Student_Submit.setText("Submit");
         Student_Submit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Student_Submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Student_Submit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 Student_SubmitActionPerformed(evt);
             }
         });
@@ -174,8 +190,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         classBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableClasses()));
         classBox.setSelectedItem(null);
-        classBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        classBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 classBoxActionPerformed(evt);
             }
         });
@@ -183,8 +201,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
         printerBox.setSelectedItem(null);
-        printerBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        printerBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 printerBoxActionPerformed(evt);
             }
         });
@@ -234,8 +254,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
         editMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem1ActionPerformed(evt);
             }
         });
@@ -428,6 +450,11 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private void fileLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileLocationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fileLocationActionPerformed
+
+    private void emailInfoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_emailInfoActionPerformed
+    {//GEN-HEADEREND:event_emailInfoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailInfoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Browse;

@@ -10,6 +10,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.swing.JOptionPane;
 
 public class NewStudentView extends javax.swing.JFrame 
@@ -119,8 +121,8 @@ public class NewStudentView extends javax.swing.JFrame
         getContentPane().add(tuID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
         emailExtension.setForeground(new java.awt.Color(255, 255, 255));
-        emailExtension.setText("ex:  jsmith1");
-        getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, 20));
+        emailExtension.setText("ex:  jsmith1@gmail.com");
+        getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, 30));
 
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener()
@@ -139,7 +141,7 @@ public class NewStudentView extends javax.swing.JFrame
                 tuIDEntryActionPerformed(evt);
             }
         });
-        getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 100, -1));
+        getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 100, -1));
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, -1));
 
@@ -150,10 +152,10 @@ public class NewStudentView extends javax.swing.JFrame
                 emailEntryActionPerformed(evt);
             }
         });
-        getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 100, -1));
+        getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 170, -1));
 
         netIDlEntry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
-        getContentPane().add(netIDlEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        getContentPane().add(netIDlEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -176,6 +178,21 @@ public class NewStudentView extends javax.swing.JFrame
                     home.setPrintersVisible(true);
                     home.setVisible(true);
 		    dispose();
+        if (emailEntry.getText().isEmpty()) 
+		{
+            exit = false;
+        } else 
+		{
+            try 
+			{
+                new InternetAddress(emailEntry.getText()).validate();
+            } catch (AddressException e) 
+			{
+                exit = false;
+            }
+        }
+        if(!exit)
+                System.out.println("ERROR EMAIL TEST FIELD IS MESSED");
         
     }//GEN-LAST:event_submitActionPerformed
 
