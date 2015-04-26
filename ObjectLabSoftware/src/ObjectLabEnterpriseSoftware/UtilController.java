@@ -216,20 +216,83 @@ public class UtilController
         }
     }
 
-    //public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
-    public static boolean rejectStudentSubmission(String jobID, String filePath, String dateOfSubmission, String reasonForRejection)
-	{
-        System.out.println("HE");
-		return true;
+    public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
+
+        try
+        {
+            String emailadr, emailMessage, primaryKey;
+            File locationOfRejectedFiles, rejectionFile;
+            FileManager cloudStorageOperations = new FileManager();
+
+            /* Query the DB for our emailadr here */
+            if (results.next())
+            {
+                primaryKey = results.getString("idJobs");
+                ResultSet queryResultEmailAdr = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
+                if (queryResultEmailAdr.next())
+                {
+                    emailadr = queryResultEmailAdr.getString("email");
+                } else
+                {
+                    dbconn.closeDBConnection();
+                    return FAILURE;
+                }
+            } else
+            {
+                dbconn.closeDBConnection();
+                return FAILURE;
+            }
+
+            /* Create rejected directory if it does not exist
+             if(!cloudStorageOperations.doesFileExist(cloudStorageOperations.getRejected()))
+             cloudStorageOperations.create(cloudStorageOperations.getRejected());
+             */
+            /* Move our rejected file to the rejected files directory */
+            locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());
+            rejectionFile = new File(cloudStorageOperations.getSubmission() + file);
+
+            if (rejectionFile.exists())
+            {
+                FileUtils.moveFileToDirectory(rejectionFile, locationOfRejectedFiles, true);
+            } else
+            {
+                dbconn.closeDBConnection();
+                return FAILURE;
+            }
+
+            /* 
+             Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
+             */
+            dbconn.delete("pendingjobs", primaryKey);
+            dbconn.closeDBConnection();
+
+            emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
+                    + file + ", we have found the following error: \n\nComment: " + reasonForRejection
+                    + "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
+            //Backup email
+            //TowsonOli@gmail.com passwordTowson
+            return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
+        } catch (SQLException ex)
+        {
+            System.out.println("Program crashed in reject subm\n" + ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbconn.closeDBConnection();
+        return FAILURE;
     }
 
-    public static void approveStudentSubmission(String fileName, String printer, String dateStarted, double volume)
+    public static void approveStudentSubmission(String fileName, String firstName, String lastName, String printer, String dateStarted, double volume)
     {
         /* Make the connection to our DB and query for the PK of pendingjobs which is a combination of
          all the fields input in the searchID method call
          */
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result = dbconn.searchID(fileName);
+        ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateStarted);
         FileManager cloudStorageOperations = new FileManager();
 
         String ID;
@@ -254,7 +317,7 @@ public class UtilController
                  */
                 org.apache.commons.io.FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
 
-                /* In order to properly update the file location we need to guarantee there are '\\' seperating
+                /* In order to properly update the file location we need to gurantee there are '\\' seperating
                  *  the dir names.
                  *  If ther are no double backslashes than the character will not be escaped properly, and
                  *  the DB will not contain the correct file location.
@@ -275,12 +338,12 @@ public class UtilController
      It returns the filePath found in the DB where all the parameters specify the file
      that is associated for that users submission.
      */
-    public static File getFilePath(String fileName, String dateSubmitted)
+    public static File getFilePath(String firstName, String lastName, String fileName, String dateSubmitted)
     {
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
 
-        ResultSet result = dbconn.searchID(fileName);
+        ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateSubmitted);
 
         try
         {

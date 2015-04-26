@@ -108,7 +108,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT job_id, file_path, submission_date FROM job WHERE status= ?;");
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status= ?;");
             stmt.setString(1, status);
             res = stmt.executeQuery();
         } catch (SQLException e)
@@ -764,7 +764,7 @@ public class SQLMethods
 
 	// END OF UPDATE METHODS
     // _____________________________________________________________________________________________________________________
-	// BEGINNING OF DELETE METHODS
+	// BEGINGING OF DELETE METHODS
     // _____________________________________________________________________________________________________________________
     public void deletebyID(int id)
     {
@@ -1036,15 +1036,14 @@ public class SQLMethods
         return res;
     }
     
-	@Deprecated
-    public ResultSet searchID(String fileName) {
+    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
                     "SELECT job_id, file_path "
                     + "FROM job  "
                     + "WHERE "
-                    + "file_name = ? ;");
+                    + "AND file_name = ? ;");
             stmt.setString(1, fileName); 
             System.out.println(stmt);
             res = stmt.executeQuery();
