@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
  */
 public class MainView extends javax.swing.JFrame
 {
-
     private static final String NAME_OF_PAGE = "Home";
 
     NewStudentView newStudentSys;
@@ -65,11 +64,9 @@ public class MainView extends javax.swing.JFrame
         errorIdLabel = new javax.swing.JLabel();
         studentIdString = new javax.swing.JTextField();
         studentButton = new javax.swing.JButton();
-        zcorpButton = new javax.swing.JButton();
-        solidscapeButton = new javax.swing.JButton();
+        enterBuild = new javax.swing.JButton();
         AdminButton = new javax.swing.JButton();
         openProjectsButton = new javax.swing.JButton();
-        objetButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
         newStudent = new javax.swing.JLabel();
@@ -130,27 +127,15 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 30));
 
-        zcorpButton.setText("ZCorp");
-        zcorpButton.setToolTipText("");
-        zcorpButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        zcorpButton.addActionListener(new java.awt.event.ActionListener()
+        enterBuild.setText("Enter Build");
+        enterBuild.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                zcorpButtonActionPerformed(evt);
+                enterBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(zcorpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 130, 30));
-
-        solidscapeButton.setText("Solidscape");
-        solidscapeButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                solidscapeButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(solidscapeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 130, 30));
+        getContentPane().add(enterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 130, 30));
 
         AdminButton.setText("Administrator");
         AdminButton.addActionListener(new java.awt.event.ActionListener()
@@ -171,17 +156,6 @@ public class MainView extends javax.swing.JFrame
             }
         });
         getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 130, 30));
-
-        objetButton.setText("Objet");
-        objetButton.setPreferredSize(new java.awt.Dimension(417, 417));
-        objetButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                objetButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(objetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 130, 30));
 
         settingsButton.setText("Settings");
         settingsButton.addActionListener(new java.awt.event.ActionListener()
@@ -226,25 +200,18 @@ public class MainView extends javax.swing.JFrame
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void solidscapeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solidscapeButtonActionPerformed
+    private void enterBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBuildActionPerformed
         // TODO add your handling code here:
         PrinterBuildView Build = new PrinterBuildView();
         Build.startMakeBuildProcess();
         dispose();
-    }//GEN-LAST:event_solidscapeButtonActionPerformed
+    }//GEN-LAST:event_enterBuildActionPerformed
 
     private void openProjectsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectsButtonActionPerformed
         // TODO add your handling code here:
         pendingSys.PendingJobsStart();
         dispose();
     }//GEN-LAST:event_openProjectsButtonActionPerformed
-
-    private void zcorpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zcorpButtonActionPerformed
-        // TODO add your handling code here:
-        PrinterBuildView Build = new PrinterBuildView();
-        Build.startMakeBuildProcess();
-        dispose();
-    }//GEN-LAST:event_zcorpButtonActionPerformed
 
     private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
         PasswordDialogView dialogue = new PasswordDialogView();
@@ -266,13 +233,6 @@ public class MainView extends javax.swing.JFrame
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Incorrect password! Access Denied!");
         }
     }//GEN-LAST:event_AdminButtonActionPerformed
-
-    private void objetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_objetButtonActionPerformed
-        // TODO add your handling code here:
-        PrinterBuildView Build = new PrinterBuildView();
-        Build.startMakeBuildProcess();
-        dispose();
-    }//GEN-LAST:event_objetButtonActionPerformed
 
     private void ReportsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportsButtonActionPerformed
         // TODO add your handling code here:
@@ -335,9 +295,7 @@ public class MainView extends javax.swing.JFrame
     {
         settingsButton.setVisible(isVisible);
         openProjectsButton.setVisible(isVisible);
-        zcorpButton.setVisible(isVisible);
-        solidscapeButton.setVisible(isVisible);
-        objetButton.setVisible(isVisible);
+        enterBuild.setVisible(isVisible);
         ReportsButton.setVisible(isVisible);
     }
 
@@ -382,6 +340,7 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JButton AdminButton;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton ReportsButton;
+    private javax.swing.JButton enterBuild;
     private javax.swing.JLabel errorIdLabel;
     private javax.swing.JMenu helpButton;
     private javax.swing.JList jList1;
@@ -390,13 +349,10 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel newStudent;
     private javax.swing.JButton newStudentButton;
-    private javax.swing.JButton objetButton;
     private javax.swing.JButton openProjectsButton;
     private javax.swing.JButton settingsButton;
-    private javax.swing.JButton solidscapeButton;
     private javax.swing.JButton studentButton;
     private javax.swing.JTextField studentIdString;
     private javax.swing.JMenuItem userGuideButton;
-    private javax.swing.JButton zcorpButton;
     // End of variables declaration//GEN-END:variables
 }

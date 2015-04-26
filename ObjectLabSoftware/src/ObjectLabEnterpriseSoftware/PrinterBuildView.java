@@ -75,7 +75,7 @@ public class PrinterBuildView extends javax.swing.JFrame
     public void startMakeBuildProcess() 
     {
         inst = new FileManager();
-        
+        home = new MainView();
         initComponents();
         try 
         {
@@ -145,11 +145,11 @@ public class PrinterBuildView extends javax.swing.JFrame
       SolidscapeDialogView.SolidscapeDialogStart.windowClosing
       SolidscapeDialogView.submitBtnActionPerformed
      */
-    public static void returnHome() {
+    public void returnHome() {
         
         home.setPrintersVisible(false);
         home.setVisible(true);
-        //dispose();
+        dispose();
     }
 
 
@@ -213,7 +213,6 @@ public class PrinterBuildView extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
