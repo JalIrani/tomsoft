@@ -154,7 +154,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users  " + "WHERE status = ? AND Users.towson_id = Job.student_id AND job.class.id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users ,Class " + "WHERE status = ? AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
             stmt.setString(1, status);
             
             res = stmt.executeQuery();
