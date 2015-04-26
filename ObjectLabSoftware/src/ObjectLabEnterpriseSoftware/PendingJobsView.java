@@ -97,8 +97,7 @@ public class PendingJobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -120,8 +119,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -146,10 +144,8 @@ public class PendingJobsView extends javax.swing.JFrame
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApprovedButtonActionPerformed(evt);
             }
         });
@@ -157,20 +153,16 @@ public class PendingJobsView extends javax.swing.JFrame
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        RejectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RejectButtonActionPerformed(evt);
             }
         });
         getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 20));
 
         openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openFileInProgramActionPerformed(evt);
             }
         });
@@ -194,10 +186,8 @@ public class PendingJobsView extends javax.swing.JFrame
             getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 470, 240));
 
             backToMainMenu.setText("Back to Main Menu");
-            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
                 }
             });
@@ -209,20 +199,16 @@ public class PendingJobsView extends javax.swing.JFrame
             jMenu1.setText("File");
 
             jMenuItem1.setText("Reports");
-            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jMenuItem1ActionPerformed(evt);
                 }
             });
             jMenu1.add(jMenuItem1);
 
             showClassEditorOptions.setText("Class Settings");
-            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     showClassEditorOptionsActionPerformed(evt);
                 }
             });
@@ -233,10 +219,8 @@ public class PendingJobsView extends javax.swing.JFrame
             jMenu2.setText("Help");
 
             jMenuItem2.setText("Contents");
-            jMenuItem2.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jMenuItem2ActionPerformed(evt);
                 }
             });
@@ -420,7 +404,7 @@ public class PendingJobsView extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ApprovedButton;
-    public static javax.swing.JTable PendingTable;
+    public javax.swing.JTable PendingTable;
     private javax.swing.JButton RejectButton;
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JLabel jLabel1;
