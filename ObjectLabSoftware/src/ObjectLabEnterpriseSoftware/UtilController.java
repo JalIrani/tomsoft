@@ -231,7 +231,7 @@ public class UtilController
             if (results.next())
             {
                 primaryKey = results.getString("idJobs");
-                ResultSet queryResultEmailAdr = dbconn.searchPendingWithID(primaryKey);
+                ResultSet queryResultEmailAdr = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
                 if (queryResultEmailAdr.next())
                 {
                     emailadr = queryResultEmailAdr.getString("email");
