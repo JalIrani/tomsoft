@@ -16,10 +16,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     public void studentSubmissionStart(int id)
     {
-        /* set valid id passed in from MainView.java as our userID for submitting files... */
-        userID = id;
         initComponents();
         hideErrorFields();
+        
+        /* set valid id passed in from MainView.java as our userID for submitting files... */
+        userID = id;
+        idOfUser.setText(Integer.toString(userID));
         
         try
         {
@@ -60,6 +62,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private void initComponents()
     {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel1_FileLocation = new javax.swing.JLabel();
         fileLocation = new javax.swing.JTextField();
         Browse = new javax.swing.JButton();
@@ -76,10 +80,16 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8_StudentSubmission = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        idOfUser = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         editMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -154,7 +164,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 Student_SubmitActionPerformed(evt);
             }
         });
-        getContentPane().add(Student_Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 100, 23));
+        getContentPane().add(Student_Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 100, 23));
 
         classBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableClasses()));
         classBox.setSelectedItem(null);
@@ -165,7 +175,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 classBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 120, -1));
+        getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 140, -1));
 
         printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
         printerBox.setSelectedItem(null);
@@ -176,23 +186,23 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 printerBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 120, -1));
+        getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 140, -1));
 
         error_NoFileLocationSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         error_NoFileLocationSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoFileLocationSelected.setText("Error Text");
-        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 119, 20));
+        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 70, 20));
 
         error_NoClassSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         error_NoClassSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoClassSelected.setText("Error Text");
-        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 119, 20));
+        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, -1, 20));
 
         error_NoPrinterSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         error_NoPrinterSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoPrinterSelected.setText("Error Text");
-        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 119, 20));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 390, 10));
+        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 70, 20));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 400, 10));
 
         jLabel8_StudentSubmission.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8_StudentSubmission.setText("Student Submission");
@@ -206,10 +216,24 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 300, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
+
+        jLabel1.setText("Your user ID:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 70, 30));
+
+        idOfUser.setEditable(false);
+        idOfUser.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        idOfUser.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                idOfUserActionPerformed(evt);
+            }
+        });
+        getContentPane().add(idOfUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 130, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 360));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 280));
 
         editMenu.setText("Help");
 
@@ -373,6 +397,11 @@ public class StudentSubmissionView extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_projNameActionPerformed
 
+    private void idOfUserActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_idOfUserActionPerformed
+    {//GEN-HEADEREND:event_idOfUserActionPerformed
+        
+    }//GEN-LAST:event_idOfUserActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Browse;
     private javax.swing.JButton Student_Submit;
@@ -382,7 +411,9 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private javax.swing.JLabel error_NoFileLocationSelected;
     private javax.swing.JLabel error_NoPrinterSelected;
     private javax.swing.JTextField fileLocation;
+    private javax.swing.JTextField idOfUser;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1_FileLocation;
     private javax.swing.JLabel jLabel5_ProjName;
     private javax.swing.JLabel jLabel6_Class;
@@ -391,7 +422,9 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox printerBox;
     private javax.swing.JTextField projName;
     // End of variables declaration//GEN-END:variables
