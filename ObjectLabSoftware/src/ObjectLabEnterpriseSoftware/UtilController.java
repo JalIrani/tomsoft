@@ -787,6 +787,14 @@ public class UtilController
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+   
+   public static void clearData(){
+   
+       SQLMethods dbconn = new SQLMethods();
+       dbconn.clearData();
+       dbconn.closeDBConnection();
+   
+   }
 
     public static void updateAvailableClasses(ArrayList<String> classData)
     {

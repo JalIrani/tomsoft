@@ -107,7 +107,7 @@ public class ArchiveView extends javax.swing.JFrame {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         jLabel2.setText("Archiving Data From: ");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
@@ -121,7 +121,7 @@ public class ArchiveView extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -161,13 +161,14 @@ public class ArchiveView extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        if(archiveDirectory != null){
         if(archiveDirectory.isDirectory()){
+            UtilController.archive(jTextField1.getText(), jTextField2.getText());
             if(jCheckBox1.isSelected()){
                 JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
-                UtilController.archive(jTextField1.getText(), jTextField2.getText());
+                UtilController.clearData();
                 //WIPE DATA AND ARCHIVE
             }else{
              JOptionPane.showMessageDialog(null, "Archiving Started\nData will not be wiped");
-                UtilController.archive(jTextField1.getText(), jTextField2.getText());
+             
                //JUST DO ARCHIVE
             }
             report.setEnabled(true);

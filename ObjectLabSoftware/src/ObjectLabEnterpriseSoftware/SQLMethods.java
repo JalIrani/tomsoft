@@ -841,6 +841,19 @@ public class SQLMethods
             e.printStackTrace();
         }
     }
+    
+    public void clearData(){
+    
+        try
+        {
+            stmt = conn.prepareStatement("call clearTables();");
+            stmt.executeUpdate();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+    }
 
     public void deleteFromAdmin(int id)
     {
