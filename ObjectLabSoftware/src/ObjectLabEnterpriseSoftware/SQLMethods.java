@@ -138,11 +138,25 @@ public class SQLMethods
         res = null;
         try
         {
-
             stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users , Class " + "WHERE status = ? AND printer_name = ? AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
-
             stmt.setString(1, status);
             stmt.setString(2, printer);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+    public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users ,Class " + "WHERE status = ? AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt.setString(1, status);
+            
             res = stmt.executeQuery();
         } catch (Exception e)
         {
@@ -499,22 +513,22 @@ public class SQLMethods
     // _____________________________________________________________________________________________________________________
 	// BEGGINIGNG OF UPDATE METHODS
     // _____________________________________________________________________________________________________________________
-    public void changeJobStatus(String file_name, String status)
+    public void changeJobStatus(int id, String status)
             throws SQLException
     {
-        stmt = this.conn.prepareStatement("UPDATE job SET status = ? WHERE file_name = ?;");
+        stmt = this.conn.prepareStatement("UPDATE job SET status = ? WHERE job_id = ?;");
         stmt.setString(1, status);
-        stmt.setString(2, file_name);
+        stmt.setInt(2, id);
         stmt.executeUpdate();
     }
 
-    public void updateJobFLocation(String filename, String fLocation)
+    public void updateJobFLocation(int id, String fLocation)
     {
         try
         {
-            stmt = this.conn.prepareStatement("UPDATE job SET file_path = ?" + " WHERE file_name = ?;");
+            stmt = this.conn.prepareStatement("UPDATE job SET file_path = ?" + " WHERE job_id = ?;");
             stmt.setString(1, fLocation);
-            stmt.setString(2, filename);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
@@ -523,13 +537,13 @@ public class SQLMethods
         }
     }
 
-    public void updateJobVolume(String file_name, double volume)
+    public void updateJobVolume(int id, double volume)
     {
         try
         {
             stmt = this.conn.prepareStatement("UPDATE job SET volume = "
-                    + volume + " WHERE file_name = ?;");
-            stmt.setString(1, file_name);
+                    + volume + " WHERE job_id = ?;");
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
@@ -538,13 +552,13 @@ public class SQLMethods
         }
     }
 
-    public void updatePendingJobsBuildName(int build, String fileName)
+    public void updateJobBuildName(String build, int fileName)//SEAN USE THIS/
     {
         try
         {
-            stmt = this.conn.prepareStatement("UPDATE job SET build_id = ? WHERE file_name = ?;");
-            stmt.setInt(1, build);
-            stmt.setString(2, fileName);
+            stmt = this.conn.prepareStatement("UPDATE job SET build_name = ? WHERE job_id = ?;");
+            stmt.setString(1, build);
+            stmt.setInt(2, fileName);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
@@ -588,7 +602,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = conn.prepareStatement("UPDATE job SET status = ? WHERE submission_id = ?  ");
+            stmt = conn.prepareStatement("UPDATE job SET status = ? WHERE job_id = ?  ");
             stmt.setString(1, statusUpdate);
             stmt.setInt(2, primaryKey);
             stmt.executeUpdate();
@@ -767,12 +781,12 @@ public class SQLMethods
         }
     }
 
-    public void deleteFromJob(String filename)
+    public void deleteFromJob(int id)
     {
         try
         {
-            stmt = conn.prepareStatement("DELETE FROM job WHERE file_name = ?; ");
-            stmt.setString(1, filename);
+            stmt = conn.prepareStatement("DELETE FROM job WHERE job_id = ?; ");
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -998,10 +1012,10 @@ public class SQLMethods
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT * "
-                    + "FROM job "
+                    "SELECT file_name as fileName, submission_date, class_name, class_section, first_name, last_name, email "
+                    + "FROM job, users, class "
                     + "WHERE "
-                    + "AND job_id = ?");
+                    + "job_id = ? AND towson_id=student_id AND job.class_id= class.class_id ");
             stmt.setInt(1,ID );
             System.out.println(stmt);
             res = stmt.executeQuery();
@@ -1011,15 +1025,15 @@ public class SQLMethods
         return res;
     }
     
-    public ResultSet searchID(String table, String firstName, String lastName, String fileName, String dateStarted) {
+    public ResultSet searchID( String id) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
-                    "SELECT job_id, file_path "
+                    "SELECT job_id, file_path ,printer_name "
                     + "FROM job  "
                     + "WHERE "
-                    + "AND file_name = ? ;");
-            stmt.setString(1, fileName); 
+                    + " file_name = ? ;");
+            stmt.setString(1, id); 
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
@@ -1055,12 +1069,12 @@ public class SQLMethods
     }
 
     @Deprecated
-    public void updatePendingJobFLocation(String idJob, String fLocation)
+    public void updatePendingJobFLocation(int idJob, String fLocation)
     {
         try
         {
             stmt = this.conn.prepareStatement(
-                    "UPDATE pendingjobs"
+                    "UPDATE jobs"
                     + " SET filePath = '" + fLocation + "'"
                     + " WHERE idJobs = '" + idJob + "'"
             );
