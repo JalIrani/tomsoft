@@ -26,7 +26,7 @@ public class ReportsView extends javax.swing.JFrame
     public ReportsView() 
     {
         this.controller = new UtilController();
-        printers = UtilController.getListOfPrinters();
+        printers = UtilController.getListOfAllDevices();
         if(printers.size() > 0){
             selectedPrinter = printers.get(0);
             headers = UtilController.getReportColumnHeaders(selectedPrinter);

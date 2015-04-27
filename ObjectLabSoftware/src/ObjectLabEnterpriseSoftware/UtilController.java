@@ -65,12 +65,15 @@ public class UtilController
             }
         }
 }
-    
-    
-    public static ArrayList<String> getListOfPrinters()
+	public static String [] arrayListToStringArray(ArrayList <String> toConvert)
+	{
+		return toConvert.toArray(new String[toConvert.size()]);
+	}
+	
+    public static ArrayList<String> getListOfAllDevices()
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getAvailablePrinters();
+        ResultSet queryResult = dbconn.getAllDeviceNames();
         ArrayList<String> printers = new ArrayList<String>();
         ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
 
@@ -82,6 +85,39 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
+		
+    public static ArrayList<String> getListOfCurrentDevices()
+    {
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getCurrentDevices();
+        ArrayList<String> printers = new ArrayList<String>();
+        ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
+
+        for (ArrayList<Object> data1 : data)
+        {
+            printers.add(data1.get(0).toString());
+        }
+
+        dbconn.closeDBConnection();
+        return printers;
+    }
+	
+	public static ArrayList<String> getListOfCurrentTrackedDevices()
+	{
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getTrackedDevices();
+        ArrayList<String> printers = new ArrayList<String>();
+        ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
+
+        for (ArrayList<Object> data1 : data)
+        {
+            printers.add(data1.get(0).toString());
+        }
+
+        dbconn.closeDBConnection();
+        return printers;	
+	}
+	
     public static String[] getReportColumnHeaders(String printer_name)
     {
         try
@@ -204,8 +240,8 @@ public class UtilController
 
     public static void exportReportsForPrinters()
     {
-
-        ArrayList<String> printers = getListOfPrinters();
+		
+        ArrayList<String> printers = UtilController.getListOfAllDevices();
         FileManager fileManager = new FileManager();
 
         Workbook wb = new HSSFWorkbook();
@@ -498,21 +534,20 @@ public class UtilController
         return retval;
     }
 
-    public static String[] returnAvailablePrinters()
+    public static String[] returnAvailableDevices()
     {
         /*
          Fetch available printers
          */
 
         SQLMethods dbconn = new SQLMethods();
-        ResultSet printersAvailableResult = dbconn.getAvailablePrinters();
-        ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
+        ResultSet printersAvailableResult = dbconn.getAllDeviceNames();		
+
+		ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
 
-        /*
-         Convert results to desired format
-         */
+        /* Convert results to desired format */
         String[] printersAvailble = new String[printersAvailableAL.size()];
         for (int row = 0; row < printersAvailableAL.size(); row++)
         {
@@ -744,13 +779,14 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         String deviceName = deviceModel.getDeviceName();
+		boolean deviceTrack = deviceModel.getTrackSubmission();
         ArrayList<String> fieldNames = deviceModel.getFieldNames();
         ArrayList<String> fileExt = deviceModel.getFileExtensions();
 
         /* Insert our printer into the printer table. For right now just adding in the first
          file extension added from UI (DB does not support multiple file extensions)
          */
-        dbconn.insertIntoPrinter(deviceName, true);
+        dbconn.insertIntoPrinter(deviceName, deviceTrack);
 
         for (String ext : fileExt)
         {

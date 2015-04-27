@@ -398,7 +398,7 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("INSERT INTO printer (printer_name, current, total_run_time,student_submission) values (?, 'current', 0, ?);");
+            stmt = conn.prepareStatement("INSERT INTO printer (printer_name, student_submission) values (?, ?);");
             stmt.setString(1, printer);
             stmt.setBoolean(2, submit);
             stmt.executeUpdate();
@@ -1383,16 +1383,43 @@ public class SQLMethods
         }
         return res;
     }
-
-    public ResultSet getAvailablePrinters()
+	
+	public ResultSet getAllDeviceNames()
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement(
-                    "SELECT printer_name"
-                    + " FROM printer"
+                    "SELECT printer_name "
+                    + "FROM printer;"
             );
+			
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+	}
+	public ResultSet getCurrentDevices()
+	{
+		return getDeviceNamesCurrentOption(true);
+	}
+	
+	public ResultSet getDeviceNamesCurrentOption(boolean current)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement(
+                    "SELECT printer_name "
+                    + "FROM printer "
+					+ "WHERE current = ?;"
+            );
+			
+			stmt.setBoolean(1, current);
+			
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -1401,7 +1428,35 @@ public class SQLMethods
         }
         return res;
     }
-
+	
+	public ResultSet getTrackedDevices()
+	{
+		return getDeviceNamesCurrentOptionSubmissionOption(true, true);
+	}	 
+	
+    public ResultSet getDeviceNamesCurrentOptionSubmissionOption(boolean current, boolean requireStudentSubmission)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement(
+                    "SELECT printer_name "
+                    + "FROM printer "
+					+ "WHERE current = ? AND student_submission = ?;"
+            );
+			
+			stmt.setBoolean(1, current);
+			stmt.setBoolean(2, requireStudentSubmission);
+			
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+	
     public ResultSet getCurrentTime()
     {
         res = null;

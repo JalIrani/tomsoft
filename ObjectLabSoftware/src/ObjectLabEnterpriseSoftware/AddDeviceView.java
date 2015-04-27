@@ -13,7 +13,7 @@ public class AddDeviceView extends javax.swing.JFrame
 {
 	private static final String NAME_OF_PAGE = "Add Art Device";
 
-    ArrayList<String> currentDevices = UtilController.getListOfPrinters();
+    ArrayList<String> currentDevices = UtilController.getListOfCurrentDevices();
     AdminSettingsView settings;
     Device device;
     JTextField tfield;
@@ -33,7 +33,7 @@ public class AddDeviceView extends javax.swing.JFrame
     private final int COUNTMIN = 3;
     //Current count of labels and fields
     private int count = COUNTMIN;
-
+	private boolean trackingSelected = true;
     
     boolean exit = true;
     public void AddPrinterStart() {
@@ -299,7 +299,7 @@ public class AddDeviceView extends javax.swing.JFrame
 	    //First two textfields are name and file extension.
 	    //Create new device object using these.
 	    device = new Device(printerNameTF.getText(),
-		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(" "))));
+		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(" "))), trackingSelected);
 	    //Fields start at index 2
 	    for (int i = 2; i < count; i++) {
 		//If number value is checked make value double, if not then string
@@ -343,9 +343,15 @@ public class AddDeviceView extends javax.swing.JFrame
         if(studentSubmissionCB.isSelected()==false){
             if(JOptionPane.showConfirmDialog(null, "Continue? Students will NOT be required to submit reports for this device if unchecked (which IS recommended for lazer cutters). "
                     + "We recommend selecting 'No' and keeping checked if unsure.","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
+			{
                 studentSubmissionCB.setSelected(false);
-            else
-                studentSubmissionCB.setSelected(true);
+				trackingSelected = false;
+			}
+			else
+			{
+                studentSubmissionCB.setSelected(true);	
+				trackingSelected = true;
+			}
         }
     }//GEN-LAST:event_studentSubmissionCBActionPerformed
 

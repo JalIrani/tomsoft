@@ -205,7 +205,7 @@
     <Component class="javax.swing.JComboBox" name="printerBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters())" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentTrackedDevices()))" type="code"/>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="null" type="code"/>
