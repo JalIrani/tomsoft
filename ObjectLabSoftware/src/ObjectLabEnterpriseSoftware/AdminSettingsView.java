@@ -8,17 +8,12 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- *
- * @author Saurabh
- */
 public class AdminSettingsView extends javax.swing.JFrame 
 {
 	private static final String NAME_OF_PAGE = "Settings";
-	MainView home;
+	private static final MainView home = new MainView();
 
     public void AdminSettingsViewStart() {
-        home = new MainView();
         initComponents();
         setLocationRelativeTo(null);
           try {
@@ -32,12 +27,10 @@ public class AdminSettingsView extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(AdminSettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
           addWindowListener(new WindowAdapter() {
+			@Override
             public void windowClosing(WindowEvent e) {
-                // close sockets, etc
-                //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(true);
-                home.setVisible(true);
                 dispose();
+				home.resetAdminMode();
             }
         });
         setVisible(true);
@@ -155,9 +148,8 @@ public class AdminSettingsView extends javax.swing.JFrame
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        home.setVisible(true);
-        home.setPrintersVisible(true);
+		dispose();
+		home.resetAdminMode();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

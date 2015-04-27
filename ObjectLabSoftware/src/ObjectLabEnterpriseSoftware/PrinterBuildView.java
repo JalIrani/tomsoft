@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class PrinterBuildView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Build File Creator";	
-    private static MainView home;    
+    private static final MainView home = new MainView();    
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String BuildPrinter;
@@ -33,19 +33,6 @@ public class PrinterBuildView extends javax.swing.JFrame
         while (fileTableModel.getRowCount() > 0)
             fileTableModel.removeRow(0);
     }
-    
-//    private void updateView(String selectedPrinter)
-//    {
-//        clearEntries(fileTableModel);
-//            
-//        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(selectedPrinter);
-//            
-//        for (ArrayList<Object> retval1 : retval)
-//        {
-//            retval1.add(0, (Boolean) false);
-//            fileTableModel.addRow(retval1.toArray());
-//        }
-//    }
     
     private boolean valididateUserInput() 
     {
@@ -77,7 +64,6 @@ public class PrinterBuildView extends javax.swing.JFrame
     public void startMakeBuildProcess() 
     {
         inst = new FileManager();
-        home = new MainView();
         initComponents();
         try 
         {
@@ -103,9 +89,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // close sockets, etc
-               returnHome();
-               dispose();
+				dispose();
+				home.resetAdminMode();
             }
         });
     }
@@ -147,12 +132,6 @@ public class PrinterBuildView extends javax.swing.JFrame
       SolidscapeDialogView.SolidscapeDialogStart.windowClosing
       SolidscapeDialogView.submitBtnActionPerformed
      */
-    public void returnHome() {
-        
-        home.setPrintersVisible(true);
-        home.setVisible(true);
-        dispose();
-    }
 	
 	private static void updateView(ArrayList<ArrayList<Object>> view)
     {
@@ -415,9 +394,8 @@ public class PrinterBuildView extends javax.swing.JFrame
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        // TODO add your handling code here:
-        returnHome();
-        dispose();
+		dispose();
+		home.resetAdminMode();
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void filepathToSelectedPrinterBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedPrinterBuildActionPerformed

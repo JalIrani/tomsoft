@@ -44,9 +44,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
-                // close sockets, etc
-                home.setVisible(true);
                 dispose();
+				home.resetAdminMode();
             }
         });
         setVisible(true);
@@ -295,18 +294,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
         } else
         {
             dispose();
-            /*
-             Reset fields
-             */
             Reset_StudentSubmissionFields();
         }
     }
 
     private void Reset_StudentSubmissionFields()
     {
-        /*
-         Reset fields
-         */
         setVisible(false);
         fileLocation.setText(null);
         projName.setText(null);
@@ -367,8 +360,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        dispose();
-        home.setVisible(true);
+		dispose();
+		home.resetAdminMode();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed
