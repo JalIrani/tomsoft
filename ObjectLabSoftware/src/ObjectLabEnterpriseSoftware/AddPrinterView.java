@@ -107,7 +107,7 @@ public class AddPrinterView extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Add Printer");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 21, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
         getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
@@ -144,13 +144,17 @@ public class AddPrinterView extends javax.swing.JFrame
         });
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 90, 20));
 
-        cancelBtn.setText("Cancel");
+        cancelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
+        cancelBtn.setToolTipText("Back");
+        cancelBtn.setBorderPainted(false);
+        cancelBtn.setContentAreaFilled(false);
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 100, 20));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
         fieldTF0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -152,7 +152,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Add/Remove Classes");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 21, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
 
         addNewClass.setText("Add New Class");
@@ -161,15 +161,19 @@ public class ClassOptionsView extends javax.swing.JFrame
                 addNewClassActionPerformed(evt);
             }
         });
-        getContentPane().add(addNewClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+        getContentPane().add(addNewClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, -1, -1));
 
-        closeBtn.setText("Close");
+        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
+        closeBtn.setToolTipText("Back");
+        closeBtn.setBorderPainted(false);
+        closeBtn.setContentAreaFilled(false);
+        closeBtn.setFocusPainted(false);
         closeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 40));
 
         jScrollPane3.setViewportView(allClassList);
 

@@ -100,15 +100,15 @@ public class ReportsView extends javax.swing.JFrame
                 searchFilterActionPerformed(evt);
             }
         });
-        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 44, -1, -1));
+        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Object Lab Search");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         jLabel2.setText("Search:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 44, 43, 21));
-        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 44, 451, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 43, 21));
+        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 451, -1));
 
         searchBtn.setText("Search");
         searchBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -117,8 +117,8 @@ public class ReportsView extends javax.swing.JFrame
                 searchBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 44, 77, 20));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 76, 682, 10));
+        getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 77, 20));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 682, 10));
 
         jButton1.setText("Export Master Report");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -126,11 +126,11 @@ public class ReportsView extends javax.swing.JFrame
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Reports");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 92, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
         jComboBox1.setName("PrinterSelection"); // NOI18N
@@ -139,7 +139,7 @@ public class ReportsView extends javax.swing.JFrame
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
 
         reportsTable.setAutoCreateRowSorter(true);
         reportsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,7 +149,7 @@ public class ReportsView extends javax.swing.JFrame
     );
     jScrollPane1.setViewportView(reportsTable);
 
-    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 118, 682, 203));
+    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 682, 203));
 
     exportBtn.setText("Export");
     exportBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -158,20 +158,23 @@ public class ReportsView extends javax.swing.JFrame
             exportBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 61, 20));
+    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 61, 20));
 
-    closeBtn.setText("Close");
+    closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
     closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+    closeBtn.setBorderPainted(false);
+    closeBtn.setContentAreaFilled(false);
+    closeBtn.setFocusPainted(false);
     closeBtn.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             closeBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(634, 330, 60, 20));
+    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
     jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
     jLabel5.setText("jLabel5");
-    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 370));
+    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 430));
 
     jMenu1.setText("File");
     jMenuBar1.add(jMenu1);

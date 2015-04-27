@@ -57,13 +57,17 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cancelButton.setText("Cancel");
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
+        cancelButton.setToolTipText("Back");
+        cancelButton.setBorderPainted(false);
+        cancelButton.setContentAreaFilled(false);
+        cancelButton.setFocusPainted(false);
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 70, -1));
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 70, -1));
 
         classComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.returnAvailableClasses()));
         classComboBox.setSelectedItem(null);
@@ -71,7 +75,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         titleLabel.setText("Remove Class/Printer");
-        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 20));
+        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 210, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 360, 20));
 
         classLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
