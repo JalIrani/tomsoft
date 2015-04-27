@@ -319,6 +319,11 @@ public class MainView extends javax.swing.JFrame
 
     public void setPrintersVisible(boolean isVisible)
     {
+	studentButton.setVisible(!isVisible);
+	studentIdString.setVisible(!isVisible);
+	newStudentButton.setVisible(!isVisible);
+	AdminButton.setVisible(!isVisible);
+	AdminButton.setVisible(!isVisible);
         settingsButton.setVisible(isVisible);
         openProjectsButton.setVisible(isVisible);
         enterBuild.setVisible(isVisible);

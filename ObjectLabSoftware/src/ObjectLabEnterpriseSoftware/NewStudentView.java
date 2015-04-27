@@ -53,6 +53,7 @@ public class NewStudentView extends javax.swing.JFrame
 		dispose();
             }
         });
+	setLocationRelativeTo(null);
         setVisible(true);
         errorLabel.setVisible(false);
         //only accepts integers for new student TU ID
