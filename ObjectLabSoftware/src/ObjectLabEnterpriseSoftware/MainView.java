@@ -226,19 +226,18 @@ public class MainView extends javax.swing.JFrame
         dialogue.setVisible(true);
         dialogue.setLocationRelativeTo(this);
         dialogue.setResizable(false);
+		
+		//Handling code for proper submission
+		setPrintersVisible(true);
+		
         /* 
          Currently bypasses what is typed into dialogue for ease of testing
          password.equals(PASS) 
          */
 		hideStudentOptions();
-        if (true)
-        {
-            //studentSubmissionButton.setVisible(false);
-            setPrintersVisible(true);
-        } else
-        {
-            JOptionPane.showMessageDialog(new java.awt.Frame(), "Incorrect password! Access Denied!");
-        }
+
+        //    JOptionPane.showMessageDialog(new java.awt.Frame(), "Incorrect password! Access Denied!");
+
     }//GEN-LAST:event_AdminButtonActionPerformed
 
     private void ReportsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportsButtonActionPerformed

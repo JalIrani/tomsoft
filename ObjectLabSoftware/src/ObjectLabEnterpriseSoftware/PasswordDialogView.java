@@ -67,7 +67,8 @@ public class PasswordDialogView extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
-    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
+    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
+    {//GEN-HEADEREND:event_CancelButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_CancelButtonActionPerformed
