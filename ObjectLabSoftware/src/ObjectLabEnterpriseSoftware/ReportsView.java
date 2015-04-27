@@ -181,7 +181,7 @@ public class ReportsView extends javax.swing.JFrame
 
     jMenu2.setText("Help");
 
-    jMenuItem1.setText("Contents");
+    jMenuItem1.setText("User Guide");
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jMenuItem1ActionPerformed(evt);
@@ -234,11 +234,7 @@ public class ReportsView extends javax.swing.JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
+        UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
