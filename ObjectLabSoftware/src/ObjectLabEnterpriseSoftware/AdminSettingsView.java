@@ -35,8 +35,9 @@ public class AdminSettingsView extends javax.swing.JFrame
             public void windowClosing(WindowEvent e) {
                 // close sockets, etc
                 //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(false);
+                home.setPrintersVisible(true);
                 home.setVisible(true);
+                dispose();
             }
         });
         setVisible(true);
@@ -60,7 +61,6 @@ public class AdminSettingsView extends javax.swing.JFrame
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

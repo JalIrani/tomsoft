@@ -54,7 +54,9 @@ public class ArchiveView extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e)
             {
-                report.setEnabled(true);   
+                report.setEnabled(true);  
+                settings.AdminSettingsViewStart();
+                dispose();
             }
         });
     }
@@ -78,7 +80,7 @@ public class ArchiveView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Arhiving");
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
