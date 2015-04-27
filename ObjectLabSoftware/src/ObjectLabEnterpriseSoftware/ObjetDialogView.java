@@ -440,7 +440,7 @@ public class ObjetDialogView extends javax.swing.JFrame
    
    public static void returnHome() 
    {
-        home.setPrintersVisible(false);
+        home.setDevicesVisible(false);
         home.setVisible(true);
     }
    

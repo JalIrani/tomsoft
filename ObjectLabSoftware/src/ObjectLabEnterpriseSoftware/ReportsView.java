@@ -44,7 +44,7 @@ public class ReportsView extends javax.swing.JFrame
                     /* If they close the program then close out the window properly */
                     MainView home = new MainView();
                     home.setVisible(true);
-                    home.setPrintersVisible(true);
+                    home.setDevicesVisible(true);
                     dispose();                    
                 }
             }
@@ -197,7 +197,7 @@ public class ReportsView extends javax.swing.JFrame
         dispose();
         MainView home = new MainView();
         home.setVisible(true);
-        home.setPrintersVisible(true);
+        home.setDevicesVisible(true);
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed

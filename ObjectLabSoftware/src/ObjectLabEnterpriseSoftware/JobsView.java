@@ -67,7 +67,7 @@ public class JobsView extends javax.swing.JFrame
 		    
 		    MainView home = new MainView();
 		    home.setVisible(true);
-		    home.setPrintersVisible(true);
+		    home.setDevicesVisible(true);
                     dispose();
                 }
             }
@@ -406,7 +406,7 @@ public class JobsView extends javax.swing.JFrame
         dispose();
 	MainView home = new MainView();
 	home.setVisible(true);
-	home.setPrintersVisible(true);
+	home.setDevicesVisible(true);
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed

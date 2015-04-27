@@ -1,11 +1,9 @@
 package ObjectLabEnterpriseSoftware;
 
-import static ObjectLabEnterpriseSoftware.ZCorpDialogView.buildName;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -16,13 +14,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-public class PrinterBuildView extends javax.swing.JFrame 
+public class DeviceBuildView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Build File Creator";	
     private static MainView home;    
     private static DefaultTableModel fileTableModel;
     private static int countNumOfModels;
-    private static String BuildPrinter;
+    private static String BuildDevice;
     private static ArrayList buildInfo;
     private static DefaultTableModel modelA;
 
@@ -34,23 +32,10 @@ public class PrinterBuildView extends javax.swing.JFrame
             fileTableModel.removeRow(0);
     }
     
-//    private void updateView(String selectedPrinter)
-//    {
-//        clearEntries(fileTableModel);
-//            
-//        ArrayList<ArrayList<Object>> retval = UtilController.updatePrinterBuildView(selectedPrinter);
-//            
-//        for (ArrayList<Object> retval1 : retval)
-//        {
-//            retval1.add(0, (Boolean) false);
-//            fileTableModel.addRow(retval1.toArray());
-//        }
-//    }
-    
     private boolean valididateUserInput() 
     {
-        /* filepathToSelectedPrinterBuild is the file location to the build file */
-        if (filepathToSelectedPrinterBuild.getText().isEmpty()) 
+        /* filepathToSelectedDeviceBuild is the file location to the build file */
+        if (filepathToSelectedDeviceBuild.getText().isEmpty()) 
         {
             ErrorText.setText("Choose a build file above!");
             ErrorText.setVisible(true);
@@ -92,7 +77,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         } 
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
         {
-            java.util.logging.Logger.getLogger(PrinterBuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DeviceBuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         countNumOfModels = 0;
@@ -123,7 +108,7 @@ public class PrinterBuildView extends javax.swing.JFrame
             {
                 if ((Boolean) fileTableModel.getValueAt(z, 0)) 
                 {
-                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedPrinterBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
+                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedDeviceBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
                     countNumOfModels++;
                 }
             }
@@ -138,8 +123,8 @@ public class PrinterBuildView extends javax.swing.JFrame
      * This method is used to return to the homescreen after exiting select windows
 
  It is called from the following methods:
-      PrinterBuildView.startMakingBuildProcess.windowClosing
-      PrinterBuildView.closeBtnActionPerformed
+      DeviceBuildView.startMakingBuildProcess.windowClosing
+      DeviceBuildView.closeBtnActionPerformed
       ObjetDialogView.ObjetDialogStart.windowClosing
       ObjetDialogView.submitBtnActionPerformed
       ZCorpDialogView.ZCorpDialogStart.windowClosing
@@ -149,7 +134,7 @@ public class PrinterBuildView extends javax.swing.JFrame
      */
     public void returnHome() {
         
-        home.setPrintersVisible(true);
+        home.setDevicesVisible(true);
         home.setVisible(true);
         dispose();
     }
@@ -180,7 +165,8 @@ public class PrinterBuildView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -193,15 +179,15 @@ public class PrinterBuildView extends javax.swing.JFrame
         closeBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         buildLbl = new javax.swing.JLabel();
-        filepathToSelectedPrinterBuild = new javax.swing.JTextField();
+        filepathToSelectedDeviceBuild = new javax.swing.JTextField();
         browseBtn = new javax.swing.JButton();
         ErrorText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         stlFileTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        printerNameComboBox = new javax.swing.JComboBox();
+        deviceNameComboBox = new javax.swing.JComboBox();
         jScrollPane4 = new javax.swing.JScrollPane();
-        printerInputTable = new javax.swing.JTable();
+        deviceInputTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         confirmBuildButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -211,7 +197,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         helpMenu = new javax.swing.JMenu();
         userGuide = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -233,16 +220,20 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
 
         Submit_Button.setText("Submit");
-        Submit_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Submit_Button.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 Submit_ButtonActionPerformed(evt);
             }
         });
         getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 90, 20));
 
         closeBtn.setText("Close");
-        closeBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        closeBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 closeBtnActionPerformed(evt);
             }
         });
@@ -255,17 +246,21 @@ public class PrinterBuildView extends javax.swing.JFrame
         buildLbl.setText("Build File Name:");
         getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        filepathToSelectedPrinterBuild.setEditable(false);
-        filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filepathToSelectedPrinterBuildActionPerformed(evt);
+        filepathToSelectedDeviceBuild.setEditable(false);
+        filepathToSelectedDeviceBuild.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                filepathToSelectedDeviceBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
+        getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
 
         browseBtn.setText("Browse");
-        browseBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        browseBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 browseBtnActionPerformed(evt);
             }
         });
@@ -279,30 +274,38 @@ public class PrinterBuildView extends javax.swing.JFrame
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
 
             },
-            new String [] {
+            new String []
+            {
                 "", "Project Title", "Date Submitted"
             }
-        ) {
-            Class[] types = new Class [] {
+        )
+        {
+            Class[] types = new Class []
+            {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
+            boolean[] canEdit = new boolean []
+            {
                 true, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex)
+            {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(stlFileTable);
-        if (stlFileTable.getColumnModel().getColumnCount() > 0) {
+        if (stlFileTable.getColumnModel().getColumnCount() > 0)
+        {
             stlFileTable.getColumnModel().getColumn(0).setMinWidth(30);
             stlFileTable.getColumnModel().getColumn(0).setMaxWidth(30);
             stlFileTable.getColumnModel().getColumn(1).setResizable(false);
@@ -311,22 +314,24 @@ public class PrinterBuildView extends javax.swing.JFrame
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 360, 190));
 
-        jLabel2.setText("Select Printer:");
+        jLabel2.setText("Select Device:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
-        printerNameComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printerNameComboBoxActionPerformed(evt);
+        deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
+        deviceNameComboBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deviceNameComboBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, -1));
+        getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, -1));
 
-        printerInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
+        deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
         );
-        printerInputTable.setRowHeight(24);
-        jScrollPane4.setViewportView(printerInputTable);
+        deviceInputTable.setRowHeight(24);
+        jScrollPane4.setViewportView(deviceInputTable);
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 360, 90));
 
@@ -334,8 +339,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         confirmBuildButton.setText("Confirm Build");
-        confirmBuildButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 confirmBuildButtonActionPerformed(evt);
             }
         });
@@ -347,8 +354,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         fileMenu.setText("File");
 
         reportsMenu.setText("Reports");
-        reportsMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        reportsMenu.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 reportsMenuActionPerformed(evt);
             }
         });
@@ -359,8 +368,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         helpMenu.setText("Help");
 
         userGuide.setText("User Guide");
-        userGuide.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userGuide.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 userGuideActionPerformed(evt);
             }
         });
@@ -380,10 +391,10 @@ public class PrinterBuildView extends javax.swing.JFrame
 					  JOptionPane.WARNING_MESSAGE);  
          buildInfo = new ArrayList();
 
-        //making sure a printer was selected before enter build is alowed to function
-        if (printerNameComboBox.getSelectedItem().equals(""))
+        //making sure a device was selected before enter build is alowed to function
+        if (deviceNameComboBox.getSelectedItem().equals(""))
         {
-            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", 
+            JOptionPane.showMessageDialog(null, "You must select a device before you complete build", 
 					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
@@ -399,7 +410,7 @@ public class PrinterBuildView extends javax.swing.JFrame
             {
 
                 //error checking for values not entered
-                /*if(printerInputTable.getValueAt(1, i+1).equals(null)){
+                /*if(deviceInputTable.getValueAt(1, i+1).equals(null)){
                  JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
                  return;
                  }*/
@@ -416,9 +427,9 @@ public class PrinterBuildView extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_closeBtnActionPerformed
 
-    private void filepathToSelectedPrinterBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedPrinterBuildActionPerformed
+    private void filepathToSelectedDeviceBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedDeviceBuildActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_filepathToSelectedPrinterBuildActionPerformed
+    }//GEN-LAST:event_filepathToSelectedDeviceBuildActionPerformed
 
     /**
      * Handles creating the file browser when browsing
@@ -433,11 +444,11 @@ public class PrinterBuildView extends javax.swing.JFrame
         {
             File myFile = chooser.getSelectedFile();
             //String fileName = myFile.getName();
-            filepathToSelectedPrinterBuild.setText(myFile.getAbsolutePath().replaceAll("'", ""));
+            filepathToSelectedDeviceBuild.setText(myFile.getAbsolutePath().replaceAll("'", ""));
         }
         
-        if (!filepathToSelectedPrinterBuild.getText().isEmpty())
-            updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
+        if (!filepathToSelectedDeviceBuild.getText().isEmpty())
+            updateView(UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
         
     }//GEN-LAST:event_browseBtnActionPerformed
    
@@ -454,51 +465,51 @@ public class PrinterBuildView extends javax.swing.JFrame
 
     private void confirmBuildButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_confirmBuildButtonActionPerformed
     {//GEN-HEADEREND:event_confirmBuildButtonActionPerformed
-        if (printerNameComboBox.getSelectedItem().equals(""))
+        if (deviceNameComboBox.getSelectedItem().equals(""))
         {
-            JOptionPane.showMessageDialog(null, "You must select a printer before you complete build", 
+            JOptionPane.showMessageDialog(null, "You must select a device before you complete build", 
 					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
         
-        ArrayList<ArrayList<Object>> printerHeaders;
+        ArrayList<ArrayList<Object>> deviceHeaders;
         try
         {
-            printerHeaders = UtilController.returnTableHeader(BuildPrinter);
-           // printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
+            deviceHeaders = UtilController.returnTableHeader(BuildDevice);
+           // deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceHeaders.toArray(), 1));
 
         } catch (SQLException ex)
         {
-            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeviceBuildView.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
     }//GEN-LAST:event_confirmBuildButtonActionPerformed
 
-    private void printerNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printerNameComboBoxActionPerformed
-    {//GEN-HEADEREND:event_printerNameComboBoxActionPerformed
-        updateView(UtilController.returnApprovedBuildsForPrinter((String) printerNameComboBox.getSelectedItem()));
-        BuildPrinter = (String) printerNameComboBox.getSelectedItem();
-        Object[] printerFields;
-        System.out.println(BuildPrinter);
-        ArrayList<ArrayList<Object>> printerHeaders = new <ArrayList<Object>>ArrayList();
+    private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
+    {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
+        updateView(UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
+        BuildDevice = (String) deviceNameComboBox.getSelectedItem();
+        Object[] deviceFields;
+        System.out.println(BuildDevice);
+        ArrayList<ArrayList<Object>> deviceHeaders = new <ArrayList<Object>>ArrayList();
         try
         {
-            printerHeaders = UtilController.returnTableHeader(BuildPrinter);
-            printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerHeaders.toArray(), 1));
+            deviceHeaders = UtilController.returnTableHeader(BuildDevice);
+            deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceHeaders.toArray(), 1));
         } catch (SQLException ex)
         {
-            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DeviceBuildView.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        for(int i = 0; i<printerHeaders.size(); i++){
-//            System.out.println(printerHeaders.get(i).toString());
+//            System.out.println(deviceHeaders.get(i).toString());
 //        }
-        printerFields = printerHeaders.get(0).toArray();
-        for(int i= 0; i<printerFields.length;i++){
-            System.out.println(printerFields[i]);
+        deviceFields = deviceHeaders.get(0).toArray();
+        for(int i= 0; i<deviceFields.length;i++){
+            System.out.println(deviceFields[i]);
         }
-        printerInputTable.setModel(new javax.swing.table.DefaultTableModel(printerFields, 1));
+        deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceFields, 1));
 
-    }//GEN-LAST:event_printerNameComboBoxActionPerformed
+    }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -508,8 +519,10 @@ public class PrinterBuildView extends javax.swing.JFrame
     private javax.swing.JLabel buildLbl;
     private javax.swing.JButton closeBtn;
     private javax.swing.JButton confirmBuildButton;
+    private javax.swing.JTable deviceInputTable;
+    private javax.swing.JComboBox deviceNameComboBox;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JTextField filepathToSelectedPrinterBuild;
+    private javax.swing.JTextField filepathToSelectedDeviceBuild;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -525,8 +538,6 @@ public class PrinterBuildView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTable printerInputTable;
-    private javax.swing.JComboBox printerNameComboBox;
     private javax.swing.JMenuItem reportsMenu;
     private javax.swing.JTable stlFileTable;
     private javax.swing.JMenuItem userGuide;

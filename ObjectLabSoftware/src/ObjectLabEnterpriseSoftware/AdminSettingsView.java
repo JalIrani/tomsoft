@@ -35,7 +35,7 @@ public class AdminSettingsView extends javax.swing.JFrame
             public void windowClosing(WindowEvent e) {
                 // close sockets, etc
                 //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(true);
+                home.setDevicesVisible(true);
                 home.setVisible(true);
                 dispose();
             }
@@ -144,7 +144,7 @@ public class AdminSettingsView extends javax.swing.JFrame
     }//GEN-LAST:event_jButton4ActionPerformed
 
         private void addPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrinterButtonActionPerformed
-		AddPrinterView ap = new AddPrinterView();
+		AddDeviceView ap = new AddDeviceView();
 		ap.AddPrinterStart();
                 dispose();
         }//GEN-LAST:event_addPrinterButtonActionPerformed
@@ -153,7 +153,7 @@ public class AdminSettingsView extends javax.swing.JFrame
         // TODO add your handling code here:
         this.dispose();
         home.setVisible(true);
-        home.setPrintersVisible(true);
+        home.setDevicesVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
