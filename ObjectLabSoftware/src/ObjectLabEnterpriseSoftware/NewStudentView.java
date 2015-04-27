@@ -50,9 +50,9 @@ public class NewStudentView extends javax.swing.JFrame
                 //home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
                 home.setVisible(true);
+		dispose();
             }
         });
-
         setVisible(true);
         errorLabel.setVisible(false);
         //only accepts integers for new student TU ID
@@ -99,7 +99,7 @@ public class NewStudentView extends javax.swing.JFrame
         emailEntry = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

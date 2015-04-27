@@ -46,10 +46,14 @@ public class ClassOptionsView extends javax.swing.JFrame
 		classNumberL.setVisible(false);
 		sectionNumberL.setVisible(false);
 		className.setVisible(false);
+		className.setText("");
 		classNumber.setVisible(false);
+		classNumber.setText("");
                 classProfessor.setVisible(false);
+		classProfessor.setText("");
                 classProfessorL.setVisible(false);
 		sectionNumber.setVisible(false);
+		sectionNumber.setText("");
 		cancelBtn.setVisible(false);
 		addNewButton.setVisible(false);
 	}
@@ -401,6 +405,7 @@ public class ClassOptionsView extends javax.swing.JFrame
             classes.add(currentClassListModel.elementAt(i).toString());
         
         UtilController.updateAvailableClasses(classes);
+	settings.AdminSettingsViewStart();
         dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
 

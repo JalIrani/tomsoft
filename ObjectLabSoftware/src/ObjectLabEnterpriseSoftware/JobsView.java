@@ -28,7 +28,7 @@ public class JobsView extends javax.swing.JFrame
     static ReportsView reports = null;
     private static FileManager inst = null;
     
-    private static void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
+    private void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
         
@@ -39,6 +39,13 @@ public class JobsView extends javax.swing.JFrame
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view) 
             pendingJobsView.addRow(row.toArray());
+	if(!status.equals("pending")){
+	    ApprovedButton.setVisible(false);
+	    RejectButton.setVisible(false);
+	}else{
+	    ApprovedButton.setVisible(true);
+	    RejectButton.setVisible(true);
+	}
     }
     
     public JobsView() 
@@ -57,8 +64,11 @@ public class JobsView extends javax.swing.JFrame
                 public void windowClosing(WindowEvent we) 
                 {
                     /* If they close the program then close out the window properly */
+		    
+		    MainView home = new MainView();
+		    home.setVisible(true);
+		    home.setPrintersVisible(true);
                     dispose();
-                    System.exit(0);
                 }
             }
         );
@@ -94,8 +104,7 @@ public class JobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -119,8 +128,7 @@ public class JobsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -133,7 +141,7 @@ public class JobsView extends javax.swing.JFrame
         jTextArea1.setText("Art 101-001\nArt 201-002\nArt 401-004\nArt 501-005\nArt 601-006\nArt 701-007\nArt 801-009");
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -145,10 +153,8 @@ public class JobsView extends javax.swing.JFrame
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ApprovedButtonActionPerformed(evt);
             }
         });
@@ -156,20 +162,16 @@ public class JobsView extends javax.swing.JFrame
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        RejectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RejectButtonActionPerformed(evt);
             }
         });
         getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 490, 70, 20));
 
         openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openFileInProgramActionPerformed(evt);
             }
         });
@@ -193,10 +195,8 @@ public class JobsView extends javax.swing.JFrame
             getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 750, 410));
 
             backToMainMenu.setText("Back");
-            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
                 }
             });
@@ -206,10 +206,8 @@ public class JobsView extends javax.swing.JFrame
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 60, 20));
 
             jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved" }));
-            jobStatus.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jobStatus.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jobStatusActionPerformed(evt);
                 }
             });
@@ -221,20 +219,16 @@ public class JobsView extends javax.swing.JFrame
             jMenu1.setText("File");
 
             jMenuItem1.setText("Reports");
-            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jMenuItem1ActionPerformed(evt);
                 }
             });
             jMenu1.add(jMenuItem1);
 
             showClassEditorOptions.setText("Class Settings");
-            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     showClassEditorOptionsActionPerformed(evt);
                 }
             });
@@ -245,10 +239,8 @@ public class JobsView extends javax.swing.JFrame
             jMenu2.setText("Help");
 
             jMenuItem2.setText("Contents");
-            jMenuItem2.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jMenuItem2ActionPerformed(evt);
                 }
             });
@@ -412,7 +404,9 @@ public class JobsView extends javax.swing.JFrame
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         // TODO add your handling code here:
         dispose();
-        new MainView().setVisible(true); 
+	MainView home = new MainView();
+	home.setVisible(true);
+	home.setPrintersVisible(true);
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed
