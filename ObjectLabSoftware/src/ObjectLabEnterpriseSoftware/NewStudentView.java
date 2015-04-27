@@ -53,6 +53,7 @@ public class NewStudentView extends javax.swing.JFrame
         });
         
         setVisible(true);
+        errorLabel.setVisible(false);
         //only accepts integers for new student TU ID
         tuIDEntry.addKeyListener(new KeyAdapter() {
         public void keyTyped(KeyEvent e) {
@@ -86,6 +87,7 @@ public class NewStudentView extends javax.swing.JFrame
         netID = new javax.swing.JLabel();
         tuID = new javax.swing.JLabel();
         emailExtension = new javax.swing.JLabel();
+        errorLabel = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         tuIDEntry = new javax.swing.JTextField();
         firstNameEntry = new javax.swing.JTextField();
@@ -121,6 +123,11 @@ public class NewStudentView extends javax.swing.JFrame
         emailExtension.setForeground(new java.awt.Color(255, 255, 255));
         emailExtension.setText("ex:  jsmith1@gmail.com");
         getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, 30));
+
+        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorLabel.setText("ERROR");
+        errorLabel.setToolTipText("");
+        getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 120, -1));
 
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +191,24 @@ public class NewStudentView extends javax.swing.JFrame
             }
         }
         if(!exit)
-                System.out.println("ERROR EMAIL TEST FIELD IS MESSED");
+        {
+           
+        }else 
+            if(tuID.length()!=7)
+        {
+             JOptionPane.showMessageDialog(this,"Id is not 7 digits");
+		    exit=false;
+        }else
+
+        if(UtilController.userIDExist(Integer.parseInt(tuID)))
+        {
+             JOptionPane.showMessageDialog(this,"Id already exists");
+		    exit=false;
+            //possibly just update the user data here
+        }else
+        {
+            UtilController.addUser(tuID, firstName, lastName, email);
+        }
         
     }//GEN-LAST:event_submitActionPerformed
 
@@ -235,6 +259,7 @@ public class NewStudentView extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailEntry;
     private javax.swing.JLabel emailExtension;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameEntry;
     private javax.swing.JLabel lastName;

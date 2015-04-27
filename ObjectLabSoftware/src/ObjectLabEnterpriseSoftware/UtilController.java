@@ -921,6 +921,12 @@ public class UtilController
         dbconn.closeDBConnection();
         return temp;
     }
+    public static void addUser(String id,String firstname, String lastname, String email)
+    {
+         SQLMethods dbconn = new SQLMethods();
+       dbconn.insertIntoUsers(Integer.parseInt(id), firstname, lastname, email);
+        dbconn.closeDBConnection();
+    }
     
      public static ArrayList<Object> returnTableHeader(String printerName) throws SQLException{
         SQLMethods dbconn = new SQLMethods();
