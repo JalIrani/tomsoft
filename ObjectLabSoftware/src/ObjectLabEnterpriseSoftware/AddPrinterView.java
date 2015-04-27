@@ -64,6 +64,7 @@ public class AddPrinterView extends javax.swing.JFrame
                             if(JOptionPane.showConfirmDialog(null, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                                 settings.AdminSettingsViewStart();
                                 dispose();
+				break;
                             }
                         }
                     }
@@ -203,6 +204,7 @@ public class AddPrinterView extends javax.swing.JFrame
 		if(JOptionPane.showConfirmDialog(this, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                     settings.AdminSettingsViewStart();
                     dispose();
+		    break;
                 }
 	    }
 	}
