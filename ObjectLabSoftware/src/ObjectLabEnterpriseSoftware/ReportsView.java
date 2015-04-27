@@ -58,6 +58,7 @@ public class ReportsView extends javax.swing.JFrame
         for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
             model.addRow(retval1.toArray());
         }
+	setLocationRelativeTo(null);
         setVisible(true);
     }
 
