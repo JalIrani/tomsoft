@@ -917,11 +917,11 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
-    public static boolean userIDExist(String id)
+    public static boolean userIDExist(String studentId)
     {
         boolean temp = false;
         SQLMethods dbconn = new SQLMethods();
-        ResultSet usersCountQuery = dbconn.selectIDcount("users", id);
+        ResultSet usersCountQuery = dbconn.checkUserExists(studentId);
         try
         {
             usersCountQuery.first();
@@ -938,10 +938,12 @@ public class UtilController
         return temp;
     }
     
-    public static int addUser(String id, String firstname, String lastname, String email)
+    public static int addUser(String studentId, String firstname, String lastname, String email)
     {
+		if(userIDExist(studentId))
+			return -25;
         SQLMethods dbconn = new SQLMethods();
-        int flag = dbconn.insertIntoUsers(id, firstname, lastname, email);
+        int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
         dbconn.closeDBConnection();
 		
 		return flag;

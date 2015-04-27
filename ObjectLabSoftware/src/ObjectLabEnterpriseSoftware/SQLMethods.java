@@ -187,23 +187,6 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet selectIDcount(String table, String id)
-    {  
-        res = null;
-        try
-        {
-            stmt = this.conn.prepareStatement("SELECT count(*) as doesExist FROM " 
-					+ table + " WHERE towson_id = ?;");
-            stmt.setString(1, id);
-            res = stmt.executeQuery();
-            
-        } catch (SQLException e)
-        {
-            System.err.println("SQL Execution Error.");
-        }
-        return res;
-    }
-
     public ResultSet selectIDFromJob(String id)
     {
         res = null;
@@ -424,9 +407,10 @@ public class SQLMethods
             e.printStackTrace();
         }
     }
-
-	public int checkUser(String userID)
+	
+	public ResultSet checkUserExists(String userID)
 	{
+		res = null;
 		try
 		{
 			stmt = conn.prepareStatement
@@ -436,18 +420,17 @@ public class SQLMethods
 			
 			stmt.setString(1, userID);
 			//boolean to integer, 1=true, 0=false
-            return (stmt.executeQuery().next()) ? 1 : 0;
+            res = stmt.executeQuery();
+			return res;
 		} catch (Exception e)
         {
             e.printStackTrace();
         }
-        return -1;
+		return res;
 	}
+	
     public int insertIntoUsers(String idusers, String firstName, String lastName, String email)
     {
-		if(checkUser(idusers) > 0)
-				//User ID exists
-				return -25;
         try
         {
             stmt = conn.prepareStatement
