@@ -276,15 +276,7 @@ public class MainView extends javax.swing.JFrame
 
     private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
         // TODO add your handling code here:
-        if(Desktop.isDesktopSupported()){
-            try {
-                Desktop.getDesktop().browse(new URI("http://triton.towson.edu/~jirani2/adminHelp.pdf"));
-            } catch (IOException ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        UtilController.openAdminHelpPage();
     }//GEN-LAST:event_userGuideButtonActionPerformed
 
     private void logoutBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBActionPerformed

@@ -1,7 +1,10 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -51,6 +54,18 @@ public class UtilController
         }
     }
 
+    public static void openAdminHelpPage(){
+        if(Desktop.isDesktopSupported()){
+            try {
+                Desktop.getDesktop().browse(new URI("http://triton.towson.edu/~jirani2/adminHelp.pdf"));
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+}
+    
     public static ArrayList<String> getListOfPrinters()
     {
         SQLMethods dbconn = new SQLMethods();
