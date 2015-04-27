@@ -1,5 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,19 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         settings = new AdminSettingsView();
         setLocationRelativeTo(null);
         setVisible(true);
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    /* If they close the program then close out the window properly */
+                    settings.AdminSettingsViewStart();
+                    dispose();
+                }
+            }
+        );
     }
 
     /**
@@ -38,7 +53,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         removePrinterButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

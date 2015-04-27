@@ -60,7 +60,9 @@ public class PendingJobsView extends javax.swing.JFrame
                 {
                     /* If they close the program then close out the window properly */
                     dispose();
-                    System.exit(0);
+                    home = new MainView();
+                    home.setVisible(true);
+                    home.setPrintersVisible(true);
                 }
             }
         );
@@ -131,7 +133,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jTextArea1.setText("Art 101-001\nArt 201-002\nArt 401-004\nArt 501-005\nArt 601-006\nArt 701-007\nArt 801-009");
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

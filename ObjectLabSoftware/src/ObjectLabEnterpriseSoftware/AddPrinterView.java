@@ -1,5 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JCheckBox;
@@ -32,6 +34,8 @@ public class AddPrinterView extends javax.swing.JFrame
     //Current count of labels and fields
     private int count = COUNTMIN;
 
+    
+    boolean exit = true;
     public void AddPrinterStart() {
         initComponents();
         settings = new AdminSettingsView();
@@ -46,6 +50,31 @@ public class AddPrinterView extends javax.swing.JFrame
         xL=fieldL0.getX();
         xB=numberCB.getX();
         y=fieldTF0.getY();
+        addWindowListener
+        (
+            new WindowAdapter() 
+            {
+                @Override
+                public void windowClosing(WindowEvent we) 
+                {
+                    /* If they close the program then close out the window properly */
+                    for (int i = 0; i < count; i++) {
+                        if (!fields.get(i).getText().equals("")) {
+                            exit = false;
+                            if(JOptionPane.showConfirmDialog(null, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+                                settings.AdminSettingsViewStart();
+                                dispose();
+                            }
+                        }
+                    }
+                    if(exit==true){
+                        settings.AdminSettingsViewStart();
+                        dispose();
+                    }
+                    exit=true;
+                }
+            }
+        );
         setVisible(true);
     }
 
@@ -71,7 +100,7 @@ public class AddPrinterView extends javax.swing.JFrame
         EditMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,8 +197,21 @@ public class AddPrinterView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-	    settings.AdminSettingsViewStart();
-	    dispose();
+	for (int i = 0; i < count; i++) {
+	    if (!fields.get(i).getText().equals("")) {
+                exit=false;
+		if(JOptionPane.showConfirmDialog(this, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+                    settings.AdminSettingsViewStart();
+                    dispose();
+                }
+	    }
+	}
+        if(exit==true){
+            settings.AdminSettingsViewStart();
+            dispose();
+        }
+        exit=true;
+        
     }//GEN-LAST:event_cancelBtnActionPerformed
 
 

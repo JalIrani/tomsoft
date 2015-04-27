@@ -1,14 +1,9 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.awt.Desktop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -50,8 +45,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
             public void windowClosing(WindowEvent e)
             {
                 // close sockets, etc
-                home.setPrintersVisible(false);
                 home.setVisible(true);
+                dispose();
             }
         });
         setVisible(true);
@@ -95,7 +90,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
@@ -223,7 +218,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         editMenu.setText("Help");
 
-        jMenuItem1.setText("User Guide");
+        jMenuItem1.setText("Contents");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -344,24 +339,13 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-//        try
-//        {
-//            FileManager instance = new FileManager();
-//            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
-//        } catch (IOException e)
-//        {
-//            JOptionPane.showMessageDialog(null, e);  //print the error
-//        }
-        
-        
-        if(Desktop.isDesktopSupported()){
-            try {
-                Desktop.getDesktop().browse(new URI("http://triton.towson.edu/~jirani2/studentHelp.pdf"));
-            } catch (IOException ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try
+        {
+            FileManager instance = new FileManager();
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
+        } catch (IOException e)
+        {
+            JOptionPane.showMessageDialog(null, e);  //print the error
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
