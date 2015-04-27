@@ -43,6 +43,7 @@ public class NewStudentView extends javax.swing.JFrame
 
         addWindowListener(new WindowAdapter()
         {
+            @Override
             public void windowClosing(WindowEvent e)
             {
                 // close sockets, etc
@@ -176,39 +177,40 @@ public class NewStudentView extends javax.swing.JFrame
         String firstName = firstNameEntry.getText();
         String lastName = lastNameEntry.getText();
         String email = emailEntry.getText();
+        boolean validEmailAdr = true;
 
-        boolean exit = true;
         if (tuID.equals("") || firstName.equals("") || lastName.equals("") || email.equals(""))
         {
             JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
-            exit = false;
-        }
-
-        if (emailEntry.getText().isEmpty())
-        {
-            exit = false;
-        } else
+        } else if (!email.isEmpty())
         {
             try
             {
-                new InternetAddress(emailEntry.getText()).validate();
+                new InternetAddress(email).validate();
             } catch (AddressException e)
             {
-                exit = false;
+                System.out.println(e);
+                JOptionPane.showMessageDialog(this, "Please enter a valid email address");
+                validEmailAdr = false;
+            }
+
+            if (validEmailAdr)
+            {
+                if (tuID.length() != 7)
+                {
+                    JOptionPane.showMessageDialog(this, "Please enter an ID that is 7 digits in length");
+                } else
+                {
+                    JOptionPane.showMessageDialog(this, "Id already exists. Updating student data.");
+                    // UtilController.addUser(tuID, firstName, lastName, email);
+                    dispose();
+                    home.setPrintersVisible(false);
+                    home.setVisible(true);
+                }
             }
         }
 
-        if (exit && tuID.length() != 7)
-        {
-            JOptionPane.showMessageDialog(this, "Id is not 7 digits");
-        } else
-        {
-            JOptionPane.showMessageDialog(this, "Id already exists. Updating data.");
-            UtilController.addUser(tuID, firstName, lastName, email);
-            //possibly just update the user data here
-        }
-        
-        
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void emailEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailEntryActionPerformed
