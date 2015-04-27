@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.KeyAdapter;
@@ -14,64 +13,68 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.swing.JOptionPane;
 
-public class NewStudentView extends javax.swing.JFrame 
+public class NewStudentView extends javax.swing.JFrame
 {
-	private static final String NAME_OF_PAGE = "New Student";
 
-    public static SQLMethods dba;
-    MainView home;
-    
-    public void NewStudentViewStart(){
-        
-        home = new MainView();
-        dba = new SQLMethods();
+    private static final String NAME_OF_PAGE = "New Student";
+
+    private static MainView home = new MainView();
+
+    public void NewStudentViewStart()
+    {
         initComponents();
-        
-        
+
         //have database send in saved courses from admin page 
-        
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Windows".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
 
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-         addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
                 // close sockets, etc
-               //home.studentSubmissionButton.setVisible(false);
+                //home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
                 home.setVisible(true);
 		dispose();
             }
         });
-        setLocationRelativeTo(null);
         setVisible(true);
+        errorLabel.setVisible(false);
         //only accepts integers for new student TU ID
-        tuIDEntry.addKeyListener(new KeyAdapter() {
-        public void keyTyped(KeyEvent e) {
-          char c = e.getKeyChar();
-          if (!((c >= '0') && (c <= '9') ||
-             (c == KeyEvent.VK_BACK_SPACE) ||
-             (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            e.consume();
-          }
-        }
-  });
-        
+        tuIDEntry.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char c = e.getKeyChar();
+                if (!((c >= '0') && (c <= '9')
+                        || (c == KeyEvent.VK_BACK_SPACE)
+                        || (c == KeyEvent.VK_DELETE)))
+                {
+                    getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+
     }
     //public NewStudentView() {  
     //}
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,7 +82,8 @@ public class NewStudentView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         newStudentLabel = new javax.swing.JLabel();
         firstName = new javax.swing.JLabel();
@@ -87,53 +91,56 @@ public class NewStudentView extends javax.swing.JFrame
         netID = new javax.swing.JLabel();
         tuID = new javax.swing.JLabel();
         emailExtension = new javax.swing.JLabel();
+        errorLabel = new javax.swing.JLabel();
         submit = new javax.swing.JButton();
         tuIDEntry = new javax.swing.JTextField();
         firstNameEntry = new javax.swing.JTextField();
         lastNameEntry = new javax.swing.JTextField();
         emailEntry = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        netIDlEntry = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        newStudentLabel.setForeground(new java.awt.Color(255, 255, 255));
         newStudentLabel.setText("New Student");
         getContentPane().add(newStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
 
-        firstName.setForeground(new java.awt.Color(255, 255, 255));
         firstName.setText("First Name:");
         getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
 
-        lastName.setForeground(new java.awt.Color(255, 255, 255));
         lastName.setText("Last Name:");
         getContentPane().add(lastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
-        netID.setForeground(new java.awt.Color(255, 255, 255));
         netID.setText("Email:");
         getContentPane().add(netID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, -1, -1));
 
-        tuID.setForeground(new java.awt.Color(255, 255, 255));
         tuID.setText("TU ID:");
         getContentPane().add(tuID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
-        emailExtension.setForeground(new java.awt.Color(255, 255, 255));
         emailExtension.setText("ex:  jsmith1@gmail.com");
         getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, 30));
 
+        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorLabel.setText("ERROR");
+        errorLabel.setToolTipText("");
+        getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 120, -1));
+
         submit.setText("Submit");
-        submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 submitActionPerformed(evt);
             }
         });
         getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
 
-        tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        tuIDEntry.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 tuIDEntryActionPerformed(evt);
             }
         });
@@ -141,61 +148,74 @@ public class NewStudentView extends javax.swing.JFrame
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, -1));
 
-        emailEntry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        emailEntry.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 emailEntryActionPerformed(evt);
             }
         });
         getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 170, -1));
 
         jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
-
-        netIDlEntry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
-        getContentPane().add(netIDlEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-        
-        
+
         String tuID = tuIDEntry.getText();
         String firstName = firstNameEntry.getText();
         String lastName = lastNameEntry.getText();
         String email = emailEntry.getText();
-        
-        boolean exit=true;
-	    if(tuID.equals("")||firstName.equals("")||lastName.equals("")||email.equals("")){
-		    JOptionPane.showMessageDialog(this,"Cannot save with empty fields!");
-		    exit=false;
-	    }
-	    
-        if (emailEntry.getText().isEmpty()) 
-		{
-            exit = false;
-        } else 
-		{
-            try 
-			{
-                new InternetAddress(emailEntry.getText()).validate();
-            } catch (AddressException e) 
-			{
-                exit = false;
+        boolean validEmailAdr = true;
+
+        if (tuID.equals("") || firstName.equals("") || lastName.equals("") || email.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
+        } else if (!email.isEmpty())
+        {
+            try
+            {
+                new InternetAddress(email).validate();
+            } catch (AddressException e)
+            {
+                System.out.println(e);
+                JOptionPane.showMessageDialog(this, "Please enter a valid email address");
+                validEmailAdr = false;
+            }
+			int userFlag;
+            if (validEmailAdr)
+            {
+                if (tuID.length() != 7)
+                {
+                    JOptionPane.showMessageDialog(this, "Please enter an ID that is 7 digits in length");
+                } else if((userFlag = UtilController.addUser(tuID, firstName, lastName, email)) > 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Updating student data.");
+                    dispose();
+                    home.setPrintersVisible(false);
+                    home.setVisible(true);
+				} else if(userFlag == -25)
+				{
+                    JOptionPane.showMessageDialog(this, "Error, student ID already exists in database.");	
+				}
+				else {
+                    JOptionPane.showMessageDialog(this, "Error adding student into database.");	
+				}
             }
         }
-        if(exit==true){
-            home.setVisible(true);
-            dispose();
-        }else
-            System.out.println("ERROR EMAIL TEST FIELD IS MESSED");
-        
+
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void emailEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailEntryActionPerformed
@@ -207,60 +227,23 @@ public class NewStudentView extends javax.swing.JFrame
     }//GEN-LAST:event_tuIDEntryActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        home.setVisible(true);
         dispose();
+        home.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewStudentView().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailEntry;
     private javax.swing.JLabel emailExtension;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameEntry;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameEntry;
     private javax.swing.JLabel netID;
-    private javax.swing.JLabel netIDlEntry;
     private javax.swing.JLabel newStudentLabel;
     private javax.swing.JButton submit;
     private javax.swing.JLabel tuID;
     private javax.swing.JTextField tuIDEntry;
     // End of variables declaration//GEN-END:variables
 }
-

@@ -12,16 +12,16 @@ public class StudentSubmissionView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Student Submission";
     private static final MainView home = new MainView();
-    private int userID;
+    private String userID;
 
-    public void studentSubmissionStart(int id)
+    public void studentSubmissionStart(String id)
     {
         initComponents();
         hideErrorFields();
         
         /* set valid id passed in from MainView.java as our userID for submitting files... */
-        userID = id;
-        idOfUser.setText(Integer.toString(userID));
+		userID = id;
+        idOfUser.setText(userID);
         
         try
         {

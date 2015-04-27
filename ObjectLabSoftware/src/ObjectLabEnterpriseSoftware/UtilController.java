@@ -272,7 +272,7 @@ public class UtilController
             {
                 primaryKey = results.getString("job_id");
                 
-                ResultSet queryResultData = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
+                ResultSet queryResultData = dbconn.searchWithJobID(primaryKey);
                 if (queryResultData.next())
                 {
                     emailadr = queryResultData.getString("email");
@@ -556,7 +556,7 @@ public class UtilController
         return classesAvailble;
     }
 
-    public static void submitStudentFile(int userID, String fileLocation, String fileName, String printerName, int classFK)
+    public static void submitStudentFile(String userID, String fileLocation, String fileName, String printerName, int classFK)
     {
         /*
          Establish connection to DB
@@ -917,25 +917,32 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
-    public static boolean userIDExist(int id)
+    public static boolean userIDExist(String studentId)
     {
-        boolean temp = false;
+        boolean flag = false;
         SQLMethods dbconn = new SQLMethods();
-        ResultSet usersCountQuery = dbconn.selectIDcount("users", id);
+        ResultSet usersCountQuery = dbconn.checkUserExists(studentId);
         try
         {
-            usersCountQuery.first();
-            if (usersCountQuery.getInt(1) > 0)
-            {
-                temp = true;
-            }
+            flag = usersCountQuery.next();
         } catch (SQLException ex)
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         dbconn.closeDBConnection();
-        return temp;
+        return flag;
+    }
+    
+    public static int addUser(String studentId, String firstname, String lastname, String email)
+    {
+		if(userIDExist(studentId))
+			return -25;
+        SQLMethods dbconn = new SQLMethods();
+        int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+        dbconn.closeDBConnection();
+		
+		return flag;
     }
     
      public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
