@@ -81,7 +81,6 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
-
     public static String[] getReportColumnHeaders(String printer_name)
     {
         try
@@ -106,7 +105,32 @@ public class UtilController
         }
         return null;
     }
+    
+    public static String[] getStatusJobsHeaders(String status)
+    {
+        try
+        {
+            SQLMethods dbconn = new SQLMethods();
+            ResultSet queryResult = dbconn.searchJobsStatus(status);
+            /* Must process results found in ResultSet before the connection is closed! */
 
+            ResultSetMetaData rsmd = queryResult.getMetaData();
+            String[] headers = new String[rsmd.getColumnCount()];
+            //System.out.println(rsmd.getColumnName(5));
+            for (int i = 1; i <= rsmd.getColumnCount(); i++)
+            {
+                headers[i - 1] = rsmd.getColumnName(i);
+            }
+
+            dbconn.closeDBConnection();
+            return headers;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+     
     public static ArrayList<ArrayList<Object>> updateReportTableData(String printer_name)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -231,25 +255,29 @@ public class UtilController
         }
     }
 
-    public static boolean rejectStudentSubmission(String file, String fName, String lName, String dateOfSubmission, String reasonForRejection)
+    public static boolean rejectStudentSubmission(String file, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet results = dbconn.searchID("pendingjobs", fName, lName, file, dateOfSubmission);
+        ResultSet results = dbconn.searchID((file) );
 
         try
         {
-            String emailadr, emailMessage, primaryKey;
+            String emailadr, emailMessage, primaryKey, fName, lName;
             File locationOfRejectedFiles, rejectionFile;
             FileManager cloudStorageOperations = new FileManager();
 
             /* Query the DB for our emailadr here */
             if (results.next())
             {
-                primaryKey = results.getString("idJobs");
-                ResultSet queryResultEmailAdr = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
-                if (queryResultEmailAdr.next())
+                primaryKey = results.getString("job_id");
+                
+                ResultSet queryResultData = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
+                if (queryResultData.next())
                 {
-                    emailadr = queryResultEmailAdr.getString("email");
+                    emailadr = queryResultData.getString("email");
+                    fName=queryResultData.getString("first_name");
+                    lName=queryResultData.getString("last_name");
+                    
                 } else
                 {
                     dbconn.closeDBConnection();
@@ -281,7 +309,8 @@ public class UtilController
             /* 
              Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
              */
-            dbconn.delete("pendingjobs", primaryKey);
+            
+            dbconn.updateStatus( "rejected",Integer.parseInt(primaryKey));
             dbconn.closeDBConnection();
 
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
@@ -301,13 +330,13 @@ public class UtilController
         return FAILURE;
     }
 
-    public static void approveStudentSubmission(String fileName, String firstName, String lastName, String printer, String dateStarted, double volume)
+    public static void approveStudentSubmission(String fileName, double volume)
     {
         /* Make the connection to our DB and query for the PK of pendingjobs which is a combination of
          all the fields input in the searchID method call
          */
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateStarted);
+        ResultSet result = dbconn.searchID((fileName) );
         FileManager cloudStorageOperations = new FileManager();
 
         String ID;
@@ -320,17 +349,16 @@ public class UtilController
              */
             if (result.next())
             {
-                ID = result.getString("idJobs");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive()
-                        + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
+                ID = result.getString("job_id");
+                String printer=result.getString("printer_name");
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
                 String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission()
-                        + "\\" + fileName;
+                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
                  */
-                org.apache.commons.io.FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
+                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedFileLocation), true);
 
                 /* In order to properly update the file location we need to gurantee there are '\\' seperating
                  *  the dir names.
@@ -338,9 +366,9 @@ public class UtilController
                  *  the DB will not contain the correct file location.
                  *   - Nick
                  */
-                dbconn.updatePendingJobVolume(ID, volume);
-                dbconn.updatePendingJobFLocation(ID, updatedFileLocation.replace("\\", "\\\\"));
-                dbconn.approve(ID);
+                dbconn.updateJobVolume(Integer.parseInt(ID), volume);
+                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedFileLocation.replace("\\", "\\\\"));
+                dbconn.changeJobStatus(Integer.parseInt(ID), "approved");
                 dbconn.closeDBConnection();
             }
         } catch (SQLException | IOException ex)
@@ -358,13 +386,13 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
 
-        ResultSet result = dbconn.searchID("pendingjobs", firstName, lastName, fileName, dateSubmitted);
+        ResultSet result = dbconn.searchID((fileName) );
 
         try
         {
             if (result.next())
             {
-                filePath = new File(result.getString("filePath"));
+                filePath = new File(result.getString("file_path"));
             }
         } catch (SQLException ex)
         {
@@ -457,13 +485,10 @@ public class UtilController
         return retval;
     }
 
-    /* I'm still considering making the return type the array of arrylists<String> since it is more general
-     * than having the UI pass in its table model -Nick
-     */
-    public static ArrayList<ArrayList<Object>> updatePendingTableData()
+    public static ArrayList<ArrayList<Object>> updatePendingTableData(String status)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchPending(); 
+        ResultSet queryResult = dbconn.searchJobsStatus(status); 
 
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
 
