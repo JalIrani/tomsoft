@@ -272,7 +272,7 @@ public class UtilController
             {
                 primaryKey = results.getString("job_id");
                 
-                ResultSet queryResultData = dbconn.searchWithJobID(Integer.parseInt(primaryKey));
+                ResultSet queryResultData = dbconn.searchWithJobID(primaryKey);
                 if (queryResultData.next())
                 {
                     emailadr = queryResultData.getString("email");
@@ -556,7 +556,7 @@ public class UtilController
         return classesAvailble;
     }
 
-    public static void submitStudentFile(int userID, String fileLocation, String fileName, String printerName, int classFK)
+    public static void submitStudentFile(String userID, String fileLocation, String fileName, String printerName, int classFK)
     {
         /*
          Establish connection to DB
@@ -917,7 +917,7 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
-    public static boolean userIDExist(int id)
+    public static boolean userIDExist(String id)
     {
         boolean temp = false;
         SQLMethods dbconn = new SQLMethods();
@@ -938,12 +938,12 @@ public class UtilController
         return temp;
     }
     
-    public static void addUser(String id,String firstname, String lastname, String email)
+    public static void addUser(String id, String firstname, String lastname, String email)
     {
         SQLMethods dbconn = new SQLMethods();
         
-        int userID = Integer.parseInt(id);
-        dbconn.insertIntoUsers(userID, firstname, lastname, email);
+        //int userID = Integer.parseInt(id);
+        dbconn.insertIntoUsers(id, firstname, lastname, email);
         dbconn.closeDBConnection();
     }
     

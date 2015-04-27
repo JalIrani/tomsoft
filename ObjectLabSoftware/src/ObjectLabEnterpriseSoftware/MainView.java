@@ -239,7 +239,6 @@ public class MainView extends javax.swing.JFrame
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
         setPrintersVisible(false);
-        int id;
 
         String idString = studentIdString.getText();//DB team this is to store String
 
@@ -248,12 +247,11 @@ public class MainView extends javax.swing.JFrame
             errorIdLabel.setText("USER ID must be 7 digits");
         } else
         {
-            id = Integer.parseInt(idString);
-            if (UtilController.userIDExist(id))
+            if (UtilController.userIDExist(idString))
             {
                 errorIdLabel.setText("");
                 dispose();
-                studentSys.studentSubmissionStart(id);
+                studentSys.studentSubmissionStart(idString);
             } else
             {
                 errorIdLabel.setText("USER ID does not exist");

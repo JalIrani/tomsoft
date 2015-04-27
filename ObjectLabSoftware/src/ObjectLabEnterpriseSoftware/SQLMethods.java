@@ -138,7 +138,10 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users , Class " + "WHERE status = ? AND printer_name = ? AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, "
+					+ "Job.submission_date ,Job.printer_name, class_name, class_section  " 
+					+ "FROM Job, Users , Class " + "WHERE status = ? AND printer_name = ? "
+					+ "AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
             stmt.setString(1, status);
             stmt.setString(2, printer);
             res = stmt.executeQuery();
@@ -154,7 +157,10 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users ,Class " + "WHERE status = ? AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, "
+					+ "Job.submission_date ,Job.printer_name, class_name, class_section  " 
+					+ "FROM Job, Users ,Class " + "WHERE status = ? "
+					+ "AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
             stmt.setString(1, status);
             
             res = stmt.executeQuery();
@@ -181,13 +187,14 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet selectIDcount(String table, int id)
+    public ResultSet selectIDcount(String table, String id)
     {  
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT count(*) as doesExist FROM " + table + " WHERE towson_id = ?;");
-            stmt.setInt(1, id);
+            stmt = this.conn.prepareStatement("SELECT count(*) as doesExist FROM " 
+					+ table + " WHERE towson_id = ?;");
+            stmt.setString(1, id);
             res = stmt.executeQuery();
             
         } catch (SQLException e)
@@ -197,13 +204,13 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet selectIDFromJob(int id)
+    public ResultSet selectIDFromJob(String id)
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement("SELECT * FROM job Where student_id = ?");
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             res = stmt.executeQuery();
         } catch (SQLException e)
         {
@@ -387,7 +394,7 @@ public class SQLMethods
         }
     }
 
-    public void insertIntoJob(String filename, String filePath, int class_id, int user_id, String printer)
+    public void insertIntoJob(String filename, String filePath, int class_id, String user_id, String printer)
     {
         try
         {
@@ -395,7 +402,7 @@ public class SQLMethods
             stmt.setString(1, filename);
             stmt.setString(2, filePath);
             stmt.setInt(3, class_id);
-            stmt.setInt(4, user_id);
+            stmt.setString(4, user_id);
             stmt.setString(5, printer);
             stmt.executeUpdate();
         } catch (Exception e)
@@ -418,7 +425,7 @@ public class SQLMethods
         }
     }
 
-    public int insertIntoUsers(int idusers, String firstName, String lastName, String email)
+    public int insertIntoUsers(String idusers, String firstName, String lastName, String email)
     {
         try
         {
@@ -430,7 +437,7 @@ public class SQLMethods
                     + "towson_id = VALUES(towson_id), first_name = VALUES(first_name), last_name = VALUES(last_name), email = VALUES(email);"
             );
             
-            stmt.setInt(1, idusers);
+            stmt.setString(1, idusers);
             stmt.setString(2, firstName);
             stmt.setString(3, lastName);
             stmt.setString(4, email);
@@ -574,14 +581,14 @@ public class SQLMethods
         }
     }
 
-    public void updateFirstName(String updatedFirstName, int id)
+    public void updateFirstName(String updatedFirstName, String id)
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement("UPDATE users SET first_name = ? WHERE towson_id = ?;");
             stmt.setString(1, updatedFirstName);
-            stmt.setInt(2, id);
+            stmt.setString(2, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -589,14 +596,14 @@ public class SQLMethods
         }
     }
 
-    public void updateLastName(String updatedLastName, int id)
+    public void updateLastName(String updatedLastName, String id)
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement("UPDATE users SET last_name = ? WHERE towson_id = ?;");
             stmt.setString(1, updatedLastName);
-            stmt.setInt(2, id);
+            stmt.setString(2, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -634,14 +641,14 @@ public class SQLMethods
         }
     }
 
-    public void updateEmail(String newEmail, int id)
+    public void updateEmail(String newEmail, String id)
     {
         res = null;
         try
         {
             stmt = conn.prepareStatement("UPDATE users SET email= ? WHERE towson_id= ?; ");
             stmt.setString(1, newEmail);
-            stmt.setInt(2, id);
+            stmt.setString(2, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -814,12 +821,12 @@ public class SQLMethods
         }
     }
 
-    public void deleteFromUser(int id)
+    public void deleteFromUser(String id)
     {
         try
         {
             stmt = conn.prepareStatement("DELETE FROM users WHERE towson_id = ?; ");
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -1015,7 +1022,7 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet searchWithJobID(int ID) {
+    public ResultSet searchWithJobID(String ID) {
         res = null;
         try {
             stmt = this.conn.prepareStatement(
@@ -1023,7 +1030,7 @@ public class SQLMethods
                     + "FROM job, users, class "
                     + "WHERE "
                     + "job_id = ? AND towson_id=student_id AND job.class_id= class.class_id ");
-            stmt.setInt(1,ID );
+            stmt.setString(1,ID );
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e) {
