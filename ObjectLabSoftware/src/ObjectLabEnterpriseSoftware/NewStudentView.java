@@ -193,20 +193,25 @@ public class NewStudentView extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(this, "Please enter a valid email address");
                 validEmailAdr = false;
             }
-
+			int userFlag;
             if (validEmailAdr)
             {
                 if (tuID.length() != 7)
                 {
                     JOptionPane.showMessageDialog(this, "Please enter an ID that is 7 digits in length");
-                } else
+                } else if((userFlag = UtilController.addUser(tuID, firstName, lastName, email)) > 0)
                 {
-                    JOptionPane.showMessageDialog(this, "Id already exists. Updating student data.");
-                    UtilController.addUser(tuID, firstName, lastName, email);
+                    JOptionPane.showMessageDialog(this, "Updating student data.");
                     dispose();
                     home.setPrintersVisible(false);
                     home.setVisible(true);
-                }
+				} else if(userFlag == -25)
+				{
+                    JOptionPane.showMessageDialog(this, "Error, student ID already exists in database.");	
+				}
+				else {
+                    JOptionPane.showMessageDialog(this, "Error adding student into database.");	
+				}
             }
         }
 

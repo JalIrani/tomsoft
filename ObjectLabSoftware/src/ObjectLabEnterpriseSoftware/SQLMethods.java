@@ -425,8 +425,29 @@ public class SQLMethods
         }
     }
 
+	public int checkUser(String userID)
+	{
+		try
+		{
+			stmt = conn.prepareStatement
+			(
+					"SELECT towson_id FROM users WHERE towson_id = ?;"
+			);
+			
+			stmt.setString(1, userID);
+			//boolean to integer, 1=true, 0=false
+            return (stmt.executeQuery().next()) ? 1 : 0;
+		} catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return -1;
+	}
     public int insertIntoUsers(String idusers, String firstName, String lastName, String email)
     {
+		if(checkUser(idusers) > 0)
+				//User ID exists
+				return -25;
         try
         {
             stmt = conn.prepareStatement

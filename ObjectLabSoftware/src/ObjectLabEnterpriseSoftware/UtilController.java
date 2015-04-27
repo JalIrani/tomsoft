@@ -938,13 +938,13 @@ public class UtilController
         return temp;
     }
     
-    public static void addUser(String id, String firstname, String lastname, String email)
+    public static int addUser(String id, String firstname, String lastname, String email)
     {
         SQLMethods dbconn = new SQLMethods();
-        
-        //int userID = Integer.parseInt(id);
-        dbconn.insertIntoUsers(id, firstname, lastname, email);
+        int flag = dbconn.insertIntoUsers(id, firstname, lastname, email);
         dbconn.closeDBConnection();
+		
+		return flag;
     }
     
      public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
