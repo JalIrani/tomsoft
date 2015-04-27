@@ -40,7 +40,8 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         cancelButton = new javax.swing.JButton();
         classComboBox = new javax.swing.JComboBox();
@@ -57,13 +58,15 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         cancelButton.setToolTipText("Back");
         cancelButton.setBorderPainted(false);
         cancelButton.setContentAreaFilled(false);
         cancelButton.setFocusPainted(false);
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cancelButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 cancelButtonActionPerformed(evt);
             }
         });
@@ -91,16 +94,20 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         getContentPane().add(printerComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 200, -1));
 
         removeClassButton.setText("Remove");
-        removeClassButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        removeClassButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 removeClassButtonActionPerformed(evt);
             }
         });
         getContentPane().add(removeClassButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
         removePrinterButton.setText("Remove");
-        removePrinterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        removePrinterButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 removePrinterButtonActionPerformed(evt);
             }
         });
