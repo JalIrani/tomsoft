@@ -453,12 +453,12 @@ public class SQLMethods
         return -1;
     }
 
-    public void insertIntoAdmin(int user_id, String userName, String pass)
+    public void insertIntoAdmin(String user_id, String userName, String pass)
     {
         try
         {
             stmt = conn.prepareStatement("insert into admin (user_id, username, date_created, pass) values (?,?,NOW(),?);");
-            stmt.setInt(1, user_id);
+            stmt.setString(1, user_id);
             stmt.setString(2, userName);
             stmt.setString(3, pass);
             stmt.executeUpdate();
@@ -864,12 +864,12 @@ public class SQLMethods
         
     }
 
-    public void deleteFromAdmin(int id)
+    public void deleteFromAdmin(String id)
     {
         try
         {
             stmt = conn.prepareStatement("delete from admin where user_id= ?; ");
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             stmt.executeUpdate();
         } catch (Exception e)
         {
