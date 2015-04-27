@@ -11,7 +11,8 @@ import javax.swing.table.DefaultTableModel;
 public class ReportsView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Reports";
-
+	private static final MainView home = new MainView();
+	
     private static DefaultTableModel model;
     private FileManager inst;
     private String selectedPrinter;
@@ -19,10 +20,7 @@ public class ReportsView extends javax.swing.JFrame
     private String[] headers;
     private ArrayList<String> printers;
     
-    
-    /**
-     * Creates new form Reports
-     */
+
     public ReportsView() 
     {
         this.controller = new UtilController();
@@ -42,10 +40,8 @@ public class ReportsView extends javax.swing.JFrame
                 public void windowClosing(WindowEvent we) 
                 {
                     /* If they close the program then close out the window properly */
-                    MainView home = new MainView();
-                    home.setVisible(true);
-                    home.setPrintersVisible(true);
-                    dispose();                    
+					dispose();
+					home.resetAdminMode();          
                 }
             }
         );
@@ -181,7 +177,7 @@ public class ReportsView extends javax.swing.JFrame
 
     jMenu2.setText("Help");
 
-    jMenuItem1.setText("Contents");
+    jMenuItem1.setText("User Guide");
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jMenuItem1ActionPerformed(evt);
@@ -197,10 +193,8 @@ public class ReportsView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        dispose();
-        MainView home = new MainView();
-        home.setVisible(true);
-        home.setPrintersVisible(true);
+		dispose();
+		home.resetAdminMode();
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -234,11 +228,7 @@ public class ReportsView extends javax.swing.JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
+        UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed

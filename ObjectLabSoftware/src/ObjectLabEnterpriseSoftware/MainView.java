@@ -243,11 +243,17 @@ public class MainView extends javax.swing.JFrame
     private void ReportsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportsButtonActionPerformed
         // TODO add your handling code here:
         ReportsView reports = new ReportsView();
-	reports.setLocationRelativeTo(this);
+		reports.setLocationRelativeTo(this);
         reports.ReportsPage();
         dispose();
     }//GEN-LAST:event_ReportsButtonActionPerformed
 
+	public void resetAdminMode()
+	{
+			setPrintersVisible(true);
+			hideStudentOptions();
+		    setVisible(true);
+	}
 	public void hideStudentOptions()
 	{
 		studentButton.setVisible(false);

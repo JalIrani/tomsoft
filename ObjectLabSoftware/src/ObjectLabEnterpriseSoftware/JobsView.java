@@ -16,18 +16,19 @@ import javax.swing.table.DefaultTableModel;
 
 public class JobsView extends javax.swing.JFrame
 {
-    private static final String NAME_OF_PAGE =  "Student submissions";
+    private static final String NAME_OF_PAGE =  "Student Submission";
 
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
     private static final int LAST_NAME_COLUMN_NUMBER = 2;
     private static final int PRINTER_COLUMN_NUMBER = 3;
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
+	private static ReportsView reports = null;
+    private static FileManager inst = null;
+    private static final MainView home = new MainView();
 
     private DefaultTableModel allFileTableModel;
-    static ReportsView reports = null;
-    private static FileManager inst = null;
-    
+	
     private void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
@@ -64,11 +65,8 @@ public class JobsView extends javax.swing.JFrame
                 public void windowClosing(WindowEvent we) 
                 {
                     /* If they close the program then close out the window properly */
-		    
-		    MainView home = new MainView();
-		    home.setVisible(true);
-		    home.setPrintersVisible(true);
-                    dispose();
+					dispose();
+					home.resetAdminMode();
                 }
             }
         );
@@ -407,10 +405,8 @@ public class JobsView extends javax.swing.JFrame
 
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         // TODO add your handling code here:
-        dispose();
-	MainView home = new MainView();
-	home.setVisible(true);
-	home.setPrintersVisible(true);
+		dispose();
+		home.resetAdminMode();
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed
