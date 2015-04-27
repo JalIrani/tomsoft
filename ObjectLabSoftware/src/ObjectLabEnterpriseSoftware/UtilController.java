@@ -919,23 +919,19 @@ public class UtilController
     
     public static boolean userIDExist(String studentId)
     {
-        boolean temp = false;
+        boolean flag = false;
         SQLMethods dbconn = new SQLMethods();
         ResultSet usersCountQuery = dbconn.checkUserExists(studentId);
         try
         {
-            usersCountQuery.first();
-            if (usersCountQuery.getInt(1) > 0)
-            {
-                temp = true;
-            }
+            flag = usersCountQuery.next();
         } catch (SQLException ex)
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         dbconn.closeDBConnection();
-        return temp;
+        return flag;
     }
     
     public static int addUser(String studentId, String firstname, String lastname, String email)
