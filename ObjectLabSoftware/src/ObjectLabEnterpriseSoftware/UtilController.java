@@ -1,7 +1,10 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -51,6 +54,19 @@ public class UtilController
         }
     }
 
+    public static void openAdminHelpPage(){
+        if(Desktop.isDesktopSupported()){
+            try {
+                Desktop.getDesktop().browse(new URI("http://triton.towson.edu/~jirani2/adminHelp.pdf"));
+            } catch (IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+}
+    
+    
     public static ArrayList<String> getListOfPrinters()
     {
         SQLMethods dbconn = new SQLMethods();
@@ -928,15 +944,20 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
-     public static ArrayList<Object> returnTableHeader(String printerName) throws SQLException{
+     public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
         SQLMethods dbconn = new SQLMethods();
-        ArrayList<Object> toSend = new ArrayList();
+        ArrayList<ArrayList<Object>> toSend = new ArrayList();
+        ArrayList<Object> fillData = new ArrayList();
+        ArrayList<Object> fillType = new ArrayList();
         printerName = printerName.trim();
         ResultSet queryResult = dbconn.forSean(printerName);
+        //putting data into an array of arrays
         while(queryResult.next()){
-            
-            toSend.add(queryResult.getString(1));
+            fillData.add(queryResult.getString(1));
+            fillType.add(queryResult.getString(2));
         }
+        toSend.add(fillData);
+        toSend.add(fillType);
         dbconn.closeDBConnection();
         return toSend;
     }

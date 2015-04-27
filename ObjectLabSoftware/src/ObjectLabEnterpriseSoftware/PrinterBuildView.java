@@ -149,7 +149,7 @@ public class PrinterBuildView extends javax.swing.JFrame
      */
     public void returnHome() {
         
-        home.setPrintersVisible(false);
+        home.setPrintersVisible(true);
         home.setVisible(true);
         dispose();
     }
@@ -180,8 +180,7 @@ public class PrinterBuildView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -210,10 +209,9 @@ public class PrinterBuildView extends javax.swing.JFrame
         fileMenu = new javax.swing.JMenu();
         reportsMenu = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        contentsMenu = new javax.swing.JMenuItem();
+        userGuide = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -235,20 +233,16 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
 
         Submit_Button.setText("Submit");
-        Submit_Button.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Submit_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Submit_ButtonActionPerformed(evt);
             }
         });
         getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 90, 20));
 
         closeBtn.setText("Close");
-        closeBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeBtnActionPerformed(evt);
             }
         });
@@ -262,20 +256,16 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
         filepathToSelectedPrinterBuild.setEditable(false);
-        filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filepathToSelectedPrinterBuildActionPerformed(evt);
             }
         });
         getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
 
         browseBtn.setText("Browse");
-        browseBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseBtnActionPerformed(evt);
             }
         });
@@ -289,38 +279,30 @@ public class PrinterBuildView extends javax.swing.JFrame
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "", "Project Title", "Date Submitted"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 true, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(stlFileTable);
-        if (stlFileTable.getColumnModel().getColumnCount() > 0)
-        {
+        if (stlFileTable.getColumnModel().getColumnCount() > 0) {
             stlFileTable.getColumnModel().getColumn(0).setMinWidth(30);
             stlFileTable.getColumnModel().getColumn(0).setMaxWidth(30);
             stlFileTable.getColumnModel().getColumn(1).setResizable(false);
@@ -333,10 +315,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
-        printerNameComboBox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        printerNameComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printerNameComboBoxActionPerformed(evt);
             }
         });
@@ -354,10 +334,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         confirmBuildButton.setText("Confirm Build");
-        confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        confirmBuildButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmBuildButtonActionPerformed(evt);
             }
         });
@@ -369,10 +347,8 @@ public class PrinterBuildView extends javax.swing.JFrame
         fileMenu.setText("File");
 
         reportsMenu.setText("Reports");
-        reportsMenu.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        reportsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reportsMenuActionPerformed(evt);
             }
         });
@@ -382,15 +358,13 @@ public class PrinterBuildView extends javax.swing.JFrame
 
         helpMenu.setText("Help");
 
-        contentsMenu.setText("Contents");
-        contentsMenu.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                contentsMenuActionPerformed(evt);
+        userGuide.setText("User Guide");
+        userGuide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userGuideActionPerformed(evt);
             }
         });
-        helpMenu.add(contentsMenu);
+        helpMenu.add(userGuide);
 
         jMenuBar1.add(helpMenu);
 
@@ -473,14 +447,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         reports.ReportsPage();
     }//GEN-LAST:event_reportsMenuActionPerformed
 
-    private void contentsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentsMenuActionPerformed
+    private void userGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideActionPerformed
         // TODO add your handling code here:
-        try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
-    }//GEN-LAST:event_contentsMenuActionPerformed
+        UtilController.openAdminHelpPage();
+    }//GEN-LAST:event_userGuideActionPerformed
 
     private void confirmBuildButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_confirmBuildButtonActionPerformed
     {//GEN-HEADEREND:event_confirmBuildButtonActionPerformed
@@ -491,7 +461,7 @@ public class PrinterBuildView extends javax.swing.JFrame
             return;
         }
         
-        ArrayList<Object> printerHeaders;
+        ArrayList<ArrayList<Object>> printerHeaders;
         try
         {
             printerHeaders = UtilController.returnTableHeader(BuildPrinter);
@@ -510,7 +480,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         BuildPrinter = (String) printerNameComboBox.getSelectedItem();
         Object[] printerFields;
         System.out.println(BuildPrinter);
-        ArrayList<Object> printerHeaders = new ArrayList();
+        ArrayList<ArrayList<Object>> printerHeaders = new <ArrayList<Object>>ArrayList();
         try
         {
             printerHeaders = UtilController.returnTableHeader(BuildPrinter);
@@ -522,7 +492,7 @@ public class PrinterBuildView extends javax.swing.JFrame
 //        for(int i = 0; i<printerHeaders.size(); i++){
 //            System.out.println(printerHeaders.get(i).toString());
 //        }
-        printerFields = printerHeaders.toArray();
+        printerFields = printerHeaders.get(0).toArray();
         for(int i= 0; i<printerFields.length;i++){
             System.out.println(printerFields[i]);
         }
@@ -538,7 +508,6 @@ public class PrinterBuildView extends javax.swing.JFrame
     private javax.swing.JLabel buildLbl;
     private javax.swing.JButton closeBtn;
     private javax.swing.JButton confirmBuildButton;
-    private javax.swing.JMenuItem contentsMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JTextField filepathToSelectedPrinterBuild;
     private javax.swing.JMenu helpMenu;
@@ -560,5 +529,6 @@ public class PrinterBuildView extends javax.swing.JFrame
     private javax.swing.JComboBox printerNameComboBox;
     private javax.swing.JMenuItem reportsMenu;
     private javax.swing.JTable stlFileTable;
+    private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables
 }

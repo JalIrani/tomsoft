@@ -19,6 +19,7 @@ public class ReportsView extends javax.swing.JFrame
     private String[] headers;
     private ArrayList<String> printers;
     
+    
     /**
      * Creates new form Reports
      */
@@ -26,6 +27,7 @@ public class ReportsView extends javax.swing.JFrame
     {
         this.controller = new UtilController();
         printers = UtilController.getListOfPrinters();
+        setLocationRelativeTo(null);
         if(printers.size() > 0){
             selectedPrinter = printers.get(0);
             headers = UtilController.getReportColumnHeaders(selectedPrinter);
@@ -41,8 +43,10 @@ public class ReportsView extends javax.swing.JFrame
                 public void windowClosing(WindowEvent we) 
                 {
                     /* If they close the program then close out the window properly */
-                    dispose();
-                    System.exit(0);
+                    MainView home = new MainView();
+                    home.setVisible(true);
+                    home.setPrintersVisible(true);
+                    dispose();                    
                 }
             }
         );
@@ -86,7 +90,7 @@ public class ReportsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -191,7 +195,9 @@ public class ReportsView extends javax.swing.JFrame
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         dispose();
-        new MainView().setVisible(true); 
+        MainView home = new MainView();
+        home.setVisible(true);
+        home.setPrintersVisible(true);
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed

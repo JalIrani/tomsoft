@@ -367,15 +367,7 @@ public class JobsView extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        try 
-        {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-        } 
-        catch (IOException e) 
-        {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
+        UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     /* This button when pressed will pull up the options menu for editing courses and choosing a "current" course. */

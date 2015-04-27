@@ -138,7 +138,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users  " + "WHERE status = ? AND printer_name = ? AND Users.towson_id = Job.student_id AND job.class.id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, Job.submission_date ,Job.printer_name, class_name, class_section  " + "FROM Job, Users , Class " + "WHERE status = ? AND printer_name = ? AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
             stmt.setString(1, status);
             stmt.setString(2, printer);
             res = stmt.executeQuery();
@@ -1413,7 +1413,7 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement
             (
-                    "SELECT custom_field_name FROM custom_printer_column_names WHERE printer_name = ?;"
+                    "SELECT custom_field_name, numerical FROM custom_printer_column_names WHERE printer_name = ?;"
                     
             );
             

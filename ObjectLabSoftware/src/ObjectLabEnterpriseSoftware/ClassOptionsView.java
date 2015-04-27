@@ -13,6 +13,8 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	private DefaultListModel allClassListModel;
 	private DefaultListModel currentClassListModel;
+        
+        AdminSettingsView settings;
 
 	private static FileManager inst = null;
 
@@ -48,7 +50,7 @@ public class ClassOptionsView extends javax.swing.JFrame
                 classProfessor.setVisible(false);
                 classProfessorL.setVisible(false);
 		sectionNumber.setVisible(false);
-		cancelButton.setVisible(false);
+		cancelBtn.setVisible(false);
 		addNewButton.setVisible(false);
 	}
 
@@ -59,20 +61,29 @@ public class ClassOptionsView extends javax.swing.JFrame
 		inst = new FileManager();
 		/* Creates are PendingJobs UI window componet and grabs its data model for our uses */
 		initComponents();
-
+                settings = new AdminSettingsView();
 		addWindowListener(
-				new WindowAdapter()
-				{
-					@Override
-					public void windowClosing(WindowEvent we)
-					{
-						/* 
-						 If they close the program then close out the window properly 
-						 */
-						dispose();
-						System.exit(0);
-					}
-				}
+                    new WindowAdapter()
+                    {
+                        @Override
+                        public void windowClosing(WindowEvent we)
+                        {
+                                /* 
+                                 If they close the program then close out the window properly 
+                                 */
+                            if(!"".equals(className.getText())||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
+                                if(JOptionPane.showConfirmDialog(null, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+                                    addNewClass.setVisible(true);
+                                    settings.AdminSettingsViewStart();
+                                    dispose();
+                                }
+                            }else{
+                                addNewClass.setVisible(true);
+                                settings.AdminSettingsViewStart();
+                                dispose();
+                            }
+                        }
+                    }
 		);
 	}
 
@@ -92,7 +103,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         addNewClass = new javax.swing.JButton();
-        cancelBtn = new javax.swing.JButton();
+        closeBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         allClassList = new javax.swing.JList();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -108,7 +119,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         classNumberL = new javax.swing.JLabel();
         sectionNumberL = new javax.swing.JLabel();
         addNewButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
         saveBtn = new javax.swing.JButton();
         classProfessor = new javax.swing.JTextField();
         classProfessorL = new javax.swing.JLabel();
@@ -130,7 +141,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         jTextArea1.setText("Art 101-001\nArt 201-002\nArt 401-004\nArt 501-005\nArt 601-006\nArt 701-007\nArt 801-009");
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,13 +159,13 @@ public class ClassOptionsView extends javax.swing.JFrame
         });
         getContentPane().add(addNewClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
-        cancelBtn.setText("Cancel");
-        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+        closeBtn.setText("Close");
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelBtnActionPerformed(evt);
+                closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, -1, -1));
 
         jScrollPane3.setViewportView(allClassList);
 
@@ -209,13 +220,13 @@ public class ClassOptionsView extends javax.swing.JFrame
         });
         getContentPane().add(addNewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, -1));
 
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
 
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -266,15 +277,24 @@ public class ClassOptionsView extends javax.swing.JFrame
                 classProfessor.setVisible(true);
                 classProfessorL.setVisible(true);
 		sectionNumber.setVisible(true);
-		cancelButton.setVisible(true);
+		cancelBtn.setVisible(true);
 		addNewButton.setVisible(true);
 		//saves added class to the database in future
     }//GEN-LAST:event_addNewClassActionPerformed
 
-    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-		addNewClass.setVisible(true);
-		dispose();
-    }//GEN-LAST:event_cancelBtnActionPerformed
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
+        if(!"".equals(className.getText())||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
+            if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+                addNewClass.setVisible(true);
+                settings.AdminSettingsViewStart();
+                dispose();
+            }
+        }else{
+            addNewClass.setVisible(true);
+            settings.AdminSettingsViewStart();
+            dispose();
+        }
+    }//GEN-LAST:event_closeBtnActionPerformed
 
     private void addArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrowActionPerformed
 		if (currentClassListModel.contains(allClassList.getSelectedValue()))
@@ -346,11 +366,23 @@ public class ClassOptionsView extends javax.swing.JFrame
 		}
     }//GEN-LAST:event_addNewButtonActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
 		// TODO add your handling code here:
-		addNewClass.setVisible(true);
+        if(!"".equals(className.getText())||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
+            if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+                addNewClass.setVisible(true);
+                className.setText("");
+                classNumber.setText("");
+                classProfessor.setText("");
+                sectionNumber.setText("");
 		hideOptions();
-    }//GEN-LAST:event_cancelButtonActionPerformed
+            }
+        }else{
+            addNewClass.setVisible(true);
+            hideOptions();
+        }
+		
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 		try
@@ -385,13 +417,13 @@ public class ClassOptionsView extends javax.swing.JFrame
     private javax.swing.JButton addNewClass;
     private javax.swing.JList allClassList;
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JButton cancelButton;
     private javax.swing.JTextField className;
     private javax.swing.JLabel classNameL;
     private javax.swing.JTextField classNumber;
     private javax.swing.JLabel classNumberL;
     private javax.swing.JTextField classProfessor;
     private javax.swing.JLabel classProfessorL;
+    private javax.swing.JButton closeBtn;
     private javax.swing.JList currentClassList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
