@@ -26,6 +26,11 @@ Name: "{group}\Object Lab Interface"; IconFilename: {app}\Oli_Icon.ico; Filename
 [Run]
 Filename: "{tmp}\googledrivesync.exe";
 
+[Dirs]
+Name: "C:\Sync"
+Name: "C:\Sync\Export"
+Name: "C:\Sync\ObjectLabPrinters"
+
 [Code]
 var
   MyProgChecked: Boolean;
@@ -50,11 +55,13 @@ var
   ResultCode: Integer;
 var
   ErrorCode: Integer;
+
 begin
   Log('NextButtonClick(' + IntToStr(CurPageID) + ') called');
   case CurPageID of
     wpSelectDir: ;
       //MsgBox('NextButtonClick:' #13#13 'You selected: ''' + WizardDirValue + '''.', mbInformation, MB_OK);
+      //ForceDirectories('C:\Sync') : FolderDir;
     wpSelectProgramGroup:  ;
       //MsgBox('NextButtonClick:' #13#13 'You selected: ''' + WizardGroupValue + '''.', mbInformation, MB_OK);
     wpReady:
