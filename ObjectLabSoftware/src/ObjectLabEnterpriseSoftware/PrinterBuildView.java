@@ -230,7 +230,7 @@ public class PrinterBuildView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 380, 10));
 
         Submit_Button.setText("Submit");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -238,22 +238,26 @@ public class PrinterBuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 90, 20));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 500, 90, 20));
 
-        closeBtn.setText("Close");
+        closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
+        closeBtn.setToolTipText("Back");
+        closeBtn.setBorderPainted(false);
+        closeBtn.setContentAreaFilled(false);
+        closeBtn.setFocusPainted(false);
         closeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 80, 20));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Choose STL files from build: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 19));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 19));
 
         buildLbl.setText("Build File Name:");
-        getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+        getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 20));
 
         filepathToSelectedPrinterBuild.setEditable(false);
         filepathToSelectedPrinterBuild.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +265,7 @@ public class PrinterBuildView extends javax.swing.JFrame
                 filepathToSelectedPrinterBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
+        getContentPane().add(filepathToSelectedPrinterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 200, -1));
 
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -269,13 +273,13 @@ public class PrinterBuildView extends javax.swing.JFrame
                 browseBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 70, 20));
+        getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 70, 20));
 
         ErrorText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 180, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 180, -1));
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -309,10 +313,10 @@ public class PrinterBuildView extends javax.swing.JFrame
             stlFileTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 360, 190));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 360, 190));
 
         jLabel2.setText("Select Printer:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         printerNameComboBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
         printerNameComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -320,7 +324,7 @@ public class PrinterBuildView extends javax.swing.JFrame
                 printerNameComboBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, -1));
+        getContentPane().add(printerNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 110, -1));
 
         printerInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         printerInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
@@ -328,10 +332,10 @@ public class PrinterBuildView extends javax.swing.JFrame
         printerInputTable.setRowHeight(24);
         jScrollPane4.setViewportView(printerInputTable);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 360, 90));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 360, 90));
 
         jLabel3.setText("Enter Build Data");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
 
         confirmBuildButton.setText("Confirm Build");
         confirmBuildButton.addActionListener(new java.awt.event.ActionListener() {
@@ -339,7 +343,7 @@ public class PrinterBuildView extends javax.swing.JFrame
                 confirmBuildButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+        getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 410, 540));

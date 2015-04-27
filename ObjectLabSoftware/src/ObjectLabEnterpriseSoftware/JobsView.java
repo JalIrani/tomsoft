@@ -146,10 +146,10 @@ public class JobsView extends javax.swing.JFrame
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Pending Jobs");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 750, 10));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 750, 10));
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
@@ -158,7 +158,7 @@ public class JobsView extends javax.swing.JFrame
                 ApprovedButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 490, 90, 20));
+        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 500, 90, 20));
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
@@ -167,7 +167,7 @@ public class JobsView extends javax.swing.JFrame
                 RejectButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 490, 70, 20));
+        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 500, 70, 20));
 
         openFileInProgram.setText("Review File");
         openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +175,7 @@ public class JobsView extends javax.swing.JFrame
                 openFileInProgramActionPerformed(evt);
             }
         });
-        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 490, 140, 20));
+        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 500, 140, 20));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel()
@@ -192,18 +192,22 @@ public class JobsView extends javax.swing.JFrame
             });
             jScrollPane4.setViewportView(PendingTable);
 
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 750, 410));
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 750, 410));
 
-            backToMainMenu.setText("Back");
+            backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/backArrow3.png"))); // NOI18N
+            backToMainMenu.setToolTipText("Back");
+            backToMainMenu.setBorderPainted(false);
+            backToMainMenu.setContentAreaFilled(false);
+            backToMainMenu.setFocusPainted(false);
             backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
                 }
             });
-            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 60, 20));
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 40));
 
             jLabel3.setText("Job status:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 60, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, 20));
 
             jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved" }));
             jobStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +215,7 @@ public class JobsView extends javax.swing.JFrame
                     jobStatusActionPerformed(evt);
                 }
             });
-            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 70, 20));
+            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 70, 20));
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 780, 530));
