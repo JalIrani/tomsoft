@@ -943,7 +943,6 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         
         int userID = Integer.parseInt(id);
-        System.out.println("ID IS" + id);
         dbconn.insertIntoUsers(userID, firstname, lastname, email);
         dbconn.closeDBConnection();
     }

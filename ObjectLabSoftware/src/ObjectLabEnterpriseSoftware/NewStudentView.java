@@ -202,7 +202,7 @@ public class NewStudentView extends javax.swing.JFrame
                 } else
                 {
                     JOptionPane.showMessageDialog(this, "Id already exists. Updating student data.");
-                    // UtilController.addUser(tuID, firstName, lastName, email);
+                    UtilController.addUser(tuID, firstName, lastName, email);
                     dispose();
                     home.setPrintersVisible(false);
                     home.setVisible(true);
