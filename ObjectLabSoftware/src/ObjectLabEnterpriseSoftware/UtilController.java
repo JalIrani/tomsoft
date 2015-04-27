@@ -914,6 +914,7 @@ public class UtilController
      * @param buildPath 
      * @param printer 
      */
+     @Deprecated
     public static void revertBuild(String buildPath, String printer)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -948,6 +949,7 @@ public class UtilController
      *                This will be changed when the dynamic database is being used
      * @return success or failure status 
      */
+    @Deprecated
     public static boolean submitBuildInfoToDB(String buildName, String printer)
     {
         if(!printer.equals("zcorp") && !printer.equals("solidscape") && !printer.equals("objet"))
@@ -1041,6 +1043,95 @@ public class UtilController
         catch (SQLException ex) 
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        dbconn.closeDBConnection();
+        return true;
+    }
+    
+     /**
+     * This is the method used to confirm the submission of a printer build. 
+     * It updates the build info and adds information entered in by the user into the DB into its respective place
+     * 
+     * It also updates the status of jobs in the build to "complete"
+     * @param buildName
+     * @param de
+     * @param custData
+     * @return 
+     */
+    public static boolean submitBuildToDB(String buildName, Device de, ArrayList custData)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        FileManager instance = new FileManager();
+        String printerName = "";
+        
+        ResultSet res1 = dbconn.searchJobsByBuildName(buildName);
+        ArrayList list = new ArrayList();
+        System.out.println("String buildName: " + buildName);
+        
+        try 
+        {
+            while (res1.next()) 
+            {
+                list.add(res1.getString("buildName"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+        
+        
+        
+        Iterator itr = list.iterator();
+        while(itr.hasNext())
+        {
+            ResultSet res2 = dbconn.searchJobsByBuildName(itr.next().toString());
+            File newDir = null;
+            try {
+                //Goes through every job submitted in the build
+                if(res2.next())
+                {
+                    //gather information from each job in the build
+                    String fileName = res2.getString("file_name");
+                    printerName = res2.getString("printer_name");
+                    
+                    newDir = new File(instance.getDevicePrinted(printerName));
+                    
+                    //Move submitted job file to the printed directory for the respective printer
+                    try {
+                        FileUtils.moveFileToDirectory(new File(instance.getDeviceToPrint(printerName)+ fileName), newDir, true);
+                    } catch (IOException ex) {
+                        Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //update the file location of the file in the DB
+                    dbconn.updateJobFLocation(fileName, instance.getDevicePrinted(printerName)+fileName);
+                    
+                    //change the status of the job to completed
+                    dbconn.changeJobStatus(res2.getString("submission_id"), "completed");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        }
+        //update the build information with the info provided by the user
+        dbconn.updateBuildData(buildName, PrinterDialogTemp.runTime , PrinterDialogTemp.modelAmount);
+        
+        //Insert custom data into comlumn_build_data
+        ResultSet res3 = dbconn.selectColumnNames(printerName);
+        ArrayList<String> custNames = de.getFieldNames();
+        for(int j =0; j < custData.size(); j++)
+        {
+            
+            try {
+                dbconn.insertIntoColumn(buildName, res3.getInt("column_names_id"), (String)custData.get(j));
+                res3.next();
+            } catch (SQLException ex) {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
         dbconn.closeDBConnection();
