@@ -17,10 +17,19 @@ OutputDir=userdocs:Inno Setup Examples Output
 Source: "OLI.exe"; DestDir: "{app}";
 Source: "lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion recursesubdirs;
 Source: "mysql-installer-web-community-5.6.23.0.msi"; DestDir: {tmp}; Flags: deleteafterinstall;
+Source: "googledrivesync.exe"; DestDir: {tmp}; Flags: deleteafterinstall;
 Source: "Oli_Icon.ico"; DestDir: "{app}";
        
 [Icons]
 Name: "{group}\Object Lab Interface"; IconFilename: {app}\Oli_Icon.ico; Filename: "{app}\OLI.EXE"; WorkingDir: "{app}"; Comment: "Object Lab Interface";
+
+[Run]
+Filename: "{tmp}\googledrivesync.exe";
+
+[Dirs]
+Name: "C:\Sync"
+Name: "C:\Sync\Export"
+Name: "C:\Sync\ObjectLabPrinters"
 
 [Code]
 var
@@ -46,11 +55,13 @@ var
   ResultCode: Integer;
 var
   ErrorCode: Integer;
+
 begin
   Log('NextButtonClick(' + IntToStr(CurPageID) + ') called');
   case CurPageID of
     wpSelectDir: ;
       //MsgBox('NextButtonClick:' #13#13 'You selected: ''' + WizardDirValue + '''.', mbInformation, MB_OK);
+      //ForceDirectories('C:\Sync') : FolderDir;
     wpSelectProgramGroup:  ;
       //MsgBox('NextButtonClick:' #13#13 'You selected: ''' + WizardGroupValue + '''.', mbInformation, MB_OK);
     wpReady:
