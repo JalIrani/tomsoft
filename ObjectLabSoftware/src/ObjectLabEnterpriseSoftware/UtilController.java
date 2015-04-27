@@ -896,4 +896,194 @@ public class UtilController
         dbconn.closeDBConnection();
         return parsedResult;
     }
+	
+	//BEGINNING OF DAVID'S STUFF
+	//----
+	//   |
+	//   \/
+	
+	/**
+     * This method is called when an unfinished print build is exited out of
+     * It takes the information previously stored in the Database and removes it.
+     * 
+     * This method is called in:
+     *      ZCorpDialog.ZCorpDialogStart.WindowClosing
+     *      SolidscapeDialog.SolidscapeDialogStart.WindowClosing
+     *      ObjetDialog.ObjetDialogStart.WindowClosing
+     * 
+     * @param buildPath 
+     * @param printer 
+     */
+    public static void revertBuild(String buildPath, String printer)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet r = dbconn.searchJobsByBuildName(buildPath);
+        try 
+        {
+            while(r.next())
+            {
+                dbconn.updatePendingJobsBuildName("", r.getString("fileName"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dbconn.closeDBConnection();
+    }
+	
+   
+	/**
+     * !!!THIS IS A LEGACY METHOD!!! For the updated dynamic method, see submitBuildToDB below
+     * This method is called when an administrator submits a printer build. It takes the information they typed in and stores it in the database.
+     * This method was called in:
+     *      ZCorpDialog.ZCorpDialogStart.submitBtnActionPerformed
+     *      SolidscapeDialog.SolidscapeDialogStart.submitBtnActionPerformed
+     *      ObjetDialog.ObjetDialogStart.submitBtnActionPerformed
+     * 
+     * @param buildName The name of the build, used to gather information from the database.
+     * @param printer this gets the name of the printer, 
+     *                for now, the "printer" parameter is used to determine which sql method is used and the directory of the submitted file because it is different for every printer
+     *                This will be changed when the dynamic database is being used
+     * @return success or failure status 
+     */
+    public static boolean submitBuildInfoToDB(String buildName, String printer)
+    {
+        if(!printer.equals("zcorp") && !printer.equals("solidscape") && !printer.equals("objet"))
+            return false;
+        
+        SQLMethods dbconn = new SQLMethods();
+        FileManager instance = new FileManager();
+ 
+        try 
+        {
+            /* queries the DB for everything that has the buildName = to build name passed in as parameter */
+            ResultSet res1 = dbconn.searchJobsByBuildName(buildName);
+            ArrayList list = new ArrayList();
+            System.out.println("String buildName: " + buildName);
+            
+            try 
+            {
+                while (res1.next()) 
+                {
+                    list.add(res1.getString("buildName"));
+                }
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
+            Iterator itr = list.iterator();
+            while (itr.hasNext()) 
+            {
+                ResultSet res2 = dbconn.searchPendingByBuildName(itr.next().toString());
+                if (res2.next()) 
+                {
+                    String ID = res2.getString("idJobs");
+                    System.out.println(ID);
+                    String Printer = res2.getString("printer");
+                    String firstName = res2.getString("firstName");
+                    String lastName = res2.getString("lastName");
+                    String course = res2.getString("course");
+                    String section = res2.getString("section");
+                    String fileName = res2.getString("fileName");
+                    System.out.println(fileName);
+                    File newDir = null;
+                            
+                    switch (printer) 
+                    {
+                        case "zcorp":
+                            newDir = new File(instance.getZcorpPrinted());
+                            FileManager.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
+                            break;
+                        case "solidscape":
+                            newDir = new File(instance.getSolidscapePrinted());
+                            FileManager.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
+                            break;
+                        case "objet":
+                            newDir = new File(instance.getObjetPrinted());
+                            FileManager.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
+                            break;
+                    }
+   
+                    String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
+                    String dateStarted = res2.getString("dateStarted");
+                    String Status = "completed";
+                    String Email = res2.getString("Email");
+                    String Comment = res2.getString("comment");
+                    String nameOfBuild = res2.getString("buildName");
+                    double volume = Double.parseDouble(res2.getString("volume"));
+                    //double cost = Double.parseDouble(res3.getString("cost"));
+
+                    dbconn.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00 /*placeholder since cost isn't being used*/);
+                    dbconn.delete("pendingjobs", ID);
+                            //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
+                }
+            }
+
+            // if there is no matching record
+            switch (printer) 
+            {
+                case "zcorp":
+                    dbconn.insertIntoZcorp(buildName, ZCorpDialog.monoBinder, ZCorpDialog.yellowBinder, ZCorpDialog.magentaBuilder, ZCorpDialog.cyanBuilder, ZCorpDialog.cubicInches, ZCorpDialog.modelAmount, ZCorpDialog.comments, 0.00/*placeholder since cost isn't being used*/, "complete");
+                    break;
+                case "solidscape":
+                    dbconn.insertIntoSolidscape(buildName, SolidscapeDialog.modelAmount, SolidscapeDialog.ResolutionVar, SolidscapeDialog.buildTime, SolidscapeDialog.comments, 0.00/*placeholder since cost isn't being used*/);
+                    break;
+                case "objet":
+                    dbconn.insertIntoObjet(buildName, ObjetDialog.BuildConsumed, ObjetDialog.SupportConsumed, ObjetDialog.modelAmount,  ObjetDialog.materialType, ObjetDialog.Resolution, ObjetDialog.comments, 0.00 /*placeholder since cost isn't being used*/);
+                    break;
+            }        
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        dbconn.closeDBConnection();
+        return true;
+    }
+	
+  public void makeBuild(String printer, String buildFileLocation)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.insertIntoBuild(buildFileLocation, 0, 0, printer);
+        
+        dbconn.closeDBConnection();
+    }
+  
+    /**
+     * Creates template device class for the printer build process to use. 
+     * This is created before build data is typed in in the printer dialog class.
+     * This device class will be used to determine the fields that will be needed for the printer dialog,
+     * as well as a middleman for the ui and database (so they don't have to mix).
+     * @param printer the name of the printer (in the database)
+     * @return
+     */
+    public static Device getPrinterInfo(String printer)
+    {
+        Device buildPrinter = new Device();
+        SQLMethods dbconn = new SQLMethods();
+        
+        buildPrinter.setDeviceName(printer);
+        ResultSet r = dbconn.selectColumnNames(printer);
+        ArrayList<String> fieldNames = new ArrayList();
+        try {
+            while(r.next())
+            {
+                fieldNames.add(r.getString("custom_field_name"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        buildPrinter.setFieldNames(fieldNames);
+        
+        
+        dbconn.closeDBConnection();
+        return buildPrinter;
+    }
+	
 }
