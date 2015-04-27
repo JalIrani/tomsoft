@@ -66,6 +66,7 @@ public class UtilController
         }
 }
     
+    
     public static ArrayList<String> getListOfPrinters()
     {
         SQLMethods dbconn = new SQLMethods();

@@ -59,6 +59,9 @@ public class AdminSettingsView extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        help = new javax.swing.JMenu();
+        userGuide = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -115,6 +118,20 @@ public class AdminSettingsView extends javax.swing.JFrame
         jLabel2.setOpaque(true);
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 260));
 
+        help.setText("Help");
+
+        userGuide.setText("User Guide");
+        userGuide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userGuideActionPerformed(evt);
+            }
+        });
+        help.add(userGuide);
+
+        jMenuBar1.add(help);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -150,14 +167,23 @@ public class AdminSettingsView extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void userGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideActionPerformed
+        // TODO add your handling code here:
+        UtilController.openAdminHelpPage();
+        
+    }//GEN-LAST:event_userGuideActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPrinterButton;
+    private javax.swing.JMenu help;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables
 }

@@ -111,12 +111,12 @@ public class PendingJobsView extends javax.swing.JFrame
         PendingTable = new javax.swing.JTable();
         backToMainMenu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuBar = new javax.swing.JMenuBar();
+        file = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         showClassEditorOptions = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        help = new javax.swing.JMenu();
+        userGuide = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -199,7 +199,7 @@ public class PendingJobsView extends javax.swing.JFrame
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 500, 340));
 
-        jMenu1.setText("File");
+        file.setText("File");
 
         jMenuItem1.setText("Reports");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +207,7 @@ public class PendingJobsView extends javax.swing.JFrame
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        file.add(jMenuItem1);
 
         showClassEditorOptions.setText("Class Settings");
         showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
@@ -215,23 +215,23 @@ public class PendingJobsView extends javax.swing.JFrame
                 showClassEditorOptionsActionPerformed(evt);
             }
         });
-        jMenu1.add(showClassEditorOptions);
+        file.add(showClassEditorOptions);
 
-        jMenuBar1.add(jMenu1);
+        menuBar.add(file);
 
-        jMenu2.setText("Help");
+        help.setText("Help");
 
-        jMenuItem2.setText("Contents");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        userGuide.setText("User Guide");
+        userGuide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                userGuideActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        help.add(userGuide);
 
-        jMenuBar1.add(jMenu2);
+        menuBar.add(help);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         pack();
         setLocationRelativeTo(null);
@@ -342,17 +342,10 @@ public class PendingJobsView extends javax.swing.JFrame
         reports.ReportsPage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void userGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideActionPerformed
         // TODO add your handling code here:
-        try 
-        {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-        } 
-        catch (IOException e) 
-        {
-            JOptionPane.showMessageDialog(null, "Error");  //print the error
-        }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        UtilController.openAdminHelpPage();
+    }//GEN-LAST:event_userGuideActionPerformed
     
     /* This button when pressed will pull up the options menu for editing courses and choosing a "current" course. */
     private void showClassEditorOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showClassEditorOptionsActionPerformed
@@ -407,20 +400,20 @@ public class PendingJobsView extends javax.swing.JFrame
     public static javax.swing.JTable PendingTable;
     private javax.swing.JButton RejectButton;
     private javax.swing.JButton backToMainMenu;
+    private javax.swing.JMenu file;
+    private javax.swing.JMenu help;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JButton openFileInProgram;
     private javax.swing.JMenuItem showClassEditorOptions;
+    private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables
 }
