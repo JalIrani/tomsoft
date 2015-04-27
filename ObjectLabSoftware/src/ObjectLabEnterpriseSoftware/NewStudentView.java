@@ -201,14 +201,14 @@ public class NewStudentView extends javax.swing.JFrame
         if (exit && tuID.length() != 7)
         {
             JOptionPane.showMessageDialog(this, "Id is not 7 digits");
-        } else if (UtilController.userIDExist(Integer.parseInt(tuID)))
+        } else
         {
-            JOptionPane.showMessageDialog(this, "Id already exists");
+            JOptionPane.showMessageDialog(this, "Id already exists. Updating data.");
+            UtilController.addUser(tuID, firstName, lastName, email);
             //possibly just update the user data here
         }
         
-        UtilController.addUser(tuID, firstName, lastName, email);
-        dispose();
+        
     }//GEN-LAST:event_submitActionPerformed
 
     private void emailEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailEntryActionPerformed

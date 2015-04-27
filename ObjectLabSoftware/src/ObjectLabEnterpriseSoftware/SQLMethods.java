@@ -422,7 +422,14 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("INSERT INTO users(towson_id, first_name, last_name, email) values (?,?,?,?);");
+            stmt = conn.prepareStatement
+            (
+                    "INSERT INTO users(towson_id, first_name, last_name, email) "
+                    + "values (?,?,?,?) "
+                    + "ON DUPLICATE KEY UPDATE "
+                    + "towson_id = VALUES(towson_id), first_name = VALUES(first_name), last_name = VALUES(last_name), email = VALUES(email);"
+            );
+            
             stmt.setInt(1, idusers);
             stmt.setString(2, firstName);
             stmt.setString(3, lastName);

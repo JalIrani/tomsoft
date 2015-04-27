@@ -937,10 +937,14 @@ public class UtilController
         dbconn.closeDBConnection();
         return temp;
     }
+    
     public static void addUser(String id,String firstname, String lastname, String email)
     {
-         SQLMethods dbconn = new SQLMethods();
-       dbconn.insertIntoUsers(Integer.parseInt(id), firstname, lastname, email);
+        SQLMethods dbconn = new SQLMethods();
+        
+        int userID = Integer.parseInt(id);
+        System.out.println("ID IS" + id);
+        dbconn.insertIntoUsers(userID, firstname, lastname, email);
         dbconn.closeDBConnection();
     }
     
