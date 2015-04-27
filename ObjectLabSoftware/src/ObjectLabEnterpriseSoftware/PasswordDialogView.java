@@ -30,7 +30,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Administrator Password:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         CancelButton.setText("Cancel");
         CancelButton.addActionListener(new java.awt.event.ActionListener()
@@ -40,7 +40,7 @@ public class PasswordDialogView extends javax.swing.JFrame
                 CancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 57, -1, -1));
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         SubmitButton.setText("Submit");
         SubmitButton.addActionListener(new java.awt.event.ActionListener()
@@ -50,11 +50,11 @@ public class PasswordDialogView extends javax.swing.JFrame
                 SubmitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 57, -1, -1));
-        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 31, 136, -1));
+        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
+        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 136, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 160, 100));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 220, 100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

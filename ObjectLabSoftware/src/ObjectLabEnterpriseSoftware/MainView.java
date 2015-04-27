@@ -59,7 +59,8 @@ public class MainView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -80,7 +81,8 @@ public class MainView extends javax.swing.JFrame
         helpButton = new javax.swing.JMenu();
         userGuideButton = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -100,8 +102,10 @@ public class MainView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newStudentButton.setText("New Student");
-        newStudentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        newStudentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 newStudentButtonActionPerformed(evt);
             }
         });
@@ -111,68 +115,84 @@ public class MainView extends javax.swing.JFrame
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 130, 20));
 
-        studentIdString.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentIdString.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentIdStringActionPerformed(evt);
             }
         });
         getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 130, 30));
 
         studentButton.setText("Student");
-        studentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentButtonActionPerformed(evt);
             }
         });
         getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 30));
 
         enterBuild.setText("Enter Build");
-        enterBuild.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        enterBuild.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 enterBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(enterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 130, 30));
+        getContentPane().add(enterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 150, 30));
 
-        AdminButton.setText("Administrator");
-        AdminButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AdminButton.setText("Login as Administrator");
+        AdminButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AdminButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 130, 30));
+        getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 150, 30));
 
-        openProjectsButton.setText("Projects");
-        openProjectsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openProjectsButton.setText("Approve/Reject Projects");
+        openProjectsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openProjectsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 130, 30));
+        getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 150, 30));
 
         settingsButton.setText("Settings");
-        settingsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        settingsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 settingsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 200, 130, 30));
+        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 150, 30));
 
-        ReportsButton.setText("Reports");
-        ReportsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ReportsButton.setText(" Reports");
+        ReportsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ReportsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 130, 30));
+        getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 150, 30));
 
         logoutB.setText("Logout");
-        logoutB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        logoutB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 logoutBActionPerformed(evt);
             }
         });
-        getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 130, 30));
+        getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 150, 30));
 
         newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
         getContentPane().add(newStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
@@ -180,8 +200,10 @@ public class MainView extends javax.swing.JFrame
         helpButton.setText("Help");
 
         userGuideButton.setText("User Guide");
-        userGuideButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userGuideButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 userGuideButtonActionPerformed(evt);
             }
         });
@@ -219,6 +241,7 @@ public class MainView extends javax.swing.JFrame
          Currently bypasses what is typed into dialogue for ease of testing
          password.equals(PASS) 
          */
+		hideStudentOptions();
         if (true)
         {
             //studentSubmissionButton.setVisible(false);
@@ -237,6 +260,22 @@ public class MainView extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_ReportsButtonActionPerformed
 
+	public void hideStudentOptions()
+	{
+		studentButton.setVisible(false);
+		studentIdString.setVisible(false);
+		newStudentButton.setVisible(false);
+		AdminButton.setVisible(false);
+	}
+	
+	public void showStudentOptions()
+	{
+		studentButton.setVisible(true);
+		studentIdString.setVisible(true);
+		newStudentButton.setVisible(true);
+		AdminButton.setVisible(true);
+	}
+	
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
         setPrintersVisible(false);
@@ -282,6 +321,7 @@ public class MainView extends javax.swing.JFrame
 
     private void logoutBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBActionPerformed
         setPrintersVisible(false);
+		showStudentOptions();
     }//GEN-LAST:event_logoutBActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt)
