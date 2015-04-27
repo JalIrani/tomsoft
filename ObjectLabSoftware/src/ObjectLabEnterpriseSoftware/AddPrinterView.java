@@ -209,7 +209,8 @@ public class AddPrinterView extends javax.swing.JFrame
                     settings.AdminSettingsViewStart();
                     dispose();
 		    break;
-                }
+                }else
+                    break;
 	    }
 	}
         if(exit==true){
