@@ -298,6 +298,7 @@ public class AddPrinterView extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(this, "Could not save! Device '" + device.getDeviceName() + "' already exists!");
             else if(UtilController.addDevice(device)==true){
                 JOptionPane.showMessageDialog(this, "Device '"+device.getDeviceName()+"' was saved and added to the printer list!");
+		settings.AdminSettingsViewStart();
                 dispose();
             }else
                 JOptionPane.showMessageDialog(this, "There was an error while saving the printer.");

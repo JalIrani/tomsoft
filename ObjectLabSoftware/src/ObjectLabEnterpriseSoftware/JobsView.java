@@ -28,7 +28,7 @@ public class JobsView extends javax.swing.JFrame
     static ReportsView reports = null;
     private static FileManager inst = null;
     
-    private static void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
+    private void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
         
@@ -39,6 +39,13 @@ public class JobsView extends javax.swing.JFrame
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view) 
             pendingJobsView.addRow(row.toArray());
+	if(!status.equals("pending")){
+	    ApprovedButton.setVisible(false);
+	    RejectButton.setVisible(false);
+	}else{
+	    ApprovedButton.setVisible(true);
+	    RejectButton.setVisible(true);
+	}
     }
     
     public JobsView() 
@@ -57,8 +64,11 @@ public class JobsView extends javax.swing.JFrame
                 public void windowClosing(WindowEvent we) 
                 {
                     /* If they close the program then close out the window properly */
+		    
+		    MainView home = new MainView();
+		    home.setVisible(true);
+		    home.setPrintersVisible(true);
                     dispose();
-                    System.exit(0);
                 }
             }
         );
@@ -412,7 +422,9 @@ public class JobsView extends javax.swing.JFrame
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         // TODO add your handling code here:
         dispose();
-        new MainView().setVisible(true); 
+	MainView home = new MainView();
+	home.setVisible(true);
+	home.setPrintersVisible(true);
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed
