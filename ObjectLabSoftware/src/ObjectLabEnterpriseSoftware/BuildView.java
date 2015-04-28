@@ -217,9 +217,9 @@ public class BuildView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 10));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 950, 10));
 
-        Submit_Button.setText("Submit");
+        Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -227,7 +227,7 @@ public class BuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, 90, 20));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 640, 90, 20));
 
         closeBtn.setText("Close");
         closeBtn.addActionListener(new java.awt.event.ActionListener()
@@ -237,7 +237,7 @@ public class BuildView extends javax.swing.JFrame
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 80, 20));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 640, 80, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Choose STL files from build: ");
@@ -270,7 +270,7 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 180, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, -1));
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -280,17 +280,19 @@ public class BuildView extends javax.swing.JFrame
             },
             new String []
             {
-                "", "Project Title", "Date Submitted"
+                "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name",
+                "Class name", "Class section"
             }
         )
         {
             Class[] types = new Class []
             {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean []
             {
-                true, false, false
+                true, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex)
@@ -312,7 +314,7 @@ public class BuildView extends javax.swing.JFrame
             stlFileTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 360, 190));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 300));
 
         jLabel2.setText("Select Device:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
@@ -325,7 +327,7 @@ public class BuildView extends javax.swing.JFrame
                 deviceNameComboBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, -1));
+        getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, -1));
 
         deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
@@ -333,12 +335,12 @@ public class BuildView extends javax.swing.JFrame
         deviceInputTable.setRowHeight(24);
         jScrollPane4.setViewportView(deviceInputTable);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 360, 90));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 950, 150));
 
         jLabel3.setText("Enter Build Data");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
-        confirmBuildButton.setText("Confirm Build");
+        confirmBuildButton.setText("Confirm Student Submission Files");
         confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -346,10 +348,10 @@ public class BuildView extends javax.swing.JFrame
                 confirmBuildButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+        getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 430, 220, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 410, 540));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
 
         fileMenu.setText("File");
 
