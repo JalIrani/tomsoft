@@ -300,13 +300,39 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM custom_printer_column_names Where printer_name = ? ");
+            stmt = this.conn.prepareStatement("SELECT * FROM custom_printer_column_names WHERE printer_name = ?;");
             stmt.setString(1, printer);
             res = stmt.executeQuery();
 
         } catch (SQLException e)
         {
             System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+    
+    /*
+    This is a method that retrieve custom_field_names from custom_printer_column_names. 
+    I use this to dynamically update the enter build info in the tables
+    The other methods meant to do this were not working. ~Sean Gahagan
+    */
+    public ResultSet selectDeviceTrackableMetaData(String printer)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT custom_field_name, numerical FROM custom_printer_column_names WHERE printer_name = ?;"
+                    
+            );
+            
+            stmt.setString(1, printer);
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
         return res;
     }
@@ -1474,31 +1500,4 @@ public class SQLMethods
         }
         return res;
     }
-    
-    /*
-    This is a method that retrieve custom_field_names from custom_printer_column_names. 
-    I use this to dynamically update the enter build info in the tables
-    The other methods meant to do this were not working. ~Sean Gahagan
-    */
-    public ResultSet forSean(String printer)
-    {
-        res = null;
-        try
-        {
-            stmt = this.conn.prepareStatement
-            (
-                    "SELECT custom_field_name, numerical FROM custom_printer_column_names WHERE printer_name = ?;"
-                    
-            );
-            
-            stmt.setString(1, printer);
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
 }

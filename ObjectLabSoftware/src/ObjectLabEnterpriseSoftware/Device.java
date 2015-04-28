@@ -17,7 +17,7 @@ public class Device
     public static final int TYPE_STRING = 1;
 
     private String deviceName;
-	private boolean trackSubmission;
+    private boolean trackSubmission;
     private ArrayList<String> fileExtensions;
     private ArrayList<String> fieldNames;
 
@@ -27,7 +27,7 @@ public class Device
     public Device()
     {
         deviceName = null;
-		trackSubmission = true;
+        trackSubmission = true;
         fileExtensions = new ArrayList<>();
         fieldNames = new ArrayList<>();
         fields = new HashMap<>(INITIAL_TABLE_SIZE);
@@ -36,7 +36,7 @@ public class Device
     public Device(String name, ArrayList<String> ext, boolean trackStud)
     {
         deviceName = name;
-		trackSubmission = trackStud;
+        trackSubmission = trackStud;
         fileExtensions = ext;
         fieldNames = new ArrayList<>();
         fields = new HashMap<>(INITIAL_TABLE_SIZE);
@@ -46,8 +46,8 @@ public class Device
     {
         deviceName = n;
     }
-	
-	public void setTrackSubmission(boolean trackStud)
+    
+    public void setTrackSubmission(boolean trackStud)
     {
 		trackSubmission = trackStud;
     }

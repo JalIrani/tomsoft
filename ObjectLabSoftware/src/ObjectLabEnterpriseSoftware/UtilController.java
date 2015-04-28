@@ -847,7 +847,7 @@ public class UtilController
         ArrayList<Object> fillData = new ArrayList();
         ArrayList<Object> fillType = new ArrayList();
         printerName = printerName.trim();
-        ResultSet queryResult = dbconn.forSean(printerName);
+        ResultSet queryResult = dbconn.selectDeviceTrackableMetaData(printerName);
         //putting data into an array of arrays
         while(queryResult.next()){
             fillData.add(queryResult.getString(1));
@@ -1117,10 +1117,12 @@ public class UtilController
     }
   
     /**
-     * Creates template device class for the printer build process to use. 
-     * This is created before build data is typed in in the printer dialog class.
-     * This device class will be used to determine the fields that will be needed for the printer dialog,
-     * as well as a middleman for the ui and database (so they don't have to mix).
+     * Creates template device class for the printer build process to use. This
+     * is created before build data is typed in in the printer dialog class.
+     * This device class will be used to determine the fields that will be
+     * needed for the printer dialog, as well as a middleman for the ui and
+     * database (so they don't have to mix).
+     *
      * @param printer the name of the printer (in the database)
      * @return
      */
@@ -1128,21 +1130,20 @@ public class UtilController
     {
         Device buildPrinter = new Device();
         SQLMethods dbconn = new SQLMethods();
-        
+
         buildPrinter.setDeviceName(printer);
-        ResultSet r = dbconn.selectColumnNames(printer);
-        ArrayList<String> fieldNames = new ArrayList();
-        try {
-            while(r.next())
-            {
-                fieldNames.add(r.getString("custom_field_name"));
-            }
-        } catch (SQLException ex) {
+        ResultSet queryResult = dbconn.selectDeviceTrackableMetaData(printer);
+        
+        /* Add the data from the query by row into the Device class */
+        try
+        {
+            while (queryResult.next())
+                buildPrinter.addField(queryResult.getString("custom_field_name"), (Boolean) queryResult.getBoolean("numerical"));
+        } catch (SQLException ex)
+        {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        buildPrinter.setFieldNames(fieldNames);
-        
-        
+
         dbconn.closeDBConnection();
         return buildPrinter;
     }
