@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-public class DeviceBuildView extends javax.swing.JFrame 
+public class BuildView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Build File Creator";	
     private static MainView home;    
@@ -77,7 +77,7 @@ public class DeviceBuildView extends javax.swing.JFrame
         } 
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
         {
-            java.util.logging.Logger.getLogger(DeviceBuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         countNumOfModels = 0;
@@ -123,8 +123,8 @@ public class DeviceBuildView extends javax.swing.JFrame
      * This method is used to return to the homescreen after exiting select windows
 
  It is called from the following methods:
-      DeviceBuildView.startMakingBuildProcess.windowClosing
-      DeviceBuildView.closeBtnActionPerformed
+      BuildView.startMakingBuildProcess.windowClosing
+      BuildView.closeBtnActionPerformed
       ObjetDialogView.ObjetDialogStart.windowClosing
       ObjetDialogView.submitBtnActionPerformed
       ZCorpDialogView.ZCorpDialogStart.windowClosing
@@ -480,7 +480,7 @@ public class DeviceBuildView extends javax.swing.JFrame
 
         } catch (SQLException ex)
         {
-            Logger.getLogger(DeviceBuildView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuildView.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
     }//GEN-LAST:event_confirmBuildButtonActionPerformed
@@ -498,7 +498,7 @@ public class DeviceBuildView extends javax.swing.JFrame
             deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceHeaders.toArray(), 1));
         } catch (SQLException ex)
         {
-            Logger.getLogger(DeviceBuildView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuildView.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        for(int i = 0; i<printerHeaders.size(); i++){
 //            System.out.println(deviceHeaders.get(i).toString());
