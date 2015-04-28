@@ -787,7 +787,7 @@ public class UtilController
             }
         } catch (SQLException ex)
         {
-            Logger.getLogger(DeviceBuildView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuildView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         dbconn.closeDBConnection();
