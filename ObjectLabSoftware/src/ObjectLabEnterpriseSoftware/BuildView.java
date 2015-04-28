@@ -18,13 +18,28 @@ public class BuildView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Build File Creator";	
     private static MainView home;    
-    private static DefaultTableModel fileTableModel;
+    private DefaultTableModel fileTableModel;
     private static int countNumOfModels;
     private static String BuildDevice;
     private static ArrayList buildInfo;
     private static DefaultTableModel modelA;
 
     FileManager inst;
+    
+    private static void updateView(DefaultTableModel model, ArrayList<ArrayList<Object>> view)
+    {
+        /* Clears up the rows in the view's model. */
+        for(int rows = model.getRowCount() - 1; rows >= 0; rows--)
+            model.removeRow(rows);
+        
+        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
+        for (ArrayList<Object> row : view)
+        {
+            /* We need to account for the checkbox by adding in a boolean value = false as the first value. */
+            row.add(0, (Boolean) false);
+            model.addRow(row.toArray());
+        }
+    }
         
     private void clearEntries(DefaultTableModel fileTableModel) 
     {
@@ -137,19 +152,6 @@ public class BuildView extends javax.swing.JFrame
         home.setDevicesVisible(true);
         home.setVisible(true);
         dispose();
-    }
-	
-	private static void updateView(ArrayList<ArrayList<Object>> view)
-    {
-        System.out.println("ROW COUNT: " + fileTableModel.getRowCount());
-        /* Clears up the rows in the view's model. */
-        for(int rows = fileTableModel.getRowCount() - 1; rows >= 0; rows--)
-            fileTableModel.removeRow(rows);
-        
-        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
-        for (ArrayList<Object> row : view) 
-            fileTableModel.addRow(row.toArray());
-        System.out.println("ROW COUNT AFTER: " + fileTableModel.getRowCount());
     }
 
     /**
@@ -450,7 +452,7 @@ public class BuildView extends javax.swing.JFrame
         }
         
         if (!filepathToSelectedDeviceBuild.getText().isEmpty())
-            updateView(UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
+            updateView(fileTableModel, UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
         
     }//GEN-LAST:event_browseBtnActionPerformed
    
@@ -489,7 +491,7 @@ public class BuildView extends javax.swing.JFrame
 
     private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
-        updateView(UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
+        updateView(fileTableModel, UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
         BuildDevice = (String) deviceNameComboBox.getSelectedItem();
         Object[] deviceFields;
         System.out.println(BuildDevice);
