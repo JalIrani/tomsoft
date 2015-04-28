@@ -138,10 +138,10 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, "
-					+ "Job.submission_date ,Job.printer_name, class_name, class_section  " 
-					+ "FROM Job, Users , Class " + "WHERE status = ? AND printer_name = ? "
-					+ "AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT job.file_name, users.first_name, users.last_name, "
+					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+					+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
+					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
             stmt.setString(1, status);
             stmt.setString(2, printer);
             res = stmt.executeQuery();
@@ -157,10 +157,10 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, "
-					+ "Job.submission_date ,Job.printer_name, class_name, class_section  " 
-					+ "FROM Job, Users ,Class " + "WHERE status = ? "
-					+ "AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT job.file_name, users.first_name, users.last_name, "
+					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+					+ "FROM job, users ,class " + "WHERE job.status = ? "
+					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
             stmt.setString(1, status);
             
             res = stmt.executeQuery();
