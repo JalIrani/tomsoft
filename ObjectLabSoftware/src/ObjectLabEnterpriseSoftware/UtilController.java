@@ -859,7 +859,7 @@ public class UtilController
         return toSend;
     }
      
-    public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
+    public static ArrayList<ArrayList<Object>> returnApprovedStudentSubmissionsForDevice(String printerName)
     {
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.searchJobsStatusPrinter("approved", printerName);
@@ -1131,14 +1131,22 @@ public class UtilController
         Device buildPrinter = new Device();
         SQLMethods dbconn = new SQLMethods();
 
+        /* Query the database for the device column names and its data type (do not be confused with stored data type) */
+        ResultSet queryResultDeviceColumnInfo = dbconn.selectDeviceTrackableMetaData(printer);
+        ResultSet studentSubmissionQuery = dbconn.getStudentSubmissionStatusFromDevice(printer);
+
         buildPrinter.setDeviceName(printer);
-        ResultSet queryResult = dbconn.selectDeviceTrackableMetaData(printer);
         
-        /* Add the data from the query by row into the Device class */
         try
         {
-            while (queryResult.next())
-                buildPrinter.addField(queryResult.getString("custom_field_name"), (Boolean) queryResult.getBoolean("numerical"));
+            /* Set our device student submission status here */
+            buildPrinter.setTrackSubmission(studentSubmissionQuery.getBoolean("student_submission"));
+            
+            /* Add the data from the query by row into the Device class */
+            while (queryResultDeviceColumnInfo.next())
+            {
+                buildPrinter.addField(queryResultDeviceColumnInfo.getString("custom_field_name"), (Boolean) queryResultDeviceColumnInfo.getBoolean("numerical"));
+            }
         } catch (SQLException ex)
         {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);

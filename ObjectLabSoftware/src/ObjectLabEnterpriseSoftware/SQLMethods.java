@@ -233,14 +233,39 @@ public class SQLMethods
         }
         return res;
     }
+    
+    public ResultSet getStudentSubmissionStatusFromDevice(String printer)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT student_submission "
+                    + "FROM printer "
+                    + "WHERE printer_name = ?"
+            );
+            
+            stmt.setString(1, printer);
+            
+            res = stmt.executeQuery();
+            System.out.println(stmt);
+        } catch (SQLException e)
+        {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
 
     public ResultSet searchPrinterSettings(String printer)
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM printers WHERE printer = ?");
+            stmt = this.conn.prepareStatement("SELECT * FROM printer WHERE printer_name = ?");
+            
             stmt.setString(1, printer);
+            
             res = stmt.executeQuery();
             System.out.println(stmt);
         } catch (SQLException e)

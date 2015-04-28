@@ -17,12 +17,14 @@ import javax.swing.table.DefaultTableModel;
 public class BuildView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Build File Creator";	
-    private static MainView home;    
-    private DefaultTableModel fileTableModel;
+    private static MainView home;
     private static int countNumOfModels;
     private static String BuildDevice;
     private static ArrayList buildInfo;
     private static DefaultTableModel modelA;
+    
+    private DefaultTableModel fileTableModel;
+    private Device deviceModel;
 
     FileManager inst;
     
@@ -79,6 +81,8 @@ public class BuildView extends javax.swing.JFrame
         inst = new FileManager();
         home = new MainView();
         initComponents();
+        deviceInputTable.setVisible(false);
+        
         try 
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
@@ -452,8 +456,7 @@ public class BuildView extends javax.swing.JFrame
         }
         
         if (!filepathToSelectedDeviceBuild.getText().isEmpty())
-            updateView(fileTableModel, UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
-        
+            deviceInputTable.setVisible(true);
     }//GEN-LAST:event_browseBtnActionPerformed
    
     private void reportsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsMenuActionPerformed
@@ -491,28 +494,14 @@ public class BuildView extends javax.swing.JFrame
 
     private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
-        updateView(fileTableModel, UtilController.returnApprovedBuildsForPrinter((String) deviceNameComboBox.getSelectedItem()));
-        BuildDevice = (String) deviceNameComboBox.getSelectedItem();
-        Object[] deviceFields;
-        System.out.println(BuildDevice);
-        ArrayList<ArrayList<Object>> deviceHeaders = new <ArrayList<Object>>ArrayList();
-        try
-        {
-            deviceHeaders = UtilController.returnTableHeader(BuildDevice);
-            deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceHeaders.toArray(), 1));
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(BuildView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        for(int i = 0; i<printerHeaders.size(); i++){
-//            System.out.println(deviceHeaders.get(i).toString());
-//        }
-        deviceFields = deviceHeaders.get(0).toArray();
-        for(int i= 0; i<deviceFields.length;i++){
-            System.out.println(deviceFields[i]);
-        }
-        deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceFields, 1));
-
+        /* When a device is selected we put the info into the Device class and then detrmine how we update our view from here 
+            From here we can determine how we update our display and what type of data we require from the user as well as the
+            column data to display.
+        */
+         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
+        
+       // updateView(fileTableModel, UtilController.returnApprovedStudentSubmissionsForDevice(buildDevice));
+       // browseBtn.setVisible(false);
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
 
