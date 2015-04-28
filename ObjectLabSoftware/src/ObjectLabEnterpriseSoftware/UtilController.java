@@ -1140,7 +1140,8 @@ public class UtilController
         try
         {
             /* Set our device student submission status here */
-            buildPrinter.setTrackSubmission(studentSubmissionQuery.getBoolean("student_submission"));
+            if (studentSubmissionQuery.next())
+                buildPrinter.setTrackSubmission(studentSubmissionQuery.getBoolean("student_submission"));
             
             /* Add the data from the query by row into the Device class */
             while (queryResultDeviceColumnInfo.next())

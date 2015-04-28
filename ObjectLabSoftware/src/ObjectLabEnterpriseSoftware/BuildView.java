@@ -28,7 +28,7 @@ public class BuildView extends javax.swing.JFrame
 
     FileManager inst;
     
-    private static void updateView(DefaultTableModel model, ArrayList<ArrayList<Object>> view)
+    private static void updateViewData(DefaultTableModel model, ArrayList<ArrayList<Object>> view)
     {
         /* Clears up the rows in the view's model. */
         for(int rows = model.getRowCount() - 1; rows >= 0; rows--)
@@ -279,119 +279,109 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, -1));
 
         stlFileTable.setAutoCreateRowSorter(true);
-        stlFileTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
+        stlFileTable.setModel(new javax.swing.table.DefaultTableModel()
             {
+                Class[] types = new Class []
+                {
+                    java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                    ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                };
+                boolean[] canEdit = new boolean []
+                {
+                    true, false, false, false, false, false, false, false, false
+                };
 
-            },
-            new String []
+                public Class getColumnClass(int columnIndex)
+                {
+                    return types [columnIndex];
+                }
+
+                public boolean isCellEditable(int rowIndex, int columnIndex)
+                {
+                    return canEdit [columnIndex];
+                }
+            });
+            jScrollPane3.setViewportView(stlFileTable);
+            if (stlFileTable.getColumnModel().getColumnCount() > 0)
             {
-                "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name",
-                "Class name", "Class section"
+                stlFileTable.getColumnModel().getColumn(0).setMinWidth(30);
+                stlFileTable.getColumnModel().getColumn(0).setMaxWidth(30);
+                stlFileTable.getColumnModel().getColumn(1).setResizable(false);
+                stlFileTable.getColumnModel().getColumn(2).setResizable(false);
             }
-        )
-        {
-            Class[] types = new Class []
+
+            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 300));
+
+            jLabel2.setText("Select Device:");
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+            deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
+            deviceNameComboBox.addActionListener(new java.awt.event.ActionListener()
             {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-                ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean []
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    deviceNameComboBoxActionPerformed(evt);
+                }
+            });
+            getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, -1));
+
+            deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+            deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
+            );
+            deviceInputTable.setRowHeight(24);
+            jScrollPane4.setViewportView(deviceInputTable);
+
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 950, 150));
+
+            jLabel3.setText("Enter Build Data");
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
+
+            confirmBuildButton.setText("Confirm Student Submission Files");
+            confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
             {
-                true, false, false, false, false, false, false, false, false
-            };
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    confirmBuildButtonActionPerformed(evt);
+                }
+            });
+            getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 430, 220, -1));
 
-            public Class getColumnClass(int columnIndex)
+            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
+
+            fileMenu.setText("File");
+
+            reportsMenu.setText("Reports");
+            reportsMenu.addActionListener(new java.awt.event.ActionListener()
             {
-                return types [columnIndex];
-            }
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    reportsMenuActionPerformed(evt);
+                }
+            });
+            fileMenu.add(reportsMenu);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
+            jMenuBar1.add(fileMenu);
+
+            helpMenu.setText("Help");
+
+            userGuide.setText("User Guide");
+            userGuide.addActionListener(new java.awt.event.ActionListener()
             {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(stlFileTable);
-        if (stlFileTable.getColumnModel().getColumnCount() > 0)
-        {
-            stlFileTable.getColumnModel().getColumn(0).setMinWidth(30);
-            stlFileTable.getColumnModel().getColumn(0).setMaxWidth(30);
-            stlFileTable.getColumnModel().getColumn(1).setResizable(false);
-            stlFileTable.getColumnModel().getColumn(2).setResizable(false);
-        }
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    userGuideActionPerformed(evt);
+                }
+            });
+            helpMenu.add(userGuide);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 300));
+            jMenuBar1.add(helpMenu);
 
-        jLabel2.setText("Select Device:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+            setJMenuBar(jMenuBar1);
 
-        deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
-        deviceNameComboBox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                deviceNameComboBoxActionPerformed(evt);
-            }
-        });
-        getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, -1));
-
-        deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
-        );
-        deviceInputTable.setRowHeight(24);
-        jScrollPane4.setViewportView(deviceInputTable);
-
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 950, 150));
-
-        jLabel3.setText("Enter Build Data");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
-
-        confirmBuildButton.setText("Confirm Student Submission Files");
-        confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                confirmBuildButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 430, 220, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
-
-        fileMenu.setText("File");
-
-        reportsMenu.setText("Reports");
-        reportsMenu.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                reportsMenuActionPerformed(evt);
-            }
-        });
-        fileMenu.add(reportsMenu);
-
-        jMenuBar1.add(fileMenu);
-
-        helpMenu.setText("Help");
-
-        userGuide.setText("User Guide");
-        userGuide.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                userGuideActionPerformed(evt);
-            }
-        });
-        helpMenu.add(userGuide);
-
-        jMenuBar1.add(helpMenu);
-
-        setJMenuBar(jMenuBar1);
-
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+            setLocationRelativeTo(null);
+        }// </editor-fold>//GEN-END:initComponents
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
         if(!submit())
@@ -495,13 +485,29 @@ public class BuildView extends javax.swing.JFrame
     private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
         /* When a device is selected we put the info into the Device class and then detrmine how we update our view from here 
-            From here we can determine how we update our display and what type of data we require from the user as well as the
-            column data to display.
-        */
-         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
-        
-       // updateView(fileTableModel, UtilController.returnApprovedStudentSubmissionsForDevice(buildDevice));
-       // browseBtn.setVisible(false);
+         From here we can determine how we update our display and what type of data we require from the user as well as the
+         column data to display.
+         */
+        deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
+
+        if (deviceModel.getTrackSubmission())
+        {
+            stlFileTable.setVisible(true);
+            confirmBuildButton.setVisible(true);
+            buildLbl.setVisible(true);
+            browseBtn.setVisible(true);
+            filepathToSelectedDeviceBuild.setVisible(true);
+            fileTableModel.setColumnIdentifiers(new String [] { "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" });
+            updateViewData(fileTableModel, UtilController.returnApprovedStudentSubmissionsForDevice(deviceModel.getDeviceName()));
+        } else
+        {
+            stlFileTable.setVisible(false);
+            confirmBuildButton.setVisible(false);
+            buildLbl.setVisible(false);
+            browseBtn.setVisible(false);
+            filepathToSelectedDeviceBuild.setVisible(false);
+            fileTableModel.setColumnIdentifiers(new String[] { "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs" } );
+        }
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
 
