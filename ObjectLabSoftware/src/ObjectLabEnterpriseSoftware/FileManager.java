@@ -37,10 +37,10 @@ public class FileManager
     //Sets default locations that will be shared by all installations
     public FileManager() 
 	{       
-        
-        }
+        //Empty
+    }
     
-    public boolean deleteFile(String path)
+    public static boolean deleteFile(String path)
 	{
         File newDir = new File(path);
         if(newDir.exists())
@@ -68,7 +68,7 @@ public class FileManager
         return new File(path).mkdir();
     }
     
-    public boolean rejectFile(String FileName)
+    public static boolean rejectFile(String FileName)
     {
         try 
         {
@@ -82,7 +82,7 @@ public class FileManager
         return true;
     }
     
-    public boolean approveFile(String FileName, String printer){
+    public static boolean approveFile(String FileName, String printer){
     
         File newDir = new File(drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
             try 
@@ -109,7 +109,7 @@ public class FileManager
         return true;
     }
     
-    public boolean saveReport(String name, Workbook wb)
+    public static boolean saveReport(String name, Workbook wb)
 	{
         
         try 
@@ -131,7 +131,7 @@ public class FileManager
         return true;
     }
     
-    public boolean submitFile(String fileLocation)
+    public static boolean submitFile(String fileLocation)
 	{
         
         try 
@@ -167,7 +167,7 @@ public class FileManager
         }
     }
     
-    public String browseForFile()
+    public static String browseForFile()
     {
         JFileChooser fileopen = new JFileChooser();  //in brackets, add Syncthing directory or new Drive's address for default location
         //Limits selected files to the following types. TODO fix list
@@ -188,7 +188,7 @@ public class FileManager
         
     }
     
-    public boolean zipFilesTo(String zipFileName)
+    public static boolean zipFilesTo(String zipFileName)
 	{
         String zipTo =  ZIPPED_FOLDER + zipFileName + ".zip";
         try 
@@ -271,22 +271,22 @@ public class FileManager
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
     
-    public String getPrinterLocation(String printer){
+    public static String getPrinterLocation(String printer){
         return (drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
     }
 
     /**
      * @return the PDF
      */
-    public String getPDFAdmin() 
+    public static String getPDFAdmin() 
 	{
         return PDFAdmin;
     }
 
-        /**
+     /**
      * @return the PDF
      */
-    public String getPDFStudent() 
+    public static String getPDFStudent() 
 	{
         return PDFStudent;
     }
@@ -302,7 +302,7 @@ public class FileManager
     /**
      * @return the submission
      */
-    public String getSubmission() 
+    public static String getSubmission() 
 	{
         return submission;
     }
@@ -310,7 +310,7 @@ public class FileManager
     /**
      * @return the drive
      */
-    public String getDrive() 
+    public static String getDrive() 
 	{
         return drive;
     }
@@ -318,23 +318,23 @@ public class FileManager
     /**
      * @return the rejected
      */
-    public String getRejected() 
+    public static String getRejected() 
 	{
         return rejected;
     }
        
    //added getters
-     public String getExcelFilePath() 
-	 {
+    public static String getExcelFilePath() 
+	{
         return excelFilePath;
     }
 
-    public String getINPUT_FOLDER() 
+    public static String getINPUT_FOLDER() 
 	{
         return INPUT_FOLDER;
     }
 
-    public String getZIPPED_FOLDER() 
+    public static String getZIPPED_FOLDER() 
 	{
         return ZIPPED_FOLDER;
     }

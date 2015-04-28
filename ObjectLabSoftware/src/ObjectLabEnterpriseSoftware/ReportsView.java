@@ -14,7 +14,6 @@ public class ReportsView extends javax.swing.JFrame
 	private static final MainView home = new MainView();
 	
     private static DefaultTableModel model;
-    private FileManager inst;
     private String selectedPrinter;
     private UtilController controller;
     private String[] headers;

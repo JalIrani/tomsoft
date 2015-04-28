@@ -163,8 +163,6 @@ public class UtilController
     public void exportReportToFile(DefaultTableModel model, String[] header)
     {
 
-        FileManager fileManager = new FileManager();
-
         Workbook wb = new HSSFWorkbook();
         //TODO: pick better sheet name
         Sheet sheet = wb.createSheet("new sheet");
@@ -191,7 +189,7 @@ public class UtilController
             }
         }
 
-        boolean didSave = fileManager.saveReport("ReportName", wb);
+        boolean didSave = FileManager.saveReport("ReportName", wb);
 
         if (didSave)
         {
@@ -200,14 +198,12 @@ public class UtilController
         {
             JOptionPane.showMessageDialog(new JFrame(), "Unable To Exported File");
         }
-
     }
 
     public static void exportReportsForPrinters()
     {
 
         ArrayList<String> printers = getListOfPrinters();
-        FileManager fileManager = new FileManager();
 
         Workbook wb = new HSSFWorkbook();
 
@@ -246,7 +242,7 @@ public class UtilController
                 }
             }
         }
-        boolean didSave = fileManager.saveReport("MasterReport", wb);
+        boolean didSave = FileManager.saveReport("MasterReport", wb);
 
         if (didSave)
         {
@@ -266,7 +262,6 @@ public class UtilController
         {
             String emailadr, emailMessage, primaryKey, fName, lName;
             File locationOfRejectedFiles, rejectionFile;
-            FileManager cloudStorageOperations = new FileManager();
 
             /* Query the DB for our emailadr here */
             if (results.next())
@@ -296,8 +291,8 @@ public class UtilController
              cloudStorageOperations.create(cloudStorageOperations.getRejected());
              */
             /* Move our rejected file to the rejected files directory */
-            locationOfRejectedFiles = new File(cloudStorageOperations.getRejected());
-            rejectionFile = new File(cloudStorageOperations.getSubmission() + file);
+            locationOfRejectedFiles = new File(FileManager.getRejected());
+            rejectionFile = new File(FileManager.getSubmission() + file);
 
             if (rejectionFile.exists())
             {
@@ -339,7 +334,6 @@ public class UtilController
          */
         SQLMethods dbconn = new SQLMethods();
         ResultSet result = dbconn.searchID((fileName) );
-        FileManager cloudStorageOperations = new FileManager();
 
         String ID;
 
@@ -353,9 +347,9 @@ public class UtilController
             {
                 ID = result.getString("job_id");
                 String printer=result.getString("printer_name");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
+                String updatedDirectoryLocation = FileManager.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
                 String updatedFileLocation = updatedDirectoryLocation + "\\";
-                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
+                String currentFileLocation = FileManager.getSubmission() + "\\" + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
@@ -416,7 +410,7 @@ public class UtilController
      */
     public static boolean checkFileExists(String filepath)
     {
-        boolean exists = new FileManager().doesFileExist(filepath);
+        boolean exists = FileManager.doesFileExist(filepath);
         //If the files does not exist and the user does not locate it
         if (!exists)
         {
@@ -569,8 +563,7 @@ public class UtilController
             /*
                 Get new file location for submission location
              */
-            FileManager instance = new FileManager();
-            String newFileLoc = instance.getSubmission() + fileName;
+            String newFileLoc = FileManager.getSubmission() + fileName;
             newFileLoc = newFileLoc.replace("\\", "\\\\");
 
             /*
@@ -716,7 +709,6 @@ public class UtilController
         }
 
         SQLMethods dbconn = new SQLMethods();
-        FileManager instance = new FileManager();
 
         try
         {
@@ -754,8 +746,8 @@ public class UtilController
                     System.out.println(fileName);
                     File newDir = null;
 
-                    newDir = new File(instance.getPrinterLocation(printer));
-                    FileManager.moveFileToNewDirectory(new File(instance.getPrinterLocation(printer)), newDir, true);
+                    newDir = new File(FileManager.getPrinterLocation(printer));
+                    FileManager.moveFileToNewDirectory(new File(FileManager.getPrinterLocation(printer)), newDir, true);
 
                     String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
                     String dateStarted = res2.getString("dateStarted");

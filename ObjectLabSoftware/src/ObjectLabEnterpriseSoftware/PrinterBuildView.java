@@ -25,8 +25,6 @@ public class PrinterBuildView extends javax.swing.JFrame
     private static String BuildPrinter;
     private static ArrayList buildInfo;
     private static DefaultTableModel modelA;
-
-    FileManager inst;
         
     private void clearEntries(DefaultTableModel fileTableModel) 
     {
@@ -63,7 +61,6 @@ public class PrinterBuildView extends javax.swing.JFrame
 
     public void startMakeBuildProcess() 
     {
-        inst = new FileManager();
         initComponents();
         try 
         {

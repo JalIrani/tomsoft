@@ -16,8 +16,6 @@ public class ClassOptionsView extends javax.swing.JFrame
         
         AdminSettingsView settings;
 
-	private static FileManager inst = null;
-
 	private void updateView()
 	{
             if(allClassListModel != null)
@@ -62,7 +60,6 @@ public class ClassOptionsView extends javax.swing.JFrame
 	{
             allClassListModel = null;
                 currentClassListModel = null;
-		inst = new FileManager();
 		/* Creates are PendingJobs UI window componet and grabs its data model for our uses */
 		initComponents();
                 settings = new AdminSettingsView();
@@ -415,7 +412,7 @@ public class ClassOptionsView extends javax.swing.JFrame
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 		try
 		{
-			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
+			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + FileManager.getPDFAdmin());
 		} catch (IOException e)
 		{
 			JOptionPane.showMessageDialog(null, "Error");  //print the error

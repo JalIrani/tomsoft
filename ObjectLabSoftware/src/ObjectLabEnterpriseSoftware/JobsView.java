@@ -24,7 +24,6 @@ public class JobsView extends javax.swing.JFrame
     private static final int PRINTER_COLUMN_NUMBER = 3;
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
 	private static ReportsView reports = null;
-    private static FileManager inst = null;
     private static final MainView home = new MainView();
 
     private DefaultTableModel allFileTableModel;
@@ -51,7 +50,6 @@ public class JobsView extends javax.swing.JFrame
     
     public JobsView() 
     {
-        inst = new FileManager();
         reports = new ReportsView();
          /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();

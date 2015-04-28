@@ -334,8 +334,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         // TODO add your handling code here:
         try
         {
-            FileManager instance = new FileManager();
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + FileManager.getPDFStudent());
         } catch (IOException e)
         {
             JOptionPane.showMessageDialog(null, e);  //print the error
