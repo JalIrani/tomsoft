@@ -5,7 +5,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -17,7 +16,6 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     public void studentSubmissionStart(String id)
     {
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
         hideErrorFields();
         
@@ -47,7 +45,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
             public void windowClosing(WindowEvent e)
             {
                 dispose();
-		home.showStudentOptions();
+				home.resetAdminMode();
             }
         });
         setVisible(true);
@@ -362,9 +360,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-	home.showStudentOptions();
-        this.dispose();
-		
+		dispose();
+		home.resetAdminMode();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed
