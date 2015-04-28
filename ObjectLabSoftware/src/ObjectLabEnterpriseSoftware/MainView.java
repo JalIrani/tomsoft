@@ -254,6 +254,13 @@ public class MainView extends javax.swing.JFrame
 			hideStudentOptions();
 		    setVisible(true);
 	}
+	
+	public void resetOptions()
+	{
+		studentIdString.setText("");
+	}
+
+	
 	public void hideStudentOptions()
 	{
 		studentButton.setVisible(false);
