@@ -24,7 +24,7 @@ public class BuildView extends javax.swing.JFrame
     private static DefaultTableModel modelA;
     
     private DefaultTableModel fileTableModel;
-    private Device deviceModel;
+    private Device deviceModel = null;
 
     FileManager inst;
     
@@ -51,10 +51,17 @@ public class BuildView extends javax.swing.JFrame
     
     private boolean valididateUserInput() 
     {
+        if (deviceNameComboBox.getSelectedItem().equals("") || deviceModel == null /* this is a hot fix... */)
+        {
+            ErrorText.setText("Select a printer from above!");
+            ErrorText.setVisible(true);
+            return false;
+        }
+        
         /* filepathToSelectedDeviceBuild is the file location to the build file */
         if (filepathToSelectedDeviceBuild.getText().isEmpty()) 
         {
-            ErrorText.setText("Choose a build file above!");
+            ErrorText.setText("Choose a build file below!");
             ErrorText.setVisible(true);
             return false;
         } 
@@ -65,7 +72,7 @@ public class BuildView extends javax.swing.JFrame
             {
                 if ((Boolean) fileTableModel.getValueAt(z, 0)) 
                 {
-                    return true;
+                    return true; /* Atleast one file was checkout off for being part of the build*/
                 }
             }
             
@@ -74,6 +81,30 @@ public class BuildView extends javax.swing.JFrame
             
             return false;
         }
+    }
+    
+    private boolean submit() 
+    {
+        countNumOfModels = 0;
+        if (valididateUserInput()) 
+        {
+            ErrorText.setVisible(false);
+
+            //int z;
+            //ArrayList selected = new ArrayList();
+            for (int z = 0; z < fileTableModel.getRowCount(); z++) 
+            {
+                if ((Boolean) fileTableModel.getValueAt(z, 0)) 
+                {
+                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedDeviceBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
+                    countNumOfModels++;
+                }
+            }
+            dispose();
+            return true;
+        }
+        
+        return false;
     }
 
     public void startMakeBuildProcess() 
@@ -114,43 +145,6 @@ public class BuildView extends javax.swing.JFrame
         });
     }
 
-    private boolean submit() 
-    {
-        countNumOfModels = 0;
-        if (valididateUserInput()) 
-        {
-            ErrorText.setVisible(false);
-
-            //int z;
-            //ArrayList selected = new ArrayList();
-            for (int z = 0; z < fileTableModel.getRowCount(); z++) 
-            {
-                if ((Boolean) fileTableModel.getValueAt(z, 0)) 
-                {
-                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedDeviceBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
-                    countNumOfModels++;
-                }
-            }
-            dispose();
-            return true;
-        }
-        
-        return false;
-    }
-    
-    /**
-     * This method is used to return to the homescreen after exiting select windows
-
- It is called from the following methods:
-      BuildView.startMakingBuildProcess.windowClosing
-      BuildView.closeBtnActionPerformed
-      ObjetDialogView.ObjetDialogStart.windowClosing
-      ObjetDialogView.submitBtnActionPerformed
-      ZCorpDialogView.ZCorpDialogStart.windowClosing
-      ZCorpDialogView.submitBtnActionPerformed
-      SolidscapeDialogView.SolidscapeDialogStart.windowClosing
-      SolidscapeDialogView.submitBtnActionPerformed
-     */
     public void returnHome() {
         
         home.setDevicesVisible(true);
@@ -195,7 +189,6 @@ public class BuildView extends javax.swing.JFrame
         jScrollPane4 = new javax.swing.JScrollPane();
         deviceInputTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        confirmBuildButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -276,7 +269,7 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 70, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 220, -1));
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel()
@@ -336,16 +329,6 @@ public class BuildView extends javax.swing.JFrame
             jLabel3.setText("Enter Build Data");
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
 
-            confirmBuildButton.setText("Confirm Student Submission Files");
-            confirmBuildButton.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    confirmBuildButtonActionPerformed(evt);
-                }
-            });
-            getContentPane().add(confirmBuildButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 430, 220, -1));
-
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
 
@@ -386,7 +369,8 @@ public class BuildView extends javax.swing.JFrame
         //add stl information to build table zcorp and create incomplete entry
         if(!submit())
               JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", 
-					  JOptionPane.WARNING_MESSAGE);  
+					  JOptionPane.WARNING_MESSAGE);
+        /*
          buildInfo = new ArrayList();
 
         //making sure a device was selected before enter build is alowed to function
@@ -408,14 +392,14 @@ public class BuildView extends javax.swing.JFrame
             {
 
                 //error checking for values not entered
-                /*if(deviceInputTable.getValueAt(1, i+1).equals(null)){
+                if(deviceInputTable.getValueAt(1, i+1).equals(null)){
                  JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
                  return;
-                 }*/
+                 }
                 buildInfo.add((String) buildData.elementAt(i));
             }
         }
-
+*/
 
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
@@ -445,8 +429,16 @@ public class BuildView extends javax.swing.JFrame
             filepathToSelectedDeviceBuild.setText(myFile.getAbsolutePath().replaceAll("'", ""));
         }
         
-        if (!filepathToSelectedDeviceBuild.getText().isEmpty())
+        if (!filepathToSelectedDeviceBuild.getText().isEmpty() || deviceModel != null)
+        {
+            
             deviceInputTable.setVisible(true);
+            /* Update display so device column names are displayed and you can input data 
+                this information is stored in deviceModel (Device class)
+                Update submit() to validate that input agianst the datatype that is stored in the
+                device class
+            */
+        }
     }//GEN-LAST:event_browseBtnActionPerformed
    
     private void reportsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsMenuActionPerformed
@@ -460,28 +452,6 @@ public class BuildView extends javax.swing.JFrame
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_userGuideActionPerformed
 
-    private void confirmBuildButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_confirmBuildButtonActionPerformed
-    {//GEN-HEADEREND:event_confirmBuildButtonActionPerformed
-        if (deviceNameComboBox.getSelectedItem().equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "You must select a device before you complete build", 
-					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
-            return;
-        }
-        
-        ArrayList<ArrayList<Object>> deviceHeaders;
-        try
-        {
-            deviceHeaders = UtilController.returnTableHeader(BuildDevice);
-           // deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(deviceHeaders.toArray(), 1));
-
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(BuildView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-    }//GEN-LAST:event_confirmBuildButtonActionPerformed
-
     private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
         /* When a device is selected we put the info into the Device class and then detrmine how we update our view from here 
@@ -489,11 +459,10 @@ public class BuildView extends javax.swing.JFrame
          column data to display.
          */
         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
-
+        
         if (deviceModel.getTrackSubmission())
         {
             stlFileTable.setVisible(true);
-            confirmBuildButton.setVisible(true);
             buildLbl.setVisible(true);
             browseBtn.setVisible(true);
             filepathToSelectedDeviceBuild.setVisible(true);
@@ -502,7 +471,6 @@ public class BuildView extends javax.swing.JFrame
         } else
         {
             stlFileTable.setVisible(false);
-            confirmBuildButton.setVisible(false);
             buildLbl.setVisible(false);
             browseBtn.setVisible(false);
             filepathToSelectedDeviceBuild.setVisible(false);
@@ -517,7 +485,6 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildLbl;
     private javax.swing.JButton closeBtn;
-    private javax.swing.JButton confirmBuildButton;
     private javax.swing.JTable deviceInputTable;
     private javax.swing.JComboBox deviceNameComboBox;
     private javax.swing.JMenu fileMenu;
