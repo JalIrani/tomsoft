@@ -1,19 +1,11 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.util.Arrays;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 
 public class PasswordDialogView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE =  "Admin Password";
-    private static MainView home = new MainView();
+	
     public PasswordDialogView() {
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(true);
-        this.setLocationRelativeTo(home);
-        this.setResizable(false);
         initComponents();
     }
 
@@ -69,18 +61,10 @@ public class PasswordDialogView extends javax.swing.JFrame
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         // TODO add your handling code here:
-        char[] password = this.Password.getPassword();
-        
-                home.hideStudentOptions();
-                if(Arrays.equals(password, home.PASS.toCharArray())){
-                    this.dispose();
-                    home.resetAdminMode();
-                }
-                else{
-                this.dispose();
-                home.showStudentOptions();
-                JOptionPane.showMessageDialog(new java.awt.Frame(), "Incorrect password! Access Denied!");
-                }
+        /*
+        Add code to return password
+        */
+        this.dispose();
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
