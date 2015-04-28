@@ -152,6 +152,7 @@ public class SQLMethods
 
         return res;
     }
+    
     public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;

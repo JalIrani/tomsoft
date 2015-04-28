@@ -22,53 +22,21 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class FileManager 
 {
+    private static final String drive = "C:\\Sync";            
+    private static final String submission = drive + "\\ObjectLabPrinters\\Submissions\\";
+    private static final String rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
+    private static final String excelFilePath = drive + "\\Export\\";
+    private static final String INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
+    private static final String ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
     
-    private final String submission;
-    private final String drive;
-    private String zcorpToPrint;
-    private final String zcorpPrinted;
-    private String zcorpToBuildDir;
-    private final String zcorpToBuild;
-    private final String solidscapeToPrint;
-    private final String solidscapePrinted;
-    private final String solidscapeToBuild;
-    private final String objetToPrint;
-    private final String objetPrinted;
-    private final String objetToBuild;
-    private final String PDFAdmin;
-    private final String PDFStudent;
-    private String submitted;
-    private final String rejected;
-    private final String excelFilePath;
-    private final String INPUT_FOLDER;
-    private final String ZIPPED_FOLDER;
-
-
-    //Sets default locations that will be shared by all installations
-    public FileManager() 
-	{
-        //Use the directory provided on piazza and change the file paths below to test
-        drive = "C:\\Sync";
-        rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
-        submission = drive + "\\ObjectLabPrinters\\Submissions\\";
-        PDFAdmin = drive + "\\TomSoft Help Admin.pdf";
-        PDFStudent = drive + "\\TomSoft Help Student.pdf";
-        zcorpToPrint = drive + "\\ObjectLabPrinters\\Zcorp\\ToPrint\\";
-        zcorpPrinted = drive + "\\ObjectLabPrinters\\Zcorp\\Printed\\";
-        zcorpToBuild = drive + "\\ObjectLabPrinters\\Zcorp\\Build Files\\";
-        solidscapeToPrint = drive + "\\ObjectLabPrinters\\Solidscape\\ToPrint\\";
-        solidscapePrinted = drive + "\\ObjectLabPrinters\\Solidscape\\Printed\\";
-        solidscapeToBuild = drive + "\\ObjectLabPrinters\\Solidscape\\Build Files\\";
-        objetToPrint = drive + "\\ObjectLabPrinters\\Objet\\ToPrint\\";
-        objetPrinted = drive + "\\ObjectLabPrinters\\Objet\\Printed\\";
-        objetToBuild = drive + "\\ObjectLabPrinters\\Objet\\Build Files\\";
-        excelFilePath = drive + "\\Export\\";
-        ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
-        INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
+    /* leaving this in for now. so the whole program wont break if i make everything static.. */
+    public FileManager()
+    {
+        
     }
     
     public boolean deleteFile(String path)
-	{
+    {
         File newDir = new File(path);
         if(newDir.exists())
 		{
@@ -80,10 +48,28 @@ public class FileManager
         
         return false;
     }
-    /* String fileLoc = browseForFile();
-            if(fileLoc != null)
-                return true;
-    */
+    
+    /** 
+     * This is a temporary method created by David Prince to set up the location of the printed File
+     * 
+     * @param printerName this is the name of the printer being used
+     * @return the location where the printed file will be stored
+     */
+    public static String getDevicePrinted(String printerName)
+    {
+        return drive + "\\ObjectLabPrinters\\" + printerName + "\\Printed";
+    }
+    
+        /** 
+     * This is a temporary method created by David Prince to set up the location of the file to Print
+     * 
+     * @param printerName this is the name of the printer being used
+     * @return the location where the printed file will be stored
+     */
+    public static String getDeviceToPrint(String printerName)
+    {
+        return drive + "\\ObjectLabPrinters\\" + printerName + "\\ToPrint";
+    }
     
     public static boolean doesFileExist(String path)
     {
@@ -296,118 +282,6 @@ public class FileManager
         zipOutputStream.closeEntry();
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
-    }
-    //getters and setters moved from InstanceCall by Emily and Miguel
-    /**
-     * @return the zcorpToPrint
-     */
-    public String getZcorpToPrint() 
-	{
-        return zcorpToPrint;
-    }
-
-    /**
-     * @param zcorpToPrint the zcorpToPrint to set
-     */
-    public void setZcorpToPrint(String zcorpToPrint) 
-	{
-        this.zcorpToPrint = zcorpToPrint;
-    }
-
-    /**
-     * @return the zcorpToBuild
-     */
-    public String getZcorpToBuild() 
-	{
-        return zcorpToBuild;
-    }
-
-    /**
-     * @return the solidscapeToPrint
-     */
-    public String getSolidscapeToPrint() 
-	{
-        return solidscapeToPrint;
-    }
-
-    /**
-     * @return the solidscapeToBuild
-     */
-    public String getSolidscapeToBuild() 
-	{
-        return solidscapeToBuild;
-    }
-
-    /**
-     * @return the zcorpToBuildDir
-     */
-    public String getZcorpToBuildDir() 
-	{
-        return zcorpToBuildDir;
-    }
-
-    /**
-     * @return the objetToPrint
-     */
-    public String getObjetToPrint() 
-	{
-        return objetToPrint;
-    }
-
-    /**
-     * @return the objetToBuild
-     */
-    public String getObjetToBuild() 
-	{
-        return objetToBuild;
-    }
-
-    /**
-     * @return the zcorpPrinted
-     */
-    public String getZcorpPrinted() 
-	{
-        return zcorpPrinted;
-    }
-
-    /**
-     * @return the solidscapePrinted
-     */
-    public String getSolidscapePrinted() 
-	{
-        return solidscapePrinted;
-    }
-
-    /**
-     * @return the objetPrinted
-     */
-    public String getObjetPrinted() 
-	{
-        return objetPrinted;
-    }
-
-    /**
-     * @return the PDF
-     */
-    public String getPDFAdmin() 
-	{
-        return PDFAdmin;
-    }
-
-        /**
-     * @return the PDF
-     */
-    public String getPDFStudent() 
-	{
-        return PDFStudent;
-    }
-    
-    /**
-     * @return the submitted
-     */
-    public String getSubmitted() 
-	{
-        return submitted;
     }
 
     /**

@@ -389,13 +389,7 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-		try
-		{
-			Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + inst.getPDFAdmin());
-		} catch (IOException e)
-		{
-			JOptionPane.showMessageDialog(null, "Error");  //print the error
-		}
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed

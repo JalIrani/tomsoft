@@ -352,15 +352,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        try
-        {
-            FileManager instance = new FileManager();
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
-        } catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e);  //print the error
-        }
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void BrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseActionPerformed
