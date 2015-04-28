@@ -354,7 +354,7 @@ public class UtilController
                 ID = result.getString("job_id");
                 String printer=result.getString("printer_name");
                 String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
-                String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
+                String updatedFileLocation = updatedDirectoryLocation + "\\";
                 String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
@@ -754,21 +754,8 @@ public class UtilController
                     System.out.println(fileName);
                     File newDir = null;
 
-                    switch (printer)
-                    {
-                        case "zcorp":
-                            newDir = new File(instance.getZcorpPrinted());
-                            FileManager.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
-                            break;
-                        case "solidscape":
-                            newDir = new File(instance.getSolidscapePrinted());
-                            FileManager.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
-                            break;
-                        case "objet":
-                            newDir = new File(instance.getObjetPrinted());
-                            FileManager.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
-                            break;
-                    }
+                    newDir = new File(instance.getPrinterLocation(printer));
+                    FileManager.moveFileToNewDirectory(new File(instance.getPrinterLocation(printer)), newDir, true);
 
                     String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
                     String dateStarted = res2.getString("dateStarted");

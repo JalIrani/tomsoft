@@ -23,49 +23,22 @@ import org.apache.poi.ss.usermodel.Workbook;
 public class FileManager 
 {
     
-    private final String submission;
-    private final String drive;
-    private String zcorpToPrint;
-    private final String zcorpPrinted;
-    private String zcorpToBuildDir;
-    private final String zcorpToBuild;
-    private final String solidscapeToPrint;
-    private final String solidscapePrinted;
-    private final String solidscapeToBuild;
-    private final String objetToPrint;
-    private final String objetPrinted;
-    private final String objetToBuild;
-    private final String PDFAdmin;
-    private final String PDFStudent;
+    private static final String drive = "C:\\Sync";;
+    private static final String PDFAdmin = drive + "\\TomSoft Help Admin.pdf";
+    private static final String PDFStudent = drive + "\\TomSoft Help Student.pdf";
     private String submitted;
-    private final String rejected;
-    private final String excelFilePath;
-    private final String INPUT_FOLDER;
-    private final String ZIPPED_FOLDER;
+    private static final String rejected = drive + "\\ObjectLabPrinters\\Rejected\\";;
+    private static final String submission = drive + "\\ObjectLabPrinters\\Submissions\\";
+    private static final String excelFilePath = drive + "\\Export\\";
+    private static final String INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
+    private static final String ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
 
 
     //Sets default locations that will be shared by all installations
     public FileManager() 
-	{
-        //Use the directory provided on piazza and change the file paths below to test
-        drive = "C:\\Sync";
-        rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
-        submission = drive + "\\ObjectLabPrinters\\Submissions\\";
-        PDFAdmin = drive + "\\TomSoft Help Admin.pdf";
-        PDFStudent = drive + "\\TomSoft Help Student.pdf";
-        zcorpToPrint = drive + "\\ObjectLabPrinters\\Zcorp\\ToPrint\\";
-        zcorpPrinted = drive + "\\ObjectLabPrinters\\Zcorp\\Printed\\";
-        zcorpToBuild = drive + "\\ObjectLabPrinters\\Zcorp\\Build Files\\";
-        solidscapeToPrint = drive + "\\ObjectLabPrinters\\Solidscape\\ToPrint\\";
-        solidscapePrinted = drive + "\\ObjectLabPrinters\\Solidscape\\Printed\\";
-        solidscapeToBuild = drive + "\\ObjectLabPrinters\\Solidscape\\Build Files\\";
-        objetToPrint = drive + "\\ObjectLabPrinters\\Objet\\ToPrint\\";
-        objetPrinted = drive + "\\ObjectLabPrinters\\Objet\\Printed\\";
-        objetToBuild = drive + "\\ObjectLabPrinters\\Objet\\Build Files\\";
-        excelFilePath = drive + "\\Export\\";
-        ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
-        INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
-    }
+	{       
+        
+        }
     
     public boolean deleteFile(String path)
 	{
@@ -297,93 +270,9 @@ public class FileManager
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
-    //getters and setters moved from InstanceCall by Emily and Miguel
-    /**
-     * @return the zcorpToPrint
-     */
-    public String getZcorpToPrint() 
-	{
-        return zcorpToPrint;
-    }
-
-    /**
-     * @param zcorpToPrint the zcorpToPrint to set
-     */
-    public void setZcorpToPrint(String zcorpToPrint) 
-	{
-        this.zcorpToPrint = zcorpToPrint;
-    }
-
-    /**
-     * @return the zcorpToBuild
-     */
-    public String getZcorpToBuild() 
-	{
-        return zcorpToBuild;
-    }
-
-    /**
-     * @return the solidscapeToPrint
-     */
-    public String getSolidscapeToPrint() 
-	{
-        return solidscapeToPrint;
-    }
-
-    /**
-     * @return the solidscapeToBuild
-     */
-    public String getSolidscapeToBuild() 
-	{
-        return solidscapeToBuild;
-    }
-
-    /**
-     * @return the zcorpToBuildDir
-     */
-    public String getZcorpToBuildDir() 
-	{
-        return zcorpToBuildDir;
-    }
-
-    /**
-     * @return the objetToPrint
-     */
-    public String getObjetToPrint() 
-	{
-        return objetToPrint;
-    }
-
-    /**
-     * @return the objetToBuild
-     */
-    public String getObjetToBuild() 
-	{
-        return objetToBuild;
-    }
-
-    /**
-     * @return the zcorpPrinted
-     */
-    public String getZcorpPrinted() 
-	{
-        return zcorpPrinted;
-    }
-
-    /**
-     * @return the solidscapePrinted
-     */
-    public String getSolidscapePrinted() 
-	{
-        return solidscapePrinted;
-    }
-
-    /**
-     * @return the objetPrinted
-     */
-    public String getObjetPrinted() 
-	{
-        return objetPrinted;
+    
+    public String getPrinterLocation(String printer){
+        return (drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
     }
 
     /**
