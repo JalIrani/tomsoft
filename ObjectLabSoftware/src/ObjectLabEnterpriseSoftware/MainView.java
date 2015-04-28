@@ -100,6 +100,7 @@ public class MainView extends javax.swing.JFrame
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 130, 20));
 
+        studentIdString.setToolTipText("Enter seven digit Towson University ID.");
         studentIdString.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentIdStringActionPerformed(evt);
@@ -245,7 +246,6 @@ public class MainView extends javax.swing.JFrame
             if (UtilController.userIDExist(idString))
             {
                 errorIdLabel.setText("");
-                dispose();
                 studentSys.studentSubmissionStart(idString);
             } else
             {
@@ -257,7 +257,7 @@ public class MainView extends javax.swing.JFrame
 
     private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_studentIdStringActionPerformed
 
     private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
