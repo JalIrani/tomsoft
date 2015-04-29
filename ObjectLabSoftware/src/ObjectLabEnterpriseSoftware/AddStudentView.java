@@ -107,27 +107,27 @@ public class AddStudentView extends javax.swing.JFrame
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         newStudentLabel.setText("New Student");
-        getContentPane().add(newStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+        getContentPane().add(newStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
         firstName.setText("First Name:");
-        getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, -1));
+        getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
         lastName.setText("Last Name:");
-        getContentPane().add(lastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        getContentPane().add(lastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
 
         netID.setText("Email:");
-        getContentPane().add(netID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, -1, -1));
+        getContentPane().add(netID, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 
         tuID.setText("TU ID:");
-        getContentPane().add(tuID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
+        getContentPane().add(tuID, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
         emailExtension.setText("ex:  jsmith1@gmail.com");
-        getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, 30));
+        getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, 30));
 
         errorLabel.setForeground(new java.awt.Color(255, 0, 0));
         errorLabel.setText("ERROR");
         errorLabel.setToolTipText("");
-        getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 120, -1));
+        getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 120, -1));
 
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener()
@@ -137,7 +137,7 @@ public class AddStudentView extends javax.swing.JFrame
                 submitActionPerformed(evt);
             }
         });
-        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
+        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
 
         tuIDEntry.addActionListener(new java.awt.event.ActionListener()
         {
@@ -146,9 +146,9 @@ public class AddStudentView extends javax.swing.JFrame
                 tuIDEntryActionPerformed(evt);
             }
         });
-        getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 100, -1));
-        getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 100, -1));
-        getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 100, -1));
+        getContentPane().add(tuIDEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 100, -1));
+        getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 100, -1));
+        getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 100, -1));
 
         emailEntry.addActionListener(new java.awt.event.ActionListener()
         {
@@ -157,7 +157,7 @@ public class AddStudentView extends javax.swing.JFrame
                 emailEntryActionPerformed(evt);
             }
         });
-        getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 170, -1));
+        getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 170, -1));
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setToolTipText("Back");
@@ -172,7 +172,7 @@ public class AddStudentView extends javax.swing.JFrame
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 250));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 240));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
