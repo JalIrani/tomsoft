@@ -361,7 +361,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
 		dispose();
-		home.resetAdminMode();
+                home.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed
