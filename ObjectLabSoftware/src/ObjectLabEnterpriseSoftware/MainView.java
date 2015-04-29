@@ -65,6 +65,7 @@ public class MainView extends javax.swing.JFrame
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
         logoutB = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         helpButton = new javax.swing.JMenu();
@@ -98,7 +99,7 @@ public class MainView extends javax.swing.JFrame
                 newStudentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 110, 30));
+        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 110, 30));
 
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -111,7 +112,7 @@ public class MainView extends javax.swing.JFrame
                 studentIdStringActionPerformed(evt);
             }
         });
-        getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 130, 30));
+        getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 30));
 
         studentButton.setText("Student");
         studentButton.addActionListener(new java.awt.event.ActionListener()
@@ -121,7 +122,7 @@ public class MainView extends javax.swing.JFrame
                 studentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 30));
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 110, 30));
 
         enterBuild.setText("Enter Build");
         enterBuild.addActionListener(new java.awt.event.ActionListener()
@@ -161,7 +162,7 @@ public class MainView extends javax.swing.JFrame
                 settingsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 150, 30));
+        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 150, 30));
 
         ReportsButton.setText(" Reports");
         ReportsButton.addActionListener(new java.awt.event.ActionListener()
@@ -181,7 +182,10 @@ public class MainView extends javax.swing.JFrame
                 logoutBActionPerformed(evt);
             }
         });
-        getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 150, 30));
+        getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 150, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/main_logo.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -383,6 +387,7 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JLabel errorIdLabel;
     private javax.swing.JMenu helpButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
