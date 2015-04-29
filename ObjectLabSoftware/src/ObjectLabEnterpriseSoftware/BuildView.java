@@ -462,19 +462,44 @@ public class BuildView extends javax.swing.JFrame
         
         if (deviceModel.getTrackSubmission())
         {
-            stlFileTable.setVisible(true);
-            buildLbl.setVisible(true);
-            browseBtn.setVisible(true);
-            filepathToSelectedDeviceBuild.setVisible(true);
-            fileTableModel.setColumnIdentifiers(new String [] { "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" });
-            updateViewData(fileTableModel, UtilController.returnApprovedStudentSubmissionsForDevice(deviceModel.getDeviceName()));
+            ArrayList<ArrayList<Object>> approvedStudentSubmissions = UtilController.returnApprovedStudentSubmissionsForDevice(deviceModel.getDeviceName());
+
+            if (approvedStudentSubmissions.size() > 0)
+            {
+                fileTableModel.setColumnIdentifiers(new String[]
+                {
+                    "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
+                });
+                
+                updateViewData(fileTableModel, approvedStudentSubmissions);
+                
+                /* Set UI to display the next steps in completing a build for student submissions that are tracked */
+                stlFileTable.setVisible(true);
+                buildLbl.setVisible(true);
+                browseBtn.setVisible(true);
+                filepathToSelectedDeviceBuild.setVisible(true);
+            } else
+            {
+                fileTableModel.setColumnIdentifiers(new String[]
+                {
+                    "There are no approved student submissions for the device  " + deviceModel.getDeviceName()
+                });
+                stlFileTable.setVisible(false);
+                buildLbl.setVisible(false);
+                browseBtn.setVisible(false);
+                filepathToSelectedDeviceBuild.setVisible(false);
+            }
+
         } else
         {
             stlFileTable.setVisible(false);
             buildLbl.setVisible(false);
             browseBtn.setVisible(false);
             filepathToSelectedDeviceBuild.setVisible(false);
-            fileTableModel.setColumnIdentifiers(new String[] { "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs" } );
+            fileTableModel.setColumnIdentifiers(new String[]
+            {
+                "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs"
+            });
         }
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
