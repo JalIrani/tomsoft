@@ -99,7 +99,7 @@ public class MainView extends javax.swing.JFrame
                 newStudentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 110, 30));
+        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 110, 30));
 
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -112,7 +112,7 @@ public class MainView extends javax.swing.JFrame
                 studentIdStringActionPerformed(evt);
             }
         });
-        getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 130, 30));
+        getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 130, 30));
 
         studentButton.setText("Student");
         studentButton.addActionListener(new java.awt.event.ActionListener()
@@ -122,9 +122,12 @@ public class MainView extends javax.swing.JFrame
                 studentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 110, 30));
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 110, 30));
 
-        enterBuild.setText("Enter Build");
+        enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
+        enterBuild.setToolTipText("Enter Build");
+        enterBuild.setBorderPainted(false);
+        enterBuild.setContentAreaFilled(false);
         enterBuild.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -132,7 +135,7 @@ public class MainView extends javax.swing.JFrame
                 enterBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(enterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 150, 30));
+        getContentPane().add(enterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 60, 60));
 
         AdminButton.setText("Login as Administrator");
         AdminButton.addActionListener(new java.awt.event.ActionListener()
@@ -142,9 +145,11 @@ public class MainView extends javax.swing.JFrame
                 AdminButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 150, 30));
+        getContentPane().add(AdminButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 150, 30));
 
-        openProjectsButton.setText("Approve/Reject Projects");
+        openProjectsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/clipboard_icon.png"))); // NOI18N
+        openProjectsButton.setToolTipText("Approve/Reject Projects");
+        openProjectsButton.setContentAreaFilled(false);
         openProjectsButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -152,9 +157,11 @@ public class MainView extends javax.swing.JFrame
                 openProjectsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 150, 30));
+        getContentPane().add(openProjectsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 60, 60));
 
-        settingsButton.setText("Settings");
+        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png"))); // NOI18N
+        settingsButton.setToolTipText("Settings");
+        settingsButton.setContentAreaFilled(false);
         settingsButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -162,9 +169,11 @@ public class MainView extends javax.swing.JFrame
                 settingsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 150, 30));
+        getContentPane().add(settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 60, 70));
 
-        ReportsButton.setText(" Reports");
+        ReportsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png"))); // NOI18N
+        ReportsButton.setToolTipText("Reports");
+        ReportsButton.setContentAreaFilled(false);
         ReportsButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -172,7 +181,7 @@ public class MainView extends javax.swing.JFrame
                 ReportsButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 150, 30));
+        getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 60, -1));
 
         logoutB.setText("Logout");
         logoutB.addActionListener(new java.awt.event.ActionListener()
@@ -182,7 +191,7 @@ public class MainView extends javax.swing.JFrame
                 logoutBActionPerformed(evt);
             }
         });
-        getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 150, 30));
+        getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 150, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/main_logo.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
