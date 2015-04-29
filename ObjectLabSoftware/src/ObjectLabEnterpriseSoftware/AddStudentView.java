@@ -99,7 +99,10 @@ public class AddStudentView extends javax.swing.JFrame
         lastNameEntry = new javax.swing.JTextField();
         emailEntry = new javax.swing.JTextField();
         backButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        EditMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -107,7 +110,7 @@ public class AddStudentView extends javax.swing.JFrame
 
         newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         newStudentLabel.setText("New Student");
-        getContentPane().add(newStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
+        getContentPane().add(newStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
         firstName.setText("First Name:");
         getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
@@ -170,9 +173,15 @@ public class AddStudentView extends javax.swing.JFrame
             }
         });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 440, 10));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 240));
+
+        EditMenu.setText("Help");
+        jMenuBar1.add(EditMenu);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -239,6 +248,7 @@ public class AddStudentView extends javax.swing.JFrame
     }//GEN-LAST:event_backButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu EditMenu;
     private javax.swing.JButton backButton;
     private javax.swing.JTextField emailEntry;
     private javax.swing.JLabel emailExtension;
@@ -246,6 +256,8 @@ public class AddStudentView extends javax.swing.JFrame
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameEntry;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameEntry;
     private javax.swing.JLabel netID;

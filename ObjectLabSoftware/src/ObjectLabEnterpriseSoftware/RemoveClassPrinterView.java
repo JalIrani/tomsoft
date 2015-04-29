@@ -76,10 +76,10 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         classComboBox.setSelectedItem(null);
         getContentPane().add(classComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 200, -1));
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         titleLabel.setText("Remove Class/Printer");
-        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 210, 20));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 360, 20));
+        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 290, 20));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 390, 10));
 
         classLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         classLabel.setText("Class:");

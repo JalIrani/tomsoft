@@ -107,10 +107,10 @@ public class AddPrinterView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Add Printer");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 440, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
         getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
 
@@ -198,7 +198,7 @@ public class AddPrinterView extends javax.swing.JFrame
 
         EditMenu.setText("Help");
 
-        jMenuItem1.setText("Contents");
+        jMenuItem1.setText("Users Guide");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -273,7 +273,7 @@ public class AddPrinterView extends javax.swing.JFrame
     }//GEN-LAST:event_addFieldButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+		UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
