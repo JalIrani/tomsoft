@@ -316,6 +316,39 @@ $$
 
 DELIMITER ;
 
+USE `jobsdb`;
+DROP procedure IF EXISTS `enterBuildData`;
+
+DELIMITER $$
+USE `jobsdb`$$
+CREATE PROCEDURE `enterBuildData` (In printerName varchar(30), columnfieldname varchar(25), dataToEnter varchar(30), buildName varchar(150))
+BEGIN
+SET @x = null;
+SET @cfn = null;
+SET @cfn = columnfieldname;
+SET @pn = null;
+SET @pn = printerName;
+SET @bn = null;
+SET @bn = buildName;
+SET @dataToEnter = null;
+SET @dataToEnter = dataToEnter;
+
+SELECT 
+	#Assignes x to the value of the column_name_id from the select statement 
+    column_names_id INTO @x 
+FROM
+    custom_printer_column_names
+WHERE
+    custom_field_name = @cfn
+        AND printer_name = @pn;
+
+Insert INTO column_build_data (build_name, column_name_id, column_field_data) values(@bn, @x, @dataToEnter);
+
+END
+$$
+
+DELIMITER ;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
