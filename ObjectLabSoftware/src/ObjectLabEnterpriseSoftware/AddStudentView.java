@@ -83,8 +83,7 @@ public class AddStudentView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         newStudentLabel = new javax.swing.JLabel();
         firstName = new javax.swing.JLabel();
@@ -133,19 +132,15 @@ public class AddStudentView extends javax.swing.JFrame
         getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 120, -1));
 
         submit.setText("Submit");
-        submit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
         getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
 
-        tuIDEntry.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tuIDEntryActionPerformed(evt);
             }
         });
@@ -153,10 +148,8 @@ public class AddStudentView extends javax.swing.JFrame
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 100, -1));
 
-        emailEntry.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        emailEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailEntryActionPerformed(evt);
             }
         });
@@ -164,11 +157,10 @@ public class AddStudentView extends javax.swing.JFrame
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setToolTipText("Back");
+        backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });

@@ -170,6 +170,7 @@
           <Image iconType="3" name="/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Back"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
       <Events>
