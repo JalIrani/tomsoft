@@ -94,7 +94,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
-        setMinimumSize(new java.awt.Dimension(507, 390));
+        setMinimumSize(new java.awt.Dimension(430, 310));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -232,7 +232,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(idOfUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 130, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 280));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 260));
 
         editMenu.setText("Help");
 
