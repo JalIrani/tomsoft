@@ -9,7 +9,7 @@ public class MainView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Home";
 
-    NewStudentView newStudentSys;
+    AddStudentView newStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
@@ -22,7 +22,7 @@ public class MainView extends javax.swing.JFrame
         setPrintersVisible(false);
         pendingSys = new JobsView();
         studentSys = new StudentSubmissionView();
-        newStudentSys = new NewStudentView();
+        newStudentSys = new AddStudentView();
 
         //Allows only integers for student ID
         studentIdString.addKeyListener(new KeyAdapter()

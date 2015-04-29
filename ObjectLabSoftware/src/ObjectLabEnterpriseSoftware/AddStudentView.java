@@ -13,7 +13,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.swing.JOptionPane;
 
-public class NewStudentView extends javax.swing.JFrame
+public class AddStudentView extends javax.swing.JFrame
 {
 
     private static final String NAME_OF_PAGE = "New Student";
@@ -38,7 +38,7 @@ public class NewStudentView extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(NewStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddStudentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         addWindowListener(new WindowAdapter()
@@ -73,7 +73,7 @@ public class NewStudentView extends javax.swing.JFrame
         });
 
     }
-    //public NewStudentView() {  
+    //public AddStudentView() {  
     //}
 
     /**
@@ -98,7 +98,8 @@ public class NewStudentView extends javax.swing.JFrame
         firstNameEntry = new javax.swing.JTextField();
         lastNameEntry = new javax.swing.JTextField();
         emailEntry = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -136,7 +137,7 @@ public class NewStudentView extends javax.swing.JFrame
                 submitActionPerformed(evt);
             }
         });
-        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, -1, -1));
+        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
 
         tuIDEntry.addActionListener(new java.awt.event.ActionListener()
         {
@@ -158,15 +159,20 @@ public class NewStudentView extends javax.swing.JFrame
         });
         getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 170, -1));
 
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
+        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        backButton.setToolTipText("Back");
+        backButton.setContentAreaFilled(false);
+        backButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 250));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,18 +233,19 @@ public class NewStudentView extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_tuIDEntryActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         dispose();
         home.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField emailEntry;
     private javax.swing.JLabel emailExtension;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel firstName;
     private javax.swing.JTextField firstNameEntry;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lastName;
     private javax.swing.JTextField lastNameEntry;
     private javax.swing.JLabel netID;
