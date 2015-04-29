@@ -98,14 +98,14 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="newStudentButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="New Student"/>
+        <Property name="text" type="java.lang.String" value="Add User"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newStudentButtonActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="190" width="110" height="30"/>
+          <AbsoluteConstraints x="140" y="190" width="80" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -136,14 +136,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="studentButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Student"/>
+        <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="studentButtonActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="160" width="110" height="30"/>
+          <AbsoluteConstraints x="140" y="160" width="60" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -167,14 +167,14 @@
     </Component>
     <Component class="javax.swing.JButton" name="AdminButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Login as Administrator"/>
+        <Property name="text" type="java.lang.String" value="Administrator"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdminButtonActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="60" y="290" width="150" height="30"/>
+          <AbsoluteConstraints x="90" y="290" width="100" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -238,7 +238,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="60" y="290" width="150" height="30"/>
+          <AbsoluteConstraints x="90" y="290" width="100" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
