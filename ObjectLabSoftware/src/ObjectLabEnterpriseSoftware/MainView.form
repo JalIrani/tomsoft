@@ -70,9 +70,6 @@
       <Dimension value="[250, 370]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
-    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[250, 330]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="MenuBar"/>
@@ -172,7 +169,6 @@
           <Image iconType="3" name="/ObjectLabEnterpriseSoftware/images/hammer_icon.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Enter Build"/>
-        <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
       </Properties>
       <Events>
