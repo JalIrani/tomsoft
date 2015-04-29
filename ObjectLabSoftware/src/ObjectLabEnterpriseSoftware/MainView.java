@@ -93,6 +93,7 @@ public class MainView extends javax.swing.JFrame
         setSize(new java.awt.Dimension(250, 330));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        newStudentButton.setBackground(new java.awt.Color(153, 153, 153));
         newStudentButton.setText("Add User");
         newStudentButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -116,6 +117,7 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 130, 30));
 
+        studentButton.setBackground(new java.awt.Color(255, 255, 51));
         studentButton.setText("Login");
         studentButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -124,7 +126,7 @@ public class MainView extends javax.swing.JFrame
                 studentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 60, 30));
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 80, 30));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("Enter Build");
@@ -139,6 +141,7 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(enterBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 60, 60));
 
+        AdminButton.setBackground(new java.awt.Color(0, 0, 0));
         AdminButton.setText("Administrator");
         AdminButton.addActionListener(new java.awt.event.ActionListener()
         {

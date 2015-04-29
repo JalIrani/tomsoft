@@ -98,6 +98,9 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="newStudentButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="99" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Add User"/>
       </Properties>
       <Events>
@@ -136,6 +139,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="studentButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
@@ -143,7 +149,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="160" width="60" height="30"/>
+          <AbsoluteConstraints x="140" y="160" width="80" height="30"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -167,6 +173,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="AdminButton">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Administrator"/>
       </Properties>
       <Events>
