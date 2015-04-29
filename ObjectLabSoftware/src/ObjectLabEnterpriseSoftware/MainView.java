@@ -59,7 +59,7 @@ public class MainView extends javax.swing.JFrame
         errorIdLabel = new javax.swing.JLabel();
         studentIdString = new javax.swing.JTextField();
         studentButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        updateStudentButton = new javax.swing.JButton();
         enterBuild = new javax.swing.JButton();
         openProjectsButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
@@ -103,11 +103,11 @@ public class MainView extends javax.swing.JFrame
                 newStudentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 80, 30));
+        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 80, 30));
 
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 130, 20));
+        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 130, 20));
 
         studentIdString.addActionListener(new java.awt.event.ActionListener()
         {
@@ -129,9 +129,9 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 80, 30));
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
-        jButton1.setText("Update User");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, 30));
+        updateStudentButton.setBackground(new java.awt.Color(153, 153, 153));
+        updateStudentButton.setText("Update User");
+        getContentPane().add(updateStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, 30));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("Enter Build");
@@ -409,7 +409,6 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JButton enterBuild;
     private javax.swing.JLabel errorIdLabel;
     private javax.swing.JMenu helpButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
@@ -423,6 +422,7 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JButton settingsButton;
     private javax.swing.JButton studentButton;
     private javax.swing.JTextField studentIdString;
+    private javax.swing.JButton updateStudentButton;
     private javax.swing.JMenuItem userGuideButton;
     // End of variables declaration//GEN-END:variables
 }
