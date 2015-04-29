@@ -65,7 +65,7 @@ public class MainView extends javax.swing.JFrame
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
         logoutB = new javax.swing.JButton();
-        newStudent = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         helpButton = new javax.swing.JMenu();
         userGuideButton = new javax.swing.JMenuItem();
@@ -183,8 +183,9 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(logoutB, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 150, 30));
 
-        newStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/render_bg.png"))); // NOI18N
-        getContentPane().add(newStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 350));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 540, 330));
 
         helpButton.setText("Help");
 
@@ -381,12 +382,12 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JButton enterBuild;
     private javax.swing.JLabel errorIdLabel;
     private javax.swing.JMenu helpButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton logoutB;
-    private javax.swing.JLabel newStudent;
     private javax.swing.JButton newStudentButton;
     private javax.swing.JButton openProjectsButton;
     private javax.swing.JButton settingsButton;
