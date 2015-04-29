@@ -19,11 +19,9 @@ public class BuildView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Build File Creator";	
     private static MainView home;
     private static int countNumOfModels;
-    private static String BuildDevice;
-    private static ArrayList buildInfo;
-    private static DefaultTableModel deviceDataModel;
     
-    private DefaultTableModel fileTableModel;
+    private DefaultTableModel deviceDataModel; /* Used to hold data entered in by the user for the build to display */
+    private DefaultTableModel fileTableModel; /* Used to hold accepted files (student submissions) that are to be displayed in the first table */
     private Device deviceModel = null;
 
     FileManager inst;
@@ -51,6 +49,8 @@ public class BuildView extends javax.swing.JFrame
     
     private boolean valididateUserInput() 
     {
+        boolean filesSelected = false;
+        
         if (deviceNameComboBox.getSelectedItem().equals("") || deviceModel == null /* this is a hot fix... */)
         {
             ErrorText.setText("Select a printer from above!");
@@ -72,15 +72,43 @@ public class BuildView extends javax.swing.JFrame
             {
                 if ((Boolean) fileTableModel.getValueAt(z, 0)) 
                 {
-                    return true; /* Atleast one file was checkout off for being part of the build*/
+                    filesSelected = true; /* Atleast one file was checked off for being part of the build*/
+                    break;
                 }
             }
             
-            ErrorText.setText("Select Files used for build!");
-            ErrorText.setVisible(true);
-            
-            return false;
+            if (!filesSelected)
+            {
+                ErrorText.setText("Select Files used for build!");
+                ErrorText.setVisible(true);
+                return false;
+            }
         }
+        
+        /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
+            the input for the build data 
+        */
+            ArrayList<String> fieldNames = deviceModel.getFieldNames();
+        
+        for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
+        {
+            Object buildDataField = deviceInputTable.getValueAt(0, column);
+            
+            /* DATA TYPE VALIDATION HERE!
+            int type = deviceModel.getFieldType(fieldNames.get(column));
+            
+            if(type != )
+            */
+            
+            if (!deviceModel.addField(fieldNames.get(column), buildDataField))
+            {
+                ErrorText.setText("Invalid data entry for build data!");
+                ErrorText.setVisible(true);
+                return false;
+            }
+        }
+
+        return true;
     }
     
     private boolean submit() 
@@ -112,7 +140,7 @@ public class BuildView extends javax.swing.JFrame
         inst = new FileManager();
         home = new MainView();
         initComponents();
-        //deviceInputTable.setVisible(false);
+        deviceInputTable.setVisible(false);
         
         try 
         {
@@ -269,7 +297,7 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 220, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 290, -1));
 
         stlFileTable.setAutoCreateRowSorter(true);
         stlFileTable.setModel(new javax.swing.table.DefaultTableModel()
@@ -326,8 +354,9 @@ public class BuildView extends javax.swing.JFrame
 
             getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 950, 150));
 
-            jLabel3.setText("Enter Build Data");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, -1, -1));
+            jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+            jLabel3.setText("Enter Build Data:");
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 434, 150, 20));
 
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
@@ -368,38 +397,8 @@ public class BuildView extends javax.swing.JFrame
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
         if(!submit())
-              JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", 
-					  JOptionPane.WARNING_MESSAGE);
-        /*
-         buildInfo = new ArrayList();
-
-        //making sure a device was selected before enter build is alowed to function
-        if (deviceNameComboBox.getSelectedItem().equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "You must select a device before you complete build", 
-					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
-            return;
-        }
-        Vector buildData = (Vector) deviceDataModel.getDataVector().elementAt(0);
-
-        if (buildData.contains(null))
-        {
-            JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", 
-					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
-        } else
-        {
-            for (int i = 0; i < buildData.size(); i++)
-            {
-
-                //error checking for values not entered
-                if(deviceInputTable.getValueAt(1, i+1).equals(null)){
-                 JOptionPane.showMessageDialog(null, "All fields must be filled before Submitting", "You done GOOFED", JOptionPane.PLAIN_MESSAGE);
-                 return;
-                 }
-                buildInfo.add((String) buildData.elementAt(i));
-            }
-        }
-*/
+              JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);
+        
 
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
@@ -433,6 +432,7 @@ public class BuildView extends javax.swing.JFrame
         {
             deviceDataModel = new DefaultTableModel(deviceModel.getFieldNames().toArray(), 1);
             deviceInputTable.setModel(deviceDataModel);
+            deviceInputTable.setVisible(true);
         }
     }//GEN-LAST:event_browseBtnActionPerformed
    

@@ -686,6 +686,7 @@ public class UtilController
      * @param f file name
      *
      */
+    @Deprecated
     public static void updateRecordInPendingJobsTable(String b, String f)
     {
         SQLMethods dbconn = new SQLMethods();
