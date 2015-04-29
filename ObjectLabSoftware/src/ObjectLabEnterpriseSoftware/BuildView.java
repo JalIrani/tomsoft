@@ -21,7 +21,7 @@ public class BuildView extends javax.swing.JFrame
     private static int countNumOfModels;
     private static String BuildDevice;
     private static ArrayList buildInfo;
-    private static DefaultTableModel modelA;
+    private static DefaultTableModel deviceDataModel;
     
     private DefaultTableModel fileTableModel;
     private Device deviceModel = null;
@@ -112,7 +112,7 @@ public class BuildView extends javax.swing.JFrame
         inst = new FileManager();
         home = new MainView();
         initComponents();
-        deviceInputTable.setVisible(false);
+        //deviceInputTable.setVisible(false);
         
         try 
         {
@@ -380,7 +380,7 @@ public class BuildView extends javax.swing.JFrame
 					"You done GOOFED", JOptionPane.PLAIN_MESSAGE);
             return;
         }
-        Vector buildData = (Vector) modelA.getDataVector().elementAt(0);
+        Vector buildData = (Vector) deviceDataModel.getDataVector().elementAt(0);
 
         if (buildData.contains(null))
         {
@@ -429,15 +429,10 @@ public class BuildView extends javax.swing.JFrame
             filepathToSelectedDeviceBuild.setText(myFile.getAbsolutePath().replaceAll("'", ""));
         }
         
-        if (!filepathToSelectedDeviceBuild.getText().isEmpty() || deviceModel != null)
+        if (!filepathToSelectedDeviceBuild.getText().isEmpty() && deviceModel != null)
         {
-            
-            deviceInputTable.setVisible(true);
-            /* Update display so device column names are displayed and you can input data 
-                this information is stored in deviceModel (Device class)
-                Update submit() to validate that input agianst the datatype that is stored in the
-                device class
-            */
+            deviceDataModel = new DefaultTableModel(deviceModel.getFieldNames().toArray(), 1);
+            deviceInputTable.setModel(deviceDataModel);
         }
     }//GEN-LAST:event_browseBtnActionPerformed
    
@@ -480,10 +475,7 @@ public class BuildView extends javax.swing.JFrame
                 filepathToSelectedDeviceBuild.setVisible(true);
             } else
             {
-                fileTableModel.setColumnIdentifiers(new String[]
-                {
-                    "There are no approved student submissions for the device  " + deviceModel.getDeviceName()
-                });
+                fileTableModel.setColumnIdentifiers(new String[] { "There are no approved student submissions for the device  " + deviceModel.getDeviceName() });
                 stlFileTable.setVisible(false);
                 buildLbl.setVisible(false);
                 browseBtn.setVisible(false);
@@ -493,14 +485,8 @@ public class BuildView extends javax.swing.JFrame
         } else
         {
             stlFileTable.setVisible(false);
-            buildLbl.setVisible(false);
-            browseBtn.setVisible(false);
-            filepathToSelectedDeviceBuild.setVisible(false);
-            fileTableModel.setColumnIdentifiers(new String[]
-            {
-                "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs"
-            });
-        }
+            filepathToSelectedDeviceBuild.setVisible(true);
+            fileTableModel.setColumnIdentifiers( new String[] { "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs" }); }
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
 

@@ -139,8 +139,8 @@ public class Device
     public boolean addField(String key, Object value)
     {
         /* Validate our params passed in return false if value is not one of the defined types */
-        if (fields == null || key == null || value == null || !(value instanceof Double || value instanceof Integer || value instanceof String))
-            return false;
+        if (key == null || value == null || !(!(value instanceof Double) || !(value instanceof Integer) || !(value instanceof String)))
+          return false;
 
         /* If the key does not exist then add the key into the list of field names for this Device */
         if (!fields.containsKey(key))
