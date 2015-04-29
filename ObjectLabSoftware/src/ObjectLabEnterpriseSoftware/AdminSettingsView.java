@@ -179,7 +179,7 @@ public class AdminSettingsView extends javax.swing.JFrame
     }//GEN-LAST:event_userGuideActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        PasswordChange change = new PasswordChange();
+        ChangePasswordView change = new ChangePasswordView();
         change.passwordChangeStart();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
