@@ -101,15 +101,28 @@ public class SQLMethods
         return res;
     }
 
-	// I deprecated this because it says select all but it is not selecting all
-	@Deprecated
     public ResultSet selectAllPrintStatus(String status)
-    {// select all info from job based onstatus ((probably that not useful)
+    {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status= ?;");
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status = ?;");
             stmt.setString(1, status);
+            res = stmt.executeQuery();
+        } catch (SQLException e)
+        {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+    
+    public ResultSet selectFileInfo(int jobid)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("SELECT file_name, file_path FROM job WHERE job_id = ?;");
+            stmt.setInt(1, jobid);
             res = stmt.executeQuery();
         } catch (SQLException e)
         {
@@ -524,10 +537,15 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("insert into printer_build ( build_name, date_created, total_runtime_seconds, number_of_models, printer_name) values (?,NOW(),0, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO printer_build "
+                    + "(build_name, date_created, total_runtime_seconds, number_of_models, printer_name) "
+                    + "VALUES (?, NOW(), ?, ?, ?);");
+            
             stmt.setString(1, buildname);
-            stmt.setInt(2, models);
-            stmt.setString(3, printer);
+            stmt.setInt(2, runtime);
+            stmt.setInt(3, models);
+            stmt.setString(4, printer);
+            
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -535,15 +553,21 @@ public class SQLMethods
         }
     }
 
-    public void insertIntoColumn(int buildid, int columnid, String data)
+    public void insertIntoColumnBuildData(String printer, String columnName, String data, String buildLocation)
     {
         try
         {
-            stmt = conn.prepareStatement("insert into column_build_data ( build_id, column_name_id, column_field_data) values (?,?, ?);");
-            stmt.setInt(1, buildid);
-            stmt.setInt(2, columnid);
+            stmt = this.conn.prepareCall
+            (
+                    "CALL enterBuildData('?', '?', '?', '?');"
+            );
+            
+            stmt.setString(1, printer);
+            stmt.setString(2, columnName);
             stmt.setString(3, data);
-            stmt.executeUpdate();
+            stmt.setString(4, buildLocation);
+            stmt.executeQuery();
+            
         } catch (Exception e)
         {
             e.printStackTrace();

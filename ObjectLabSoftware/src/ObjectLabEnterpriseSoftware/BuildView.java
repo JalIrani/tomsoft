@@ -20,6 +20,7 @@ public class BuildView extends javax.swing.JFrame
     private static MainView home;
     private static int countNumOfModels;
     
+    private ArrayList<String> trackableFields;
     private DefaultTableModel deviceDataModel; /* Used to hold data entered in by the user for the build to display */
     private DefaultTableModel fileTableModel; /* Used to hold accepted files (student submissions) that are to be displayed in the first table */
     private Device deviceModel = null;
@@ -47,7 +48,7 @@ public class BuildView extends javax.swing.JFrame
             fileTableModel.removeRow(0);
     }
     
-    private boolean valididateUserInput() 
+    private boolean getAndValididateUserInput() 
     {
         boolean filesSelected = false;
         
@@ -88,19 +89,9 @@ public class BuildView extends javax.swing.JFrame
         /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
             the input for the build data 
         */
-            ArrayList<String> fieldNames = deviceModel.getFieldNames();
-        
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
-            Object buildDataField = deviceInputTable.getValueAt(0, column);
-            
-            /* DATA TYPE VALIDATION HERE!
-            int type = deviceModel.getFieldType(fieldNames.get(column));
-            
-            if(type != )
-            */
-            
-            if (!deviceModel.addField(fieldNames.get(column), buildDataField))
+            if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
             {
                 ErrorText.setText("Invalid data entry for build data!");
                 ErrorText.setVisible(true);
@@ -114,24 +105,27 @@ public class BuildView extends javax.swing.JFrame
     private boolean submit() 
     {
         countNumOfModels = 0;
-        if (valididateUserInput()) 
+        String filePathToBuildFile; 
+        ArrayList<Integer> selectedJobID;
+        
+        if (getAndValididateUserInput()) 
         {
             ErrorText.setVisible(false);
-
-            //int z;
-            //ArrayList selected = new ArrayList();
-            for (int z = 0; z < fileTableModel.getRowCount(); z++) 
+            
+            filePathToBuildFile = filepathToSelectedDeviceBuild.getText();
+            selectedJobID = new ArrayList<>();
+            
+            /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
+            for (int row = 0; row < fileTableModel.getRowCount(); row++) 
             {
-                if ((Boolean) fileTableModel.getValueAt(z, 0)) 
-                {
-                    UtilController.updateRecordInPendingJobsTable(filepathToSelectedDeviceBuild.getText(), (String) fileTableModel.getValueAt(z, 1));
+                if ((Boolean) fileTableModel.getValueAt(row, 0) /* If checked then add file to list */) 
+                {   
+                    selectedJobID.add(Integer.parseInt((String) fileTableModel.getValueAt(row, 1)));
                     countNumOfModels++;
                 }
             }
-            dispose();
-            return true;
+            return UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels);
         }
-        
         return false;
     }
 
@@ -398,8 +392,8 @@ public class BuildView extends javax.swing.JFrame
         //add stl information to build table zcorp and create incomplete entry
         if(!submit())
               JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);
-        
-
+        else
+            dispose();
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
@@ -430,7 +424,9 @@ public class BuildView extends javax.swing.JFrame
         
         if (!filepathToSelectedDeviceBuild.getText().isEmpty() && deviceModel != null)
         {
-            deviceDataModel = new DefaultTableModel(deviceModel.getFieldNames().toArray(), 1);
+            trackableFields = deviceModel.getFieldNames();
+            trackableFields.add(0, "Run time");
+            deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
             deviceInputTable.setModel(deviceDataModel);
             deviceInputTable.setVisible(true);
         }
