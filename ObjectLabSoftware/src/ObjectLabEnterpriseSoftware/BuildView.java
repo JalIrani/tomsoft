@@ -197,7 +197,6 @@ public class BuildView extends javax.swing.JFrame
         jTextPane1 = new javax.swing.JTextPane();
         jSeparator1 = new javax.swing.JSeparator();
         Submit_Button = new javax.swing.JButton();
-        closeBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         buildLbl = new javax.swing.JLabel();
         filepathToSelectedDeviceBuild = new javax.swing.JTextField();
@@ -210,6 +209,7 @@ public class BuildView extends javax.swing.JFrame
         jScrollPane4 = new javax.swing.JScrollPane();
         deviceInputTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        backToMainMenu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -237,8 +237,9 @@ public class BuildView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 950, 10));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
+        Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener()
         {
@@ -247,24 +248,15 @@ public class BuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 640, 90, 20));
-
-        closeBtn.setText("Close");
-        closeBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                closeBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 640, 80, 20));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 640, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Choose jobs part of build: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 19));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 200, 19));
 
+        buildLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buildLbl.setText("Build File Name:");
-        getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+        getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
 
         filepathToSelectedDeviceBuild.setEditable(false);
         filepathToSelectedDeviceBuild.addActionListener(new java.awt.event.ActionListener()
@@ -274,7 +266,7 @@ public class BuildView extends javax.swing.JFrame
                 filepathToSelectedDeviceBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
+        getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
 
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener()
@@ -284,13 +276,13 @@ public class BuildView extends javax.swing.JFrame
                 browseBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 70, 20));
+        getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 20));
 
         ErrorText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 290, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 290, -1));
 
         studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
         studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
@@ -324,10 +316,11 @@ public class BuildView extends javax.swing.JFrame
                 studentSubmissionApprovedTableList.getColumnModel().getColumn(2).setResizable(false);
             }
 
-            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 300));
+            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 950, 300));
 
+            jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
             jLabel2.setText("Select Device:");
-            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
             deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
             deviceNameComboBox.addActionListener(new java.awt.event.ActionListener()
@@ -337,7 +330,7 @@ public class BuildView extends javax.swing.JFrame
                     deviceNameComboBoxActionPerformed(evt);
                 }
             });
-            getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, -1));
+            getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 170, -1));
 
             deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
             deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
@@ -345,14 +338,28 @@ public class BuildView extends javax.swing.JFrame
             deviceInputTable.setRowHeight(24);
             jScrollPane4.setViewportView(deviceInputTable);
 
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 950, 150));
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 950, 150));
 
             jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
             jLabel3.setText("Enter Build Data:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 434, 150, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 150, 20));
+
+            backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+            backToMainMenu.setToolTipText("Back");
+            backToMainMenu.setBorderPainted(false);
+            backToMainMenu.setContentAreaFilled(false);
+            backToMainMenu.setFocusPainted(false);
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    backToMainMenuActionPerformed(evt);
+                }
+            });
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
 
             fileMenu.setText("File");
 
@@ -398,11 +405,6 @@ public class BuildView extends javax.swing.JFrame
             home.resetAdminMode();
         }
     }//GEN-LAST:event_Submit_ButtonActionPerformed
-
-    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        dispose();
-        home.resetAdminMode();
-    }//GEN-LAST:event_closeBtnActionPerformed
 
     private void filepathToSelectedDeviceBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedDeviceBuildActionPerformed
         // TODO add your handling code here:
@@ -498,13 +500,19 @@ public class BuildView extends javax.swing.JFrame
         }
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
+    private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backToMainMenuActionPerformed
+    {//GEN-HEADEREND:event_backToMainMenuActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_backToMainMenuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
+    private javax.swing.JButton backToMainMenu;
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildLbl;
-    private javax.swing.JButton closeBtn;
     private javax.swing.JTable deviceInputTable;
     private javax.swing.JComboBox deviceNameComboBox;
     private javax.swing.JMenu fileMenu;
