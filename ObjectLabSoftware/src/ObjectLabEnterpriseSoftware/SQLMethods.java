@@ -172,13 +172,13 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet searchPrintersByBuildName(String buildname)
+    public ResultSet searchPrintersByBuildName(int buildId)
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE build_name = ?;");
-            stmt.setString(1, buildname);
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE build_id = ?;");
+            stmt.setInt(1, buildId);
             res = stmt.executeQuery();
         } catch (Exception e)
         {
@@ -208,7 +208,7 @@ public class SQLMethods
         try
         {
             stmt = this.conn.prepareStatement("SELECT * FROM job, printer_build "
-                    + "WHERE buildName = ?  AND printer_build.build_name= Job.build_name;");
+                    + "WHERE buildName = ?  AND printer_build.build_id= Job.build_id;");
             stmt.setString(1, buildName);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -310,15 +310,14 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet selectBuildData(String buildname)
+    public ResultSet selectBuildData(int id)
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM column_build_data Where build_name = ? ");
-            stmt.setString(1, buildname); 
+            stmt = this.conn.prepareStatement("SELECT * FROM column_build_data Where build_id = ? ");
             res = stmt.executeQuery();
-          
+            stmt.setInt(1, id);
         } catch (SQLException e)
         {
             System.err.println("SQL Execution Error.");
@@ -484,12 +483,12 @@ public class SQLMethods
         }
     }
 
-    public void insertIntoColumn(String buildname, int columnid, String data)
+    public void insertIntoColumn(int buildid, int columnid, String data)
     {
         try
         {
-            stmt = conn.prepareStatement("insert into column_build_data ( build_name, column_name_id, column_field_data) values (?,?, ?);");
-            stmt.setString(1, buildname);
+            stmt = conn.prepareStatement("insert into column_build_data ( build_id, column_name_id, column_field_data) values (?,?, ?);");
+            stmt.setInt(1, buildid);
             stmt.setInt(2, columnid);
             stmt.setString(3, data);
             stmt.executeUpdate();
@@ -521,21 +520,6 @@ public class SQLMethods
             stmt = conn.prepareStatement("insert into accepted_files ( printer_name, file_extension) values (?,?);");
             stmt.setString(1, printer);
             stmt.setString(2, file);
-            stmt.executeUpdate();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-    public void insertIntoCustom(String printer, String colname, String data, String build)
-    {
-        try
-        {
-            stmt = conn.prepareStatement("call addData(?,?,?,?");
-            stmt.setString(1, printer);
-            stmt.setString(2, colname);
-            stmt.setString(3, data);
-            stmt.setString(4, build);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -802,12 +786,12 @@ public class SQLMethods
         }
     }
 
-    public void deleteByBuildId(String buildname)
+    public void deleteByBuildId(int buildid)
     {
         try
         {
-            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_name = ?;");
-            stmt.setString(1, buildname);
+            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_id = ?;");
+            stmt.setInt(1, buildid);
             stmt.executeUpdate();
         } catch (Exception e)
         {
