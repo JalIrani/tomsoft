@@ -1491,7 +1491,7 @@ public class SQLMethods
             stmt = this.conn.prepareStatement(
                     "SELECT printer_name "
                     + "FROM printer "
-					+ "WHERE current = ?;"
+		    + "WHERE current = ?;"
             );
 			
 			stmt.setBoolean(1, current);
@@ -1518,7 +1518,7 @@ public class SQLMethods
             stmt = this.conn.prepareStatement(
                     "SELECT printer_name "
                     + "FROM printer "
-					+ "WHERE current = ? AND student_submission = ?;"
+                    + "WHERE current = ? AND student_submission = ?;"
             );
 			
 			stmt.setBoolean(1, current);

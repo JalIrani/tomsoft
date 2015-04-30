@@ -9,9 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class AddDeviceView extends javax.swing.JFrame 
+public class AddDeviceView extends javax.swing.JFrame
 {
-	private static final String NAME_OF_PAGE = "Add Art Device";
+
+    private static final String NAME_OF_PAGE = "Add Art Device";
 
     ArrayList<String> currentDevices = UtilController.getListOfCurrentDevices();
     AdminSettingsView settings;
@@ -33,10 +34,12 @@ public class AddDeviceView extends javax.swing.JFrame
     private final int COUNTMIN = 3;
     //Current count of labels and fields
     private int count = COUNTMIN;
-	private boolean trackingSelected = true;
-    
+    private boolean trackingSelected = true;
+
     boolean exit = true;
-    public void AddPrinterStart() {
+
+    public void AddPrinterStart()
+    {
         initComponents();
         settings = new AdminSettingsView();
         fields.add(printerNameTF);
@@ -46,34 +49,38 @@ public class AddDeviceView extends javax.swing.JFrame
         labels.add(fileExtensionL);
         labels.add(fieldL0);
         boxes.add(numberCB);
-        xTF=fieldTF0.getX();
-        xL=fieldL0.getX();
-        xB=numberCB.getX();
-        y=fieldTF0.getY();
-        addWindowListener
-        (
-            new WindowAdapter() 
-            {
-                @Override
-                public void windowClosing(WindowEvent we) 
+        xTF = fieldTF0.getX();
+        xL = fieldL0.getX();
+        xB = numberCB.getX();
+        y = fieldTF0.getY();
+        addWindowListener(
+                new WindowAdapter()
                 {
-                    /* If they close the program then close out the window properly */
-                    for (int i = 0; i < count; i++) {
-                        if (!fields.get(i).getText().equals("")) {
-                            exit = false;
-                            if(JOptionPane.showConfirmDialog(null, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
-                                settings.AdminSettingsViewStart();
-                                dispose();
+                    @Override
+                    public void windowClosing(WindowEvent we)
+                    {
+                        /* If they close the program then close out the window properly */
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (!fields.get(i).getText().equals(""))
+                            {
+                                exit = false;
+                                if (JOptionPane.showConfirmDialog(null, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION)
+                                {
+                                    settings.AdminSettingsViewStart();
+                                    dispose();
+                                    break;
+                                }
                             }
                         }
+                        if (exit == true)
+                        {
+                            settings.AdminSettingsViewStart();
+                            dispose();
+                        }
+                        exit = true;
                     }
-                    if(exit==true){
-                        settings.AdminSettingsViewStart();
-                        dispose();
-                    }
-                    exit=true;
                 }
-            }
         );
         setVisible(true);
     }
@@ -106,10 +113,10 @@ public class AddDeviceView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Add Printer");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 21, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 470, 10));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 440, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
         getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
 
@@ -151,7 +158,11 @@ public class AddDeviceView extends javax.swing.JFrame
         });
         getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 90, 20));
 
-        cancelBtn.setText("Cancel");
+        cancelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        cancelBtn.setToolTipText("Back");
+        cancelBtn.setBorderPainted(false);
+        cancelBtn.setContentAreaFilled(false);
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -159,7 +170,7 @@ public class AddDeviceView extends javax.swing.JFrame
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 100, 20));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
         fieldTF0.addActionListener(new java.awt.event.ActionListener()
         {
@@ -193,7 +204,8 @@ public class AddDeviceView extends javax.swing.JFrame
 
         EditMenu.setText("Help");
 
-        jMenuItem1.setText("Contents");
+        jMenuItem1.setText("Users Guide");
+
         jMenuItem1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -212,146 +224,175 @@ public class AddDeviceView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-	for (int i = 0; i < count; i++) {
-	    if (!fields.get(i).getText().equals("")) {
-                exit=false;
-		if(JOptionPane.showConfirmDialog(this, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+        for (int i = 0; i < count; i++)
+        {
+            if (!fields.get(i).getText().equals(""))
+            {
+                exit = false;
+                if (JOptionPane.showConfirmDialog(this, "Would you like to discard the printer you are adding?", "Warning", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION)
+                {
                     settings.AdminSettingsViewStart();
                     dispose();
+                    break;
+                } else
+                {
+                    break;
                 }
-	    }
-	}
-        if(exit==true){
+            }
+        }
+        if (exit == true)
+        {
             settings.AdminSettingsViewStart();
             dispose();
         }
-        exit=true;
-        
+        exit = true;
+
     }//GEN-LAST:event_cancelBtnActionPerformed
 
 
     private void addFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFieldButtonActionPerformed
-	boolean add = true;
-	for (int i = 0; i < count; i++) {
-	    if (fields.get(i).getText().equals("")) {
-		add = false;
-		JOptionPane.showMessageDialog(this, "Please fill out the previous fields before adding new ones.");
-		break;
-	    }
-	}
+        boolean add = true;
+        for (int i = 0; i < count; i++)
+        {
+            if (fields.get(i).getText().equals(""))
+            {
+                add = false;
+                JOptionPane.showMessageDialog(this, "Please fill out the previous fields before adding new ones.");
+                break;
+            }
+        }
 
-	if (count <= COUNTMAX && add == true) {
-	    tfield = new JTextField();
-	    tfield.setName("tfield" + (count - 1));
-	    fields.add(tfield);
-	    tlabel = new JLabel();
-	    tlabel.setName("fieldL" + (count - 1));
-	    tlabel.setText("Field #" + (count - 1));
-	    labels.add(tlabel);
-	    cbox = new JCheckBox();
-	    cbox.setName("numberCB" + (count - 2));
-	    cbox.setText("Number Value");
-	    boxes.add(cbox);
-	    y += YSPACING;
-	    getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xTF, y, 124, -1), 4);
-	    getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xL, y, -1, -1), 3);
-	    getContentPane().add(boxes.get(count - 2), new org.netbeans.lib.awtextra.AbsoluteConstraints(xB, y, -1, -1), 5);
-	    fields.get(count).setVisible(true);
-	    labels.get(count).setVisible(true);
-	    boxes.get(count - 2).setVisible(true);
-	    count++;
-	    revalidate();
-	    repaint();
-	}
+        if (count <= COUNTMAX && add == true)
+        {
+            tfield = new JTextField();
+            tfield.setName("tfield" + (count - 1));
+            fields.add(tfield);
+            tlabel = new JLabel();
+            tlabel.setName("fieldL" + (count - 1));
+            tlabel.setText("Field #" + (count - 1));
+            labels.add(tlabel);
+            cbox = new JCheckBox();
+            cbox.setName("numberCB" + (count - 2));
+            cbox.setText("Number Value");
+            boxes.add(cbox);
+            y += YSPACING;
+            getContentPane().add(fields.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xTF, y, 124, -1), 4);
+            getContentPane().add(labels.get(count), new org.netbeans.lib.awtextra.AbsoluteConstraints(xL, y, -1, -1), 3);
+            getContentPane().add(boxes.get(count - 2), new org.netbeans.lib.awtextra.AbsoluteConstraints(xB, y, -1, -1), 5);
+            fields.get(count).setVisible(true);
+            labels.get(count).setVisible(true);
+            boxes.get(count - 2).setVisible(true);
+            count++;
+            revalidate();
+            repaint();
+        }
     }//GEN-LAST:event_addFieldButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-	boolean exit = true;
-	device = new Device();
-	//Check for empty text fields
-	for (int i = 0; i < count; i++) {
-	    if (fields.get(i).getText().equals("")) {
-		exit = false;
-		JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
-		break;
-	    }
-	}
-	//Check for duplicate entries
-	if (exit == true) {
-	    for (int i = 0; i < count; i++) {
-		for (int j = 0; j < count; j++) {
-		    if (i != j && fields.get(i).getText().equals(fields.get(j).getText())) {
-			exit = false;
-			JOptionPane.showMessageDialog(this, "Cannot save with duplicate entries!");
-			break;
-		    }
-		}
-		if(exit==false)
-		    break;
-	    }
-	}
-	//Save printer device here
-	if (exit == true) {
+        boolean exit = true;
+        device = new Device();
+        //Check for empty text fields
+        for (int i = 0; i < count; i++)
+        {
+            if (fields.get(i).getText().equals(""))
+            {
+                exit = false;
+                JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
+                break;
+            }
+        }
+        //Check for duplicate entries
+        if (exit == true)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                for (int j = 0; j < count; j++)
+                {
+                    if (i != j && fields.get(i).getText().equals(fields.get(j).getText()))
+                    {
+                        exit = false;
+                        JOptionPane.showMessageDialog(this, "Cannot save with duplicate entries!");
+                        break;
+                    }
+                }
+                if (exit == false)
+                {
+                    break;
+                }
+            }
+        }
+        //Save printer device here
+        if (exit == true)
+        {
 	    //First two textfields are name and file extension.
-	    //Create new device object using these.
-	    device = new Device(printerNameTF.getText(),
-		    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(" "))), trackingSelected);
-	    //Fields start at index 2
-	    for (int i = 2; i < count; i++) {
-		//If number value is checked make value double, if not then string
-		if(boxes.get(i-2).isSelected()==true)
+            //Create new device object using these.
+            device = new Device(printerNameTF.getText(),
+                    new ArrayList(Arrays.asList(fileExtensionTF.getText().split(" "))), trackingSelected);
+            //Fields start at index 2
+            for (int i = 2; i < count; i++)
+            {
+                //If number value is checked make value double, if not then string
+                if (boxes.get(i - 2).isSelected() == true)
+                {
                     device.addField(fields.get(i).getText(), new Double("0"));
-		else
-		    device.addField(fields.get(i).getText(), "");
-	    }
+                } else
+                {
+                    device.addField(fields.get(i).getText(), "");
+                }
+            }
             //device.setRequireSubmission(studentSubmissionCB.isSelected());
-            if(currentDevices.contains(device.getDeviceName()))
+            if (currentDevices.contains(device.getDeviceName()))
+            {
                 JOptionPane.showMessageDialog(this, "Could not save! Device '" + device.getDeviceName() + "' already exists!");
-            else if(UtilController.addDevice(device)==true){
-                JOptionPane.showMessageDialog(this, "Device '"+device.getDeviceName()+"' was saved and added to the printer list!");
-		settings.AdminSettingsViewStart();
+            } else if (UtilController.addDevice(device) == true)
+            {
+                JOptionPane.showMessageDialog(this, "Device '" + device.getDeviceName() + "' was saved and added to the printer list!");
+                settings.AdminSettingsViewStart();
                 dispose();
-            }else
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "There was an error while saving the printer.");
-	}
+            }
+        }
     }//GEN-LAST:event_saveBtnActionPerformed
 
         private void removeFieldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeFieldButtonActionPerformed
-	    if (count != COUNTMIN) {
-		y -= YSPACING;
-		count--;
-		getContentPane().remove(fields.get(count));
-		getContentPane().remove(labels.get(count));
-		getContentPane().remove(boxes.get(count-2));
-		fields.remove(count);
-		labels.remove(count);
-		boxes.remove(count-2);
-		revalidate();
-		repaint();
-	    }
+            if (count != COUNTMIN)
+            {
+                y -= YSPACING;
+                count--;
+                getContentPane().remove(fields.get(count));
+                getContentPane().remove(labels.get(count));
+                getContentPane().remove(boxes.get(count - 2));
+                fields.remove(count);
+                labels.remove(count);
+                boxes.remove(count - 2);
+                revalidate();
+                repaint();
+            }
         }//GEN-LAST:event_removeFieldButtonActionPerformed
 
         private void fieldTF0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTF0ActionPerformed
-		// TODO add your handling code here:
+            // TODO add your handling code here:
         }//GEN-LAST:event_fieldTF0ActionPerformed
 
     private void studentSubmissionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSubmissionCBActionPerformed
-        if(studentSubmissionCB.isSelected()==false){
-            if(JOptionPane.showConfirmDialog(null, "Continue? Students will NOT be required to submit reports for this device if unchecked (which IS recommended for lazer cutters). "
-                    + "We recommend selecting 'No' and keeping checked if unsure.","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION)
-			{
+        if (studentSubmissionCB.isSelected() == false)
+        {
+            if (JOptionPane.showConfirmDialog(null, "Continue? Students will NOT be required to submit reports for this device if unchecked (which IS recommended for lazer cutters). "
+                    + "We recommend selecting 'No' and keeping checked if unsure.", "Warning", JOptionPane.YES_OPTION) == JOptionPane.YES_OPTION)
+            {
                 studentSubmissionCB.setSelected(false);
-				trackingSelected = false;
-			}
-			else
-			{
-                studentSubmissionCB.setSelected(true);	
-				trackingSelected = true;
-			}
+                trackingSelected = false;
+            } else
+            {
+                studentSubmissionCB.setSelected(true);
+                trackingSelected = true;
+            }
         }
     }//GEN-LAST:event_studentSubmissionCBActionPerformed
 

@@ -14,25 +14,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-public class BuildView extends javax.swing.JFrame 
+public class BuildView extends javax.swing.JFrame
 {
-    private static final String NAME_OF_PAGE = "Build File Creator";	
-    private static MainView home;
+
+    private static final String NAME_OF_PAGE = "Build File Creator";
+    private static MainView home = new MainView();
     private static int countNumOfModels;
-    
+
     private ArrayList<String> trackableFields;
     private DefaultTableModel deviceDataModel; /* Used to hold data entered in by the user for the build to display */
+
     private DefaultTableModel fileTableModel; /* Used to hold accepted files (student submissions) that are to be displayed in the first table */
+
     private Device deviceModel = null;
 
     FileManager inst;
-    
+
     private static void updateViewData(DefaultTableModel model, ArrayList<ArrayList<Object>> view)
     {
         /* Clears up the rows in the view's model. */
-        for(int rows = model.getRowCount() - 1; rows >= 0; rows--)
+        for (int rows = model.getRowCount() - 1; rows >= 0; rows--)
+        {
             model.removeRow(rows);
-        
+        }
+
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view)
         {
@@ -41,43 +46,45 @@ public class BuildView extends javax.swing.JFrame
             model.addRow(row.toArray());
         }
     }
-        
-    private void clearEntries(DefaultTableModel fileTableModel) 
+
+    private void clearEntries(DefaultTableModel fileTableModel)
     {
         while (fileTableModel.getRowCount() > 0)
+        {
             fileTableModel.removeRow(0);
+        }
     }
-    
-    private boolean getAndValididateUserInput() 
+
+    private boolean getAndValididateUserInput()
     {
         boolean filesSelected = false;
-        
+
         if (deviceNameComboBox.getSelectedItem().equals("") || deviceModel == null /* this is a hot fix... */)
         {
             ErrorText.setText("Select a printer from above!");
             ErrorText.setVisible(true);
             return false;
         }
-        
+
         /* filepathToSelectedDeviceBuild is the file location to the build file */
-        if (filepathToSelectedDeviceBuild.getText().isEmpty()) 
+        if (filepathToSelectedDeviceBuild.getText().isEmpty())
         {
             ErrorText.setText("Choose a build file below!");
             ErrorText.setVisible(true);
             return false;
-        } 
-        else 
+        } else
         {
             //checks to see if any sleections in table exist to prevent no file submit case
-            for (int z = 0; z < fileTableModel.getRowCount(); z++) 
+            for (int z = 0; z < fileTableModel.getRowCount(); z++)
             {
-                if ((Boolean) fileTableModel.getValueAt(z, 0)) 
+                if ((Boolean) fileTableModel.getValueAt(z, 0))
                 {
                     filesSelected = true; /* Atleast one file was checked off for being part of the build*/
+
                     break;
                 }
             }
-            
+
             if (!filesSelected)
             {
                 ErrorText.setText("Select Files used for build!");
@@ -85,10 +92,10 @@ public class BuildView extends javax.swing.JFrame
                 return false;
             }
         }
-        
+
         /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
-            the input for the build data 
-        */
+         the input for the build data 
+         */
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
             if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
@@ -101,25 +108,25 @@ public class BuildView extends javax.swing.JFrame
 
         return true;
     }
-    
-    private boolean submit() 
+
+    private boolean submit()
     {
         countNumOfModels = 0;
-        String filePathToBuildFile; 
+        String filePathToBuildFile;
         ArrayList<Integer> selectedJobID;
-        
-        if (getAndValididateUserInput()) 
+
+        if (getAndValididateUserInput())
         {
             ErrorText.setVisible(false);
-            
+
             filePathToBuildFile = filepathToSelectedDeviceBuild.getText();
             selectedJobID = new ArrayList<>();
-            
+
             /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
-            for (int row = 0; row < fileTableModel.getRowCount(); row++) 
+            for (int row = 0; row < fileTableModel.getRowCount(); row++)
             {
-                if ((Boolean) fileTableModel.getValueAt(row, 0) /* If checked then add file to list */) 
-                {   
+                if ((Boolean) fileTableModel.getValueAt(row, 0) /* If checked then add file to list */)
+                {
                     selectedJobID.add(Integer.parseInt((String) fileTableModel.getValueAt(row, 1)));
                     countNumOfModels++;
                 }
@@ -129,49 +136,42 @@ public class BuildView extends javax.swing.JFrame
         return false;
     }
 
-    public void startMakeBuildProcess() 
+    public void startMakeBuildProcess()
     {
         inst = new FileManager();
-        home = new MainView();
         initComponents();
         deviceInputTable.setVisible(false);
-        
-        try 
+
+        try
         {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) 
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
             {
-                if ("Windows".equals(info.getName())) 
+                if ("Windows".equals(info.getName()))
                 {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } 
-        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) 
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(BuildView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         countNumOfModels = 0;
         fileTableModel = (DefaultTableModel) studentSubmissionApprovedTableList.getModel();
         ErrorText.setVisible(false);
         this.setVisible(true);
-        
-        addWindowListener(new WindowAdapter() {
+
+        addWindowListener(new WindowAdapter()
+        {
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e)
+            {
                 // close sockets, etc
-               returnHome();
-               dispose();
+                dispose();
+                home.resetAdminMode();
             }
         });
-    }
-
-    public void returnHome() {
-        
-        home.setDevicesVisible(true);
-        home.setVisible(true);
-        dispose();
     }
 
     /**
@@ -180,10 +180,9 @@ public class BuildView extends javax.swing.JFrame
      * regenerated by the Form Editor.
      *
      * Checks if files were selected to submit
-     * 
-     * @return boolean statement
-     *         returns true if a build file is selected
-     *         returns false if there isn't a build file selected and aborts submit
+     *
+     * @return boolean statement returns true if a build file is selected
+     * returns false if there isn't a build file selected and aborts submit
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -198,7 +197,6 @@ public class BuildView extends javax.swing.JFrame
         jTextPane1 = new javax.swing.JTextPane();
         jSeparator1 = new javax.swing.JSeparator();
         Submit_Button = new javax.swing.JButton();
-        closeBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         buildLbl = new javax.swing.JLabel();
         filepathToSelectedDeviceBuild = new javax.swing.JTextField();
@@ -211,6 +209,7 @@ public class BuildView extends javax.swing.JFrame
         jScrollPane4 = new javax.swing.JScrollPane();
         deviceInputTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        backToMainMenu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -238,8 +237,9 @@ public class BuildView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 950, 10));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
+        Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener()
         {
@@ -248,24 +248,15 @@ public class BuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 640, 90, 20));
-
-        closeBtn.setText("Close");
-        closeBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                closeBtnActionPerformed(evt);
-            }
-        });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 640, 80, 20));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 640, 120, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Choose STL files from build: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 200, 19));
+        jLabel4.setText("Choose jobs part of build: ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 200, 19));
 
+        buildLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buildLbl.setText("Build File Name:");
-        getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+        getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
 
         filepathToSelectedDeviceBuild.setEditable(false);
         filepathToSelectedDeviceBuild.addActionListener(new java.awt.event.ActionListener()
@@ -275,7 +266,7 @@ public class BuildView extends javax.swing.JFrame
                 filepathToSelectedDeviceBuildActionPerformed(evt);
             }
         });
-        getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, -1));
+        getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
 
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener()
@@ -285,13 +276,13 @@ public class BuildView extends javax.swing.JFrame
                 browseBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 70, 20));
+        getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 20));
 
         ErrorText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 290, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 290, -1));
 
         studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
         studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
@@ -325,10 +316,11 @@ public class BuildView extends javax.swing.JFrame
                 studentSubmissionApprovedTableList.getColumnModel().getColumn(2).setResizable(false);
             }
 
-            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 300));
+            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 950, 300));
 
+            jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
             jLabel2.setText("Select Device:");
-            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
             deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
             deviceNameComboBox.addActionListener(new java.awt.event.ActionListener()
@@ -338,7 +330,7 @@ public class BuildView extends javax.swing.JFrame
                     deviceNameComboBoxActionPerformed(evt);
                 }
             });
-            getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, -1));
+            getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 170, -1));
 
             deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
             deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
@@ -346,14 +338,28 @@ public class BuildView extends javax.swing.JFrame
             deviceInputTable.setRowHeight(24);
             jScrollPane4.setViewportView(deviceInputTable);
 
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 950, 150));
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 950, 150));
 
             jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
             jLabel3.setText("Enter Build Data:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 434, 150, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 150, 20));
+
+            backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+            backToMainMenu.setToolTipText("Back");
+            backToMainMenu.setBorderPainted(false);
+            backToMainMenu.setContentAreaFilled(false);
+            backToMainMenu.setFocusPainted(false);
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    backToMainMenuActionPerformed(evt);
+                }
+            });
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 690));
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
 
             fileMenu.setText("File");
 
@@ -390,17 +396,15 @@ public class BuildView extends javax.swing.JFrame
         }// </editor-fold>//GEN-END:initComponents
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
-        if(!submit())
-              JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);
-        else
+        if (!submit())
+        {
+            JOptionPane.showMessageDialog(new JPanel(), "Submit failed.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else
+        {
             dispose();
+            home.resetAdminMode();
+        }
     }//GEN-LAST:event_Submit_ButtonActionPerformed
-
-    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        // TODO add your handling code here:
-        returnHome();
-        dispose();
-    }//GEN-LAST:event_closeBtnActionPerformed
 
     private void filepathToSelectedDeviceBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedDeviceBuildActionPerformed
         // TODO add your handling code here:
@@ -408,32 +412,34 @@ public class BuildView extends javax.swing.JFrame
 
     /**
      * Handles creating the file browser when browsing
-     * @param evt 
+     *
+     * @param evt
      */
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         JFileChooser chooser = new JFileChooser();//Select Default
         chooser.setPreferredSize(new Dimension(800, 500));
         int returnVal = chooser.showDialog(null, "Select");
 
-        if (returnVal == chooser.APPROVE_OPTION) 
+        if (returnVal == chooser.APPROVE_OPTION)
         {
             File myFile = chooser.getSelectedFile();
             //String fileName = myFile.getName();
             filepathToSelectedDeviceBuild.setText(myFile.getAbsolutePath().replaceAll("'", ""));
         }
-        
+
         if (!filepathToSelectedDeviceBuild.getText().isEmpty() && deviceModel != null)
         {
             /* MUST CHECK TO SEE IF BUILD EXISTS IN THE DATABASE!!! */
-            
+
             deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
+
             trackableFields = deviceModel.getFieldNames();
             deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
             deviceInputTable.setModel(deviceDataModel);
             deviceInputTable.setVisible(true);
         }
     }//GEN-LAST:event_browseBtnActionPerformed
-   
+
     private void reportsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsMenuActionPerformed
         // TODO add your handling code here:
         ReportsView reports = new ReportsView();
@@ -452,7 +458,7 @@ public class BuildView extends javax.swing.JFrame
          column data to display.
          */
         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
-        
+
         if (deviceModel.getTrackSubmission())
         {
             ArrayList<ArrayList<Object>> approvedStudentSubmissions = UtilController.returnApprovedStudentSubmissionsForDevice(deviceModel.getDeviceName());
@@ -463,9 +469,9 @@ public class BuildView extends javax.swing.JFrame
                 {
                     "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
                 });
-                
+
                 updateViewData(fileTableModel, approvedStudentSubmissions);
-                
+
                 /* Set UI to display the next steps in completing a build for student submissions that are tracked */
                 studentSubmissionApprovedTableList.setVisible(true);
                 buildLbl.setVisible(true);
@@ -473,7 +479,10 @@ public class BuildView extends javax.swing.JFrame
                 filepathToSelectedDeviceBuild.setVisible(true);
             } else
             {
-                fileTableModel.setColumnIdentifiers(new String[] { "There are no approved student submissions for the device  " + deviceModel.getDeviceName() });
+                fileTableModel.setColumnIdentifiers(new String[]
+                {
+                    "There are no approved student submissions for the device  " + deviceModel.getDeviceName()
+                });
                 studentSubmissionApprovedTableList.setVisible(false);
                 buildLbl.setVisible(false);
                 browseBtn.setVisible(false);
@@ -484,16 +493,26 @@ public class BuildView extends javax.swing.JFrame
         {
             studentSubmissionApprovedTableList.setVisible(false);
             filepathToSelectedDeviceBuild.setVisible(true);
-            fileTableModel.setColumnIdentifiers( new String[] { "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs" }); }
+            fileTableModel.setColumnIdentifiers(new String[]
+            {
+                "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs"
+            });
+        }
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
+
+    private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backToMainMenuActionPerformed
+    {//GEN-HEADEREND:event_backToMainMenuActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_backToMainMenuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
+    private javax.swing.JButton backToMainMenu;
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildLbl;
-    private javax.swing.JButton closeBtn;
     private javax.swing.JTable deviceInputTable;
     private javax.swing.JComboBox deviceNameComboBox;
     private javax.swing.JMenu fileMenu;

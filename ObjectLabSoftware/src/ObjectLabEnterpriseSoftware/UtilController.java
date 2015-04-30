@@ -34,6 +34,7 @@ public class UtilController
 	
 	private static final String SOFTWARE_NAME = "OLI";
 	private static final String SOFTWARE_VERSION = "v0.6"; //Should be dynamic
+	private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
 	
 	public static String getPageName(String pageName)
 	{
@@ -56,7 +57,7 @@ public class UtilController
     public static void openAdminHelpPage(){
         if(Desktop.isDesktopSupported()){
             try {
-                Desktop.getDesktop().browse(new URI("http://triton.towson.edu/~jirani2/adminHelp.pdf"));
+                Desktop.getDesktop().browse(new URI(USER_GUIDE_URL));
             } catch (IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             } catch (URISyntaxException ex) {
@@ -536,16 +537,15 @@ public class UtilController
         return retval;
     }
 
-    public static String[] returnAvailableDevices()
+    public static String[] returnAvailableDevicesStudentSubmissionRequired()
     {
         /*
          Fetch available printers
          */
 
         SQLMethods dbconn = new SQLMethods();
-        ResultSet printersAvailableResult = dbconn.getAllDeviceNames();		
-
-		ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
+        ResultSet printersAvailableResult = dbconn.getDeviceNamesCurrentOptionSubmissionOption(true, true);
+        ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
 
@@ -699,11 +699,7 @@ public class UtilController
 
         dbconn.closeDBConnection();
     }
-	
-    /**
-     FileManager.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
-	 */
-
+    
    public static void archive(String from, String to)
     {
         try
@@ -843,23 +839,18 @@ public class UtilController
 		
 		return flag;
     }
-    
-     public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
-        SQLMethods dbconn = new SQLMethods();
-        ArrayList<ArrayList<Object>> toSend = new ArrayList();
-        ArrayList<Object> fillData = new ArrayList();
-        ArrayList<Object> fillType = new ArrayList();
-        printerName = printerName.trim();
-        ResultSet queryResult = dbconn.selectDeviceTrackableMetaData(printerName);
-        //putting data into an array of arrays
-        while(queryResult.next()){
-            fillData.add(queryResult.getString(1));
-            fillType.add(queryResult.getString(2));
-        }
-        toSend.add(fillData);
-        toSend.add(fillType);
-        dbconn.closeDBConnection();
-        return toSend;
+	
+    public static int updateUser(String studentId, String firstname, String lastname, String email)
+    {	
+		int flag = -1;
+		if(userIDExist(studentId))
+		{
+			SQLMethods dbconn = new SQLMethods();
+			flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+			dbconn.closeDBConnection();
+			return flag;
+		}
+		return flag;
     }
      
     public static ArrayList<ArrayList<Object>> returnApprovedStudentSubmissionsForDevice(String printerName)
@@ -869,43 +860,6 @@ public class UtilController
         ArrayList<ArrayList<Object>> parsedResult = readyOutputForViewPage(queryResult);
         dbconn.closeDBConnection();
         return parsedResult;
-    }
-	
-	//BEGINNING OF DAVID'S STUFF
-	//----
-	//   |
-	//   \/
-	
-	/**
-     * This method is called when an unfinished print build is exited out of
-     * It takes the information previously stored in the Database and removes it.
-     * 
-     * This method is called in:
-     *      ZCorpDialog.ZCorpDialogStart.WindowClosing
-     *      SolidscapeDialog.SolidscapeDialogStart.WindowClosing
-     *      ObjetDialog.ObjetDialogStart.WindowClosing
-     * 
-     * @param buildPath 
-     * @param printer 
-     */
-    @Deprecated
-    public static void revertBuild(String buildPath, String printer)
-    {
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet r = dbconn.searchJobsByBuildName(buildPath);
-        try 
-        {
-            while(r.next())
-            {
-                dbconn.updatePendingJobsBuildName("", r.getString("fileName"));
-            }
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        dbconn.closeDBConnection();
     }
     
     public static boolean submitBuild(ArrayList<Integer> selectedStudentSubmissionFiles, Device deviceModel, String filePathToBuildFile, int models)

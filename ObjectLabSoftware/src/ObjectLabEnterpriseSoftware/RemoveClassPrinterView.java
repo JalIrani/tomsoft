@@ -4,10 +4,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Nick
- */
 public class RemoveClassPrinterView extends javax.swing.JFrame {
     
     private static final String NAME_OF_PAGE = "Remove Class/Printer";
@@ -58,7 +54,12 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cancelButton.setText("Cancel");
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        cancelButton.setToolTipText("Back");
+        cancelButton.setBorderPainted(false);
+        cancelButton.setContentAreaFilled(false);
+        cancelButton.setFocusPainted(false);
+
         cancelButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -66,16 +67,16 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 70, -1));
+        getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 70, -1));
 
         classComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.returnAvailableClasses()));
         classComboBox.setSelectedItem(null);
         getContentPane().add(classComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 200, -1));
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         titleLabel.setText("Remove Class/Printer");
-        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 20));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 360, 20));
+        getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 290, 20));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 390, 10));
 
         classLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         classLabel.setText("Class:");
