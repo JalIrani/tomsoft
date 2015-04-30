@@ -153,7 +153,7 @@ public class BuildView extends javax.swing.JFrame
         }
         
         countNumOfModels = 0;
-        fileTableModel = (DefaultTableModel) stlFileTable.getModel();
+        fileTableModel = (DefaultTableModel) studentSubmissionApprovedTableList.getModel();
         ErrorText.setVisible(false);
         this.setVisible(true);
         
@@ -205,7 +205,7 @@ public class BuildView extends javax.swing.JFrame
         browseBtn = new javax.swing.JButton();
         ErrorText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        stlFileTable = new javax.swing.JTable();
+        studentSubmissionApprovedTableList = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         deviceNameComboBox = new javax.swing.JComboBox();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -293,8 +293,8 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setText("Error Text");
         getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 290, -1));
 
-        stlFileTable.setAutoCreateRowSorter(true);
-        stlFileTable.setModel(new javax.swing.table.DefaultTableModel()
+        studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
+        studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
             {
                 Class[] types = new Class []
                 {
@@ -316,13 +316,13 @@ public class BuildView extends javax.swing.JFrame
                     return canEdit [columnIndex];
                 }
             });
-            jScrollPane3.setViewportView(stlFileTable);
-            if (stlFileTable.getColumnModel().getColumnCount() > 0)
+            jScrollPane3.setViewportView(studentSubmissionApprovedTableList);
+            if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0)
             {
-                stlFileTable.getColumnModel().getColumn(0).setMinWidth(30);
-                stlFileTable.getColumnModel().getColumn(0).setMaxWidth(30);
-                stlFileTable.getColumnModel().getColumn(1).setResizable(false);
-                stlFileTable.getColumnModel().getColumn(2).setResizable(false);
+                studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMinWidth(30);
+                studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMaxWidth(30);
+                studentSubmissionApprovedTableList.getColumnModel().getColumn(1).setResizable(false);
+                studentSubmissionApprovedTableList.getColumnModel().getColumn(2).setResizable(false);
             }
 
             getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 950, 300));
@@ -424,8 +424,10 @@ public class BuildView extends javax.swing.JFrame
         
         if (!filepathToSelectedDeviceBuild.getText().isEmpty() && deviceModel != null)
         {
+            /* MUST CHECK TO SEE IF BUILD EXISTS IN THE DATABASE!!! */
+            
+            deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
             trackableFields = deviceModel.getFieldNames();
-            trackableFields.add(0, "Run time");
             deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
             deviceInputTable.setModel(deviceDataModel);
             deviceInputTable.setVisible(true);
@@ -465,14 +467,14 @@ public class BuildView extends javax.swing.JFrame
                 updateViewData(fileTableModel, approvedStudentSubmissions);
                 
                 /* Set UI to display the next steps in completing a build for student submissions that are tracked */
-                stlFileTable.setVisible(true);
+                studentSubmissionApprovedTableList.setVisible(true);
                 buildLbl.setVisible(true);
                 browseBtn.setVisible(true);
                 filepathToSelectedDeviceBuild.setVisible(true);
             } else
             {
                 fileTableModel.setColumnIdentifiers(new String[] { "There are no approved student submissions for the device  " + deviceModel.getDeviceName() });
-                stlFileTable.setVisible(false);
+                studentSubmissionApprovedTableList.setVisible(false);
                 buildLbl.setVisible(false);
                 browseBtn.setVisible(false);
                 filepathToSelectedDeviceBuild.setVisible(false);
@@ -480,7 +482,7 @@ public class BuildView extends javax.swing.JFrame
 
         } else
         {
-            stlFileTable.setVisible(false);
+            studentSubmissionApprovedTableList.setVisible(false);
             filepathToSelectedDeviceBuild.setVisible(true);
             fileTableModel.setColumnIdentifiers( new String[] { "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs" }); }
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
@@ -512,7 +514,7 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JMenuItem reportsMenu;
-    private javax.swing.JTable stlFileTable;
+    private javax.swing.JTable studentSubmissionApprovedTableList;
     private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables
 }

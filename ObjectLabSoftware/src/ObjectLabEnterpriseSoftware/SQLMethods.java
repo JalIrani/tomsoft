@@ -559,7 +559,7 @@ public class SQLMethods
         {
             stmt = this.conn.prepareCall
             (
-                    "CALL enterBuildData('?', '?', '?', '?');"
+                    "{call enterBuildData(?, ?, ?, ?)}"
             );
             
             stmt.setString(1, printer);
@@ -646,13 +646,13 @@ public class SQLMethods
         }
     }
 
-    public void updateJobBuildName(String build, int fileName)//SEAN USE THIS/
+    public void updateJobBuildName(String build, int jobid)//SEAN USE THIS/
     {
         try
         {
             stmt = this.conn.prepareStatement("UPDATE job SET build_name = ? WHERE job_id = ?;");
             stmt.setString(1, build);
-            stmt.setInt(2, fileName);
+            stmt.setInt(2, jobid);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {

@@ -921,12 +921,26 @@ public class UtilController
         /* Set location for currentJob that have been printed */
         File newDir = new File(FileManager.getDevicePrinted(deviceName));
         
+        /* STEP 1.0 - Add new build to printer build table in database */
+        int runtime;
+        if(deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
+            runtime = Integer.parseInt((String) deviceModel.getFieldData("Run time"));
+        else
+            runtime = (Integer) deviceModel.getFieldData("Run time");
+        
+        dbconn.insertIntoBuild(filePathToBuildFile, runtime, models, deviceName);
+        /* Remove first entry becuase it is now not needed (HOTFIX) */
+        deviceModel.rmField("Run time");
+        /* STEP 1.1 - Insert all build data for the device into the database for the assoicated printer and trackable field for that printer */
+        for(String fieldName : deviceFieldNames)
+            dbconn.insertIntoColumnBuildData(deviceName, fieldName, "" + deviceModel.getFieldData(fieldName), filePathToBuildFile);
+        
         /* Loop through currentJob that where checked in as part of the build and update data related to student submissions */
         for (Integer currentJob : selectedStudentSubmissionFiles)
         {
             try
             {
-                /* STEP 1 - get file information about current job */
+                /* STEP 2 - get file information about current job */
                 fileInfo = dbconn.selectFileInfo(currentJob);
                 if (fileInfo.next())
                 {
@@ -934,22 +948,26 @@ public class UtilController
                     previousFilePath = fileInfo.getString("file_path");
                     previousFilePath = previousFilePath.replace("//", "////");
                     
-                    /* STEP 2 - Move file to Printed location and update file reference in the database */
+                    /* STEP 3 - Move file to Printed location and update file reference in the database */
                     if (FileManager.doesFileExist(previousFilePath))
                     {
                         /* 
-                            STEP 2.1 - move file to "Printed" directory 
-                            STEP 2.2 - Update file location info in database
+                            STEP 3.0 - Move file to "Printed" directory 
+                            STEP 3.1 - Update file location info in database
+                            STEP 3.2 - Update build_name info in job table
                         */
                         FileUtils.moveFileToDirectory(new File(previousFilePath), newDir, true);
-                        dbconn.updateJobFLocation(currentJob, FileManager.getDevicePrinted(deviceName) + jobFileName);
+                        String newFileLocation = FileManager.getDevicePrinted(deviceName) + "\\" + jobFileName;
+                        dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
+                        dbconn.updateJobBuildName(filePathToBuildFile, currentJob);
+                        
                     } else
                     {
-                        /* STEP 2.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
+                        /* STEP 3.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
                         dbconn.updateJobFLocation(currentJob, "");
                     }
                     
-                    /* STEP 3 - Set job status to completed */
+                    /* STEP 4 - Set job status to completed */
                     dbconn.changeJobStatus(currentJob, "completed");
                     
                 } else
@@ -957,7 +975,6 @@ public class UtilController
                     dbconn.closeDBConnection();
                     return false;
                 }
-            
             /* 
                 Need to add code to handle one of these two excpetions. They might have differentw ways of handling reverting updated data thats
                 why there are two catch blocks.
@@ -970,15 +987,6 @@ public class UtilController
                 Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        /* STEP 4.1 - Add new build to printer build table in database */
-        dbconn.insertIntoBuild(filePathToBuildFile, (Integer) deviceModel.getFieldData(deviceFieldNames.get(0)), 0, deviceName);
-        /* Remove first entry becuase it is now not needed (HOTFIX) */
-        deviceModel.rmField(deviceFieldNames.get(0));
-        /* STEP 4.2 - Insert all build data for the device into the database for the assoicated printer and trackable field for that printer */
-        for(String fieldName : deviceFieldNames)
-            dbconn.insertIntoColumnBuildData(deviceName, fieldName, (String) deviceModel.getFieldData(fieldName), filePathToBuildFile);
-
         dbconn.closeDBConnection();
         return true;
     }
