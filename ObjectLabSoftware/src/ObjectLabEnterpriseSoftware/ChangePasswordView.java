@@ -15,15 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Nick
- */
 public class ChangePasswordView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ChangePasswordView
-     */
     AdminSettingsView settings = new AdminSettingsView();
     public void passwordChangeStart() {
         initComponents();
@@ -52,7 +45,8 @@ public class ChangePasswordView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         backButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -64,6 +58,9 @@ public class ChangePasswordView extends javax.swing.JFrame {
         confirmPasswordField = new javax.swing.JPasswordField();
         passwordError = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        EditMenu = new javax.swing.JMenu();
+        usersGuideButton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -71,8 +68,10 @@ public class ChangePasswordView extends javax.swing.JFrame {
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        backButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 backButtonActionPerformed(evt);
             }
         });
@@ -90,8 +89,10 @@ public class ChangePasswordView extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        submitButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 submitButtonActionPerformed(evt);
             }
         });
@@ -107,6 +108,22 @@ public class ChangePasswordView extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 230));
+
+        EditMenu.setText("Help");
+
+        usersGuideButton.setText("User Guide");
+        usersGuideButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                usersGuideButtonActionPerformed(evt);
+            }
+        });
+        EditMenu.add(usersGuideButton);
+
+        jMenuBar1.add(EditMenu);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +164,11 @@ public class ChangePasswordView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void usersGuideButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_usersGuideButtonActionPerformed
+    {//GEN-HEADEREND:event_usersGuideButtonActionPerformed
+        UtilController.openAdminHelpPage();
+    }//GEN-LAST:event_usersGuideButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,15 +206,18 @@ public class ChangePasswordView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu EditMenu;
     private javax.swing.JButton backButton;
     private javax.swing.JPasswordField confirmPasswordField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField newPasswordField;
     private javax.swing.JLabel passwordError;
     private javax.swing.JButton submitButton;
+    private javax.swing.JMenuItem usersGuideButton;
     // End of variables declaration//GEN-END:variables
 }

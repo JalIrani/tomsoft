@@ -312,7 +312,6 @@ public class MainView extends javax.swing.JFrame
     }//GEN-LAST:event_newStudentButtonActionPerformed
 
     private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
-        // TODO add your handling code here:
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_userGuideButtonActionPerformed
 
