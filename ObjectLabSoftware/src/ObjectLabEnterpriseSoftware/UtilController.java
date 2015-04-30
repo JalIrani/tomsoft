@@ -345,7 +345,8 @@ public class UtilController
             /* 
              Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
              */
-            
+            String newFileLocation = cloudStorageOperations.getRejected() + file;
+            dbconn.updateJobFLocation(Integer.parseInt(primaryKey), newFileLocation.replace("\\", "\\\\"));
             dbconn.updateStatus( "rejected",Integer.parseInt(primaryKey));
             dbconn.closeDBConnection();
 
@@ -386,15 +387,14 @@ public class UtilController
             if (result.next())
             {
                 ID = result.getString("job_id");
-                String printer=result.getString("printer_name");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
-                String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
+                String printer = result.getString("printer_name");
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint\\";
+                String currentFileLocation = cloudStorageOperations.getSubmission() + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
                  */
-                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedFileLocation), true);
+                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
 
                 /* In order to properly update the file location we need to gurantee there are '\\' seperating
                  *  the dir names.
@@ -403,7 +403,10 @@ public class UtilController
                  *   - Nick
                  */
                 dbconn.updateJobVolume(Integer.parseInt(ID), volume);
-                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedFileLocation.replace("\\", "\\\\"));
+                
+                /* update full file path */
+                updatedDirectoryLocation += fileName;
+                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedDirectoryLocation.replace("\\", "\\\\"));
                 dbconn.changeJobStatus(Integer.parseInt(ID), "approved");
                 dbconn.closeDBConnection();
             }
