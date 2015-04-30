@@ -28,9 +28,10 @@ public class AdminSettingsView extends javax.swing.JFrame
         }
           addWindowListener(new WindowAdapter() {
 			@Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e) 
+            {
                 dispose();
-				home.resetAdminMode();
+                home.resetAdminMode();
             }
         });
         setVisible(true);
@@ -165,15 +166,14 @@ public class AdminSettingsView extends javax.swing.JFrame
     }//GEN-LAST:event_jButton4ActionPerformed
 
         private void addPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrinterButtonActionPerformed
-		AddPrinterView ap = new AddPrinterView();
+		AddDeviceView ap = new AddDeviceView();
 		ap.AddPrinterStart();
                 dispose();
         }//GEN-LAST:event_addPrinterButtonActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-		dispose();
-		home.resetAdminMode();
+        dispose();
+        home.resetAdminMode();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

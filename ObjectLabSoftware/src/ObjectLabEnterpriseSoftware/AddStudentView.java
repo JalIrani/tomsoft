@@ -48,7 +48,7 @@ public class AddStudentView extends javax.swing.JFrame
             {
                 // close sockets, etc
                 //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(false);
+                home.setDevicesVisible(false);
                 home.setVisible(true);
 		dispose();
             }
@@ -211,7 +211,7 @@ public class AddStudentView extends javax.swing.JFrame
                 {
                     JOptionPane.showMessageDialog(this, "Updating student data.");
                     dispose();
-                    home.setPrintersVisible(false);
+                    home.setDevicesVisible(false);
                     home.setVisible(true);
 				} else if(userFlag == -25)
 				{

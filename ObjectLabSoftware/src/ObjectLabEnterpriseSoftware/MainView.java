@@ -20,7 +20,7 @@ public class MainView extends javax.swing.JFrame
     {
         initComponents();
         this.setResizable(false);
-        setPrintersVisible(false);
+        setDevicesVisible(false);
         pendingSys = new JobsView();
         studentSys = new StudentSubmissionView();
         newStudentSys = new AddStudentView();
@@ -244,7 +244,7 @@ public class MainView extends javax.swing.JFrame
 
     private void enterBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBuildActionPerformed
         // TODO add your handling code here:
-        PrinterBuildView Build = new PrinterBuildView();
+        BuildView Build = new BuildView();
         Build.startMakeBuildProcess();
         dispose();
     }//GEN-LAST:event_enterBuildActionPerformed
@@ -264,7 +264,7 @@ public class MainView extends javax.swing.JFrame
         dialogue.setResizable(false);
 		
 		//Handling code for proper submission
-		setPrintersVisible(true);
+		setDevicesVisible(true);
 		
         /* 
          Currently bypasses what is typed into dialogue for ease of testing
@@ -286,9 +286,9 @@ public class MainView extends javax.swing.JFrame
 
 	public void resetAdminMode()
 	{
-			setPrintersVisible(true);
-			hideStudentOptions();
-		    setVisible(true);
+            setDevicesVisible(true);
+            hideStudentOptions();
+            setVisible(true);
 	}
 	public void hideStudentOptions()
 	{
@@ -308,7 +308,7 @@ public class MainView extends javax.swing.JFrame
 	
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
-        setPrintersVisible(false);
+        setDevicesVisible(false);
 
         String idString = studentIdString.getText();//DB team this is to store String
 
@@ -346,14 +346,14 @@ public class MainView extends javax.swing.JFrame
     }//GEN-LAST:event_userGuideButtonActionPerformed
 
     private void logoutBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBActionPerformed
-        setPrintersVisible(false);
+        setDevicesVisible(false);
 		showStudentOptions();
     }//GEN-LAST:event_logoutBActionPerformed
 
     private void updateStudentButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_updateStudentButtonActionPerformed
     {//GEN-HEADEREND:event_updateStudentButtonActionPerformed
         // TODO add your handling code here:
-        setPrintersVisible(false);
+        setDevicesVisible(false);
 
         String idString = studentIdString.getText(); //DB team this is to store String
         if (idString.length() != 7)
@@ -380,7 +380,7 @@ public class MainView extends javax.swing.JFrame
         dispose();
     }
 
-    public void setPrintersVisible(boolean isVisible)
+    public void setDevicesVisible(boolean isVisible)
     {
 	studentButton.setVisible(!isVisible);
 	studentIdString.setVisible(!isVisible);

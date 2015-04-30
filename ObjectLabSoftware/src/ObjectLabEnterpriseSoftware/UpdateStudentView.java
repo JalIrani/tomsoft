@@ -48,11 +48,8 @@ public class UpdateStudentView extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
-                // close sockets, etc
-                //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(false);
-                home.setVisible(true);
-		dispose();
+                dispose();
+                home.resetAdminMode();
             }
         });
 	setLocationRelativeTo(null);
@@ -215,17 +212,15 @@ public class UpdateStudentView extends javax.swing.JFrame
             }
             if (validEmailAdr)
             {
-                if((UtilController.updateUser(tuID, firstName, lastName, email)) > 0)
+                if ((UtilController.updateUser(tuID, firstName, lastName, email)) > 0)
                 {
                     JOptionPane.showMessageDialog(this, "Updating student data.");
                     dispose();
-                    home.setPrintersVisible(false);
-                    home.setVisible(true);
-				}
-				else 
-				{
-                    JOptionPane.showMessageDialog(this, "Error updating student info database.");	
-				}
+                    home.resetAdminMode();
+                } else
+                {
+                    JOptionPane.showMessageDialog(this, "Error updating student info database.");
+                }
             }
         }
 

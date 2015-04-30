@@ -62,11 +62,11 @@ public class JobsView extends javax.swing.JFrame
             new WindowAdapter() 
             {
                 @Override
-                public void windowClosing(WindowEvent we) 
+                public void windowClosing(WindowEvent we)
                 {
                     /* If they close the program then close out the window properly */
-					dispose();
-					home.resetAdminMode();
+                    dispose();
+                    home.resetAdminMode();
                 }
             }
         );
@@ -422,9 +422,8 @@ public class JobsView extends javax.swing.JFrame
     }//GEN-LAST:event_openFileInProgramActionPerformed
 
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
-        // TODO add your handling code here:
-		dispose();
-		home.resetAdminMode();
+        dispose();
+        home.resetAdminMode();
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed
