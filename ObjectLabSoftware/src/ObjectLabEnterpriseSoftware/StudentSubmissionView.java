@@ -45,7 +45,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
             public void windowClosing(WindowEvent e)
             {
                 dispose();
-                home.resetAdminMode();
+                home.setVisible(true);
             }
         });
         setVisible(true);
