@@ -334,11 +334,12 @@ public class MainView extends javax.swing.JFrame
 	newStudentButton.setVisible(!isVisible);
 	AdminButton.setVisible(!isVisible);
 	AdminButton.setVisible(!isVisible);
-        settingsButton.setVisible(isVisible);
-        openProjectsButton.setVisible(isVisible);
-        enterBuild.setVisible(isVisible);
-        ReportsButton.setVisible(isVisible);
-        logoutB.setVisible(isVisible);
+	updateStudentButton.setVisible(!isVisible);
+	settingsButton.setVisible(isVisible);
+	openProjectsButton.setVisible(isVisible);
+	enterBuild.setVisible(isVisible);
+	ReportsButton.setVisible(isVisible);
+	logoutB.setVisible(isVisible);
     }
 
     /**
