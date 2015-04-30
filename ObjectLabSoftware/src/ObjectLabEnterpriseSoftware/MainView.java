@@ -3,7 +3,6 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class MainView extends javax.swing.JFrame
 {
@@ -57,11 +56,9 @@ public class MainView extends javax.swing.JFrame
         jList1 = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        newStudentButton = new javax.swing.JButton();
         errorIdLabel = new javax.swing.JLabel();
         studentIdString = new javax.swing.JTextField();
         studentButton = new javax.swing.JButton();
-        updateStudentButton = new javax.swing.JButton();
         enterBuild = new javax.swing.JButton();
         openProjectsButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
@@ -74,6 +71,9 @@ public class MainView extends javax.swing.JFrame
         MenuBar = new javax.swing.JMenuBar();
         helpButton = new javax.swing.JMenu();
         userGuideButton = new javax.swing.JMenuItem();
+        userOptionsMenu = new javax.swing.JMenu();
+        newStudentOption = new javax.swing.JMenuItem();
+        updateStudentOption = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel()
         {
@@ -94,17 +94,6 @@ public class MainView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(250, 370));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        newStudentButton.setBackground(new java.awt.Color(153, 153, 153));
-        newStudentButton.setText("Add User");
-        newStudentButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                newStudentButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(newStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 80, 30));
 
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -129,18 +118,7 @@ public class MainView extends javax.swing.JFrame
                 studentButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 80, 30));
-
-        updateStudentButton.setBackground(new java.awt.Color(153, 153, 153));
-        updateStudentButton.setText("Update User");
-        updateStudentButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                updateStudentButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(updateStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, 30));
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 80, 30));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("Enter Build");
@@ -236,6 +214,37 @@ public class MainView extends javax.swing.JFrame
 
         MenuBar.add(helpButton);
 
+        userOptionsMenu.setText("User Options");
+        userOptionsMenu.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                userOptionsMenuActionPerformed(evt);
+            }
+        });
+
+        newStudentOption.setText("Add User");
+        newStudentOption.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                newStudentOptionActionPerformed(evt);
+            }
+        });
+        userOptionsMenu.add(newStudentOption);
+
+        updateStudentOption.setText("Update User Login Info");
+        updateStudentOption.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                updateStudentOptionActionPerformed(evt);
+            }
+        });
+        userOptionsMenu.add(updateStudentOption);
+
+        MenuBar.add(userOptionsMenu);
+
         setJMenuBar(MenuBar);
 
         pack();
@@ -294,7 +303,6 @@ public class MainView extends javax.swing.JFrame
 	{
 		studentButton.setVisible(false);
 		studentIdString.setVisible(false);
-		newStudentButton.setVisible(false);
 		AdminButton.setVisible(false);
 	}
 	
@@ -302,7 +310,6 @@ public class MainView extends javax.swing.JFrame
 	{
 		studentButton.setVisible(true);
 		studentIdString.setVisible(true);
-		newStudentButton.setVisible(true);
 		AdminButton.setVisible(true);
 	}
 	
@@ -334,13 +341,6 @@ public class MainView extends javax.swing.JFrame
 
     }//GEN-LAST:event_studentIdStringActionPerformed
 
-    private void newStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newStudentButtonActionPerformed
-        // TODO add your handling code here:
-        newStudentSys.NewStudentViewStart();
-        dispose();
-
-    }//GEN-LAST:event_newStudentButtonActionPerformed
-
     private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_userGuideButtonActionPerformed
@@ -350,9 +350,13 @@ public class MainView extends javax.swing.JFrame
 		showStudentOptions();
     }//GEN-LAST:event_logoutBActionPerformed
 
-    private void updateStudentButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_updateStudentButtonActionPerformed
-    {//GEN-HEADEREND:event_updateStudentButtonActionPerformed
-        // TODO add your handling code here:
+    private void userOptionsMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_userOptionsMenuActionPerformed
+    {//GEN-HEADEREND:event_userOptionsMenuActionPerformed
+	// Nothing
+    }//GEN-LAST:event_userOptionsMenuActionPerformed
+
+    private void updateStudentOptionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_updateStudentOptionActionPerformed
+    {//GEN-HEADEREND:event_updateStudentOptionActionPerformed
         setPrintersVisible(false);
 
         String idString = studentIdString.getText(); //DB team this is to store String
@@ -371,7 +375,13 @@ public class MainView extends javax.swing.JFrame
                 errorIdLabel.setText("USER ID does not exist");
             }
         }
-    }//GEN-LAST:event_updateStudentButtonActionPerformed
+    }//GEN-LAST:event_updateStudentOptionActionPerformed
+
+    private void newStudentOptionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newStudentOptionActionPerformed
+    {//GEN-HEADEREND:event_newStudentOptionActionPerformed
+        newStudentSys.NewStudentViewStart();
+        dispose();
+    }//GEN-LAST:event_newStudentOptionActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
@@ -384,10 +394,8 @@ public class MainView extends javax.swing.JFrame
     {
 	studentButton.setVisible(!isVisible);
 	studentIdString.setVisible(!isVisible);
-	newStudentButton.setVisible(!isVisible);
 	AdminButton.setVisible(!isVisible);
 	AdminButton.setVisible(!isVisible);
-	updateStudentButton.setVisible(!isVisible);
 	settingsButton.setVisible(isVisible);
 	openProjectsButton.setVisible(isVisible);
 	enterBuild.setVisible(isVisible);
@@ -447,12 +455,13 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JTextArea jTextArea1;
     private java.awt.Label label1;
     private javax.swing.JButton logoutB;
-    private javax.swing.JButton newStudentButton;
+    private javax.swing.JMenuItem newStudentOption;
     private javax.swing.JButton openProjectsButton;
     private javax.swing.JButton settingsButton;
     private javax.swing.JButton studentButton;
     private javax.swing.JTextField studentIdString;
-    private javax.swing.JButton updateStudentButton;
+    private javax.swing.JMenuItem updateStudentOption;
     private javax.swing.JMenuItem userGuideButton;
+    private javax.swing.JMenu userOptionsMenu;
     // End of variables declaration//GEN-END:variables
 }

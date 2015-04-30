@@ -50,7 +50,7 @@ public class AddStudentView extends javax.swing.JFrame
                 //home.studentSubmissionButton.setVisible(false);
                 home.setPrintersVisible(false);
                 home.setVisible(true);
-		dispose();
+				dispose();
             }
         });
 	setLocationRelativeTo(null);
@@ -73,9 +73,7 @@ public class AddStudentView extends javax.swing.JFrame
         });
 
     }
-    //public AddStudentView() {  
-    //}
-
+	
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
