@@ -932,7 +932,20 @@ public class UtilController
 		
 		return flag;
     }
-    
+	
+    public static int updateUser(String studentId, String firstname, String lastname, String email)
+    {	
+		int flag = -1;
+		if(userIDExist(studentId))
+		{
+			SQLMethods dbconn = new SQLMethods();
+			flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+			dbconn.closeDBConnection();
+			return flag;
+		}
+		return flag;
+    }
+	
      public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
         SQLMethods dbconn = new SQLMethods();
         ArrayList<ArrayList<Object>> toSend = new ArrayList();

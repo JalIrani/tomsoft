@@ -10,6 +10,7 @@ public class MainView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Home";
 
     AddStudentView newStudentSys;
+	UpdateStudentView updateStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
@@ -23,7 +24,8 @@ public class MainView extends javax.swing.JFrame
         pendingSys = new JobsView();
         studentSys = new StudentSubmissionView();
         newStudentSys = new AddStudentView();
-
+		updateStudentSys = new UpdateStudentView();
+				
         //Allows only integers for student ID
         studentIdString.addKeyListener(new KeyAdapter()
         {
@@ -48,7 +50,8 @@ public class MainView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -72,7 +75,8 @@ public class MainView extends javax.swing.JFrame
         helpButton = new javax.swing.JMenu();
         userGuideButton = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -93,8 +97,10 @@ public class MainView extends javax.swing.JFrame
 
         newStudentButton.setBackground(new java.awt.Color(153, 153, 153));
         newStudentButton.setText("Add User");
-        newStudentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        newStudentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 newStudentButtonActionPerformed(evt);
             }
         });
@@ -105,8 +111,10 @@ public class MainView extends javax.swing.JFrame
         getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 130, 20));
 
         studentIdString.setToolTipText("Enter seven digit student ID.");
-        studentIdString.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentIdString.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentIdStringActionPerformed(evt);
             }
         });
@@ -114,8 +122,10 @@ public class MainView extends javax.swing.JFrame
 
         studentButton.setBackground(new java.awt.Color(0, 0, 0));
         studentButton.setText("Login");
-        studentButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        studentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 studentButtonActionPerformed(evt);
             }
         });
@@ -123,13 +133,22 @@ public class MainView extends javax.swing.JFrame
 
         updateStudentButton.setBackground(new java.awt.Color(153, 153, 153));
         updateStudentButton.setText("Update User");
+        updateStudentButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                updateStudentButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(updateStudentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, 30));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("Enter Build");
         enterBuild.setContentAreaFilled(false);
-        enterBuild.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        enterBuild.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 enterBuildActionPerformed(evt);
             }
         });
@@ -138,8 +157,10 @@ public class MainView extends javax.swing.JFrame
         openProjectsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/clipboard_icon.png"))); // NOI18N
         openProjectsButton.setToolTipText("Approve/Reject Projects");
         openProjectsButton.setContentAreaFilled(false);
-        openProjectsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openProjectsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openProjectsButtonActionPerformed(evt);
             }
         });
@@ -148,8 +169,10 @@ public class MainView extends javax.swing.JFrame
         settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png"))); // NOI18N
         settingsButton.setToolTipText("Settings");
         settingsButton.setContentAreaFilled(false);
-        settingsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        settingsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 settingsButtonActionPerformed(evt);
             }
         });
@@ -157,8 +180,10 @@ public class MainView extends javax.swing.JFrame
 
         AdminButton.setBackground(new java.awt.Color(0, 0, 0));
         AdminButton.setText("Administrator");
-        AdminButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AdminButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AdminButtonActionPerformed(evt);
             }
         });
@@ -167,8 +192,10 @@ public class MainView extends javax.swing.JFrame
         ReportsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png"))); // NOI18N
         ReportsButton.setToolTipText("Reports");
         ReportsButton.setContentAreaFilled(false);
-        ReportsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ReportsButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ReportsButtonActionPerformed(evt);
             }
         });
@@ -176,8 +203,10 @@ public class MainView extends javax.swing.JFrame
 
         logoutB.setBackground(new java.awt.Color(0, 0, 0));
         logoutB.setText("Logout");
-        logoutB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        logoutB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 logoutBActionPerformed(evt);
             }
         });
@@ -196,8 +225,10 @@ public class MainView extends javax.swing.JFrame
         helpButton.setText("Help");
 
         userGuideButton.setText("User Guide");
-        userGuideButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userGuideButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 userGuideButtonActionPerformed(evt);
             }
         });
@@ -296,7 +327,6 @@ public class MainView extends javax.swing.JFrame
                 errorIdLabel.setText("USER ID does not exist");
             }
         }
-
     }//GEN-LAST:event_studentButtonActionPerformed
 
     private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
@@ -319,6 +349,29 @@ public class MainView extends javax.swing.JFrame
         setPrintersVisible(false);
 		showStudentOptions();
     }//GEN-LAST:event_logoutBActionPerformed
+
+    private void updateStudentButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_updateStudentButtonActionPerformed
+    {//GEN-HEADEREND:event_updateStudentButtonActionPerformed
+        // TODO add your handling code here:
+        setPrintersVisible(false);
+
+        String idString = studentIdString.getText(); //DB team this is to store String
+        if (idString.length() != 7)
+        {
+            errorIdLabel.setText("USER ID must be 7 digits");
+        } else
+        {
+            if (UtilController.userIDExist(idString))
+            {
+                errorIdLabel.setText("");
+                dispose();
+                updateStudentSys.UpdateStudentViewStart(idString);
+            } else
+            {
+                errorIdLabel.setText("USER ID does not exist");
+            }
+        }
+    }//GEN-LAST:event_updateStudentButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
