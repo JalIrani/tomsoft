@@ -78,7 +78,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         error_NoPrinterSelected = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8_StudentSubmission = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         idOfUser = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -207,15 +207,16 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jLabel8_StudentSubmission.setText("Student Submission");
         getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
+        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        backButton.setContentAreaFilled(false);
+        backButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jLabel1.setText("Your user ID:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 70, 30));
@@ -379,11 +380,11 @@ public class StudentSubmissionView extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_fileLocationActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
+    {//GEN-HEADEREND:event_backButtonActionPerformed
 		dispose();
                 home.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed
     {//GEN-HEADEREND:event_projNameActionPerformed
@@ -398,6 +399,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Browse;
     private javax.swing.JButton Student_Submit;
+    private javax.swing.JButton backButton;
     private javax.swing.JComboBox classBox;
     private javax.swing.JMenu editMenu;
     private javax.swing.JLabel error_NoClassSelected;
@@ -405,7 +407,6 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private javax.swing.JLabel error_NoPrinterSelected;
     private javax.swing.JTextField fileLocation;
     private javax.swing.JTextField idOfUser;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel1_FileLocation;
     private javax.swing.JLabel jLabel5_ProjName;
