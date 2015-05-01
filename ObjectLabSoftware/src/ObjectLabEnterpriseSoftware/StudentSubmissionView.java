@@ -45,7 +45,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
             public void windowClosing(WindowEvent e)
             {
                 dispose();
-				home.resetAdminMode();
+                home.setVisible(true);
             }
         });
         setVisible(true);
@@ -176,7 +176,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         });
         getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 140, -1));
 
-        printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
+        printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableDevicesStudentSubmissionRequired()));
         printerBox.setSelectedItem(null);
         printerBox.addActionListener(new java.awt.event.ActionListener()
         {
@@ -353,15 +353,6 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        try
-        {
-            FileManager instance = new FileManager();
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
-        } catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e);  //print the error
-        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void BrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseActionPerformed

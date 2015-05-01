@@ -22,26 +22,21 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class FileManager 
 {
-    
-    private static final String drive = "C:\\Sync";;
-    private static final String PDFAdmin = drive + "\\TomSoft Help Admin.pdf";
-    private static final String PDFStudent = drive + "\\TomSoft Help Student.pdf";
-    private String submitted;
-    private static final String rejected = drive + "\\ObjectLabPrinters\\Rejected\\";;
+    private static final String drive = "C:\\Sync";            
     private static final String submission = drive + "\\ObjectLabPrinters\\Submissions\\";
+    private static final String rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
     private static final String excelFilePath = drive + "\\Export\\";
     private static final String INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
     private static final String ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
 
-
-    //Sets default locations that will be shared by all installations
-    public FileManager() 
-	{       
+    /* leaving this in for now. so the whole program wont break if i make everything static.. */
+    public FileManager()
+    {
         
-        }
+    }
     
     public boolean deleteFile(String path)
-	{
+    {
         File newDir = new File(path);
         if(newDir.exists())
 		{
@@ -53,10 +48,28 @@ public class FileManager
         
         return false;
     }
-    /* String fileLoc = browseForFile();
-            if(fileLoc != null)
-                return true;
-    */
+    
+    /** 
+     * This is a temporary method created by David Prince to set up the location of the printed File
+     * 
+     * @param printerName this is the name of the printer being used
+     * @return the location where the printed file will be stored
+     */
+    public static String getDevicePrinted(String printerName)
+    {
+        return drive + "\\ObjectLabPrinters\\" + printerName + "\\Printed";
+    }
+    
+    /** 
+     * This is a temporary method created by David Prince to set up the location of the file to Print
+     * 
+     * @param printerName this is the name of the printer being used
+     * @return the location where the printed file will be stored
+     */
+    public static String getDeviceToPrint(String printerName)
+    {
+        return drive + "\\ObjectLabPrinters\\" + printerName + "\\ToPrint";
+    }
     
     public static boolean doesFileExist(String path)
     {
@@ -269,34 +282,6 @@ public class FileManager
         zipOutputStream.closeEntry();
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
-    }
-    
-    public String getPrinterLocation(String printer){
-        return (drive + "\\ObjectLabPrinters\\" + printer + "\\ToPrint");
-    }
-
-    /**
-     * @return the PDF
-     */
-    public String getPDFAdmin() 
-	{
-        return PDFAdmin;
-    }
-
-        /**
-     * @return the PDF
-     */
-    public String getPDFStudent() 
-	{
-        return PDFStudent;
-    }
-    
-    /**
-     * @return the submitted
-     */
-    public String getSubmitted() 
-	{
-        return submitted;
     }
 
     /**

@@ -101,15 +101,28 @@ public class SQLMethods
         return res;
     }
 
-	// I deprecated this because it says select all but it is not selecting all
-	@Deprecated
     public ResultSet selectAllPrintStatus(String status)
-    {// select all info from job based onstatus ((probably that not useful)
+    {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status= ?;");
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE status = ?;");
             stmt.setString(1, status);
+            res = stmt.executeQuery();
+        } catch (SQLException e)
+        {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+    
+    public ResultSet selectFileInfo(int jobid)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("SELECT file_name, file_path FROM job WHERE job_id = ?;");
+            stmt.setInt(1, jobid);
             res = stmt.executeQuery();
         } catch (SQLException e)
         {
@@ -138,10 +151,10 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, "
-					+ "Job.submission_date ,Job.printer_name, class_name, class_section  " 
-					+ "FROM Job, Users , Class " + "WHERE status = ? AND printer_name = ? "
-					+ "AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
+					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+					+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
+					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
             stmt.setString(1, status);
             stmt.setString(2, printer);
             res = stmt.executeQuery();
@@ -152,15 +165,16 @@ public class SQLMethods
 
         return res;
     }
+    
     public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT Job.file_name, Users.first_name, Users.last_name, "
-					+ "Job.submission_date ,Job.printer_name, class_name, class_section  " 
-					+ "FROM Job, Users ,Class " + "WHERE status = ? "
-					+ "AND Users.towson_id = Job.student_id AND job.class_id= class.class_id;");
+            stmt = this.conn.prepareStatement("SELECT job.file_name, users.first_name, users.last_name, "
+					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+					+ "FROM job, users ,class " + "WHERE job.status = ? "
+					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
             stmt.setString(1, status);
             
             res = stmt.executeQuery();
@@ -172,13 +186,13 @@ public class SQLMethods
         return res;
     }
 
-    public ResultSet searchPrintersByBuildName(String buildname)
+    public ResultSet searchPrintersByBuildName(int buildId)
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE build_name = ?;");
-            stmt.setString(1, buildname);
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE build_id = ?;");
+            stmt.setInt(1, buildId);
             res = stmt.executeQuery();
         } catch (Exception e)
         {
@@ -208,7 +222,7 @@ public class SQLMethods
         try
         {
             stmt = this.conn.prepareStatement("SELECT * FROM job, printer_build "
-                    + "WHERE buildName = ?  AND printer_build.build_name= Job.build_name;");
+                    + "WHERE buildName = ?  AND printer_build.build_id= Job.build_id;");
             stmt.setString(1, buildName);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -232,14 +246,39 @@ public class SQLMethods
         }
         return res;
     }
+    
+    public ResultSet getStudentSubmissionStatusFromDevice(String printer)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT student_submission "
+                    + "FROM printer "
+                    + "WHERE printer_name = ?"
+            );
+            
+            stmt.setString(1, printer);
+            
+            res = stmt.executeQuery();
+            System.out.println(stmt);
+        } catch (SQLException e)
+        {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
 
     public ResultSet searchPrinterSettings(String printer)
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM printers WHERE printer = ?");
+            stmt = this.conn.prepareStatement("SELECT * FROM printer WHERE printer_name = ?");
+            
             stmt.setString(1, printer);
+            
             res = stmt.executeQuery();
             System.out.println(stmt);
         } catch (SQLException e)
@@ -299,7 +338,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM custom_printer_column_names Where printer_name = ? ");
+            stmt = this.conn.prepareStatement("SELECT * FROM custom_printer_column_names WHERE printer_name = ?;");
             stmt.setString(1, printer);
             res = stmt.executeQuery();
 
@@ -309,16 +348,41 @@ public class SQLMethods
         }
         return res;
     }
-
-    public ResultSet selectBuildData(String buildname)
+    
+    /*
+    This is a method that retrieve custom_field_names from custom_printer_column_names. 
+    I use this to dynamically update the enter build info in the tables
+    The other methods meant to do this were not working. ~Sean Gahagan
+    */
+    public ResultSet selectDeviceTrackableMetaData(String printer)
     {
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM column_build_data Where build_name = ? ");
-            stmt.setString(1, buildname); 
+            stmt = this.conn.prepareStatement
+            (
+                    "SELECT custom_field_name, numerical FROM custom_printer_column_names WHERE printer_name = ?;"
+                    
+            );
+            
+            stmt.setString(1, printer);
+            System.out.println(stmt);
             res = stmt.executeQuery();
-          
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public ResultSet selectBuildData(int id)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("SELECT * FROM column_build_data Where build_id = ? ");
+            res = stmt.executeQuery();
+            stmt.setInt(1, id);
         } catch (SQLException e)
         {
             System.err.println("SQL Execution Error.");
@@ -399,7 +463,7 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("INSERT INTO printer (printer_name, current, total_run_time,student_submission) values (?, 'current', 0, ?);");
+            stmt = conn.prepareStatement("INSERT INTO printer (printer_name, student_submission) values (?, ?);");
             stmt.setString(1, printer);
             stmt.setBoolean(2, submit);
             stmt.executeUpdate();
@@ -473,10 +537,15 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("insert into printer_build ( build_name, date_created, total_runtime_seconds, number_of_models, printer_name) values (?,NOW(),0, ?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO printer_build "
+                    + "(build_name, date_created, total_runtime_seconds, number_of_models, printer_name) "
+                    + "VALUES (?, NOW(), ?, ?, ?);");
+            
             stmt.setString(1, buildname);
-            stmt.setInt(2, models);
-            stmt.setString(3, printer);
+            stmt.setInt(2, runtime);
+            stmt.setInt(3, models);
+            stmt.setString(4, printer);
+            
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -484,15 +553,21 @@ public class SQLMethods
         }
     }
 
-    public void insertIntoColumn(String buildname, int columnid, String data)
+    public void insertIntoColumnBuildData(String printer, String columnName, String data, String buildLocation)
     {
         try
         {
-            stmt = conn.prepareStatement("insert into column_build_data ( build_name, column_name_id, column_field_data) values (?,?, ?);");
-            stmt.setString(1, buildname);
-            stmt.setInt(2, columnid);
+            stmt = this.conn.prepareCall
+            (
+                    "{call enterBuildData(?, ?, ?, ?)}"
+            );
+            
+            stmt.setString(1, printer);
+            stmt.setString(2, columnName);
             stmt.setString(3, data);
-            stmt.executeUpdate();
+            stmt.setString(4, buildLocation);
+            stmt.executeQuery();
+            
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -521,21 +596,6 @@ public class SQLMethods
             stmt = conn.prepareStatement("insert into accepted_files ( printer_name, file_extension) values (?,?);");
             stmt.setString(1, printer);
             stmt.setString(2, file);
-            stmt.executeUpdate();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-    public void insertIntoCustom(String printer, String colname, String data, String build)
-    {
-        try
-        {
-            stmt = conn.prepareStatement("call addData(?,?,?,?");
-            stmt.setString(1, printer);
-            stmt.setString(2, colname);
-            stmt.setString(3, data);
-            stmt.setString(4, build);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -586,13 +646,13 @@ public class SQLMethods
         }
     }
 
-    public void updateJobBuildName(String build, int fileName)//SEAN USE THIS/
+    public void updateJobBuildName(String build, int jobid)//SEAN USE THIS/
     {
         try
         {
             stmt = this.conn.prepareStatement("UPDATE job SET build_name = ? WHERE job_id = ?;");
             stmt.setString(1, build);
-            stmt.setInt(2, fileName);
+            stmt.setInt(2, jobid);
             stmt.executeUpdate();
         } catch (SQLException ex)
         {
@@ -802,12 +862,12 @@ public class SQLMethods
         }
     }
 
-    public void deleteByBuildId(String buildname)
+    public void deleteByBuildId(int buildid)
     {
         try
         {
-            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_name = ?;");
-            stmt.setString(1, buildname);
+            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_id = ?;");
+            stmt.setInt(1, buildid);
             stmt.executeUpdate();
         } catch (Exception e)
         {
@@ -1399,16 +1459,43 @@ public class SQLMethods
         }
         return res;
     }
-
-    public ResultSet getAvailablePrinters()
+	
+	public ResultSet getAllDeviceNames()
     {
         res = null;
         try
         {
             stmt = this.conn.prepareStatement(
-                    "SELECT printer_name"
-                    + " FROM printer"
+                    "SELECT printer_name "
+                    + "FROM printer;"
             );
+			
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+	}
+	public ResultSet getCurrentDevices()
+	{
+		return getDeviceNamesCurrentOption(true);
+	}
+	
+	public ResultSet getDeviceNamesCurrentOption(boolean current)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement(
+                    "SELECT printer_name "
+                    + "FROM printer "
+		    + "WHERE current = ?;"
+            );
+			
+			stmt.setBoolean(1, current);
+			
             System.out.println(stmt);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -1417,7 +1504,35 @@ public class SQLMethods
         }
         return res;
     }
-
+	
+	public ResultSet getTrackedDevices()
+	{
+		return getDeviceNamesCurrentOptionSubmissionOption(true, true);
+	}	 
+	
+    public ResultSet getDeviceNamesCurrentOptionSubmissionOption(boolean current, boolean requireStudentSubmission)
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement(
+                    "SELECT printer_name "
+                    + "FROM printer "
+                    + "WHERE current = ? AND student_submission = ?;"
+            );
+			
+			stmt.setBoolean(1, current);
+			stmt.setBoolean(2, requireStudentSubmission);
+			
+            System.out.println(stmt);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+	
     public ResultSet getCurrentTime()
     {
         res = null;
@@ -1434,31 +1549,4 @@ public class SQLMethods
         }
         return res;
     }
-    
-    /*
-    This is a method that retrieve custom_field_names from custom_printer_column_names. 
-    I use this to dynamically update the enter build info in the tables
-    The other methods meant to do this were not working. ~Sean Gahagan
-    */
-    public ResultSet forSean(String printer)
-    {
-        res = null;
-        try
-        {
-            stmt = this.conn.prepareStatement
-            (
-                    "SELECT custom_field_name, numerical FROM custom_printer_column_names WHERE printer_name = ?;"
-                    
-            );
-            
-            stmt.setString(1, printer);
-            System.out.println(stmt);
-            res = stmt.executeQuery();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
 }

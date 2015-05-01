@@ -17,6 +17,7 @@ public class Device
     public static final int TYPE_STRING = 1;
 
     private String deviceName;
+    private boolean trackSubmission;
     private ArrayList<String> fileExtensions;
     private ArrayList<String> fieldNames;
 
@@ -26,14 +27,16 @@ public class Device
     public Device()
     {
         deviceName = null;
+        trackSubmission = true;
         fileExtensions = new ArrayList<>();
         fieldNames = new ArrayList<>();
         fields = new HashMap<>(INITIAL_TABLE_SIZE);
     }
 
-    public Device(String name, ArrayList<String> ext)
+    public Device(String name, ArrayList<String> ext, boolean trackStud)
     {
         deviceName = name;
+        trackSubmission = trackStud;
         fileExtensions = ext;
         fieldNames = new ArrayList<>();
         fields = new HashMap<>(INITIAL_TABLE_SIZE);
@@ -42,6 +45,11 @@ public class Device
     public void setDeviceName(String n)
     {
         deviceName = n;
+    }
+    
+    public void setTrackSubmission(boolean trackStud)
+    {
+		trackSubmission = trackStud;
     }
 
     public void setFileTypes(ArrayList<String> ext)
@@ -75,7 +83,12 @@ public class Device
     {
         return deviceName;
     }
-
+	
+    public boolean getTrackSubmission()
+    {
+        return trackSubmission;
+    }
+	
     public ArrayList<String> getFileExtensions()
     {
         return fileExtensions;
@@ -126,8 +139,8 @@ public class Device
     public boolean addField(String key, Object value)
     {
         /* Validate our params passed in return false if value is not one of the defined types */
-        if (fields == null || key == null || value == null || !(value instanceof Double || value instanceof Integer || value instanceof String))
-            return false;
+        if (key == null || value == null || !(!(value instanceof Double) || !(value instanceof Integer) || !(value instanceof String)))
+          return false;
 
         /* If the key does not exist then add the key into the list of field names for this Device */
         if (!fields.containsKey(key))

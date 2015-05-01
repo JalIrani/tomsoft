@@ -24,7 +24,7 @@ public class ReportsView extends javax.swing.JFrame
     public ReportsView() 
     {
         this.controller = new UtilController();
-        printers = UtilController.getListOfPrinters();
+        printers = UtilController.getListOfAllDevices();
         if(printers.size() > 0){
             selectedPrinter = printers.get(0);
             headers = UtilController.getReportColumnHeaders(selectedPrinter);
@@ -37,11 +37,11 @@ public class ReportsView extends javax.swing.JFrame
             new WindowAdapter() 
             {
                 @Override
-                public void windowClosing(WindowEvent we) 
+                public void windowClosing(WindowEvent we)
                 {
                     /* If they close the program then close out the window properly */
-					dispose();
-					home.resetAdminMode();          
+                    dispose();
+                    home.resetAdminMode();
                 }
             }
         );
@@ -208,8 +208,9 @@ public class ReportsView extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-		dispose();
-		home.resetAdminMode();
+
+        dispose();
+        home.resetAdminMode();
     }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
@@ -242,7 +243,6 @@ public class ReportsView extends javax.swing.JFrame
     }//GEN-LAST:event_exportBtnActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

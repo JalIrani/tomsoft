@@ -253,7 +253,7 @@ public class MainView extends javax.swing.JFrame
 
     private void enterBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterBuildActionPerformed
         // TODO add your handling code here:
-        PrinterBuildView Build = new PrinterBuildView();
+        BuildView Build = new BuildView();
         Build.startMakeBuildProcess();
         dispose();
     }//GEN-LAST:event_enterBuildActionPerformed

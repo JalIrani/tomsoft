@@ -4,10 +4,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Nick
- */
 public class RemoveClassPrinterView extends javax.swing.JFrame {
     
     private static final String NAME_OF_PAGE = "Remove Class/Printer";
@@ -63,6 +59,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         cancelButton.setBorderPainted(false);
         cancelButton.setContentAreaFilled(false);
         cancelButton.setFocusPainted(false);
+
         cancelButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -89,7 +86,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         printerLabel.setText("Printer:");
         getContentPane().add(printerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, -1));
 
-        printerComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.returnAvailablePrinters()));
+        printerComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
         printerComboBox.setSelectedItem(null);
         getContentPane().add(printerComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 200, -1));
 

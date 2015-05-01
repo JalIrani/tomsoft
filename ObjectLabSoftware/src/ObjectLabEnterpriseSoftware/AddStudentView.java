@@ -46,14 +46,11 @@ public class AddStudentView extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
-                // close sockets, etc
-                //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(false);
+                dispose();
                 home.setVisible(true);
-				dispose();
             }
         });
-	setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         setVisible(true);
         errorLabel.setVisible(false);
         //only accepts integers for new student TU ID
@@ -73,7 +70,7 @@ public class AddStudentView extends javax.swing.JFrame
         });
 
     }
-	
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,25 +196,25 @@ public class AddStudentView extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(this, "Please enter a valid email address");
                 validEmailAdr = false;
             }
-			int userFlag;
+            int userFlag;
             if (validEmailAdr)
             {
                 if (tuID.length() != 7)
                 {
                     JOptionPane.showMessageDialog(this, "Please enter an ID that is 7 digits in length");
-                } else if((userFlag = UtilController.addUser(tuID, firstName, lastName, email)) > 0)
+                } else if ((userFlag = UtilController.addUser(tuID, firstName, lastName, email)) > 0)
                 {
                     JOptionPane.showMessageDialog(this, "Updating student data.");
+
                     dispose();
-                    home.setPrintersVisible(false);
                     home.setVisible(true);
-				} else if(userFlag == -25)
-				{
-                    JOptionPane.showMessageDialog(this, "Error, student ID already exists in database.");	
-				}
-				else {
-                    JOptionPane.showMessageDialog(this, "Error adding student into database.");	
-				}
+                } else if (userFlag == -25)
+                {
+                    JOptionPane.showMessageDialog(this, "Error, student ID already exists in database.");
+                } else
+                {
+                    JOptionPane.showMessageDialog(this, "Error adding student into database.");
+                }
             }
         }
 
