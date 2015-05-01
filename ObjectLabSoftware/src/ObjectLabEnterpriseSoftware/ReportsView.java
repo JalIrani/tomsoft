@@ -51,8 +51,10 @@ public class ReportsView extends javax.swing.JFrame
     {
         initComponents();
         model = (DefaultTableModel) reportsTable.getModel();
-        for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
-            model.addRow(retval1.toArray());
+        if(selectedPrinter != null){
+            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
+                model.addRow(retval1.toArray());
+            }
         }
 	setLocationRelativeTo(null);
         setVisible(true);
