@@ -131,10 +131,9 @@ public class ChangePasswordView extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         if(newPasswordField.getPassword().length!=0&&Arrays.equals(newPasswordField.getPassword(), confirmPasswordField.getPassword())){
             passwordError.setVisible(false);
-            char[] enteredPass = newPasswordField.getPassword();
-            String input = new String(enteredPass);
-            byte[] passHash = hashPassword(input);
-            System.out.println(passHash);
+            
+            UtilController.updateAdminPassword(new String(newPasswordField.getPassword()));
+
             JOptionPane.showMessageDialog(this, "Administrator password changed!");
             //Store hashed password in database
             dispose();
@@ -143,22 +142,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
             passwordError.setVisible(true);
     }//GEN-LAST:event_submitButtonActionPerformed
 
-    public static byte[] hashPassword(String pass){
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PasswordDialogView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            md.update(pass.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(PasswordDialogView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        byte[] hash = md.digest();
-        System.out.println(Arrays.toString(hash));
-        return hash;
-    }
+    
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         settings.AdminSettingsViewStart();
         dispose();

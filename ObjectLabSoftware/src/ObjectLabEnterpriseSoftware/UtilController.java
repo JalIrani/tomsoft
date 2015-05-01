@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -193,6 +195,61 @@ public class UtilController
         dbconn.closeDBConnection();
 
         return retval;
+    }
+
+    private static String hashPassword(String pass){
+      try {
+            MessageDigest sh = MessageDigest.getInstance("SHA-512");
+            sh.update(pass.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (byte b : sh.digest()) sb.append(Integer.toHexString(0xff & b));
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    static void updateAdminPassword(String input) {
+        
+        String passHash = hashPassword(input);
+        
+         SQLMethods dbconn = new SQLMethods();
+       dbconn.updatePassword(passHash, "Admin");
+
+
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+      
+    }
+
+    static boolean checkAdminLogin(String input) {
+        
+        String passHash = hashPassword(input);
+        String passFromDb = null;
+                
+        SQLMethods dbconn = new SQLMethods();
+       
+        ResultSet queryResult = dbconn.selectPassFromadmin("Admin");
+
+        ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
+        
+        try {
+            queryResult.first();
+            passFromDb = queryResult.getString(1);
+        } catch (Exception ex) {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+        
+        if(passFromDb.compareTo(passHash) == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
     }
 
     public void exportReportToFile(DefaultTableModel model, String[] header)
@@ -679,27 +736,6 @@ public class UtilController
         return approvedForPrinter;
     }
 
-    /**
-     * Updates build name in pending currentJob table in the database
-
- This method is called in: PrinterBuild.submit
-     *
-     * @param b build name
-     * @param f file name
-     *
-     */
-    @Deprecated
-    public static void updateRecordInPendingJobsTable(String b, String f)
-    {
-        SQLMethods dbconn = new SQLMethods();
-        File buildName = new File(b);
-        String bName = buildName.getName();
-        //System.out.println("Updating " + b + " to be associated with " + f);
-        dbconn.updatePendingJobsBuildName(bName, f);
-
-        dbconn.closeDBConnection();
-    }
-    
    public static void archive(String from, String to)
     {
         try

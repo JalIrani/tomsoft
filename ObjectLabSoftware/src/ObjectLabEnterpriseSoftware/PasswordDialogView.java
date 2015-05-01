@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 public class PasswordDialogView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE =  "Admin Password";
+    private static MainView home = new MainView();
+    public static boolean adminLoginStatus;
     
     public PasswordDialogView() {
         initComponents();
@@ -70,47 +72,24 @@ public class PasswordDialogView extends javax.swing.JFrame
         /*Hashes the predefined password and the password entered into the
          *JPasswordField and then compares the two
         */
-        String userPass = "pass";
-        char[] enteredPass = Password.getPassword();
-        String input = new String(enteredPass);
-        MessageDigest md = null;
-        MessageDigest md2 = null;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-            md2 = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PasswordDialogView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            md.update(userPass.getBytes("UTF-8"));
-            md2.update(input.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(PasswordDialogView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        byte[] enteredHash = md.digest();
-        byte[] userHash = md2.digest();
-        System.out.println(Arrays.toString(enteredHash));
-        System.out.println(Arrays.toString(userHash));
-        if(input.equals(userPass))
+        boolean wasLoginSuccessful = UtilController.checkAdminLogin(new String(Password.getPassword()));
+      
+        if(wasLoginSuccessful){
             System.out.println("Password passed!");
-        else
+            adminLoginStatus = true;
+            home.setPrintersVisible(true);
+            home.hideStudentOptions();
+        }
+        else{
             System.out.println("Password failed!");
+            adminLoginStatus = false;
+            home.setPrintersVisible(false);
+            home.showStudentOptions();
+        }
         this.dispose();
+        home.setVisible(true);
     }//GEN-LAST:event_SubmitButtonActionPerformed
-    
-    private static boolean isPasswordCorrect(char[] input){
-        boolean isCorrect = true;
-        char[] correctPassword = {'p','a','s','s'};
-        
-        if(input.length != correctPassword.length)
-            isCorrect=false;
-        else
-            isCorrect = Arrays.equals(input, correctPassword);
-        
-        Arrays.fill(correctPassword, '0');
-        
-        return isCorrect;
-    }
+
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
     {//GEN-HEADEREND:event_CancelButtonActionPerformed
         // TODO add your handling code here:
