@@ -926,7 +926,7 @@ public class UtilController
         deviceFieldNames = deviceModel.getFieldNames();
         
         /* Set location for currentJob that have been printed */
-        File newDir = new File(FileManager.getDevicePrinted(deviceName));
+        //File newDir = new File(FileManager.getDevicePrinted(deviceName));
         
         /* STEP 1.0 - Add new build to printer build table in database */
         int runtime;
@@ -962,11 +962,12 @@ public class UtilController
                             STEP 3.0 - Move file to "Printed" directory 
                             STEP 3.1 - Update file location info in database
                             STEP 3.2 - Update build_name info in job table
-                        */
+                        
                         FileUtils.moveFileToDirectory(new File(previousFilePath), newDir, true);
                         String newFileLocation = FileManager.getDevicePrinted(deviceName) + "\\" + jobFileName;
                         dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
                         dbconn.updateJobBuildName(filePathToBuildFile, currentJob);
+                        */
                         
                     } else
                     {
@@ -986,9 +987,6 @@ public class UtilController
                 Need to add code to handle one of these two excpetions. They might have differentw ways of handling reverting updated data thats
                 why there are two catch blocks.
             */
-            } catch (IOException ex)
-            {
-                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex)
             {
                 Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
