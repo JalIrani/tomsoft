@@ -762,18 +762,21 @@ public class UtilController
 
     public static void purgeDir(File dir){
      if(dir.exists()){
-         File[] files = dir.listFiles();
-         for (File file: files) {
-             if (file.isDirectory()){
-                 File[] filez = file.listFiles();
-                 for (File f: filez)
-                     purgeDir(f);
+         try{
+             for (File file: dir.listFiles()){
+                 if (file.isDirectory()){
+                      for (File f: file.listFiles())
+                         purgeDir(f);
+                 }
+                 else
+                     file.delete();
              }
-             else
-                 file.delete();
-         }
+        }
+      catch (NullPointerException e){
+          throw e;
       }
-     else
+    }
+    else
         JOptionPane.showMessageDialog(new JFrame(), "Failed to delete files");    
    }
    

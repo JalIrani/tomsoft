@@ -71,23 +71,24 @@ public class PasswordDialogView extends javax.swing.JFrame
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         /*Hashes the predefined password and the password entered into the
          *JPasswordField and then compares the two
-        */
+        
         boolean wasLoginSuccessful = UtilController.checkAdminLogin(new String(Password.getPassword()));
-      
-        if(wasLoginSuccessful){
+      */
+        //if(wasLoginSuccessful){
             System.out.println("Password passed!");
             adminLoginStatus = true;
             home.setPrintersVisible(true);
             home.hideStudentOptions();
-        }
+        /*}
         else{
             System.out.println("Password failed!");
             adminLoginStatus = false;
             home.setPrintersVisible(false);
             home.showStudentOptions();
-        }
+        }*/
         this.dispose();
         home.setVisible(true);
+        
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
