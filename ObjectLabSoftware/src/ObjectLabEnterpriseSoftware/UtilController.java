@@ -829,6 +829,23 @@ public class UtilController
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static void purgeDir(File dir){
+     if(dir.exists()){
+         File[] files = dir.listFiles();
+         for (File file: files) {
+             if (file.isDirectory()){
+                 File[] filez = file.listFiles();
+                 for (File f: filez)
+                     purgeDir(f);
+             }
+             else
+                 file.delete();
+         }
+      }
+     else
+        JOptionPane.showMessageDialog(new JFrame(), "Failed to delete files");    
+   }
    
    public static void clearData(){
    

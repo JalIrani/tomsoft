@@ -62,7 +62,7 @@ public class FileManager
         objetToPrint = drive + "\\ObjectLabPrinters\\Objet\\ToPrint\\";
         objetPrinted = drive + "\\ObjectLabPrinters\\Objet\\Printed\\";
         objetToBuild = drive + "\\ObjectLabPrinters\\Objet\\Build Files\\";
-        excelFilePath = drive + "\\Export\\";
+        excelFilePath = drive + "\\ObjectLabPrinters\\Export\\";
         ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
         INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
     }

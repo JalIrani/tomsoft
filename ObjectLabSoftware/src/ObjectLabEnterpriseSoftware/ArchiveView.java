@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 //import static javafx.print.PrintColor.COLOR;
 import javax.swing.JFileChooser;
@@ -19,7 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import org.apache.commons.io.FileUtils;
 /**
  *
  * @author Mike
@@ -173,15 +174,26 @@ public class ArchiveView extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        if(archiveDirectory != null){
         if(archiveDirectory.isDirectory()){
-            UtilController.archive(jTextField1.getText(), jTextField2.getText());
             if(jCheckBox1.isSelected()){
                 JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
-                UtilController.clearData();
                 //WIPE DATA AND ARCHIVE
+                File input = new File(jTextField1.getText());
+                File input2 = new File(jTextField2.getText());
+                //delete files, but not directories
+                UtilController.clearData();
+                UtilController.purgeDir(input);
+                try{//to empty the archive folder
+                    JOptionPane.showMessageDialog(null, "Deleting old archives");
+                    FileUtils.cleanDirectory(input2);
+                }
+                catch (IOException e){
+                    JOptionPane.showMessageDialog(null,"Error deleting files.");
+                }
+                UtilController.archive(jTextField1.getText(), jTextField2.getText());
             }else{
              JOptionPane.showMessageDialog(null, "Archiving Started\nData will not be wiped");
-             
-               //JUST DO ARCHIVE
+                //JUST DO ARCHIVE
+                UtilController.archive(jTextField1.getText(), jTextField2.getText());
             }
             report.setEnabled(true);
             report.setFocusable(true);
