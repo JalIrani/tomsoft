@@ -44,9 +44,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
-                // close sockets, etc
-                home.setVisible(true);
                 dispose();
+                home.setVisible(true);
             }
         });
         setVisible(true);
@@ -59,7 +58,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -94,7 +94,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
-        setMinimumSize(new java.awt.Dimension(507, 390));
+        setMinimumSize(new java.awt.Dimension(430, 310));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -103,8 +103,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(jLabel1_FileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 95, 20));
 
         fileLocation.setEditable(false);
-        fileLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        fileLocation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 fileLocationActionPerformed(evt);
             }
         });
@@ -112,13 +114,17 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         Browse.setText("Browse");
         Browse.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Browse.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        Browse.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 BrowseMouseClicked(evt);
             }
         });
-        Browse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Browse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 BrowseActionPerformed(evt);
             }
         });
@@ -126,8 +132,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         projName.setEditable(false);
         projName.setName("projName"); // NOI18N
-        projName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        projName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 projNameActionPerformed(evt);
             }
         });
@@ -148,8 +156,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         Student_Submit.setText("Submit");
         Student_Submit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Student_Submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Student_Submit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 Student_SubmitActionPerformed(evt);
             }
         });
@@ -157,17 +167,21 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         classBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableClasses()));
         classBox.setSelectedItem(null);
-        classBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        classBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 classBoxActionPerformed(evt);
             }
         });
         getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 140, -1));
 
-        printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailablePrinters()));
+        printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableDevicesStudentSubmissionRequired()));
         printerBox.setSelectedItem(null);
-        printerBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        printerBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 printerBoxActionPerformed(evt);
             }
         });
@@ -189,13 +203,15 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 70, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 400, 10));
 
-        jLabel8_StudentSubmission.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8_StudentSubmission.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8_StudentSubmission.setText("Student Submission");
-        getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -206,21 +222,25 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         idOfUser.setEditable(false);
         idOfUser.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        idOfUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        idOfUser.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 idOfUserActionPerformed(evt);
             }
         });
         getContentPane().add(idOfUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 130, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 500, 280));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 260));
 
         editMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jMenuItem1ActionPerformed(evt);
             }
         });
@@ -295,18 +315,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
         } else
         {
             dispose();
-            /*
-             Reset fields
-             */
             Reset_StudentSubmissionFields();
         }
     }
 
     private void Reset_StudentSubmissionFields()
     {
-        /*
-         Reset fields
-         */
         setVisible(false);
         fileLocation.setText(null);
         projName.setText(null);
@@ -338,15 +352,6 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        try
-        {
-            FileManager instance = new FileManager();
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + instance.getPDFStudent());
-        } catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(null, e);  //print the error
-        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void BrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseActionPerformed
@@ -367,8 +372,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        dispose();
-        home.setVisible(true);
+		dispose();
+                home.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed

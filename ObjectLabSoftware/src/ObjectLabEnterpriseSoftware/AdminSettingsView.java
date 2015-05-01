@@ -8,17 +8,12 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- *
- * @author Saurabh
- */
 public class AdminSettingsView extends javax.swing.JFrame 
 {
 	private static final String NAME_OF_PAGE = "Settings";
-	MainView home;
+	private static final MainView home = new MainView();
 
     public void AdminSettingsViewStart() {
-        home = new MainView();
         initComponents();
         setLocationRelativeTo(null);
           try {
@@ -32,12 +27,11 @@ public class AdminSettingsView extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(AdminSettingsView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
           addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                // close sockets, etc
-                //home.studentSubmissionButton.setVisible(false);
-                home.setPrintersVisible(true);
-                home.setVisible(true);
+			@Override
+            public void windowClosing(WindowEvent e) 
+            {
                 dispose();
+                home.resetAdminMode();
             }
         });
         setVisible(true);
@@ -50,15 +44,17 @@ public class AdminSettingsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
+        jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         addPrinterButton = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         help = new javax.swing.JMenu();
@@ -68,50 +64,74 @@ public class AdminSettingsView extends javax.swing.JFrame
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        jButton5.setToolTipText("Back");
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setFocusPainted(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+
         jButton4.setText("Add Class");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton4ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 140, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 320, 10));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 320, 10));
 
         jButton1.setText("Archive");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 140, -1));
 
         addPrinterButton.setText("Add Printer");
-        addPrinterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addPrinterButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 addPrinterButtonActionPerformed(evt);
             }
         });
         getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, -1));
 
-        jButton5.setText("Cancel");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 140, -1));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Settings");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, 30));
 
         jButton2.setText("Remove Class/Printer");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 140, -1));
+
+        jButton3.setText("Change Password");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 140, -1));
 
         jLabel2.setBackground(new java.awt.Color(40, 41, 40));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
@@ -121,8 +141,10 @@ public class AdminSettingsView extends javax.swing.JFrame
         help.setText("Help");
 
         userGuide.setText("User Guide");
-        userGuide.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        userGuide.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 userGuideActionPerformed(evt);
             }
         });
@@ -144,16 +166,14 @@ public class AdminSettingsView extends javax.swing.JFrame
     }//GEN-LAST:event_jButton4ActionPerformed
 
         private void addPrinterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrinterButtonActionPerformed
-		AddPrinterView ap = new AddPrinterView();
+		AddDeviceView ap = new AddDeviceView();
 		ap.AddPrinterStart();
                 dispose();
         }//GEN-LAST:event_addPrinterButtonActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        home.setVisible(true);
-        home.setPrintersVisible(true);
+        dispose();
+        home.resetAdminMode();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -168,16 +188,22 @@ public class AdminSettingsView extends javax.swing.JFrame
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void userGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideActionPerformed
-        // TODO add your handling code here:
         UtilController.openAdminHelpPage();
         
     }//GEN-LAST:event_userGuideActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ChangePasswordView change = new ChangePasswordView();
+        change.passwordChangeStart();
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPrinterButton;
     private javax.swing.JMenu help;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;

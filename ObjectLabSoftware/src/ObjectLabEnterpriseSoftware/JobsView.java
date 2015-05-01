@@ -16,18 +16,19 @@ import javax.swing.table.DefaultTableModel;
 
 public class JobsView extends javax.swing.JFrame
 {
-    private static final String NAME_OF_PAGE =  "Student submissions";
+    private static final String NAME_OF_PAGE =  "Student Submission";
 
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
     private static final int LAST_NAME_COLUMN_NUMBER = 2;
     private static final int PRINTER_COLUMN_NUMBER = 3;
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
+	private static ReportsView reports = null;
+    private static FileManager inst = null;
+    private static final MainView home = new MainView();
 
     private DefaultTableModel allFileTableModel;
-    static ReportsView reports = null;
-    private static FileManager inst = null;
-    
+	
     private void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
@@ -61,14 +62,11 @@ public class JobsView extends javax.swing.JFrame
             new WindowAdapter() 
             {
                 @Override
-                public void windowClosing(WindowEvent we) 
+                public void windowClosing(WindowEvent we)
                 {
                     /* If they close the program then close out the window properly */
-		    
-		    MainView home = new MainView();
-		    home.setVisible(true);
-		    home.setPrintersVisible(true);
                     dispose();
+                    home.resetAdminMode();
                 }
             }
         );
@@ -104,7 +102,8 @@ public class JobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -128,7 +127,8 @@ public class JobsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -146,36 +146,42 @@ public class JobsView extends javax.swing.JFrame
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Pending Jobs");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 750, 10));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Jobs Manager");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 750, 10));
 
         ApprovedButton.setBackground(java.awt.Color.green);
         ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ApprovedButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 490, 90, 20));
+        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 500, 90, 20));
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        RejectButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 RejectButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 490, 70, 20));
+        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 500, 70, 20));
 
         openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 openFileInProgramActionPerformed(evt);
             }
         });
-        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 490, 140, 20));
+        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 500, 140, 20));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel()
@@ -192,26 +198,34 @@ public class JobsView extends javax.swing.JFrame
             });
             jScrollPane4.setViewportView(PendingTable);
 
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 750, 410));
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 750, 410));
 
-            backToMainMenu.setText("Back");
-            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+            backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+            backToMainMenu.setToolTipText("Back");
+            backToMainMenu.setBorderPainted(false);
+            backToMainMenu.setContentAreaFilled(false);
+            backToMainMenu.setFocusPainted(false);
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
                     backToMainMenuActionPerformed(evt);
                 }
             });
-            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 60, 20));
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 40));
 
             jLabel3.setText("Job status:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 60, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, 20));
 
             jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved" }));
-            jobStatus.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jobStatus.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
                     jobStatusActionPerformed(evt);
                 }
             });
-            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 70, 20));
+            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 70, 20));
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 780, 530));
@@ -219,16 +233,20 @@ public class JobsView extends javax.swing.JFrame
             jMenu1.setText("File");
 
             jMenuItem1.setText("Reports");
-            jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
                     jMenuItem1ActionPerformed(evt);
                 }
             });
             jMenu1.add(jMenuItem1);
 
             showClassEditorOptions.setText("Class Settings");
-            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
                     showClassEditorOptionsActionPerformed(evt);
                 }
             });
@@ -239,8 +257,10 @@ public class JobsView extends javax.swing.JFrame
             jMenu2.setText("Help");
 
             jMenuItem2.setText("Contents");
-            jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
                     jMenuItem2ActionPerformed(evt);
                 }
             });
@@ -402,11 +422,8 @@ public class JobsView extends javax.swing.JFrame
     }//GEN-LAST:event_openFileInProgramActionPerformed
 
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
-        // TODO add your handling code here:
         dispose();
-	MainView home = new MainView();
-	home.setVisible(true);
-	home.setPrintersVisible(true);
+        home.resetAdminMode();
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed

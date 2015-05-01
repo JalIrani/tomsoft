@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -35,6 +34,7 @@ public class UtilController
 	
 	private static final String SOFTWARE_NAME = "OLI";
 	private static final String SOFTWARE_VERSION = "v0.6"; //Should be dynamic
+	private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
 	
 	public static String getPageName(String pageName)
 	{
@@ -57,7 +57,7 @@ public class UtilController
     public static void openAdminHelpPage(){
         if(Desktop.isDesktopSupported()){
             try {
-                Desktop.getDesktop().browse(new URI("http://triton.towson.edu/~jirani2/adminHelp.pdf"));
+                Desktop.getDesktop().browse(new URI(USER_GUIDE_URL));
             } catch (IOException ex) {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             } catch (URISyntaxException ex) {
@@ -65,12 +65,15 @@ public class UtilController
             }
         }
 }
-    
-    
-    public static ArrayList<String> getListOfPrinters()
+	public static String [] arrayListToStringArray(ArrayList <String> toConvert)
+	{
+		return toConvert.toArray(new String[toConvert.size()]);
+	}
+	
+    public static ArrayList<String> getListOfAllDevices()
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.getAvailablePrinters();
+        ResultSet queryResult = dbconn.getAllDeviceNames();
         ArrayList<String> printers = new ArrayList<String>();
         ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
 
@@ -82,6 +85,39 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
+		
+    public static ArrayList<String> getListOfCurrentDevices()
+    {
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getCurrentDevices();
+        ArrayList<String> printers = new ArrayList<String>();
+        ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
+
+        for (ArrayList<Object> data1 : data)
+        {
+            printers.add(data1.get(0).toString());
+        }
+
+        dbconn.closeDBConnection();
+        return printers;
+    }
+	
+	public static ArrayList<String> getListOfCurrentTrackedDevices()
+	{
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.getTrackedDevices();
+        ArrayList<String> printers = new ArrayList<String>();
+        ArrayList<ArrayList<Object>> data = readyOutputForViewPage(queryResult);
+
+        for (ArrayList<Object> data1 : data)
+        {
+            printers.add(data1.get(0).toString());
+        }
+
+        dbconn.closeDBConnection();
+        return printers;	
+	}
+	
     public static String[] getReportColumnHeaders(String printer_name)
     {
         try
@@ -204,8 +240,8 @@ public class UtilController
 
     public static void exportReportsForPrinters()
     {
-
-        ArrayList<String> printers = getListOfPrinters();
+		
+        ArrayList<String> printers = UtilController.getListOfAllDevices();
         FileManager fileManager = new FileManager();
 
         Workbook wb = new HSSFWorkbook();
@@ -310,7 +346,8 @@ public class UtilController
             /* 
              Delete the job that was rejected from the pendingjobs table. Close socket conn after we do so 
              */
-            
+            String newFileLocation = cloudStorageOperations.getRejected() + file;
+            dbconn.updateJobFLocation(Integer.parseInt(primaryKey), newFileLocation.replace("\\", "\\\\"));
             dbconn.updateStatus( "rejected",Integer.parseInt(primaryKey));
             dbconn.closeDBConnection();
 
@@ -351,15 +388,14 @@ public class UtilController
             if (result.next())
             {
                 ID = result.getString("job_id");
-                String printer=result.getString("printer_name");
-                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint";
-                String updatedFileLocation = updatedDirectoryLocation + "\\" + fileName;
-                String currentFileLocation = cloudStorageOperations.getSubmission() + "\\" + fileName;
+                String printer = result.getString("printer_name");
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint\\";
+                String currentFileLocation = cloudStorageOperations.getSubmission() + fileName;
 
                 /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
                  *  the printer variable -Nick
                  */
-                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedFileLocation), true);
+                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
 
                 /* In order to properly update the file location we need to gurantee there are '\\' seperating
                  *  the dir names.
@@ -368,7 +404,10 @@ public class UtilController
                  *   - Nick
                  */
                 dbconn.updateJobVolume(Integer.parseInt(ID), volume);
-                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedFileLocation.replace("\\", "\\\\"));
+                
+                /* update full file path */
+                updatedDirectoryLocation += fileName;
+                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedDirectoryLocation.replace("\\", "\\\\"));
                 dbconn.changeJobStatus(Integer.parseInt(ID), "approved");
                 dbconn.closeDBConnection();
             }
@@ -378,7 +417,7 @@ public class UtilController
         }
     }
 
-    /* This function has the params that make up the primary key in pending jobs.
+    /* This function has the params that make up the primary key in pending currentJob.
      It returns the filePath found in the DB where all the parameters specify the file
      that is associated for that users submission.
      */
@@ -498,21 +537,19 @@ public class UtilController
         return retval;
     }
 
-    public static String[] returnAvailablePrinters()
+    public static String[] returnAvailableDevicesStudentSubmissionRequired()
     {
         /*
          Fetch available printers
          */
 
         SQLMethods dbconn = new SQLMethods();
-        ResultSet printersAvailableResult = dbconn.getAvailablePrinters();
+        ResultSet printersAvailableResult = dbconn.getDeviceNamesCurrentOptionSubmissionOption(true, true);
         ArrayList<ArrayList<Object>> printersAvailableAL = readyOutputForViewPage(printersAvailableResult);
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
 
-        /*
-         Convert results to desired format
-         */
+        /* Convert results to desired format */
         String[] printersAvailble = new String[printersAvailableAL.size()];
         for (int row = 0; row < printersAvailableAL.size(); row++)
         {
@@ -623,10 +660,10 @@ public class UtilController
     }
 
     /**
-     * Updates view for making a build. This will show files/jobs (student
-     * submissions) that need to be put into a build UNFINISHED ****
-     *
-     * This method is called in: PrinterBuild.updateView
+     * Updates view for making a build. This will show files/currentJob (student
+ submissions) that need to be put into a build UNFINISHED ****
+
+ This method is called in: PrinterBuild.updateView
      *
      * @param printer the printer being viewed
      * @return
@@ -643,14 +680,15 @@ public class UtilController
     }
 
     /**
-     * Updates build name in pending jobs table in the database
-     *
-     * This method is called in: PrinterBuild.submit
+     * Updates build name in pending currentJob table in the database
+
+ This method is called in: PrinterBuild.submit
      *
      * @param b build name
      * @param f file name
      *
      */
+    @Deprecated
     public static void updateRecordInPendingJobsTable(String b, String f)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -661,151 +699,7 @@ public class UtilController
 
         dbconn.closeDBConnection();
     }
-
-    /**
-     * This method is called when an unfinished print build is exited out of It
-     * takes the information previously stored in the Database and removes it.
-     *
-     * This method is called in: ZCorpDialogView.ZCorpDialogStart.WindowClosing
-     * SolidscapeDialogView.SolidscapeDialogStart.WindowClosing
-     * ObjetDialogView.ObjetDialogStart.WindowClosing
-     *
-     * @param buildPath
-     * @param printer
-     */
-    public static void revertBuild(String buildPath, String printer)
-    {
-        SQLMethods dbconn = new SQLMethods();
-        ResultSet r = dbconn.searchPendingByBuildName(buildPath);
-        try
-        {
-            while (r.next())
-            {
-                dbconn.updatePendingJobsBuildName("", r.getString("fileName"));
-            }
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        dbconn.closeDBConnection();
-    }
-
-    /**
-     * This method is called when an administrator submits a printer build. It
-     * takes the information they typed in and stores it in the database. This
-     * method is called in:
-     * ZCorpDialogView.ZCorpDialogStart.submitBtnActionPerformed
-     * SolidscapeDialogView.SolidscapeDialogStart.submitBtnActionPerformed
-     * ObjetDialogView.ObjetDialogStart.submitBtnActionPerformed
-     *
-     * @param buildName The name of the build, used to gather information from
-     * the database.
-     * @param printer this gets the name of the printer, for now, the "printer"
-     * parameter is used to determine which sql method is used and the directory
-     * of the submitted file because it is different for every printer This will
-     * be changed when the dynamic database is being used
-     * @return success or failure status
-     */
-    public static boolean submitBuildInfoToDB(String buildName, String printer)
-    {
-        if (!printer.equals("zcorp") && !printer.equals("solidscape") && !printer.equals("objet"))
-        {
-            return false;
-        }
-
-        SQLMethods dbconn = new SQLMethods();
-        FileManager instance = new FileManager();
-
-        try
-        {
-            /* queries the DB for everything that has the buildName = to build name passed in as parameter */
-            ResultSet res1 = dbconn.searchPendingByBuildName(buildName);
-            ArrayList list = new ArrayList();
-            System.out.println("String buildName: " + buildName);
-
-            try
-            {
-                while (res1.next())
-                {
-                    list.add(res1.getString("buildName"));
-                }
-            } catch (SQLException ex)
-            {
-                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            /* itr contains a list of student submissions that where selected for the build process in the previous screen PrinterBuild.java */
-            Iterator itr = list.iterator();
-            while (itr.hasNext())
-            {
-                ResultSet res2 = dbconn.searchPendingByBuildName(itr.next().toString());
-                if (res2.next())
-                {
-                    String ID = res2.getString("idJobs");
-                    System.out.println(ID);
-                    String Printer = res2.getString("printer");
-                    String firstName = res2.getString("firstName");
-                    String lastName = res2.getString("lastName");
-                    String course = res2.getString("course");
-                    String section = res2.getString("section");
-                    String fileName = res2.getString("fileName");
-                    System.out.println(fileName);
-                    File newDir = null;
-
-                    switch (printer)
-                    {
-                        case "zcorp":
-                            newDir = new File(instance.getZcorpPrinted());
-                            FileManager.moveFileToNewDirectory(new File(instance.getZcorpToPrint() + fileName), newDir, true);
-                            break;
-                        case "solidscape":
-                            newDir = new File(instance.getSolidscapePrinted());
-                            FileManager.moveFileToNewDirectory(new File(instance.getSolidscapeToPrint() + fileName), newDir, true);
-                            break;
-                        case "objet":
-                            newDir = new File(instance.getObjetPrinted());
-                            FileManager.moveFileToNewDirectory(new File(instance.getObjetToPrint() + fileName), newDir, true);
-                            break;
-                    }
-
-                    String filePath = newDir.getAbsolutePath().replace("\\", "\\\\"); //Needs to be changed
-                    String dateStarted = res2.getString("dateStarted");
-                    String Status = "completed";
-                    String Email = res2.getString("Email");
-                    String Comment = res2.getString("comment");
-                    String nameOfBuild = res2.getString("buildName");
-                    double volume = Double.parseDouble(res2.getString("volume"));
-                    //double cost = Double.parseDouble(res3.getString("cost"));
-
-                    dbconn.insertIntoCompletedJobs(ID, Printer, firstName, lastName, course, section, fileName, filePath, dateStarted, Status, Email, Comment, nameOfBuild, volume, 0.00 /*placeholder since cost isn't being used*/);
-                    dbconn.delete("pendingjobs", ID);
-                    //In Open Builds, it should go back and change status to complete so it doesn't show up again if submitted
-                }
-            }
-
-            // if there is no matching record
-            switch (printer)
-            {
-                case "zcorp":
-                    dbconn.insertIntoZcorp(buildName, ZCorpDialogView.monoBinder, ZCorpDialogView.yellowBinder, ZCorpDialogView.magentaBuilder, ZCorpDialogView.cyanBuilder, ZCorpDialogView.cubicInches, ZCorpDialogView.modelAmount, ZCorpDialogView.comments, 0.00/*placeholder since cost isn't being used*/, "complete");
-                    break;
-                case "solidscape":
-                    dbconn.insertIntoSolidscape(buildName, SolidscapeDialogView.modelAmount, SolidscapeDialogView.ResolutionVar, SolidscapeDialogView.buildTime, SolidscapeDialogView.comments, 0.00/*placeholder since cost isn't being used*/);
-                    break;
-                case "objet":
-                    dbconn.insertIntoObjet(buildName, ObjetDialogView.BuildConsumed, ObjetDialogView.SupportConsumed, ObjetDialogView.modelAmount, ObjetDialogView.materialType, ObjetDialogView.Resolution, ObjetDialogView.comments, 0.00 /*placeholder since cost isn't being used*/);
-                    break;
-            }
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        dbconn.closeDBConnection();
-        return true;
-    }
-
+    
    public static void archive(String from, String to)
     {
         try
@@ -872,13 +766,14 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         String deviceName = deviceModel.getDeviceName();
+		boolean deviceTrack = deviceModel.getTrackSubmission();
         ArrayList<String> fieldNames = deviceModel.getFieldNames();
         ArrayList<String> fileExt = deviceModel.getFileExtensions();
 
         /* Insert our printer into the printer table. For right now just adding in the first
          file extension added from UI (DB does not support multiple file extensions)
          */
-        dbconn.insertIntoPrinter(deviceName, true);
+        dbconn.insertIntoPrinter(deviceName, deviceTrack);
 
         for (String ext : fileExt)
         {
@@ -908,7 +803,7 @@ public class UtilController
             }
         } catch (SQLException ex)
         {
-            Logger.getLogger(PrinterBuildView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BuildView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         dbconn.closeDBConnection();
@@ -961,26 +856,21 @@ public class UtilController
 		
 		return flag;
     }
-    
-     public static ArrayList<ArrayList<Object>> returnTableHeader(String printerName) throws SQLException{
-        SQLMethods dbconn = new SQLMethods();
-        ArrayList<ArrayList<Object>> toSend = new ArrayList();
-        ArrayList<Object> fillData = new ArrayList();
-        ArrayList<Object> fillType = new ArrayList();
-        printerName = printerName.trim();
-        ResultSet queryResult = dbconn.forSean(printerName);
-        //putting data into an array of arrays
-        while(queryResult.next()){
-            fillData.add(queryResult.getString(1));
-            fillType.add(queryResult.getString(2));
-        }
-        toSend.add(fillData);
-        toSend.add(fillType);
-        dbconn.closeDBConnection();
-        return toSend;
+	
+    public static int updateUser(String studentId, String firstname, String lastname, String email)
+    {	
+		int flag = -1;
+		if(userIDExist(studentId))
+		{
+			SQLMethods dbconn = new SQLMethods();
+			flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+			dbconn.closeDBConnection();
+			return flag;
+		}
+		return flag;
     }
      
-    public static ArrayList<ArrayList<Object>> returnApprovedBuildsForPrinter(String printerName)
+    public static ArrayList<ArrayList<Object>> returnApprovedStudentSubmissionsForDevice(String printerName)
     {
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.searchJobsStatusPrinter("approved", printerName);
@@ -988,4 +878,136 @@ public class UtilController
         dbconn.closeDBConnection();
         return parsedResult;
     }
+    
+    public static boolean submitBuild(ArrayList<Integer> selectedStudentSubmissionFiles, Device deviceModel, String filePathToBuildFile, int models)
+    {
+        ArrayList<String> deviceFieldNames;
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet fileInfo;
+        String deviceName, jobFileName, previousFilePath;
+        
+        deviceName = deviceModel.getDeviceName();
+        deviceFieldNames = deviceModel.getFieldNames();
+        
+        /* Set location for currentJob that have been printed */
+        File newDir = new File(FileManager.getDevicePrinted(deviceName));
+        
+        /* STEP 1.0 - Add new build to printer build table in database */
+        int runtime;
+        if(deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
+            runtime = Integer.parseInt((String) deviceModel.getFieldData("Run time"));
+        else
+            runtime = (Integer) deviceModel.getFieldData("Run time");
+        
+        dbconn.insertIntoBuild(filePathToBuildFile, runtime, models, deviceName);
+        /* Remove first entry becuase it is now not needed (HOTFIX) */
+        deviceModel.rmField("Run time");
+        /* STEP 1.1 - Insert all build data for the device into the database for the assoicated printer and trackable field for that printer */
+        for(String fieldName : deviceFieldNames)
+            dbconn.insertIntoColumnBuildData(deviceName, fieldName, "" + deviceModel.getFieldData(fieldName), filePathToBuildFile);
+        
+        /* Loop through currentJob that where checked in as part of the build and update data related to student submissions */
+        for (Integer currentJob : selectedStudentSubmissionFiles)
+        {
+            try
+            {
+                /* STEP 2 - get file information about current job */
+                fileInfo = dbconn.selectFileInfo(currentJob);
+                if (fileInfo.next())
+                {
+                    jobFileName = fileInfo.getString("file_name");
+                    previousFilePath = fileInfo.getString("file_path");
+                    previousFilePath = previousFilePath.replace("//", "////");
+                    
+                    /* STEP 3 - Move file to Printed location and update file reference in the database */
+                    if (FileManager.doesFileExist(previousFilePath))
+                    {
+                        /* 
+                            STEP 3.0 - Move file to "Printed" directory 
+                            STEP 3.1 - Update file location info in database
+                            STEP 3.2 - Update build_name info in job table
+                        */
+                        FileUtils.moveFileToDirectory(new File(previousFilePath), newDir, true);
+                        String newFileLocation = FileManager.getDevicePrinted(deviceName) + "\\" + jobFileName;
+                        dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
+                        dbconn.updateJobBuildName(filePathToBuildFile, currentJob);
+                        
+                    } else
+                    {
+                        /* STEP 3.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
+                        dbconn.updateJobFLocation(currentJob, "");
+                    }
+                    
+                    /* STEP 4 - Set job status to completed */
+                    dbconn.changeJobStatus(currentJob, "completed");
+                    
+                } else
+                {
+                    dbconn.closeDBConnection();
+                    return false;
+                }
+            /* 
+                Need to add code to handle one of these two excpetions. They might have differentw ways of handling reverting updated data thats
+                why there are two catch blocks.
+            */
+            } catch (IOException ex)
+            {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        dbconn.closeDBConnection();
+        return true;
+    }
+  
+    /**
+     * Creates template device class for the printer build process to use. This
+     * is created before build data is typed in in the printer dialog class.
+     * This device class will be used to determine the fields that will be
+     * needed for the printer dialog, as well as a middleman for the ui and
+     * database (so they don't have to mix).
+     *
+     * @param printer the name of the printer (in the database)
+     * @return
+     */
+    public static Device getPrinterInfo(String printer)
+    {
+        Device buildPrinter = new Device();
+        SQLMethods dbconn = new SQLMethods();
+
+        /* Query the database for the device column names and its data type (do not be confused with stored data type) */
+        ResultSet queryResultDeviceColumnInfo = dbconn.selectDeviceTrackableMetaData(printer);
+        ResultSet studentSubmissionQuery = dbconn.getStudentSubmissionStatusFromDevice(printer);
+
+        buildPrinter.setDeviceName(printer);
+        
+        try
+        {
+            /* Set our device student submission status here */
+            if (studentSubmissionQuery.next())
+                buildPrinter.setTrackSubmission(studentSubmissionQuery.getBoolean("student_submission"));
+            
+            /* Add the data from the query by row into the Device class */
+            while (queryResultDeviceColumnInfo.next())
+            {
+                Object tmpValue;
+                
+                if((Boolean) queryResultDeviceColumnInfo.getBoolean("numerical"))
+                    tmpValue = 0;
+                else
+                    tmpValue = "";
+                    
+                buildPrinter.addField(queryResultDeviceColumnInfo.getString("custom_field_name"), tmpValue);
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dbconn.closeDBConnection();
+        return buildPrinter;
+    }
+	
 }
