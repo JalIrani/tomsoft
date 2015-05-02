@@ -788,6 +788,7 @@ public class UtilController
        SQLMethods dbconn = new SQLMethods();
        dbconn.clearData();
        dbconn.closeDBConnection();
+       FileManager.purgeFiles();
    
    }
 

@@ -47,6 +47,20 @@ public class FileManager
         return getFolderSize(directory);
     }
 
+    public static void purgeFiles() {
+        File mainFolder = new File(drive);
+        purgeFiles(mainFolder);
+    }
+    
+    private static void purgeFiles(File dir){
+    
+        for (File file: dir.listFiles()) {
+            if (file.isDirectory()){ purgeFiles(file);}
+            else {file.delete();}
+        }
+        
+    }
+
     /* leaving this in for now. so the whole program wont break if i make everything static.. */
     public FileManager()
     {
