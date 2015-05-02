@@ -16,6 +16,9 @@ public class BuildView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Build File Creator";
     private static MainView home = new MainView();
     private static int countNumOfModels;
+    
+    private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
+    private static String[] errorTextColumnHeader = { "The build file selected was already selected for a previous build entry." };
 
     private ArrayList<String> trackableFields;
     private DefaultTableModel deviceDataModel; /* Used to hold data entered in by the user for the build to display */
@@ -136,6 +139,7 @@ public class BuildView extends javax.swing.JFrame
     {
         inst = new FileManager();
         initComponents();
+        buildFileLocationErrorStatusText.setVisible(false);
         deviceInputTable.setVisible(false);
 
         try
@@ -206,6 +210,7 @@ public class BuildView extends javax.swing.JFrame
         deviceInputTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         backToMainMenu = new javax.swing.JButton();
+        buildFileLocationErrorStatusText = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         helpMenu = new javax.swing.JMenu();
@@ -352,6 +357,14 @@ public class BuildView extends javax.swing.JFrame
             });
             getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
+            buildFileLocationErrorStatusText.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+            buildFileLocationErrorStatusText.setForeground(new java.awt.Color(255, 0, 0));
+            buildFileLocationErrorStatusText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            buildFileLocationErrorStatusText.setLabelFor(browseBtn);
+            buildFileLocationErrorStatusText.setText("Error Text For build location");
+            buildFileLocationErrorStatusText.setToolTipText("");
+            getContentPane().add(buildFileLocationErrorStatusText, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 400, 20));
+
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
 
@@ -409,14 +422,25 @@ public class BuildView extends javax.swing.JFrame
 
         if (!filepathToSelectedDeviceBuild.getText().isEmpty() && deviceModel != null)
         {
-            /* MUST CHECK TO SEE IF BUILD EXISTS IN THE DATABASE!!! */
-
-            deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
-
-            trackableFields = deviceModel.getFieldNames();
-            deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
-            deviceInputTable.setModel(deviceDataModel);
-            deviceInputTable.setVisible(true);
+            if (!UtilController.isBuildFileLocationUsed(filepathToSelectedDeviceBuild.getText()))
+            {
+                buildFileLocationErrorStatusText.setVisible(false);
+                deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
+                trackableFields = deviceModel.getFieldNames();
+                deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
+                deviceInputTable.setModel(deviceDataModel);
+                deviceInputTable.setVisible(true);
+            }
+            else
+            {
+                filepathToSelectedDeviceBuild.setText("");
+                buildFileLocationErrorStatusText.setText("Select a unique build file location");
+                buildFileLocationErrorStatusText.setVisible(true);
+                
+                invalidBuildLocationSelectedColumnModel.setColumnIdentifiers(errorTextColumnHeader);
+                deviceInputTable.setModel(invalidBuildLocationSelectedColumnModel);
+                deviceInputTable.setVisible(false); 
+            }
         }
     }//GEN-LAST:event_browseBtnActionPerformed
 
@@ -486,6 +510,7 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JButton Submit_Button;
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JButton browseBtn;
+    private javax.swing.JLabel buildFileLocationErrorStatusText;
     private javax.swing.JLabel buildLbl;
     private javax.swing.JTable deviceInputTable;
     private javax.swing.JComboBox deviceNameComboBox;

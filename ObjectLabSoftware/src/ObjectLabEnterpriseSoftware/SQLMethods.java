@@ -421,6 +421,32 @@ public class SQLMethods
         }
         return res;
     }
+    
+    /* Returns the nubmer of times build file location is found in "table".
+        -1 is returned on query execution failure.
+    */
+    public int doesBuildFileLocationExist(String table, String buildFileLocation)
+    {
+        try
+        {
+            stmt = conn.prepareStatement("SELECT COUNT(*) as does_build_flocation_exist FROM " + table + " WHERE build_name = ?;");
+            stmt.setString(1, buildFileLocation);
+            
+            System.out.println(stmt);
+            
+            ResultSet occurrencesOfBuildFileLocation = stmt.executeQuery();
+           
+            if(occurrencesOfBuildFileLocation.next())
+                 return occurrencesOfBuildFileLocation.getInt("does_build_flocation_exist");
+            else
+                return -1;
+            
+        } catch (SQLException e)
+        {
+            System.err.println(e);
+            return -1;
+        }
+    }
 
 	// END OF SELECT METHODS
     // _____________________________________________________________________________________________________________________

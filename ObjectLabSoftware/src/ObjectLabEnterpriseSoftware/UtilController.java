@@ -1028,5 +1028,15 @@ public class UtilController
         dbconn.closeDBConnection();
         return buildPrinter;
     }
+    
+    public static boolean isBuildFileLocationUsed(String flocation)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        
+        boolean doesFileExist = dbconn.doesBuildFileLocationExist("printer_build", flocation) > 0;
+        dbconn.closeDBConnection();
+        
+        return doesFileExist;
+    }
 	
 }
