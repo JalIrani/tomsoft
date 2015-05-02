@@ -35,7 +35,7 @@ public class UtilController
     private static final boolean FAILURE = false;
 	
 	private static final String SOFTWARE_NAME = "OLI";
-	private static final String SOFTWARE_VERSION = "v0.6"; //Should be dynamic
+	private static final String SOFTWARE_VERSION = "v1.0"; //Should be dynamic
 	private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
 	
 	public static String getPageName(String pageName)

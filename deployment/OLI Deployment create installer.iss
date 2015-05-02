@@ -19,6 +19,7 @@ Source: "lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion recursesubdirs;
 Source: "mysql-installer-web-community-5.6.23.0.msi"; DestDir: {tmp}; Flags: deleteafterinstall;
 Source: "googledrivesync.exe"; DestDir: {tmp}; Flags: deleteafterinstall;
 Source: "Oli_Icon.ico"; DestDir: "{app}";
+Source: "setup_jobsdb_script.sql"; Flags: dontcopy;
        
 [Icons]
 Name: "{group}\Object Lab Interface"; IconFilename: {app}\Oli_Icon.ico; Filename: "{app}\OLI.EXE"; WorkingDir: "{app}"; Comment: "Object Lab Interface";
@@ -55,7 +56,8 @@ var
   ResultCode: Integer;
 var
   ErrorCode: Integer;
-
+var
+  S: AnsiString;
 begin
   Log('NextButtonClick(' + IntToStr(CurPageID) + ') called');
   case CurPageID of
@@ -71,6 +73,16 @@ begin
                                   ShellExec('', 'msiexec',
   ExpandConstant('/I "{tmp}\mysql-installer-web-community-5.6.23.0.msi" /qb'),
   '', SW_SHOWNORMAL, ewWaitUntilTerminated, ErrorCode);
+        
+        ExtractTemporaryFile('setup_jobsdb_script.sql');
+        Result := True;
+        ExtractTemporaryFile('setup_jobsdb_script.sql');
+        if FileCopy(ExpandConstant('{tmp}\setup_jobsdb_script.sql'), 
+          ExpandConstant('{app}\setup_jobsdb_script.sql'), False) 
+        then;
+          //MsgBox('Setup SQL copying succeeded!', mbInformation, MB_OK)
+        else;
+          //MsgBox('File copying failed!', mbError, MB_OK)
 
         BringToFrontAndRestore();
         //MsgBox('NextButtonClick:' #13#13 'The normal installation will now start.', mbInformation, MB_OK);
