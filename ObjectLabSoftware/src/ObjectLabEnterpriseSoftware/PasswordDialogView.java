@@ -79,6 +79,7 @@ public class PasswordDialogView extends javax.swing.JFrame
             adminLoginStatus = true;
             home.setPrintersVisible(true);
             home.hideStudentOptions();
+            UtilController.checkDriveStatus();
         }
         else{
             System.out.println("Password failed!");

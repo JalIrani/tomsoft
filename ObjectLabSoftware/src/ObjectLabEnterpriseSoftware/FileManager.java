@@ -29,6 +29,24 @@ public class FileManager
     private static final String INPUT_FOLDER = drive + "\\ObjectLabPrinters\\";
     private static final String ZIPPED_FOLDER = drive + "\\ObjectLabPrinters\\";
 
+    private static long getFolderSize(File directory) {
+
+        long length = 0;
+        for (File file : directory.listFiles()) {
+        if (file.isFile())
+            length += file.length();
+        else
+            length += getFolderSize(file);
+        }
+        return length;
+        
+    }
+    
+    public static long getFolderSize(){
+        File directory = new File(drive);
+        return getFolderSize(directory);
+    }
+
     /* leaving this in for now. so the whole program wont break if i make everything static.. */
     public FileManager()
     {

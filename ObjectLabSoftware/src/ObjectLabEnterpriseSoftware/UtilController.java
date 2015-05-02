@@ -252,6 +252,29 @@ public class UtilController
         
     }
 
+    static void checkDriveStatus() {
+        
+        long folderSize = FileManager.getFolderSize();
+        //25,000,000,000
+        float maxFolderSize = 25000000000f;
+        double percentFull = ((folderSize/maxFolderSize) * 100);
+        double percentFree = 100 - percentFull;
+        System.out.println(percentFull + " : " + percentFree);
+        
+        if(percentFree < 30){
+            //30% free
+            JOptionPane.showMessageDialog(new JFrame(), "The drive has 30% left!");
+        }
+        else if(percentFree < 15){
+            //15% free 
+            JOptionPane.showMessageDialog(new JFrame(), "The drive has 15% left!");
+        }
+        else if(percentFree < 5){
+            //80% full
+            JOptionPane.showMessageDialog(new JFrame(), "The drive only has 5% left!");
+        }
+    }
+
     public void exportReportToFile(DefaultTableModel model, String[] header)
     {
 
