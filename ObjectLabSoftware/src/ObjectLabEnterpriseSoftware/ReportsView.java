@@ -2,16 +2,13 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ReportsView extends javax.swing.JFrame 
 {
     private static final String NAME_OF_PAGE = "Reports";
-	private static final MainView home = new MainView();
+    private static final MainView home = new MainView();
 	
     private static DefaultTableModel model;
     private FileManager inst;
@@ -85,7 +82,6 @@ public class ReportsView extends javax.swing.JFrame
         closeBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -187,9 +183,6 @@ public class ReportsView extends javax.swing.JFrame
     jLabel5.setText("jLabel5");
     getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 430));
 
-    jMenu1.setText("File");
-    jMenuBar1.add(jMenu1);
-
     jMenu2.setText("Help");
 
     jMenuItem1.setText("User Guide");
@@ -289,7 +282,6 @@ public class ReportsView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

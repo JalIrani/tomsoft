@@ -121,9 +121,6 @@ public class JobsView extends javax.swing.JFrame
         jobStatus = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        showClassEditorOptions = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -229,30 +226,6 @@ public class JobsView extends javax.swing.JFrame
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 780, 530));
-
-            jMenu1.setText("File");
-
-            jMenuItem1.setText("Reports");
-            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    jMenuItem1ActionPerformed(evt);
-                }
-            });
-            jMenu1.add(jMenuItem1);
-
-            showClassEditorOptions.setText("Class Settings");
-            showClassEditorOptions.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    showClassEditorOptionsActionPerformed(evt);
-                }
-            });
-            jMenu1.add(showClassEditorOptions);
-
-            jMenuBar1.add(jMenu1);
 
             jMenu2.setText("Help");
 
@@ -373,20 +346,10 @@ public class JobsView extends javax.swing.JFrame
          
     }//GEN-LAST:event_ApprovedButtonActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        reports.ReportsPage();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
     
-    /* This button when pressed will pull up the options menu for editing courses and choosing a "current" course. */
-    private void showClassEditorOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showClassEditorOptionsActionPerformed
-       new ClassOptionsView().OptionsStart();
-    }//GEN-LAST:event_showClassEditorOptionsActionPerformed
-
     private void openFileInProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileInProgramActionPerformed
         
         int userSelectedRow = PendingTable.getSelectedRow();
@@ -441,10 +404,8 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -453,6 +414,5 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox jobStatus;
     private javax.swing.JButton openFileInProgram;
-    private javax.swing.JMenuItem showClassEditorOptions;
     // End of variables declaration//GEN-END:variables
 }
