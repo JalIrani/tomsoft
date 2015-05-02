@@ -4,11 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -212,8 +208,6 @@ public class BuildView extends javax.swing.JFrame
         backToMainMenu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        reportsMenu = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         userGuide = new javax.swing.JMenuItem();
 
@@ -361,20 +355,6 @@ public class BuildView extends javax.swing.JFrame
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
 
-            fileMenu.setText("File");
-
-            reportsMenu.setText("Reports");
-            reportsMenu.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    reportsMenuActionPerformed(evt);
-                }
-            });
-            fileMenu.add(reportsMenu);
-
-            jMenuBar1.add(fileMenu);
-
             helpMenu.setText("Help");
 
             userGuide.setText("User Guide");
@@ -439,12 +419,6 @@ public class BuildView extends javax.swing.JFrame
             deviceInputTable.setVisible(true);
         }
     }//GEN-LAST:event_browseBtnActionPerformed
-
-    private void reportsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsMenuActionPerformed
-        // TODO add your handling code here:
-        ReportsView reports = new ReportsView();
-        reports.ReportsPage();
-    }//GEN-LAST:event_reportsMenuActionPerformed
 
     private void userGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideActionPerformed
         // TODO add your handling code here:
@@ -515,7 +489,6 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JLabel buildLbl;
     private javax.swing.JTable deviceInputTable;
     private javax.swing.JComboBox deviceNameComboBox;
-    private javax.swing.JMenu fileMenu;
     private javax.swing.JTextField filepathToSelectedDeviceBuild;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JLabel jLabel1;
@@ -532,7 +505,6 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JMenuItem reportsMenu;
     private javax.swing.JTable studentSubmissionApprovedTableList;
     private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables

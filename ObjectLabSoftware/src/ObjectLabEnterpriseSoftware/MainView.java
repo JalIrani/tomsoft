@@ -285,9 +285,9 @@ public class MainView extends javax.swing.JFrame
 
 	public void resetAdminMode()
 	{
-			setPrintersVisible(true);
-			hideStudentOptions();
-		    setVisible(true);
+            setPrintersVisible(true);
+            hideStudentOptions();
+            setVisible(true);
 	}
 	public void hideStudentOptions()
 	{
@@ -337,7 +337,7 @@ public class MainView extends javax.swing.JFrame
 
     private void logoutBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBActionPerformed
         setPrintersVisible(false);
-		showStudentOptions();
+        showStudentOptions();
     }//GEN-LAST:event_logoutBActionPerformed
 
     private void userOptionsMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_userOptionsMenuActionPerformed

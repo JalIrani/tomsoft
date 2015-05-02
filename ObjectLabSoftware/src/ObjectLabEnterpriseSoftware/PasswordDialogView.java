@@ -1,21 +1,30 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-
-public class PasswordDialogView extends javax.swing.JFrame 
+public class PasswordDialogView extends javax.swing.JFrame
 {
-    private static final String NAME_OF_PAGE =  "Admin Password";
+
+    private static final String NAME_OF_PAGE = "Admin Password";
     private static MainView home = new MainView();
     public static boolean adminLoginStatus;
-    
-    public PasswordDialogView() {
+
+    public PasswordDialogView()
+    {
         initComponents();
+        
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+               dispose();
+               home.setPrintersVisible(false);
+               home.showStudentOptions();
+               home.setVisible(true);
+            }
+        });
     }
 
     /**
@@ -71,67 +80,74 @@ public class PasswordDialogView extends javax.swing.JFrame
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
         /*Hashes the predefined password and the password entered into the
          *JPasswordField and then compares the two
-        */
+         */
         boolean wasLoginSuccessful = UtilController.checkAdminLogin(new String(Password.getPassword()));
-      
-        if(wasLoginSuccessful){
+
+        if (wasLoginSuccessful)
+        {
             System.out.println("Password passed!");
             adminLoginStatus = true;
-            home.setPrintersVisible(true);
-            home.hideStudentOptions();
-        }
-        else{
+            dispose();
+            home.resetAdminMode();
+        } else
+        {
             System.out.println("Password failed!");
             adminLoginStatus = false;
-            home.setPrintersVisible(false);
-            home.showStudentOptions();
         }
-        this.dispose();
-        home.setVisible(true);
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
     {//GEN-HEADEREND:event_CancelButtonActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
+        dispose();
+        home.setPrintersVisible(false);
+        home.showStudentOptions();
+        home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
     /*
-    Eventually update passwordText array to take a constant for its size
-    */
-    
-    public static void main(String args[]) {
+     Eventually update passwordText array to take a constant for its size
+     */
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(PasswordDialogView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new PasswordDialogView().setVisible(true);
             }
         });
