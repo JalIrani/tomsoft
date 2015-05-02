@@ -12,11 +12,12 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import javax.swing.table.DefaultTableModel; 
+import javax.swing.table.DefaultTableModel;
 
 public class JobsView extends javax.swing.JFrame
 {
-    private static final String NAME_OF_PAGE =  "Student Submission";
+
+    private static final String NAME_OF_PAGE = "Student Submission";
 
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
@@ -27,68 +28,79 @@ public class JobsView extends javax.swing.JFrame
     private static final MainView home = new MainView();
 
     private DefaultTableModel allFileTableModel;
-	
+
     private void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
         pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
-        
+
         /* Clears up the rows in the view's model. */
-        for(int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
+        for (int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
+        {
             pendingJobsView.removeRow(rows);
-        
+        }
+
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
-        for (ArrayList<Object> row : view) 
+        for (ArrayList<Object> row : view)
+        {
             pendingJobsView.addRow(row.toArray());
-	if(!status.equals("pending")){
-	    ApprovedButton.setVisible(false);
-	    RejectButton.setVisible(false);
-	}else{
-	    ApprovedButton.setVisible(true);
-	    RejectButton.setVisible(true);
-	}
+        }
+        if (!status.equals("pending"))
+        {
+            approveButton.setVisible(false);
+            rejectButton.setVisible(false);
+        } else
+        {
+            approveButton.setVisible(true);
+            rejectButton.setVisible(true);
+        }
     }
-    
-    public JobsView() 
+
+    public JobsView()
     {
-         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
+        /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
-        
-        addWindowListener
-        (
-            new WindowAdapter() 
-            {
-                @Override
-                public void windowClosing(WindowEvent we)
+
+        addWindowListener(
+                new WindowAdapter()
                 {
-                    /* If they close the program then close out the window properly */
-                    dispose();
-                    home.resetAdminMode();
+                    @Override
+                    public void windowClosing(WindowEvent we)
+                    {
+                        /* If they close the program then close out the window properly */
+                        dispose();
+                        home.resetAdminMode();
+                    }
                 }
-            }
         );
     }
 
-    public void PendingJobsStart() 
+    public void PendingJobsStart()
     {
         /* Updates table */
         updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
         setVisible(true);
     }
-    
+
     /**
-      * Takes the table model, selected row, and the column you are interested in and returns
-      * the row number that the user selected.
-      */
+     * Takes the table model, selected row, and the column you are interested in
+     * and returns the row number that the user selected.
+     */
     public static int getSelectedRowNum(DefaultTableModel dm, int selectedRow, int column)
     {
         if (selectedRow < 0)
+        {
             return -1;
-        
+        }
+
         for (int i = 0; i < dm.getRowCount(); i++)
+        {
             if (dm.getValueAt(i, column).equals(dm.getValueAt(selectedRow, column)))
+            {
                 return i;
-        
+            }
+        }
+
         return -1;
     }
 
@@ -108,14 +120,14 @@ public class JobsView extends javax.swing.JFrame
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        ApprovedButton = new javax.swing.JButton();
-        RejectButton = new javax.swing.JButton();
-        openFileInProgram = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         PendingTable = new javax.swing.JTable();
         backToMainMenu = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jobStatus = new javax.swing.JComboBox();
+        reviewFile = new javax.swing.JLabel();
+        approveButton = new javax.swing.JLabel();
+        rejectButton = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -142,40 +154,8 @@ public class JobsView extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Jobs Manager");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 750, 10));
-
-        ApprovedButton.setBackground(java.awt.Color.green);
-        ApprovedButton.setText("Approve");
-        ApprovedButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                ApprovedButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 510, 110, 30));
-
-        RejectButton.setBackground(java.awt.Color.red);
-        RejectButton.setText("Reject");
-        RejectButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                RejectButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 80, 30));
-
-        openFileInProgram.setText("Review File");
-        openFileInProgram.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                openFileInProgramActionPerformed(evt);
-            }
-        });
-        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 150, 40));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 750, 10));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel()
@@ -192,7 +172,7 @@ public class JobsView extends javax.swing.JFrame
             });
             jScrollPane4.setViewportView(PendingTable);
 
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 750, 410));
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 750, 410));
 
             backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
             backToMainMenu.setToolTipText("Back");
@@ -206,10 +186,10 @@ public class JobsView extends javax.swing.JFrame
                     backToMainMenuActionPerformed(evt);
                 }
             });
-            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 60, 40));
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 40));
 
             jLabel3.setText("Job status:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 60, 20));
 
             jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved", "completed"}));
             jobStatus.addActionListener(new java.awt.event.ActionListener()
@@ -219,10 +199,46 @@ public class JobsView extends javax.swing.JFrame
                     jobStatusActionPerformed(evt);
                 }
             });
-            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 90, 20));
+            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 90, 20));
+
+            reviewFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png"))); // NOI18N
+            reviewFile.setText("Review File");
+            reviewFile.setToolTipText("Review file");
+            reviewFile.addMouseListener(new java.awt.event.MouseAdapter()
+            {
+                public void mouseClicked(java.awt.event.MouseEvent evt)
+                {
+                    openFileInDefaultProgram(evt);
+                }
+            });
+            getContentPane().add(reviewFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 120, 50));
+
+            approveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/accept_icon.png"))); // NOI18N
+            approveButton.setText("Approve");
+            approveButton.setToolTipText("Accept job");
+            approveButton.addMouseListener(new java.awt.event.MouseAdapter()
+            {
+                public void mouseClicked(java.awt.event.MouseEvent evt)
+                {
+                    approveButtonMouseClicked(evt);
+                }
+            });
+            getContentPane().add(approveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 100, 60));
+
+            rejectButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/reject_icon.png"))); // NOI18N
+            rejectButton.setText("Reject");
+            rejectButton.setToolTipText("Reject job");
+            rejectButton.addMouseListener(new java.awt.event.MouseAdapter()
+            {
+                public void mouseClicked(java.awt.event.MouseEvent evt)
+                {
+                    rejectButtonMouseClicked(evt);
+                }
+            });
+            getContentPane().add(rejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, 100, 60));
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 780, 570));
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 790, 590));
 
             jMenu2.setText("Help");
 
@@ -244,7 +260,122 @@ public class JobsView extends javax.swing.JFrame
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
 
-    private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
+    /**
+     * This is probably something that should be in a general Utils class for
+     * the front end or the various "views". I'm leaving this here for now
+     * because I don't want to change or add anything else that could affect
+     * other groups. -Nick
+     */
+    private static double getDouble(String msg, double min, double max)
+    {
+        String tmp;
+        do
+        {
+
+            tmp = JOptionPane.showInputDialog(null, msg);
+
+            if (tmp != null)
+            {
+                Scanner inputChecker = new Scanner(tmp);
+                double volume;
+
+                if (inputChecker.hasNextDouble())
+                {
+                    volume = inputChecker.nextDouble();
+                    if (volume >= min && volume <= max)
+                    {
+                        return volume;
+                    }
+                } else
+                {
+                    if (inputChecker.hasNext())
+                    {
+                        inputChecker.next();
+                    }
+                }
+            } else
+            {
+                return -1;
+            }
+
+        } while (true);
+    }
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        UtilController.openAdminHelpPage();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
+        dispose();
+        home.resetAdminMode();
+    }//GEN-LAST:event_backToMainMenuActionPerformed
+
+    private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed
+    {//GEN-HEADEREND:event_jobStatusActionPerformed
+        updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
+    }//GEN-LAST:event_jobStatusActionPerformed
+
+    private void openFileInDefaultProgram(java.awt.event.MouseEvent evt)//GEN-FIRST:event_openFileInDefaultProgram
+    {//GEN-HEADEREND:event_openFileInDefaultProgram
+        int userSelectedRow = PendingTable.getSelectedRow();
+
+        if (userSelectedRow > -1)
+        {
+            int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
+
+            /* Hand off the data in the selected row found in our tablemodel to this method so we can 
+             open the correct file with the information found in the row that was clicked on. -Nick 
+             */
+            File fileLocation = UtilController.getFilePath(
+                    (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
+                    (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER)
+            );
+            //TODO: display popup/error if this is false
+            UtilController.checkFileExists(fileLocation.getPath());
+            try
+            {
+                Desktop.getDesktop().open(fileLocation);
+            } catch (IOException ex)
+            {
+                Logger.getLogger(JobsView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Please select a file to review!");
+        }
+    }//GEN-LAST:event_openFileInDefaultProgram
+
+    private void approveButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_approveButtonMouseClicked
+    {//GEN-HEADEREND:event_approveButtonMouseClicked
+        int userSelectedRow = PendingTable.getSelectedRow();
+        int maxVolume = 10000; /* Will need to have this in a cfg file.... */
+
+        if (userSelectedRow > -1)
+        {
+            int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
+            double volume = getDouble("Enter volume (in cubic inches): ", 1, maxVolume);
+
+            if (volume >= 1)
+            {
+                /* Hand off the data in the selected row found in our tablemodel to this method so we can 
+                 approve the correct file to be printed... -Nick 
+                 */
+                UtilController.approveStudentSubmission(
+                        (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
+                        volume
+                );
+                updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
+            }
+        } else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to approve!");
+        }
+    }//GEN-LAST:event_approveButtonMouseClicked
+
+    private void rejectButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_rejectButtonMouseClicked
+    {//GEN-HEADEREND:event_rejectButtonMouseClicked
         int userSelectedRow = PendingTable.getSelectedRow();
         String desc;
 
@@ -276,127 +407,12 @@ public class JobsView extends javax.swing.JFrame
         {
             JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
         }
-    }//GEN-LAST:event_RejectButtonActionPerformed
-    
-    /**
-      * This is probably something that should be in a general Utils class for the front end or the various "views".
-      * I'm leaving this here for now because I don't want to change or add anything else that could affect other 
-      * groups. -Nick
-      */
-    private static double getDouble(String msg, double min, double max)
-    {
-        String tmp;
-        do
-        {
-            
-            tmp = JOptionPane.showInputDialog(null, msg);
-            
-            if(tmp != null)
-            {
-                Scanner inputChecker = new Scanner(tmp);
-                double volume;
-
-                if(inputChecker.hasNextDouble())
-                {
-                    volume = inputChecker.nextDouble();
-                    if(volume >= min && volume <= max)
-                        return volume;
-                }
-                else
-                {
-                    if(inputChecker.hasNext())
-                        inputChecker.next();
-                }
-            }
-            else
-            {
-                return -1;
-            }
-            
-        } while (true);
-    }
-    
-    private void ApprovedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApprovedButtonActionPerformed
-        int userSelectedRow = PendingTable.getSelectedRow();
-        int maxVolume = 10000; /* Will need to have this in a cfg file.... */
-        
-        if (userSelectedRow > -1) 
-        {
-            int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
-            double volume = getDouble("Enter volume (in cubic inches): ", 1, maxVolume);   
-            
-            if(volume >= 1)
-            {             
-                /* Hand off the data in the selected row found in our tablemodel to this method so we can 
-                    approve the correct file to be printed... -Nick 
-                */
-                UtilController.approveStudentSubmission
-                (
-                    (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
-                    volume
-                );
-                updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
-            }        
-        } else
-        {
-            JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
-        }
-         
-    }//GEN-LAST:event_ApprovedButtonActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        UtilController.openAdminHelpPage();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-    
-    private void openFileInProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFileInProgramActionPerformed
-        
-        int userSelectedRow = PendingTable.getSelectedRow();
-        
-        if (userSelectedRow > -1) 
-        {
-            int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
-            
-            /* Hand off the data in the selected row found in our tablemodel to this method so we can 
-                open the correct file with the information found in the row that was clicked on. -Nick 
-            */
-            File fileLocation = UtilController.getFilePath
-            (
-                (String) allFileTableModel.getValueAt(rowDataLocation, FIRST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, LAST_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, PROJECT_NAME_COLUMN_NUMBER),
-                (String) allFileTableModel.getValueAt(rowDataLocation, DATE_PROJECT_STARTED_COLUMN_NUMBER)
-            );
-            //TODO: display popup/error if this is false
-            UtilController.checkFileExists(fileLocation.getPath());
-            try 
-            {
-                Desktop.getDesktop().open(fileLocation);
-            } catch (IOException ex) 
-            {
-                Logger.getLogger(JobsView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else 
-        {
-            JOptionPane.showMessageDialog(new JFrame(), "Please select a file to Review!");
-        }
-    }//GEN-LAST:event_openFileInProgramActionPerformed
-
-    private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
-        dispose();
-        home.resetAdminMode();
-    }//GEN-LAST:event_backToMainMenuActionPerformed
-
-    private void jobStatusActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jobStatusActionPerformed
-    {//GEN-HEADEREND:event_jobStatusActionPerformed
-        updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
-    }//GEN-LAST:event_jobStatusActionPerformed
+    }//GEN-LAST:event_rejectButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ApprovedButton;
     private javax.swing.JTable PendingTable;
-    private javax.swing.JButton RejectButton;
+    private javax.swing.JLabel approveButton;
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -411,6 +427,7 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox jobStatus;
-    private javax.swing.JButton openFileInProgram;
+    private javax.swing.JLabel rejectButton;
+    private javax.swing.JLabel reviewFile;
     // End of variables declaration//GEN-END:variables
 }
