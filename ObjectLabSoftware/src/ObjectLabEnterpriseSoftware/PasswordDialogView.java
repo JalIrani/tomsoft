@@ -13,7 +13,7 @@ public class PasswordDialogView extends javax.swing.JFrame
     public PasswordDialogView()
     {
         initComponents();
-        
+        passwordError.setVisible(false);
         addWindowListener(new WindowAdapter()
         {
             @Override
@@ -41,6 +41,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         CancelButton = new javax.swing.JButton();
         SubmitButton = new javax.swing.JButton();
         Password = new javax.swing.JPasswordField();
+        passwordError = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,7 +59,7 @@ public class PasswordDialogView extends javax.swing.JFrame
                 CancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
 
         SubmitButton.setText("Submit");
         SubmitButton.addActionListener(new java.awt.event.ActionListener()
@@ -68,11 +69,16 @@ public class PasswordDialogView extends javax.swing.JFrame
                 SubmitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
-        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 136, -1));
+        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 20));
+        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 136, -1));
+
+        passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        passwordError.setForeground(new java.awt.Color(255, 0, 0));
+        passwordError.setText("Invalid password");
+        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 220, 100));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 210, 130));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -91,6 +97,7 @@ public class PasswordDialogView extends javax.swing.JFrame
             home.resetAdminMode();
         } else
         {
+            passwordError.setVisible(!wasLoginSuccessful);
             System.out.println("Password failed!");
             adminLoginStatus = false;
         }
@@ -159,5 +166,6 @@ public class PasswordDialogView extends javax.swing.JFrame
     private javax.swing.JButton SubmitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel passwordError;
     // End of variables declaration//GEN-END:variables
 }
