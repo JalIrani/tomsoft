@@ -23,8 +23,7 @@ public class JobsView extends javax.swing.JFrame
     private static final int LAST_NAME_COLUMN_NUMBER = 2;
     private static final int PRINTER_COLUMN_NUMBER = 3;
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
-	private static ReportsView reports = null;
-    private static FileManager inst = null;
+
     private static final MainView home = new MainView();
 
     private DefaultTableModel allFileTableModel;
@@ -51,8 +50,6 @@ public class JobsView extends javax.swing.JFrame
     
     public JobsView() 
     {
-        inst = new FileManager();
-        reports = new ReportsView();
          /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
@@ -157,7 +154,7 @@ public class JobsView extends javax.swing.JFrame
                 ApprovedButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 500, 90, 20));
+        getContentPane().add(ApprovedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 510, 110, 30));
 
         RejectButton.setBackground(java.awt.Color.red);
         RejectButton.setText("Reject");
@@ -168,7 +165,7 @@ public class JobsView extends javax.swing.JFrame
                 RejectButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 500, 70, 20));
+        getContentPane().add(RejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, 80, 30));
 
         openFileInProgram.setText("Review File");
         openFileInProgram.addActionListener(new java.awt.event.ActionListener()
@@ -178,7 +175,7 @@ public class JobsView extends javax.swing.JFrame
                 openFileInProgramActionPerformed(evt);
             }
         });
-        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 500, 140, 20));
+        getContentPane().add(openFileInProgram, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 150, 40));
 
         PendingTable.setAutoCreateRowSorter(true);
         PendingTable.setModel(new javax.swing.table.DefaultTableModel()
@@ -214,7 +211,7 @@ public class JobsView extends javax.swing.JFrame
             jLabel3.setText("Job status:");
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, 20));
 
-            jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved" }));
+            jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved", "completed"}));
             jobStatus.addActionListener(new java.awt.event.ActionListener()
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -222,10 +219,10 @@ public class JobsView extends javax.swing.JFrame
                     jobStatusActionPerformed(evt);
                 }
             });
-            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 70, 20));
+            getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 90, 20));
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 780, 530));
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 780, 570));
 
             jMenu2.setText("Help");
 
@@ -250,33 +247,31 @@ public class JobsView extends javax.swing.JFrame
     private void RejectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejectButtonActionPerformed
         int userSelectedRow = PendingTable.getSelectedRow();
         String desc;
-        
-        if (userSelectedRow >= 0) 
-        {
-        desc = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter in reject description: ");
-        
-        if(desc != null)
-        {
 
-            /* Hand off the data in the selected row found in our tablemodel to this method so we can 
-             * reject the correct file -Nick 
-             */
-           boolean success = UtilController.rejectStudentSubmission
-           ( 
-                   (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER), 
-                    desc
-           );
+        if (userSelectedRow >= 0)
+        {
+            desc = JOptionPane.showInputDialog(new java.awt.Frame(), "Enter in reject description: ");
 
-           if(success)
-           {
-               JOptionPane.showMessageDialog(new JFrame(), "Email sent succesfully!");
-               updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
-           }
-           else
-           {
-               JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
-           }
-        }
+            if (desc != null)
+            {
+
+                /* Hand off the data in the selected row found in our tablemodel to this method so we can 
+                 * reject the correct file -Nick 
+                 */
+                boolean success = UtilController.rejectStudentSubmission(
+                        (String) allFileTableModel.getValueAt(userSelectedRow, PROJECT_NAME_COLUMN_NUMBER),
+                        desc
+                );
+
+                if (success)
+                {
+                    JOptionPane.showMessageDialog(new JFrame(), "Email sent succesfully!");
+                    updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
+                } else
+                {
+                    JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
+                }
+            }
         } else
         {
             JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
@@ -342,6 +337,9 @@ public class JobsView extends javax.swing.JFrame
                 );
                 updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
             }        
+        } else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
         }
          
     }//GEN-LAST:event_ApprovedButtonActionPerformed
