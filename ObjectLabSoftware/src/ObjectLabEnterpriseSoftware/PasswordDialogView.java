@@ -79,6 +79,8 @@ public class PasswordDialogView extends javax.swing.JFrame
             adminLoginStatus = true;
             home.setPrintersVisible(true);
             home.hideStudentOptions();
+            this.dispose();
+            home.setVisible(true);
             UtilController.checkDriveStatus();
         }
         else{
@@ -86,9 +88,10 @@ public class PasswordDialogView extends javax.swing.JFrame
             adminLoginStatus = false;
             home.setPrintersVisible(false);
             home.showStudentOptions();
+            this.dispose();
+            home.setVisible(true);
         }
-        this.dispose();
-        home.setVisible(true);
+        
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
