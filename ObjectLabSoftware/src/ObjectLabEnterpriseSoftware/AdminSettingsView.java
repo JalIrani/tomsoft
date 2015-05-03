@@ -75,7 +75,7 @@ public class AdminSettingsView extends javax.swing.JFrame
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        jButton4.setText("Add Class");
+        jButton4.setLabel("Modify Classes");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
