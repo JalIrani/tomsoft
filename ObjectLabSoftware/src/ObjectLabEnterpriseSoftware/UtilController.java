@@ -1051,5 +1051,19 @@ public class UtilController
         
         return doesFileExist;
     }
+    
+    public static void removeClass(int classId){
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.deleteFromClass(classId);
+        dbconn.closeDBConnection();
+    }
+    
+    public static void removeDevice(String device){
+    
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.deletePrinter(device);
+        dbconn.closeDBConnection();
+        
+    }
 	
 }
