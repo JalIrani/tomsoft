@@ -26,7 +26,7 @@ public class UpdateStudentView extends javax.swing.JFrame
 
 		userID = id;
         idOfUser.setText(userID);
-		
+        	
         try
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
@@ -82,8 +82,7 @@ public class UpdateStudentView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         newStudentLabel = new javax.swing.JLabel();
         firstName = new javax.swing.JLabel();
@@ -132,10 +131,13 @@ public class UpdateStudentView extends javax.swing.JFrame
         getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 120, -1));
 
         submit.setText("Submit");
-        submit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitMouseClicked(evt);
+            }
+        });
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
@@ -143,10 +145,8 @@ public class UpdateStudentView extends javax.swing.JFrame
 
         idOfUser.setEditable(false);
         idOfUser.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        idOfUser.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        idOfUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idOfUserActionPerformed(evt);
             }
         });
@@ -154,10 +154,8 @@ public class UpdateStudentView extends javax.swing.JFrame
         getContentPane().add(firstNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 100, -1));
         getContentPane().add(lastNameEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 100, -1));
 
-        emailEntry.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        emailEntry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailEntryActionPerformed(evt);
             }
         });
@@ -166,10 +164,8 @@ public class UpdateStudentView extends javax.swing.JFrame
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setToolTipText("Back");
         backButton.setContentAreaFilled(false);
-        backButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
@@ -186,7 +182,7 @@ public class UpdateStudentView extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
 
@@ -195,7 +191,7 @@ public class UpdateStudentView extends javax.swing.JFrame
         String lastName = lastNameEntry.getText();
         String email = emailEntry.getText();
         boolean validEmailAdr = true;
-
+       
         if (tuID.equals("") || firstName.equals("") || lastName.equals("") || email.equals(""))
         {
             JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
@@ -212,15 +208,24 @@ public class UpdateStudentView extends javax.swing.JFrame
             }
             if (validEmailAdr)
             {
-                if ((UtilController.updateUser(tuID, firstName, lastName, email)) > 0)
-                {
-                    JOptionPane.showMessageDialog(this, "Updating student data.");
-                    dispose();
-                    home.resetAdminMode();
-                } else
-                {
-                    JOptionPane.showMessageDialog(this, "Error updating student info database.");
+                if(UtilController.isNumeric(tuID)){
+                
+                    if ((UtilController.updateUser(tuID, firstName, lastName, email)) > 0)
+                    {
+                        JOptionPane.showMessageDialog(this, "Updating student data.");
+                        dispose();
+                        home.resetAdminMode();
+                    } else
+                    {
+                        JOptionPane.showMessageDialog(this, "Error updating student info database.");
+                    }
+                    
                 }
+                else{
+                    idOfUser.setText("");
+                    JOptionPane.showMessageDialog(this, "Please enter a numerical TUID.");
+                }
+                
             }
         }
 
@@ -240,6 +245,10 @@ public class UpdateStudentView extends javax.swing.JFrame
     {//GEN-HEADEREND:event_idOfUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idOfUserActionPerformed
+
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_submitMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu EditMenu;
