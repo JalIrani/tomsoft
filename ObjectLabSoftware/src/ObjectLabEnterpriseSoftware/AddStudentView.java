@@ -204,7 +204,7 @@ public class AddStudentView extends javax.swing.JFrame
                     {
                         JOptionPane.showMessageDialog(this, "Updating student data.");
                         dispose();
-                        home.resetAdminMode();
+						home.setVisible(true);
                     } else
                     {
                         JOptionPane.showMessageDialog(this, "Error updating student info database.");
