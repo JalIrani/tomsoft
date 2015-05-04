@@ -2,10 +2,8 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 public class ClassOptionsView extends javax.swing.JFrame
@@ -358,26 +356,25 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_removeArrowActionPerformed
 
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
-		if (className.getSelectedValue().toString().equals("") | classNumber.getText().equals("")
-				| sectionNumber.getText().equals("") | classProfessor.getText().equals(""))
+		if (InputValidation.isEmpty(className.getSelectedValue().toString()) | InputValidation.isEmpty(classNumber.getText())
+				| InputValidation.isEmpty(sectionNumber.getText()) | InputValidation.isEmpty(classProfessor.getText()))
 		{
 			JOptionPane.showMessageDialog(null, "Please enter all Class Values",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		} else if (className.getSelectedValue().toString().contains(" ") | classNumber.getText().contains(" ")
-				| sectionNumber.getText().contains(" "))
+				| sectionNumber.getText().contains(" ") | classProfessor.getText().contains(" "))
 		{
-			JOptionPane.showMessageDialog(null, "Class Values can only be one word each",
+			JOptionPane.showMessageDialog(null, "Values can only be one word each",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else if (!classNumber.getText().matches("[0-9]+")
-				| !sectionNumber.getText().matches("[0-9]+"))
+		} else if (!InputValidation.isNumber(classNumber.getText())
+				| !InputValidation.isNumber(sectionNumber.getText()))
 		{
 			JOptionPane.showMessageDialog(null, "Class Number and Section Numbers must "
 					+ "contain only numbers",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else if (!className.getSelectedValue().toString().matches("^[a-zA-Z]*$") | !classProfessor.getText().matches("^[a-zA-Z]*$"))
+		} else if (!InputValidation.isAlpha(className.getSelectedValue().toString()) | !InputValidation.isAlpha(classProfessor.getText()))
 		{
-			JOptionPane.showMessageDialog(null, "Class Name and Professor Name must only contain "
-					+ "letters.",
+			JOptionPane.showMessageDialog(null, "Names must only contain letters.",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		} else
 		{
