@@ -374,7 +374,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 			JOptionPane.showMessageDialog(null, "Class Number and Section Numbers must "
 					+ "contain only numbers",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else if (!className.getSelectedValue().toString().matches("^[a-zA-Z]*$") | !classProfessor.getText().trim().matches("^[a-zA-Z]*$"))
+		} else if (!className.getSelectedValue().toString().matches("^[a-zA-Z]*$") | !classProfessor.getText().matches("^[a-zA-Z]*$"))
 		{
 			JOptionPane.showMessageDialog(null, "Class Name and Professor Name must only contain "
 					+ "letters.",

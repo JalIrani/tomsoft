@@ -100,7 +100,7 @@ public class MainView extends javax.swing.JFrame
 
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 80, 130, 20));
+        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 130, 20));
 
         studentIdString.setToolTipText("Enter seven digit student ID.");
         studentIdString.addActionListener(new java.awt.event.ActionListener()
