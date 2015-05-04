@@ -107,6 +107,8 @@ public class BuildView extends javax.swing.JFrame
 			}
 			else if(testColumnInput != expectedColumnInput)
 			{
+                ErrorText.setText("Invalid data entry for build data!");
+                ErrorText.setVisible(true);
 				return false;
 			}
 			else if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))

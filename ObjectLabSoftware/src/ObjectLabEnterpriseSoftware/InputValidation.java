@@ -52,6 +52,7 @@ public class InputValidation
 			return false;
 		return input.equals("");
 	}
+	
 	/* Tools for validation */
 	public static int boolToInt(Boolean myBool)
 	{
