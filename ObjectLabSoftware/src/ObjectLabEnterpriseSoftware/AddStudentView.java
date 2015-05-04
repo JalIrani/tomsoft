@@ -200,7 +200,7 @@ public class AddStudentView extends javax.swing.JFrame
             {
                 if(UtilController.isNumeric(tuID)){
                 
-                    if ((UtilController.updateUser(tuID, firstName, lastName, email)) > 0)
+                    if ((UtilController.addUser(tuID, firstName, lastName, email)) > 0)
                     {
                         JOptionPane.showMessageDialog(this, "Updating student data.");
                         dispose();
