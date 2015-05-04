@@ -1,6 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
-public class InputValdidation
+public class InputValidation
 {
 	/* Constants */
 	public static final int TYPE_UNKOWN = -1;
@@ -45,6 +45,13 @@ public class InputValdidation
 		return input.matches("^[a-zA-Z]*$");
 	}
 	
+	public static boolean isEmpty(String input)
+	{
+		/* Checks string for nothing */
+		if(input == null)
+			return false;
+		return input.equals("");
+	}
 	/* Tools for validation */
 	public static int boolToInt(Boolean myBool)
 	{
