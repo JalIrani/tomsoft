@@ -91,10 +91,8 @@ public class BuildView extends javax.swing.JFrame
                 return false;
             }
         }
-
 		
-		
-		        /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
+		/* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
          the input for the build data 
          */
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
@@ -107,9 +105,9 @@ public class BuildView extends javax.swing.JFrame
                 ErrorText.setVisible(true);
 				return false;
 			}
-			else if(testColumnInput == expectedColumnInput)
+			else if(testColumnInput != expectedColumnInput)
 			{
-				return true;
+				return false;
 			}
 			else if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
             {
