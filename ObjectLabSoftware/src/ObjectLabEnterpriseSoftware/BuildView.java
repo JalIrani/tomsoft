@@ -92,19 +92,29 @@ public class BuildView extends javax.swing.JFrame
             }
         }
 
-        /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
+		
+		
+		        /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
          the input for the build data 
          */
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
-            if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
+			String testColumnInput = (String)deviceInputTable.getValueAt(0, column);
+			if(InputValidation.getDataType(testColumnInput) == 1)	
+			{
+				
+			}
+			else if(InputValidation.getDataType(testColumnInput) == 1)
+			{
+				
+			}
+			else if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
             {
                 ErrorText.setText("Invalid data entry for build data!");
                 ErrorText.setVisible(true);
                 return false;
             }
         }
-
         return true;
     }
 
