@@ -772,31 +772,23 @@ public class UtilController
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public static void purgeDir(File dir){
-     if(dir.exists()){
-         try{
-             File[] file = dir.listFiles();
-             if(null != file){
-                 for (File file1 : file) {
-                     if (file1.isDirectory()) {
-                         File[] f = file1.listFiles();
-                         for (File f1 : f) {
-                             purgeDir(f1);
-                         }
-                     } else {
-                         file1.delete();
-                     }
-                 }
-           }
+    public static void helperArchive(File file){
+        if(file.isFile())
+            file.delete();
+        else{
+           for(File f1 : file.listFiles())
+               helperArchive(f1);
         }
-      catch (NullPointerException e){
-          throw e;
-      }
     }
-    else
-        JOptionPane.showMessageDialog(new JFrame(), "Failed to delete files");    
-   }
+    public static void purgeDir(File dir){
+         try{
+            for (File file1 : dir.listFiles())
+                helperArchive(file1);
+           }
+         catch (NullPointerException e){
+            throw e;
+         }
+    }
    
    public static void archiveSilent (String from, String to){
        try
