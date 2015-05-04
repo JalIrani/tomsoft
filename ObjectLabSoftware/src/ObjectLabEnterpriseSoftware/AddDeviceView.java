@@ -304,18 +304,14 @@ public class AddDeviceView extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
                 break;
             }
-        }
-        
-        for (int i = 0; i < count; i++)
-        {
-            if (InputValidation.isNumber(fields.get(i).getText()))
+			else if (InputValidation.isNumber(fields.get(i).getText()))
             {
                 exit = false;
                 JOptionPane.showMessageDialog(this, "Cannot save! Fields cannot be named as numbers!");
                 break;
             }
         }
-        
+		
         //Check for duplicate entries
         if (exit == true)
         {
