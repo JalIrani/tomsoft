@@ -99,14 +99,17 @@ public class BuildView extends javax.swing.JFrame
          */
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
-			String testColumnInput = (String)deviceInputTable.getValueAt(0, column);
-			if(InputValidation.getDataType(testColumnInput) == 1)	
+			int testColumnInput = InputValidation.getDataType((String)deviceInputTable.getValueAt(0, column));
+			int expectedColumnInput = Device.getDataType(deviceInputTable.getValueAt(0, column));
+			if(testColumnInput == -1)	
 			{
-				
+                ErrorText.setText("Invalid data entry for build data!");
+                ErrorText.setVisible(true);
+				return false;
 			}
-			else if(InputValidation.getDataType(testColumnInput) == 1)
+			else if(testColumnInput == expectedColumnInput)
 			{
-				
+				return true;
 			}
 			else if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
             {
