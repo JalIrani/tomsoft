@@ -773,21 +773,15 @@ public class UtilController
         }
     }
     public static void helperArchive(File file){
-        if(file.isFile())
-            file.delete();
-        else{
-           for(File f1 : file.listFiles())
+        if(file.isDirectory())
+            for(File f1 : file.listFiles())
                helperArchive(f1);
-        }
+        else
+           file.delete();
     }
     public static void purgeDir(File dir){
-         try{
-            for (File file1 : dir.listFiles())
-                helperArchive(file1);
-           }
-         catch (NullPointerException e){
-            throw e;
-         }
+        for (File file1 : dir.listFiles())
+            helperArchive(file1);
     }
    
    public static void archiveSilent (String from, String to){

@@ -297,6 +297,31 @@ public class FileManager
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
+    public static boolean deleteF(File file) {
+
+    File[] flist = null;
+
+    if(file == null){
+        return false;
+    }
+
+    if (file.isFile()) {
+        return file.delete();
+    }
+
+    if (file.isDirectory()) {
+        return false;
+    }
+
+    flist = file.listFiles();
+    if (flist != null && flist.length > 0) {
+        for (File f : flist) {
+            deleteF(f);
+        }
+    }
+
+    return file.delete();
+}
     //getters and setters moved from InstanceCall by Emily and Miguel
     /**
      * @return the zcorpToPrint

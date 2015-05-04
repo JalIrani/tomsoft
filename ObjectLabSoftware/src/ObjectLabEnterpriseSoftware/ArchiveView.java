@@ -205,6 +205,8 @@ public class ArchiveView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
                 //WIPE DATA AND ARCHIVE
                 File input = new File(jTextField1.getText());
+                for(File f: input.listFiles())
+                    FileManager.deleteF(f);
                 File input2 = new File(jTextField2.getText());
                 //delete files, but not directories
                 UtilController.clearData();
