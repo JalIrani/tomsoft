@@ -2,28 +2,50 @@ package ObjectLabEnterpriseSoftware;
 
 public class InputValdidation
 {
-		
-	/* Object Type Validation
-	
-	isDouble()
+	/* Constants */
+	public static final int TYPE_UNKOWN = -1;
+	public static final int TYPE_DOUBLE = 0;
+	public static final int TYPE_STRING = 1;
+
+	/* Object Type Validation */
+	public static int getDataType(String valueString)
 	{
-		
-	} */
-			
+		if(valueString == null) 
+		{
+			return TYPE_UNKOWN;
+		}
+		else if(isNumber(valueString))
+		{
+			return TYPE_DOUBLE;
+		}
+		else if(isAlpha(valueString))
+		{
+			return TYPE_STRING;
+		}
+		else
+		{
+			return TYPE_UNKOWN;
+		}
+	}
+
 	/* String Input Validation */
-	
-	public static int isNumber(String input)
+	public static boolean isNumber(String input)
 	{
-		return boolToInt(input.matches("[0-9]+"));
+		/* Checks string for 0-9 */
+		if(input == null)
+			return false;
+		return input.matches("[0-9]+");
 	}
 	
-	public static int isAlpha(String input)
+	public static boolean isAlpha(String input)
 	{
-		return boolToInt(input.matches("^[a-zA-Z]*$"));
+		/* Checks string for a-z */
+		if(input == null)
+			return false;
+		return input.matches("^[a-zA-Z]*$");
 	}
 	
 	/* Tools for validation */
-	
 	public static int boolToInt(Boolean myBool)
 	{
 		return(myBool) ? 1 : 0;
