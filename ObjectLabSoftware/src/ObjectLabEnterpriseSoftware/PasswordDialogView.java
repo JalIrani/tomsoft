@@ -27,6 +27,7 @@ public class PasswordDialogView extends javax.swing.JFrame
 					passwordError.setVisible(true);
 					passwordError.setText("WARNING: Caps Lock is on");
 				}
+					passwordError.setText("");
             }
         });
         addWindowListener(new WindowAdapter()
