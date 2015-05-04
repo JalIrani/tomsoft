@@ -129,6 +129,10 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, classComboBox.getSelectedItem() + " was deleted from the class list.");
                 //delete class here
                 //sql.deleteFromClass((String)classComboBox.getSelectedItem());
+                String selected = (String)classComboBox.getSelectedItem();
+                int id = Integer.parseInt(selected.split(" ")[0]);
+                //System.out.print(id);
+                UtilController.removeClass(id);
             }
         }else
             JOptionPane.showMessageDialog(null, "Please select a class to remove.");
@@ -140,7 +144,11 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
                     + "to select this printer when building jobs.\nFiles associated with this printer will not be deleted "
                     + "but they will no longer be associated with this printer. Click 'YES' to CONFIRM DELETION this is permanent!","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                 JOptionPane.showMessageDialog(null, printerComboBox.getSelectedItem() + " was deleted from the printer list.");
-                //delete printer here            
+                //delete printer here    
+                String printerName = (String)printerComboBox.getSelectedItem();
+                //int id = Integer.parseInt(selected.split(" ")[0]);
+                //System.out.print(id);
+                UtilController.removeDevice(printerName);
             }
         }else
             JOptionPane.showMessageDialog(null, "Please select a printer to remove.");

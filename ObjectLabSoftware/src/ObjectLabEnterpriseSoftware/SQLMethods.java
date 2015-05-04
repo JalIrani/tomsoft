@@ -130,7 +130,7 @@ public class SQLMethods
         }
         return res;
     }
-
+    
     public ResultSet searchPrinterFilesTypes(String printer)
     {// selects the filetypes for the printer
         res = null;
@@ -447,7 +447,6 @@ public class SQLMethods
             return -1;
         }
     }
-
 	// END OF SELECT METHODS
     // _____________________________________________________________________________________________________________________
 	// BEGGINING OF INSERT METHODS
@@ -918,7 +917,7 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("DELETE FROM printer WHERE printer_name = ?; ");
+            stmt = conn.prepareStatement("UPDATE printer SET current = 0 where printer_name = ?; ");
             stmt.setString(1, printerName);
             stmt.executeUpdate();
         } catch (Exception e)
