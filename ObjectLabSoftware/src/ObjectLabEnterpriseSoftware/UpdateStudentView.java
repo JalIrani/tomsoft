@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class UpdateStudentView extends javax.swing.JFrame
 {
-
+	/* This code is similar to AddStudentView. This should not be the case, they should share stuff. */
     private static final String NAME_OF_PAGE = "Update Student Information";
     private static MainView home = new MainView();
 	private String userID;
@@ -214,7 +214,7 @@ public class UpdateStudentView extends javax.swing.JFrame
                     {
                         JOptionPane.showMessageDialog(this, "Updating student data.");
                         dispose();
-                        home.resetAdminMode();
+						home.setVisible(true);
                     } else
                     {
                         JOptionPane.showMessageDialog(this, "Error updating student info database.");
