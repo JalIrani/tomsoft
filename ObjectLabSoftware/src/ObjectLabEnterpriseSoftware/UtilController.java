@@ -749,6 +749,11 @@ public class UtilController
         return approvedForPrinter;
     }
 
+    public static void deleteAllFiles(){
+        FileManager fm = new FileManager();
+        fm.deleteFiles();
+    }
+    
    public static void archive(String from, String to)
     {
         try

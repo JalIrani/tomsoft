@@ -35,18 +35,27 @@ public class FileManager
         
     }
     
-    public boolean deleteFile(String path)
+    public void deleteFiles(){
+        File driveDir = new File(drive);
+        deleteFile(driveDir);
+    }
+    
+    private void deleteFile(File dir)
     {
-        File newDir = new File(path);
-        if(newDir.exists())
-		{
-            newDir.delete();
+        for(File file: dir.listFiles()){
+            System.out.println(file.getPath());
+            if(file.isDirectory())
+            {
+                deleteFile(file);
+            }
+            else
+            {
+                if(file.getPath().compareTo("C:\\Sync\\computername.txt") != 0){
+                    file.delete();
+                }
+            }
         }
         
-        if(newDir.exists()) 
-            return true;
-        
-        return false;
     }
     
     /** 
