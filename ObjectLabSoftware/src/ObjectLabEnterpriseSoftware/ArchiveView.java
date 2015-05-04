@@ -199,6 +199,8 @@ public class ArchiveView extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        if(archiveDirectory != null){
         if(archiveDirectory.isDirectory()){
+            //make sure there is data in the folders to delete
+            UtilController.archiveSilent(jTextField1.getText(), jTextField2.getText());
             if(jCheckBox1.isSelected()){
                 JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
                 //WIPE DATA AND ARCHIVE

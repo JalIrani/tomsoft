@@ -776,14 +776,19 @@ public class UtilController
     public static void purgeDir(File dir){
      if(dir.exists()){
          try{
-             for (File file: dir.listFiles()){
-                 if (file.isDirectory()){
-                      for (File f: file.listFiles())
-                         purgeDir(f);
+             File[] file = dir.listFiles();
+             if(null != file){
+                 for (File file1 : file) {
+                     if (file1.isDirectory()) {
+                         File[] f = file1.listFiles();
+                         for (File f1 : f) {
+                             purgeDir(f1);
+                         }
+                     } else {
+                         file1.delete();
+                     }
                  }
-                 else
-                     file.delete();
-             }
+           }
         }
       catch (NullPointerException e){
           throw e;
@@ -793,6 +798,68 @@ public class UtilController
         JOptionPane.showMessageDialog(new JFrame(), "Failed to delete files");    
    }
    
+   public static void archiveSilent (String from, String to){
+       try
+        {
+            ArrayList<String> printers = UtilController.getListOfAllDevices();
+        FileManager fileManager = new FileManager();
+
+        Workbook wb = new HSSFWorkbook();
+
+        String[] columnHeaders;
+        ArrayList<ArrayList<Object>> data;
+        Sheet sheet;
+
+        for (int x = 0; x < printers.size(); x++)
+        {
+
+            sheet = wb.createSheet(printers.get(x));
+            columnHeaders = getReportColumnHeaders(printers.get(x));
+            data = updateReportTableData(printers.get(x));
+            Row row = null;
+            Cell cell = null;
+            if (data.size() > 0)
+            {
+                for (int i = 0; i < data.size() + 1; i++)
+                {
+                    row = sheet.createRow(i);
+                    if (i == 0)
+                    {
+                        for (int j = 0; j < data.get(i).size(); j++)
+                        {
+                            cell = row.createCell(j);
+                            cell.setCellValue(columnHeaders[j]);
+                        }
+                    } else
+                    {
+                        for (int j = 0; j < data.get(i - 1).size(); j++)
+                        {
+                            cell = row.createCell(j);
+                            cell.setCellValue((String) data.get(i - 1).get(j));
+                        }
+                    }
+                }
+            }
+        }
+        boolean didSave = fileManager.saveReport("MasterReport", wb);
+        String fileName = new String();
+        String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+        fileName = "Archive " + date;
+        System.out.println((from.replace("\\", "\\\\") + "\\\\") + " : " + (to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip"));
+        FileManager.zip((from.replace("\\", "\\\\") + "\\\\"), (to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip"));
+            
+        if (FileManager.doesFileExist((to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip")) && didSave)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Archive data present");
+        } else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Archive data missing");
+        }
+        } catch (IOException er)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, er);
+        }
+   }
    public static void clearData(){
    
        SQLMethods dbconn = new SQLMethods();
