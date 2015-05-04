@@ -87,7 +87,20 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
-		
+	
+    public static boolean isNumeric(String str)  
+    {  
+      try  
+      {  
+        double d = Double.parseDouble(str);  
+      }  
+      catch(NumberFormatException nfe)  
+      {  
+        return false;  
+      }  
+      return true;  
+    }
+    
     public static ArrayList<String> getListOfCurrentDevices()
     {
         SQLMethods dbconn = new SQLMethods();
@@ -1045,6 +1058,30 @@ public class UtilController
 
         dbconn.closeDBConnection();
         return buildPrinter;
+    }
+    
+    public static boolean isBuildFileLocationUsed(String flocation)
+    {
+        SQLMethods dbconn = new SQLMethods();
+        
+        boolean doesFileExist = dbconn.doesBuildFileLocationExist("printer_build", flocation) > 0;
+        dbconn.closeDBConnection();
+        
+        return doesFileExist;
+    }
+    
+    public static void removeClass(int classId){
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.deleteFromClass(classId);
+        dbconn.closeDBConnection();
+    }
+    
+    public static void removeDevice(String device){
+    
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.deletePrinter(device);
+        dbconn.closeDBConnection();
+        
     }
 	
 }

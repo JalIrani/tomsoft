@@ -71,7 +71,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add Class"/>
+        <Property name="label" type="java.lang.String" value="Modify Classes"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -104,7 +104,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="addPrinterButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add Printer"/>
+        <Property name="label" type="java.lang.String" value="Add Device"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPrinterButtonActionPerformed"/>

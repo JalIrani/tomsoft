@@ -130,7 +130,7 @@ public class SQLMethods
         }
         return res;
     }
-
+    
     public ResultSet searchPrinterFilesTypes(String printer)
     {// selects the filetypes for the printer
         res = null;
@@ -421,7 +421,32 @@ public class SQLMethods
         }
         return res;
     }
-
+    
+    /* Returns the nubmer of times build file location is found in "table".
+        -1 is returned on query execution failure.
+    */
+    public int doesBuildFileLocationExist(String table, String buildFileLocation)
+    {
+        try
+        {
+            stmt = conn.prepareStatement("SELECT COUNT(*) as does_build_flocation_exist FROM " + table + " WHERE build_name = ?;");
+            stmt.setString(1, buildFileLocation);
+            
+            System.out.println(stmt);
+            
+            ResultSet occurrencesOfBuildFileLocation = stmt.executeQuery();
+           
+            if(occurrencesOfBuildFileLocation.next())
+                 return occurrencesOfBuildFileLocation.getInt("does_build_flocation_exist");
+            else
+                return -1;
+            
+        } catch (SQLException e)
+        {
+            System.err.println(e);
+            return -1;
+        }
+    }
 	// END OF SELECT METHODS
     // _____________________________________________________________________________________________________________________
 	// BEGGINING OF INSERT METHODS
@@ -892,7 +917,7 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("DELETE FROM printer WHERE printer_name = ?; ");
+            stmt = conn.prepareStatement("UPDATE printer SET current = 0 where printer_name = ?; ");
             stmt.setString(1, printerName);
             stmt.executeUpdate();
         } catch (Exception e)

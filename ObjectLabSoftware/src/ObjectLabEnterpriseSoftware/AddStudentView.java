@@ -181,7 +181,7 @@ public class AddStudentView extends javax.swing.JFrame
         String lastName = lastNameEntry.getText();
         String email = emailEntry.getText();
         boolean validEmailAdr = true;
-
+       
         if (tuID.equals("") || firstName.equals("") || lastName.equals("") || email.equals(""))
         {
             JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
@@ -196,25 +196,26 @@ public class AddStudentView extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(this, "Please enter a valid email address");
                 validEmailAdr = false;
             }
-            int userFlag;
             if (validEmailAdr)
             {
-                if (tuID.length() != 7)
-                {
-                    JOptionPane.showMessageDialog(this, "Please enter an ID that is 7 digits in length");
-                } else if ((userFlag = UtilController.addUser(tuID, firstName, lastName, email)) > 0)
-                {
-                    JOptionPane.showMessageDialog(this, "Updating student data.");
-
-                    dispose();
-                    home.setVisible(true);
-                } else if (userFlag == -25)
-                {
-                    JOptionPane.showMessageDialog(this, "Error, student ID already exists in database.");
-                } else
-                {
-                    JOptionPane.showMessageDialog(this, "Error adding student into database.");
+                if(UtilController.isNumeric(tuID)){
+                
+                    if ((UtilController.addUser(tuID, firstName, lastName, email)) > 0)
+                    {
+                        JOptionPane.showMessageDialog(this, "Updating student data.");
+                        dispose();
+						home.setVisible(true);
+                    } else
+                    {
+                        JOptionPane.showMessageDialog(this, "Error updating student info database.");
+                    }
+                    
                 }
+                else{
+                    tuIDEntry.setText("");
+                    JOptionPane.showMessageDialog(this, "Please enter a numerical TUID.");
+                }
+                
             }
         }
 
