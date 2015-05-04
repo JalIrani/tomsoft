@@ -16,9 +16,19 @@ public class PasswordDialogView extends javax.swing.JFrame
 
     public PasswordDialogView()
     {
-        capsLockDetector();
         initComponents();
         passwordError.setVisible(false);
+		Password.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent capsLockCheck)
+            {
+                if(capsLockDetector())
+				{
+					passwordError.setVisible(true);
+					passwordError.setText("WARNING: Caps Lock is on");
+				}
+            }
+        });
         addWindowListener(new WindowAdapter()
         {
             @Override
@@ -39,7 +49,8 @@ public class PasswordDialogView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLabel1 = new javax.swing.JLabel();
         CancelButton = new javax.swing.JButton();
@@ -56,16 +67,20 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         CancelButton.setText("Cancel");
-        CancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        CancelButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 CancelButtonActionPerformed(evt);
             }
         });
         getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
 
         SubmitButton.setText("Submit");
-        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        SubmitButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 SubmitButtonActionPerformed(evt);
             }
         });
@@ -75,7 +90,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
         passwordError.setText("Invalid password");
-        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, 20));
+        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 180, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 220, 130));
@@ -112,17 +127,14 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
-    private void capsLockDetector()
+    private boolean capsLockDetector()
     {
         //Detects if Caps Lock is on. If it is it returns a warning
         if(Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK))
         {
-            UIManager UI = new UIManager();
-            UI.put("OptionPane.background", Color.white);
-            UI.put("Panel.background", Color.white);
-
-            JOptionPane.showMessageDialog(null, "CAPS LOCK IS ON!" ,"WARNING!", JOptionPane.INFORMATION_MESSAGE);
+            return true;
         }
+		return false;
     }
 
     /**
