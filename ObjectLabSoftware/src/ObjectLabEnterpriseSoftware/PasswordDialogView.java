@@ -2,6 +2,10 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.UIManager;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class PasswordDialogView extends javax.swing.JFrame
 {
@@ -12,6 +16,7 @@ public class PasswordDialogView extends javax.swing.JFrame
 
     public PasswordDialogView()
     {
+        capsLockDetector();
         initComponents();
         passwordError.setVisible(false);
         addWindowListener(new WindowAdapter()
@@ -34,8 +39,7 @@ public class PasswordDialogView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         CancelButton = new javax.swing.JButton();
@@ -52,20 +56,16 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         CancelButton.setText("Cancel");
-        CancelButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelButtonActionPerformed(evt);
             }
         });
         getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
 
         SubmitButton.setText("Submit");
-        SubmitButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SubmitButtonActionPerformed(evt);
             }
         });
@@ -78,7 +78,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 210, 130));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 220, 130));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -95,7 +95,8 @@ public class PasswordDialogView extends javax.swing.JFrame
             adminLoginStatus = true;
             dispose();
             home.resetAdminMode();
-        } else
+        } 
+        else
         {
             passwordError.setVisible(!wasLoginSuccessful);
             System.out.println("Password failed!");
@@ -110,6 +111,19 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.showStudentOptions();
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
+
+    private void capsLockDetector()
+    {
+        //Detects if Caps Lock is on. If it is it returns a warning
+        if(Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK))
+        {
+            UIManager UI = new UIManager();
+            UI.put("OptionPane.background", Color.white);
+            UI.put("Panel.background", Color.white);
+
+            JOptionPane.showMessageDialog(null, "CAPS LOCK IS ON!" ,"WARNING!", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
