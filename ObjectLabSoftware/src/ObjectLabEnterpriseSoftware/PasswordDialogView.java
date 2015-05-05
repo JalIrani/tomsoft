@@ -2,6 +2,8 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.awt.*;
 
 public class PasswordDialogView extends javax.swing.JFrame
 {
@@ -123,7 +125,6 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
-<<<<<<< HEAD
     private boolean capsLockDetector()
     {
         //Detects if Caps Lock is on. If it is it returns a warning
@@ -134,8 +135,6 @@ public class PasswordDialogView extends javax.swing.JFrame
 		return false;
     }
 
-=======
->>>>>>> parent of 0b14bf9... Caps Lock Detection
     /**
      * @param args the command line arguments
      */
