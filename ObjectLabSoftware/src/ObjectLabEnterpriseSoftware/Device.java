@@ -115,6 +115,21 @@ public class Device
         }
     }
 
+	/* 
+	It seems pretty crappy to have to re-write this code,
+	but I'm testing strings, and also I can't figure out 
+	how to pass the key in instead of the value. That's all for tonight, folks.
+		-Luke	
+	*/
+	public static int getDataType(Object fieldValue)
+	{
+		String fieldString = (String) fieldValue;
+		if(fieldString.matches("[0-9]+"))
+			return TYPE_DOUBLE;
+		else 
+			return TYPE_STRING;
+	}
+	
     public Object getFieldData(String key)
     {
         return fields.get(key);
