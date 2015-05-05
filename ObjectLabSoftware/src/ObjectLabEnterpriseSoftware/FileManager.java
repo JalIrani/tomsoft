@@ -187,7 +187,7 @@ public class FileManager
         fileopen.setAcceptAllFileFilterUsed(false);
         fileopen.setMultiSelectionEnabled(false);
         /* PLEASE NOTE THIS IS NOT DYNAMIC!!!! WILL NEED TO GET ALLOWED FILE TYPES BASED ON PRINTER */
-        fileopen.setFileFilter(new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl"));
+        //fileopen.setFileFilter(new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl"));
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION) 

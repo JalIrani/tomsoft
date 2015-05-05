@@ -2,6 +2,8 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.awt.*;
 
 public class PasswordDialogView extends javax.swing.JFrame
 {
@@ -14,6 +16,18 @@ public class PasswordDialogView extends javax.swing.JFrame
     {
         initComponents();
         passwordError.setVisible(false);
+		Password.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent capsLockCheck)
+            {
+                if(capsLockDetector())
+				{
+					passwordError.setVisible(true);
+					passwordError.setText("WARNING: Caps Lock is on");
+				}
+					passwordError.setText("");
+            }
+        });
         addWindowListener(new WindowAdapter()
         {
             @Override
@@ -75,7 +89,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
         passwordError.setText("Invalid password");
-        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 110, 20));
+        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 180, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 210, 130));
@@ -110,6 +124,16 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.showStudentOptions();
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
+
+    private boolean capsLockDetector()
+    {
+        //Detects if Caps Lock is on. If it is it returns a warning
+        if(Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK))
+        {
+            return true;
+        }
+		return false;
+    }
 
     /**
      * @param args the command line arguments
