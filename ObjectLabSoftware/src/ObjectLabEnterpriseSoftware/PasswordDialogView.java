@@ -2,10 +2,6 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.UIManager;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
 public class PasswordDialogView extends javax.swing.JFrame
 {
@@ -94,7 +90,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 180, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 220, 130));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 210, 130));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -111,8 +107,7 @@ public class PasswordDialogView extends javax.swing.JFrame
             adminLoginStatus = true;
             dispose();
             home.resetAdminMode();
-        } 
-        else
+        } else
         {
             passwordError.setVisible(!wasLoginSuccessful);
             System.out.println("Password failed!");
@@ -128,6 +123,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
+<<<<<<< HEAD
     private boolean capsLockDetector()
     {
         //Detects if Caps Lock is on. If it is it returns a warning
@@ -138,6 +134,8 @@ public class PasswordDialogView extends javax.swing.JFrame
 		return false;
     }
 
+=======
+>>>>>>> parent of 0b14bf9... Caps Lock Detection
     /**
      * @param args the command line arguments
      */
