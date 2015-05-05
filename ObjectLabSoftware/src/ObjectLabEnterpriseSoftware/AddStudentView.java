@@ -73,7 +73,6 @@ public class AddStudentView extends javax.swing.JFrame
 				}
             }
         });
-
     }
 
     /**
@@ -190,7 +189,12 @@ public class AddStudentView extends javax.swing.JFrame
         if (tuID.equals("") || firstName.equals("") || lastName.equals("") || email.equals(""))
         {
             JOptionPane.showMessageDialog(this, "Cannot save with empty fields!");
-        } else if (!email.isEmpty())
+        } 
+		else if (tuID.length() > 30 || firstName.length() > 30 | lastName.length() > 30 || email.length() > 60)
+		{
+            JOptionPane.showMessageDialog(this, "Cannot store an input field of that size!");
+		}
+		else if (!email.isEmpty())
         {
             try
             {

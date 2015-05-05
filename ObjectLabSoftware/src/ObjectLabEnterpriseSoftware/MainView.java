@@ -13,6 +13,7 @@ public class MainView extends javax.swing.JFrame
     JobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
+    String PASS = "ForwardMotion";
 
     public MainView()
     {
@@ -37,6 +38,11 @@ public class MainView extends javax.swing.JFrame
                     getToolkit().beep();
                     e.consume();
                 }
+				else if (studentIdString.getText().length() >= 7)
+				{
+					getToolkit().beep();
+					e.consume();
+				}
             }
         });
     }
