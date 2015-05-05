@@ -336,8 +336,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
         //in brackets, add Syncthing directory or new Drive's address for default location
         fileopen.setAcceptAllFileFilterUsed(false);
         fileopen.setMultiSelectionEnabled(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
-        fileopen.setFileFilter(filter);
+        //FileNameExtensionFilter filter = new FileNameExtensionFilter("Object Files", "obj", "zpr", "stl");
+        //fileopen.setFileFilter(filter);
         int ret = fileopen.showDialog(null, "Open file");
 
         if (ret == JFileChooser.APPROVE_OPTION)
