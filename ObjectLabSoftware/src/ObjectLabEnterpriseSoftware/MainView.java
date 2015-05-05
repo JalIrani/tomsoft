@@ -13,7 +13,6 @@ public class MainView extends javax.swing.JFrame
     JobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
-    String PASS = "ForwardMotion";
 
     public MainView()
     {

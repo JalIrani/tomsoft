@@ -66,6 +66,11 @@ public class AddStudentView extends javax.swing.JFrame
                     getToolkit().beep();
                     e.consume();
                 }
+				else if (tuIDEntry.getText().length() >= 7)
+				{
+					getToolkit().beep();
+					e.consume();
+				}
             }
         });
 
