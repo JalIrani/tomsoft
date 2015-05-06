@@ -38,6 +38,11 @@ public class MainView extends javax.swing.JFrame
                     getToolkit().beep();
                     e.consume();
                 }
+				else if (studentIdString.getText().length() >= 7)
+				{
+					getToolkit().beep();
+					e.consume();
+				}
             }
         });
     }

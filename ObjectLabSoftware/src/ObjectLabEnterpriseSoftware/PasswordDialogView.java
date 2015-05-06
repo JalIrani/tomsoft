@@ -15,17 +15,19 @@ public class PasswordDialogView extends javax.swing.JFrame
     public PasswordDialogView()
     {
         initComponents();
-        passwordError.setVisible(false);
+        //passwordError.setVisible(false);
 		Password.addKeyListener(new KeyAdapter()
         {
             public void keyTyped(KeyEvent capsLockCheck)
             {
                 if(capsLockDetector())
 				{
-					passwordError.setVisible(true);
 					passwordError.setText("WARNING: Caps Lock is on");
 				}
+				else
+				{
 					passwordError.setText("");
+				}
             }
         });
         addWindowListener(new WindowAdapter()
@@ -88,7 +90,6 @@ public class PasswordDialogView extends javax.swing.JFrame
 
         passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
-        passwordError.setText("Invalid password");
         getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 180, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
@@ -111,8 +112,7 @@ public class PasswordDialogView extends javax.swing.JFrame
             home.resetAdminMode();
         } else
         {
-            passwordError.setVisible(!wasLoginSuccessful);
-            System.out.println("Password failed!");
+            passwordError.setText("ERROR: Invalid password");
             adminLoginStatus = false;
         }
     }//GEN-LAST:event_SubmitButtonActionPerformed
