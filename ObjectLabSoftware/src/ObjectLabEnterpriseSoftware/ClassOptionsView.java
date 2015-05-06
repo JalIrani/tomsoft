@@ -56,6 +56,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 		classNumberL.setVisible(false);
 		sectionNumberL.setVisible(false);
 		className.setVisible(false);
+		jScrollPane5.setVisible(false);
 		classNumber.setVisible(false);
 		classNumber.setText("");
         classProfessor.setVisible(false);
@@ -84,7 +85,7 @@ public class ClassOptionsView extends javax.swing.JFrame
                                 /* 
                                  If they close the program then close out the window properly 
                                  */
-                            if(!"".equals(className.getSelectedValue().toString())||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
+                            if(!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
                                 if(JOptionPane.showConfirmDialog(null, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                                     addNewClass.setVisible(true);
                                     settings.AdminSettingsViewStart();
@@ -308,6 +309,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 		classNumberL.setVisible(true);
 		sectionNumberL.setVisible(true);
 		className.setVisible(true);
+		jScrollPane5.setVisible(true);
 		classNumber.setVisible(true);
         classProfessor.setVisible(true);
         classProfessorL.setVisible(true);
@@ -408,23 +410,17 @@ public class ClassOptionsView extends javax.swing.JFrame
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
 		// TODO add your handling code here:
-		
-		String classSelection = className.getSelectedValue().toString();
-			
-		if(classSelection != null)
-		{
-			if(!"".equals(classSelection)||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
-				if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
-					addNewClass.setVisible(true);
-					classNumber.setText("");
-					classProfessor.setText("");
-					sectionNumber.setText("");
-					hideOptions();
-				}
-			} else{
+		if(!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
+			if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
 				addNewClass.setVisible(true);
+				classNumber.setText("");
+				classProfessor.setText("");
+				sectionNumber.setText("");
 				hideOptions();
 			}
+		} else{
+			addNewClass.setVisible(true);
+			hideOptions();
 		}
     }//GEN-LAST:event_cancelBtnActionPerformed
 
