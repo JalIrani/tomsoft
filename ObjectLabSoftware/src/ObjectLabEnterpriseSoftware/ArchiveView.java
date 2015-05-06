@@ -14,6 +14,8 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import static javafx.print.PrintColor.COLOR;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -202,16 +204,19 @@ public class ArchiveView extends javax.swing.JFrame {
             //make sure there is data in the folders to delete
             UtilController.archiveSilent(jTextField1.getText(), jTextField2.getText());
             if(jCheckBox1.isSelected()){
-                JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
-                //WIPE DATA AND ARCHIVE
-                UtilController.clearData();
-                UtilController.purgeDir();
-                UtilController.archive(jTextField1.getText(), jTextField2.getText());
+                try {
+                    JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
+                    //WIPE DATA AND ARCHIVE
+                    UtilController.clearData();
+                    UtilController.purgeDir();
+                } catch (IOException ex) {
+                    Logger.getLogger(ArchiveView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }else{
              JOptionPane.showMessageDialog(null, "Archiving Started\nData will not be wiped");
                 //JUST DO ARCHIVE
-                UtilController.archive(jTextField1.getText(), jTextField2.getText());
             }
+            UtilController.archive(jTextField1.getText(), jTextField2.getText());
             report.setEnabled(true);
             report.setFocusable(true);
             this.dispose();

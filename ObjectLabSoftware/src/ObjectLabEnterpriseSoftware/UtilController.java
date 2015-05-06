@@ -265,7 +265,7 @@ public class UtilController
         
     }
 
-    static void purgeDir() {
+    static void purgeDir() throws IOException{
     
         FileManager manager = new FileManager();
         manager.purgeDir();

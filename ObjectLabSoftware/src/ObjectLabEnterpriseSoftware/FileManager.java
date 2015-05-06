@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -298,22 +300,12 @@ public class FileManager
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
     
-    public void helperArchive(File dir) throws IOException{
-      for(File file: dir.listFiles()){  
-        if(file.isDirectory())
-            helperArchive(file);
-        else {
-            if(file.getPath().compareTo("C:\\Sync\\computername.txt") != 0){
-                System.out.println(file.getAbsolutePath());
-                    file.delete();
-            }
-        }
-      }
-    }
-    
     public void purgeDir() throws IOException{
-        File file1 = new File(drive);
-        helperArchive(file1);
+        File file = new File(drive);
+        String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+        if(file.getPath().compareTo("C:\\Sync\\computername.txt") != 0 && file.getPath().compareTo("C:\\Sync\\Archive "+date) != 0){
+            FileUtils.cleanDirectory(file);
+        }
     }
     
     //getters and setters moved from InstanceCall by Emily and Miguel
