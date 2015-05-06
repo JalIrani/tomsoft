@@ -18,13 +18,14 @@ public class InputValidation
 		{
 			return TYPE_DOUBLE;
 		}
-		else if(isAlpha(valueString))
+		/*else if(isAlpha(valueString))
 		{
 			return TYPE_STRING;
-		}
+		}*/
 		else
 		{
-			return TYPE_UNKOWN;
+			/*return TYPE_UNKOWN;*/
+			return TYPE_STRING;
 		}
 	}
 

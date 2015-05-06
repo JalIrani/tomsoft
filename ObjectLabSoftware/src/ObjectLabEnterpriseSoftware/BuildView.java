@@ -97,17 +97,20 @@ public class BuildView extends javax.swing.JFrame
          */
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
+			/* Test the column input to see type */
 			int testColumnInput = InputValidation.getDataType((String)deviceInputTable.getValueAt(0, column));
-			int expectedColumnInput = Device.getDataType(deviceInputTable.getValueAt(0, column));
-			if(testColumnInput == -1)	
+			/* Ask Device model which type the column SHOULD be */
+			int expectedColumnInput = deviceModel.getFieldType(trackableFields.get(column));
+			
+			if(testColumnInput == -1)
 			{
-                ErrorText.setText("Invalid data entry for build data!");
+                ErrorText.setText("Unknown data entry for build data!");
                 ErrorText.setVisible(true);
 				return false;
 			}
 			else if(testColumnInput != expectedColumnInput)
 			{
-                ErrorText.setText("Invalid data entry for build data!");
+                ErrorText.setText("Invalid data entry for build data! Data in field " + column + "does not match expected type.");
                 ErrorText.setVisible(true);
 				return false;
 			}
@@ -117,7 +120,7 @@ public class BuildView extends javax.swing.JFrame
                 ErrorText.setVisible(true);
                 return false;
             }
-        }
+		}
         return true;
     }
 
