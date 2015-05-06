@@ -18,10 +18,11 @@ public class AddStudentView extends javax.swing.JFrame
 
     private static final String NAME_OF_PAGE = "New Student";
 
-    private static MainView home = new MainView();
+    private MainView home;
 
     public void NewStudentViewStart()
     {
+        home = new MainView();
         initComponents();
 
         //have database send in saved courses from admin page 

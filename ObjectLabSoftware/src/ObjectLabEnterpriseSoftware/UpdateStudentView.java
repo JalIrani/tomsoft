@@ -17,11 +17,12 @@ public class UpdateStudentView extends javax.swing.JFrame
 {
 	/* This code is similar to AddStudentView. This should not be the case, they should share stuff. */
     private static final String NAME_OF_PAGE = "Update Student Information";
-    private static MainView home = new MainView();
+    private MainView home;
 	private String userID;
 
     public void UpdateStudentViewStart(String id)
     {
+        home = new MainView();
         initComponents();
 
 		userID = id;
@@ -190,6 +191,7 @@ public class UpdateStudentView extends javax.swing.JFrame
         String firstName = firstNameEntry.getText();
         String lastName = lastNameEntry.getText();
         String email = emailEntry.getText();
+        
         boolean validEmailAdr = true;
        
         if (tuID.equals("") || firstName.equals("") || lastName.equals("") || email.equals(""))

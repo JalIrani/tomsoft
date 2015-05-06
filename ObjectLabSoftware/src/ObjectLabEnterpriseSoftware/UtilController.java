@@ -1121,7 +1121,7 @@ public class UtilController
                      */
                     String newFileLocation = FileManager.getDeviceToPrint(deviceName) + "\\" + jobFileName;
                     FileUtils.moveFileToDirectory(new File(previousFilePath), new File(newFileLocation), true);
-                    dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
+                    dbconn.updateJobFLocation(currentJob, newFileLocation.replace("\\", "\\\\"));
 
                 } else
                 {

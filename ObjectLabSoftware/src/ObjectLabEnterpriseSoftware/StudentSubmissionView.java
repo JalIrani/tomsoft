@@ -11,11 +11,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class StudentSubmissionView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Student Submission";
-    private static final MainView home = new MainView();
+    private MainView home;
     private String userID;
 
     public void studentSubmissionStart(String id)
     {
+        home = new MainView();
         initComponents();
         hideErrorFields();
         

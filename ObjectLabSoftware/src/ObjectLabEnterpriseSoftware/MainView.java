@@ -9,7 +9,7 @@ public class MainView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Home";
 
     AddStudentView newStudentSys;
-	UpdateStudentView updateStudentSys;
+    UpdateStudentView updateStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
     boolean show;
@@ -23,7 +23,7 @@ public class MainView extends javax.swing.JFrame
         pendingSys = new JobsView();
         studentSys = new StudentSubmissionView();
         newStudentSys = new AddStudentView();
-		updateStudentSys = new UpdateStudentView();
+        updateStudentSys = new UpdateStudentView();
 				
         //Allows only integers for student ID
         studentIdString.addKeyListener(new KeyAdapter()
@@ -325,7 +325,8 @@ public class MainView extends javax.swing.JFrame
         setPrintersVisible(false);
 
         String idString = studentIdString.getText();//DB team this is to store String
-
+        studentIdString.setText("");
+        
         if (idString.length() != 7)
         {
             errorIdLabel.setText("USER ID must be 7 digits");
