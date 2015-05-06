@@ -207,7 +207,7 @@ public class AddStudentView extends javax.swing.JFrame
             }
             if (validEmailAdr)
             {
-                if(UtilController.isNumeric(tuID)){
+                if(InputValidation.isNumber(tuID)){
                 
                     if ((UtilController.addUser(tuID, firstName, lastName, email)) > 0)
                     {
