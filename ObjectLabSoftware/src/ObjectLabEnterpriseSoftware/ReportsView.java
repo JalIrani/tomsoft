@@ -64,8 +64,7 @@ public class ReportsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         searchFilter = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -90,14 +89,12 @@ public class ReportsView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
-        searchFilter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        searchFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
             }
         });
-        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Object Lab Search");
@@ -105,14 +102,12 @@ public class ReportsView extends javax.swing.JFrame
 
         jLabel2.setText("Search:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 43, 21));
-        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 451, -1));
+        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 120, 400, -1));
 
         searchBtn.setText("Search");
         searchBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        searchBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchBtnActionPerformed(evt);
             }
         });
@@ -120,14 +115,12 @@ public class ReportsView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 682, 10));
 
         jButton1.setText("Export Master Report");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Reports");
@@ -135,10 +128,8 @@ public class ReportsView extends javax.swing.JFrame
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
         jComboBox1.setName("PrinterSelection"); // NOI18N
-        jComboBox1.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
             }
         });
@@ -154,26 +145,22 @@ public class ReportsView extends javax.swing.JFrame
 
     getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 682, 203));
 
-    exportBtn.setText("Export");
+    exportBtn.setText("Export Current Report");
     exportBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-    exportBtn.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
-        {
+    exportBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
             exportBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 61, 20));
+    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 140, 20));
 
     closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
     closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
     closeBtn.setBorderPainted(false);
     closeBtn.setContentAreaFilled(false);
     closeBtn.setFocusPainted(false);
-    closeBtn.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
-        {
+    closeBtn.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
             closeBtnActionPerformed(evt);
         }
     });
@@ -186,10 +173,8 @@ public class ReportsView extends javax.swing.JFrame
     jMenu2.setText("Help");
 
     jMenuItem1.setText("User Guide");
-    jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-    {
-        public void actionPerformed(java.awt.event.ActionEvent evt)
-        {
+    jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
             jMenuItem1ActionPerformed(evt);
         }
     });

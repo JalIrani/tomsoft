@@ -33,16 +33,16 @@ public class UtilController
 
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
-	
-	private static final String SOFTWARE_NAME = "OLI";
-	private static final String SOFTWARE_VERSION = "v1.0"; //Should be dynamic
-	private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
-	
-	public static String getPageName(String pageName)
-	{
-		return SOFTWARE_NAME + " " + SOFTWARE_VERSION + " - " + pageName;
-	}
-	
+
+    private static final String SOFTWARE_NAME = "OLI";
+    private static final String SOFTWARE_VERSION = "v1.0"; //Should be dynamic
+    private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
+
+    public static String getPageName(String pageName)
+    {
+        return SOFTWARE_NAME + " " + SOFTWARE_VERSION + " - " + pageName;
+    }
+
     private static void print(ArrayList<ArrayList<Object>> q)
     {
         for (int i = 0; i < q.size(); i++)
@@ -56,22 +56,28 @@ public class UtilController
         }
     }
 
-    public static void openAdminHelpPage(){
-        if(Desktop.isDesktopSupported()){
-            try {
+    public static void openAdminHelpPage()
+    {
+        if (Desktop.isDesktopSupported())
+        {
+            try
+            {
                 Desktop.getDesktop().browse(new URI(USER_GUIDE_URL));
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (URISyntaxException ex) {
+            } catch (URISyntaxException ex)
+            {
                 Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-}
-	public static String [] arrayListToStringArray(ArrayList <String> toConvert)
-	{
-		return toConvert.toArray(new String[toConvert.size()]);
-	}
-	
+    }
+
+    public static String[] arrayListToStringArray(ArrayList<String> toConvert)
+    {
+        return toConvert.toArray(new String[toConvert.size()]);
+    }
+
     public static ArrayList<String> getListOfAllDevices()
     {
         SQLMethods dbconn = new SQLMethods();
@@ -87,7 +93,7 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
-    
+
     public static ArrayList<String> getListOfCurrentDevices()
     {
         SQLMethods dbconn = new SQLMethods();
@@ -103,9 +109,9 @@ public class UtilController
         dbconn.closeDBConnection();
         return printers;
     }
-	
-	public static ArrayList<String> getListOfCurrentTrackedDevices()
-	{
+
+    public static ArrayList<String> getListOfCurrentTrackedDevices()
+    {
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult = dbconn.getTrackedDevices();
         ArrayList<String> printers = new ArrayList<String>();
@@ -117,9 +123,9 @@ public class UtilController
         }
 
         dbconn.closeDBConnection();
-        return printers;	
-	}
-	
+        return printers;
+    }
+
     public static String[] getReportColumnHeaders(String printer_name)
     {
         try
@@ -144,7 +150,7 @@ public class UtilController
         }
         return null;
     }
-    
+
     public static String[] getStatusJobsHeaders(String status)
     {
         try
@@ -169,7 +175,7 @@ public class UtilController
         }
         return null;
     }
-     
+
     public static ArrayList<ArrayList<Object>> updateReportTableData(String printer_name)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -197,59 +203,70 @@ public class UtilController
         return retval;
     }
 
-    private static String hashPassword(String pass){
-      try {
+    private static String hashPassword(String pass)
+    {
+        try
+        {
             MessageDigest sh = MessageDigest.getInstance("SHA-512");
             sh.update(pass.getBytes());
             StringBuffer sb = new StringBuffer();
-            for (byte b : sh.digest()) sb.append(Integer.toHexString(0xff & b));
+            for (byte b : sh.digest())
+            {
+                sb.append(Integer.toHexString(0xff & b));
+            }
             return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e)
+        {
             throw new RuntimeException(e);
         }
     }
-    
-    static void updateAdminPassword(String input) {
-        
+
+    static void updateAdminPassword(String input)
+    {
+
         String passHash = hashPassword(input);
-        
-         SQLMethods dbconn = new SQLMethods();
-       dbconn.updatePassword(passHash, "Admin");
+
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.updatePassword(passHash, "Admin");
 
 
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
-      
+
     }
 
-    static boolean checkAdminLogin(String input) {
-        
+    static boolean checkAdminLogin(String input)
+    {
+
         String passHash = hashPassword(input);
         String passFromDb = null;
-                
+
         SQLMethods dbconn = new SQLMethods();
-       
+
         ResultSet queryResult = dbconn.selectPassFromadmin("Admin");
 
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
-        
-        try {
+
+        try
+        {
             queryResult.first();
             passFromDb = queryResult.getString(1);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         /* Must process results found in ResultSet before the connection is closed! */
         dbconn.closeDBConnection();
-        
-        if(passFromDb.compareTo(passHash) == 0){
+
+        if (passFromDb.compareTo(passHash) == 0)
+        {
             return true;
-        }
-        else{
+        } else
+        {
             return false;
         }
-        
+
     }
 
     public void exportReportToFile(DefaultTableModel model, String[] header)
@@ -297,7 +314,7 @@ public class UtilController
 
     public static void exportReportsForPrinters()
     {
-		
+
         ArrayList<String> printers = UtilController.getListOfAllDevices();
         FileManager fileManager = new FileManager();
 
@@ -352,7 +369,7 @@ public class UtilController
     public static boolean rejectStudentSubmission(String file, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet results = dbconn.searchID((file) );
+        ResultSet results = dbconn.searchID((file));
 
         try
         {
@@ -364,14 +381,14 @@ public class UtilController
             if (results.next())
             {
                 primaryKey = results.getString("job_id");
-                
+
                 ResultSet queryResultData = dbconn.searchWithJobID(primaryKey);
                 if (queryResultData.next())
                 {
                     emailadr = queryResultData.getString("email");
-                    fName=queryResultData.getString("first_name");
-                    lName=queryResultData.getString("last_name");
-                    
+                    fName = queryResultData.getString("first_name");
+                    lName = queryResultData.getString("last_name");
+
                 } else
                 {
                     dbconn.closeDBConnection();
@@ -405,7 +422,7 @@ public class UtilController
              */
             String newFileLocation = cloudStorageOperations.getRejected() + file;
             dbconn.updateJobFLocation(Integer.parseInt(primaryKey), newFileLocation.replace("\\", "\\\\"));
-            dbconn.updateStatus( "rejected",Integer.parseInt(primaryKey));
+            dbconn.updateStatus("rejected", Integer.parseInt(primaryKey));
             dbconn.closeDBConnection();
 
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
@@ -431,7 +448,7 @@ public class UtilController
          all the fields input in the searchID method call
          */
         SQLMethods dbconn = new SQLMethods();
-        ResultSet result = dbconn.searchID((fileName) );
+        ResultSet result = dbconn.searchID((fileName));
         FileManager cloudStorageOperations = new FileManager();
 
         String ID;
@@ -461,7 +478,7 @@ public class UtilController
                  *   - Nick
                  */
                 dbconn.updateJobVolume(Integer.parseInt(ID), volume);
-                
+
                 /* update full file path */
                 updatedDirectoryLocation += fileName;
                 dbconn.updateJobFLocation(Integer.parseInt(ID), updatedDirectoryLocation.replace("\\", "\\\\"));
@@ -483,7 +500,7 @@ public class UtilController
         SQLMethods dbconn = new SQLMethods();
         File filePath = null;
 
-        ResultSet result = dbconn.searchID((fileName) );
+        ResultSet result = dbconn.searchID((fileName));
 
         try
         {
@@ -585,7 +602,7 @@ public class UtilController
     public static ArrayList<ArrayList<Object>> updatePendingTableData(String status)
     {
         SQLMethods dbconn = new SQLMethods();
-        ResultSet queryResult = dbconn.searchJobsStatus(status); 
+        ResultSet queryResult = dbconn.searchJobsStatus(status);
 
         ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
 
@@ -681,18 +698,18 @@ public class UtilController
         try
         {
             /*
-                Get new file location for submission location
+             Get new file location for submission location
              */
             FileManager instance = new FileManager();
             String newFileLoc = instance.getSubmission() + fileName;
             newFileLoc = newFileLoc.replace("\\", "\\\\");
 
             /*
-                Now copy the old file to the new file location
+             Now copy the old file to the new file location
              */
             FileUtils.copyFile(new File(fileLocation), new File(newFileLoc));
             dbconn.insertIntoJob(fileName, newFileLoc, classFK, userID, printerName);
-            
+
         } catch (IOException e)
         {
             javax.swing.JOptionPane.showMessageDialog(new java.awt.Frame(), "IOException! File couldn't be navigated.");
@@ -739,9 +756,9 @@ public class UtilController
 
     /**
      * Updates view for making a build. This will show files/currentJob (student
- submissions) that need to be put into a build UNFINISHED ****
-
- This method is called in: PrinterBuild.updateView
+     * submissions) that need to be put into a build UNFINISHED ****
+     *
+     * This method is called in: PrinterBuild.updateView
      *
      * @param printer the printer being viewed
      * @return
@@ -772,7 +789,7 @@ public class UtilController
             fileName = "Archive " + date;
             System.out.println((from.replace("\\", "\\\\") + "\\\\") + " : " + (to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip"));
             FileManager.zip((from.replace("\\", "\\\\") + "\\\\"), (to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip"));
-            
+
             if (FileManager.doesFileExist((to.replace("\\", "\\\\") + "\\\\" + fileName + ".zip")))
             {
                 JOptionPane.showMessageDialog(new JFrame(), "Archive Successful");
@@ -785,14 +802,15 @@ public class UtilController
             Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
-   public static void clearData(){
-   
-       SQLMethods dbconn = new SQLMethods();
-       dbconn.clearData();
-       dbconn.closeDBConnection();
-   
-   }
+
+    public static void clearData()
+    {
+
+        SQLMethods dbconn = new SQLMethods();
+        dbconn.clearData();
+        dbconn.closeDBConnection();
+
+    }
 
     public static void updateAvailableClasses(ArrayList<String> classData)
     {
@@ -800,10 +818,12 @@ public class UtilController
 
         // SET all classes in current's current value to true and all else to false
         dbconn.setAllClassesInvisible();
-        
-        for(String currentClass : classData)
+
+        for (String currentClass : classData)
+        {
             dbconn.updateCurrentClasses(Integer.parseInt(currentClass.split(" ")[0]));
-        
+        }
+
         dbconn.closeDBConnection();
     }
 
@@ -811,7 +831,7 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         String deviceName = deviceModel.getDeviceName();
-		boolean deviceTrack = deviceModel.getTrackSubmission();
+        boolean deviceTrack = deviceModel.getTrackSubmission();
         ArrayList<String> fieldNames = deviceModel.getFieldNames();
         ArrayList<String> fileExt = deviceModel.getFileExtensions();
 
@@ -854,17 +874,17 @@ public class UtilController
         dbconn.closeDBConnection();
         return classList;
     }
-    
+
     public static DefaultListModel returnNonCurrentClasses()
     {
         return returnClassesArray(false);
     }
-    
+
     public static DefaultListModel returnCurrentClasses()
     {
         return returnClassesArray(true);
     }
-    
+
     public static void insertNewClass(String className, String classNumber, String sectionNumber, String professor)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -873,7 +893,7 @@ public class UtilController
 
         dbconn.closeDBConnection();
     }
-    
+
     public static boolean userIDExist(String studentId)
     {
         boolean flag = false;
@@ -890,31 +910,33 @@ public class UtilController
         dbconn.closeDBConnection();
         return flag;
     }
-    
+
     public static int addUser(String studentId, String firstname, String lastname, String email)
     {
-		if(userIDExist(studentId))
-			return -25;
+        if (userIDExist(studentId))
+        {
+            return -25;
+        }
         SQLMethods dbconn = new SQLMethods();
         int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
         dbconn.closeDBConnection();
-		
-		return flag;
+
+        return flag;
     }
-	
+
     public static int updateUser(String studentId, String firstname, String lastname, String email)
-    {	
-		int flag = -1;
-		if(userIDExist(studentId))
-		{
-			SQLMethods dbconn = new SQLMethods();
-			flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
-			dbconn.closeDBConnection();
-			return flag;
-		}
-		return flag;
+    {
+        int flag = -1;
+        if (userIDExist(studentId))
+        {
+            SQLMethods dbconn = new SQLMethods();
+            flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+            dbconn.closeDBConnection();
+            return flag;
+        }
+        return flag;
     }
-     
+
     public static ArrayList<ArrayList<Object>> returnApprovedStudentSubmissionsForDevice(String printerName)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -923,34 +945,39 @@ public class UtilController
         dbconn.closeDBConnection();
         return parsedResult;
     }
-    
+
     public static boolean submitBuild(ArrayList<Integer> selectedStudentSubmissionFiles, Device deviceModel, String filePathToBuildFile, int models)
     {
         ArrayList<String> deviceFieldNames;
         SQLMethods dbconn = new SQLMethods();
         ResultSet fileInfo;
         String deviceName, jobFileName, previousFilePath;
-        
+
         deviceName = deviceModel.getDeviceName();
         deviceFieldNames = deviceModel.getFieldNames();
-        
+
         /* Set location for currentJob that have been printed */
         File newDir = new File(FileManager.getDevicePrinted(deviceName));
-        
+
         /* STEP 1.0 - Add new build to printer build table in database */
         int runtime;
-        if(deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
+        if (deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
+        {
             runtime = Integer.parseInt((String) deviceModel.getFieldData("Run time"));
-        else
+        } else
+        {
             runtime = (Integer) deviceModel.getFieldData("Run time");
-        
-        dbconn.insertIntoBuild(filePathToBuildFile, runtime, models, deviceName);
+        }
+
+        dbconn.insertIntoBuild(filePathToBuildFile.replace("\\", "\\\\"), runtime, models, deviceName);
         /* Remove first entry becuase it is now not needed (HOTFIX) */
         deviceModel.rmField("Run time");
         /* STEP 1.1 - Insert all build data for the device into the database for the assoicated printer and trackable field for that printer */
-        for(String fieldName : deviceFieldNames)
-            dbconn.insertIntoColumnBuildData(deviceName, fieldName, "" + deviceModel.getFieldData(fieldName), filePathToBuildFile);
-        
+        for (String fieldName : deviceFieldNames)
+        {
+            dbconn.insertIntoColumnBuildData(deviceName, fieldName, "" + deviceModel.getFieldData(fieldName), filePathToBuildFile.replace("\\", "\\\\"));
+        }
+
         /* Loop through currentJob that where checked in as part of the build and update data related to student submissions */
         for (Integer currentJob : selectedStudentSubmissionFiles)
         {
@@ -962,39 +989,40 @@ public class UtilController
                 {
                     jobFileName = fileInfo.getString("file_name");
                     previousFilePath = fileInfo.getString("file_path");
-                    previousFilePath = previousFilePath.replace("//", "////");
-                    
+                    previousFilePath = previousFilePath.replace("\\", "\\\\");
+
                     /* STEP 3 - Move file to Printed location and update file reference in the database */
                     if (FileManager.doesFileExist(previousFilePath))
                     {
                         /* 
-                            STEP 3.0 - Move file to "Printed" directory 
-                            STEP 3.1 - Update file location info in database
-                            STEP 3.2 - Update build_name info in job table
-                        */
+                         STEP 3.0 - Move file to "Printed" directory 
+                         STEP 3.1 - Update file location info in database
+                         STEP 3.2 - Update build_name info in job table
+                         */
                         FileUtils.moveFileToDirectory(new File(previousFilePath), newDir, true);
                         String newFileLocation = FileManager.getDevicePrinted(deviceName) + "\\" + jobFileName;
-                        dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
-                        dbconn.updateJobBuildName(filePathToBuildFile, currentJob);
-                        
+                        System.out.println(newFileLocation);
+                        dbconn.updateJobFLocation(currentJob, newFileLocation.replace("\\", "\\\\"));
+                        dbconn.updateJobBuildName(filePathToBuildFile.replace("\\", "\\\\"), currentJob);
+
                     } else
                     {
                         /* STEP 3.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
                         dbconn.updateJobFLocation(currentJob, "");
                     }
-                    
+
                     /* STEP 4 - Set job status to completed */
                     dbconn.changeJobStatus(currentJob, "completed");
-                    
+
                 } else
                 {
                     dbconn.closeDBConnection();
                     return false;
                 }
-            /* 
-                Need to add code to handle one of these two excpetions. They might have differentw ways of handling reverting updated data thats
-                why there are two catch blocks.
-            */
+                /* 
+                 Need to add code to handle one of these two excpetions. They might have differentw ways of handling reverting updated data thats
+                 why there are two catch blocks.
+                 */
             } catch (IOException ex)
             {
                 Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1006,7 +1034,7 @@ public class UtilController
         dbconn.closeDBConnection();
         return true;
     }
-  
+
     /**
      * Creates template device class for the printer build process to use. This
      * is created before build data is typed in in the printer dialog class.
@@ -1027,23 +1055,28 @@ public class UtilController
         ResultSet studentSubmissionQuery = dbconn.getStudentSubmissionStatusFromDevice(printer);
 
         buildPrinter.setDeviceName(printer);
-        
+
         try
         {
             /* Set our device student submission status here */
             if (studentSubmissionQuery.next())
+            {
                 buildPrinter.setTrackSubmission(studentSubmissionQuery.getBoolean("student_submission"));
-            
+            }
+
             /* Add the data from the query by row into the Device class */
             while (queryResultDeviceColumnInfo.next())
             {
                 Object tmpValue;
-                
-                if((Boolean) queryResultDeviceColumnInfo.getBoolean("numerical"))
+
+                if ((Boolean) queryResultDeviceColumnInfo.getBoolean("numerical"))
+                {
                     tmpValue = 0;
-                else
+                } else
+                {
                     tmpValue = "";
-                    
+                }
+
                 buildPrinter.addField(queryResultDeviceColumnInfo.getString("custom_field_name"), tmpValue);
             }
         } catch (SQLException ex)
@@ -1054,78 +1087,78 @@ public class UtilController
         dbconn.closeDBConnection();
         return buildPrinter;
     }
-    
+
     public static boolean isBuildFileLocationUsed(String flocation)
     {
         SQLMethods dbconn = new SQLMethods();
-        
+
         boolean doesFileExist = dbconn.doesBuildFileLocationExist("printer_build", flocation) > 0;
         dbconn.closeDBConnection();
-        
+
         return doesFileExist;
     }
-    
-    public static void removeClass(int classId){
+
+    public static void removeClass(int classId)
+    {
         SQLMethods dbconn = new SQLMethods();
         dbconn.deleteFromClass(classId);
         dbconn.closeDBConnection();
     }
-    
-    public static void removeDevice(String device){
-    
+
+    public static void removeDevice(String device)
+    {
+
         SQLMethods dbconn = new SQLMethods();
         dbconn.deletePrinter(device);
         dbconn.closeDBConnection();
-        
+
     }
+
     public static void removePrinterBuild(String buildname)
-    {SQLMethods dbconn = new SQLMethods();
-        try{
+    {
+        SQLMethods dbconn = new SQLMethods();
+        try
+        {
+            ArrayList<String> jobNames;
+            String printer;
+            ResultSet jobs;
+            jobs = dbconn.searchJobsByBuildName(buildname);
+
+            while (jobs.next())
+            {
+                int currentJob = jobs.getInt("submission_id");
+                String deviceName = jobs.getString("printer_name");
+                
+                String jobFileName = jobs.getString("file_name");
+                String previousFilePath = jobs.getString("file_path");
+
+                /* STEP 3 - Move file to Printed location and update file reference in the database */
+                if (FileManager.doesFileExist(previousFilePath))
+                {
+                    /* 
+                     STEP 3.0 - Move file to "ToPrinted" directory 
+                     STEP 3.1 - Update file location info in database
+                     */
+                    String newFileLocation = FileManager.getDeviceToPrint(deviceName) + "\\" + jobFileName;
+                    FileUtils.moveFileToDirectory(new File(previousFilePath), new File(newFileLocation), true);
+                    dbconn.updateJobFLocation(currentJob, newFileLocation.replace("\\", "\\\\"));
+
+                } else
+                {
+                    /* STEP 3.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
+                    dbconn.updateJobFLocation(currentJob, "");
+                }
+                
+                dbconn.updateStatus("approved", currentJob);
+                dbconn.deleteByBuildId(buildname);
+            }
             
-        
-        ArrayList<String> jobNames;
-        String printer;
-        ResultSet jobs;
-        jobs = dbconn.searchJobsByBuildName(buildname);
-        
-        while (jobs.next())
-        { int currentJob = jobs.getInt("submission_id");
-        String deviceName = jobs.getString("printer_name");
-            dbconn.updateStatus("approved",currentJob );
-            String jobFileName = jobs.getString("file_name");
-               String previousFilePath = jobs.getString("file_path");
-                    previousFilePath = previousFilePath.replace("//", "////");
-                    
-                    /* STEP 3 - Move file to Printed location and update file reference in the database */
-                    if (FileManager.doesFileExist(previousFilePath))
-                    {
-                        /* 
-                            STEP 3.0 - Move file to "Printed" directory 
-                            STEP 3.1 - Update file location info in database
-                            STEP 3.2 - Update build_name info in job table
-                        */ 
-                        String newFileLocation = FileManager.getDeviceToPrint(deviceName) + "\\" + jobFileName;
-                        FileUtils.moveFileToDirectory(new File(previousFilePath), new File(newFileLocation) , true);
-                       
-                        dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
-                       
-                        
-                    } else
-                    {
-                        /* STEP 3.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
-                        dbconn.updateJobFLocation(currentJob, "");
-                    }
-                    dbconn.deleteByBuildId(buildname);
-                    dbconn.closeDBConnection();
-            
+            dbconn.closeDBConnection();
+
+        } catch (Exception e)
+        {
+            dbconn.closeDBConnection();
         }
-        
-        }
-        catch (Exception e)
-        {  dbconn.closeDBConnection();
-        }
-       
-        
     }
-	
+
 }
