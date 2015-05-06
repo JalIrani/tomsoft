@@ -188,28 +188,31 @@ public class ArchiveView extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        if(archiveDirectory != null){
-        if(archiveDirectory.isDirectory()){
-            UtilController.archive(jTextField1.getText(), jTextField2.getText());
-            if(jCheckBox1.isSelected()){
-                JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
-                UtilController.clearData();
-                UtilController.deleteAllFiles();
-                //WIPE DATA AND ARCHIVE
+            if(archiveDirectory.isDirectory()){
+                UtilController.archive(jTextField1.getText(), jTextField2.getText());
+                if(jCheckBox1.isSelected()){
+                    JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
+                    //UtilController.clearData();
+                    UtilController.deleteAllFiles();
+                    //WIPE DATA AND ARCHIVE
+                    settings.AdminSettingsViewStart();
+                    dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Archiving Started\nData will not be wiped");
+                    settings.AdminSettingsViewStart();
+                    dispose();
+                   //JUST DO ARCHIVE
+                }
+
             }else{
-             JOptionPane.showMessageDialog(null, "Archiving Started\nData will not be wiped");
-             
-               //JUST DO ARCHIVE
+                JOptionPane.showMessageDialog(null,"Invaild Directory, Please choose another Directory");
             }
-            report.setEnabled(true);
-            report.setFocusable(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null,"Invaild Directory, Please choose another Directory");
-        }
-        
-       }else{
+
+       }
+       else{
             JOptionPane.showMessageDialog(null, "No directory Selected, Please choose a directory");
-        }
+       }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

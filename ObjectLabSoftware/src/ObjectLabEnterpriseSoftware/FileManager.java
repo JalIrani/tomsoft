@@ -22,7 +22,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class FileManager 
 {
-    private static final String drive = "C:\\Sync";            
+    private static final String drive = "C:\\Sync";    
+    private static final String drive2 = "C:\\Sync\\ObjectLabPrinters";    
     private static final String submission = drive + "\\ObjectLabPrinters\\Submissions\\";
     private static final String rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
     private static final String excelFilePath = drive + "\\Export\\";
@@ -42,19 +43,35 @@ public class FileManager
     
     private void deleteFile(File dir)
     {
-        for(File file: dir.listFiles()){
-            System.out.println(file.getPath());
-            if(file.isDirectory())
-            {
-                deleteFile(file);
-            }
-            else
-            {
-                if(file.getPath().compareTo("C:\\Sync\\computername.txt") != 0){
-                    file.delete();
+        if(dir.list() != null){
+            for(String file: dir.list()){
+                System.out.println(dir.getAbsolutePath() + "\\"  +file);
+                if(new File(dir.getAbsolutePath() + "\\"  +file).isFile() && (dir.getAbsolutePath() + "\\" + file).compareTo("C:\\Sync\\computername.txt") != 0){
+                    FileUtils.deleteQuietly(new File(dir.getAbsolutePath() + "\\" + file));
+                }
+                else if(new File(dir.getAbsolutePath() + "\\"  +file).isDirectory()){
+                    deleteFile(new File(dir.getAbsolutePath() + "\\" + file));
                 }
             }
         }
+//        for(File file: dir.listFiles()){
+//
+//                if(file.isDirectory()){
+//                    deleteFile(file);
+//                }
+//                else if(file.getAbsolutePath().compareTo("C:\\Sync\\computername.txt") != 0){
+//                    try {
+//                        //FileUtils.forceDeleteOnExit(file);
+//                        FileUtils.forceDelete(file);
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//
+//                } 
+//                //deleteFile(file);
+//                //file = null;
+//            
+//        }
         
     }
     
