@@ -46,8 +46,11 @@ public class BuildView extends javax.swing.JFrame
         for (ArrayList<Object> row : view)
         {
             /* We need to account for the checkbox by adding in a boolean value = false as the first value. */
-            row.add(0, (Boolean) false);
-            model.addRow(row.toArray());
+            if(UtilController.findAndVerifyFile((String)(row.get(1)))){
+                row.add(0, (Boolean) false);
+                model.addRow(row.toArray());
+            }
+            //System.out.println(row.get(1));
         }
     }
 

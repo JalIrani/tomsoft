@@ -58,7 +58,7 @@ public class SQLMethods
         url = "jdbc:mysql://" + ip + ":3306/";
         connectToDatabase("com.mysql.jdbc.Driver", url + "jobsdb", "admin", "password");
     }
-
+    
     private void connectToDatabase(String driver, String urlDatabaseName, String userName, String pw)
     {
         try
@@ -396,7 +396,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = '" +printer+"';");
+            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = " +printer +";");
             //stmt.setString(1, printer);
             res = stmt.executeQuery();
         } catch (SQLException e)
@@ -406,6 +406,22 @@ public class SQLMethods
         return res;
     }
 
+    public ResultSet selectBuildLocation(String printer){
+    
+        //select file_path from jobsdb.job where file_name = 'stuff2_2015-05-06_00-55-42.zpr';
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("select file_path from job where file_name = ?;");
+            stmt.setString(1, printer);
+            res = stmt.executeQuery();
+        } catch (SQLException e)
+        {
+            System.err.println("SQL Execution Error.");
+        }
+        return res;
+    }
+    
     public ResultSet selectTableHeader(String printer)
     {
 

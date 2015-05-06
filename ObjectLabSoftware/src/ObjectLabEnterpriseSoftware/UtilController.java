@@ -1035,6 +1035,26 @@ public class UtilController
         return true;
     }
 
+    public static boolean findAndVerifyFile(String file){
+    
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet queryResult = dbconn.selectBuildLocation(file);
+    
+        ArrayList<ArrayList<Object>> retval = readyOutputForViewPage(queryResult);
+        
+        System.out.println(retval.get(0).get(0));
+        
+        if(new File((String)(retval.get(0).get(0))).exists()){
+        
+            dbconn.closeDBConnection();
+            return true;
+        }
+        else{
+            dbconn.closeDBConnection();
+            return false;
+        }
+    }
+    
     /**
      * Creates template device class for the printer build process to use. This
      * is created before build data is typed in in the printer dialog class.

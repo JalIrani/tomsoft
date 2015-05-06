@@ -42,7 +42,9 @@ public class JobsView extends javax.swing.JFrame
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view)
         {
-            pendingJobsView.addRow(row.toArray());
+            if(UtilController.findAndVerifyFile((String)(row.toArray()[0]))){
+                pendingJobsView.addRow(row.toArray());
+            }
         }
         if (!status.equals("pending"))
         {
