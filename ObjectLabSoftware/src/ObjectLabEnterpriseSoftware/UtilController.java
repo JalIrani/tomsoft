@@ -1066,9 +1066,9 @@ public class UtilController
         
     }
     public static void removePrinterBuild(String buildname)
-    {
+    {SQLMethods dbconn = new SQLMethods();
         try{
-            SQLMethods dbconn = new SQLMethods();
+            
         
         ArrayList<String> jobNames;
         String printer;
@@ -1103,12 +1103,13 @@ public class UtilController
                         dbconn.updateJobFLocation(currentJob, "");
                     }
                     dbconn.deleteByBuildId(buildname);
+                    dbconn.closeDBConnection();
             
         }
         
         }
         catch (Exception e)
-        {
+        {  dbconn.closeDBConnection();
             //shit fucked up
         }
        
