@@ -650,6 +650,27 @@ public class UtilController
         return classesAvailble;
     }
 
+    public static String[] listOfBuilds()
+    {
+        /*
+         Fetch available builds
+         */
+
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet buildsResult = dbconn.getBuilds();
+        ArrayList<ArrayList<Object>> builds = readyOutputForViewPage(buildsResult);
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+
+        /* Convert results to desired format */
+        String[] returnBuilds = new String[builds.size()];
+        for (int row = 0; row < builds.size(); row++)
+        {
+            returnBuilds[row] = (String) builds.get(row).get(0);
+        }
+        return returnBuilds;
+    }
+	
     public static void submitStudentFile(String userID, String fileLocation, String fileName, String printerName, int classFK)
     {
         /*
@@ -1102,7 +1123,6 @@ public class UtilController
         }
         catch (Exception e)
         {  dbconn.closeDBConnection();
-            //shit fucked up
         }
        
         

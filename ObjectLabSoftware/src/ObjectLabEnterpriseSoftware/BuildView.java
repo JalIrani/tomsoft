@@ -15,6 +15,7 @@ public class BuildView extends javax.swing.JFrame
 
     private static final String NAME_OF_PAGE = "Build File Creator";
     private static MainView home = new MainView();
+    private static RemoveBuildView removeWindow = new RemoveBuildView();
     private static int countNumOfModels;
 
     private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
@@ -253,6 +254,8 @@ public class BuildView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         helpMenu = new javax.swing.JMenu();
         userGuide = new javax.swing.JMenuItem();
+        removeBuildOpen = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel()
         {
@@ -421,6 +424,27 @@ public class BuildView extends javax.swing.JFrame
 
             jMenuBar1.add(helpMenu);
 
+            removeBuildOpen.setText("Remove Build");
+            removeBuildOpen.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    removeBuildOpenActionPerformed(evt);
+                }
+            });
+
+            jMenuItem1.setText("Remove Build");
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    jMenuItem1ActionPerformed(evt);
+                }
+            });
+            removeBuildOpen.add(jMenuItem1);
+
+            jMenuBar1.add(removeBuildOpen);
+
             setJMenuBar(jMenuBar1);
 
             pack();
@@ -553,6 +577,17 @@ public class BuildView extends javax.swing.JFrame
         home.resetAdminMode();
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
+    private void removeBuildOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_removeBuildOpenActionPerformed
+    {//GEN-HEADEREND:event_removeBuildOpenActionPerformed
+
+    }//GEN-LAST:event_removeBuildOpenActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
+		dispose();
+		removeWindow.init();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
@@ -571,6 +606,7 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel4;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -579,6 +615,7 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JMenu removeBuildOpen;
     private javax.swing.JTable studentSubmissionApprovedTableList;
     private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables

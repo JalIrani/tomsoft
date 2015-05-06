@@ -1464,6 +1464,23 @@ public class SQLMethods
         }
     }
 
+	public ResultSet getBuilds()
+	{
+		res = null;
+		try
+		{
+            stmt = this.conn.prepareStatement(
+                    "SELECT build_name "
+                    + "FROM printer_build");	
+        System.out.println(stmt);
+		res = stmt.executeQuery();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
     public ResultSet getClasses(boolean status)
     {
         try
