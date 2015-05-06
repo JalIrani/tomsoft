@@ -16,10 +16,14 @@ public class BuildView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Build File Creator";
     private static MainView home = new MainView();
     private static int countNumOfModels;
-    
-    private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
-    private static String[] errorTextColumnHeader = { "The build file selected was already selected for a previous build entry." };
 
+    private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
+    private static String[] errorTextColumnHeader =
+    {
+        "The build file selected was already selected for a previous build entry."
+    };
+
+    private static boolean studentSubmissionTracked = true;
     private ArrayList<String> trackableFields;
     private DefaultTableModel deviceDataModel; /* Used to hold data entered in by the user for the build to display */
 
@@ -56,7 +60,6 @@ public class BuildView extends javax.swing.JFrame
 
     private boolean getAndValididateUserInput()
     {
-        boolean filesSelected = false;
 
         if (deviceNameComboBox.getSelectedItem().equals("") || deviceModel == null /* this is a hot fix... */)
         {
@@ -65,88 +68,107 @@ public class BuildView extends javax.swing.JFrame
             return false;
         }
 
-        /* filepathToSelectedDeviceBuild is the file location to the build file */
-        if (filepathToSelectedDeviceBuild.getText().isEmpty())
+        if (studentSubmissionTracked)
         {
-            ErrorText.setText("Choose a build file below!");
-            ErrorText.setVisible(true);
-            return false;
-        } else
-        {
-            //checks to see if any sleections in table exist to prevent no file submit case
-            for (int z = 0; z < fileTableModel.getRowCount(); z++)
+            boolean filesSelected = false;
+            /* filepathToSelectedDeviceBuild is the file location to the build file */
+            if (filepathToSelectedDeviceBuild.getText().isEmpty())
             {
-                if ((Boolean) fileTableModel.getValueAt(z, 0))
-                {
-                    filesSelected = true; /* Atleast one file was checked off for being part of the build*/
-
-                    break;
-                }
-            }
-
-            if (!filesSelected)
-            {
-                ErrorText.setText("Select Files used for build!");
+                ErrorText.setText("Choose a build file below!");
                 ErrorText.setVisible(true);
                 return false;
+            } else
+            {
+                //checks to see if any sleections in table exist to prevent no file submit case
+                for (int z = 0; z < fileTableModel.getRowCount(); z++)
+                {
+                    if ((Boolean) fileTableModel.getValueAt(z, 0))
+                    {
+                        filesSelected = true; /* Atleast one file was checked off for being part of the build*/
+
+                        break;
+                    }
+                }
+
+                if (!filesSelected)
+                {
+                    ErrorText.setText("Select Files used for build!");
+                    ErrorText.setVisible(true);
+                    return false;
+                }
             }
         }
-		
-		/* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
+
+        /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
          the input for the build data 
          */
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
-			/* Test the column input to see type */
-			int testColumnInput = InputValidation.getDataType((String)deviceInputTable.getValueAt(0, column));
-			/* Ask Device model which type the column SHOULD be */
-			int expectedColumnInput = deviceModel.getFieldType(trackableFields.get(column));
-			
-			if(testColumnInput == -1)
-			{
+            /* Test the column input to see type */
+            int testColumnInput = InputValidation.getDataType((String) deviceInputTable.getValueAt(0, column));
+            /* Ask Device model which type the column SHOULD be */
+            int expectedColumnInput = deviceModel.getFieldType(trackableFields.get(column));
+
+            if (testColumnInput == -1)
+            {
                 ErrorText.setText("Unknown data entry for build data!");
                 ErrorText.setVisible(true);
-				return false;
-			}
-			else if(testColumnInput != expectedColumnInput)
-			{
-                ErrorText.setText("Invalid data entry for build data! Data in field " + column + "does not match expected type.");
-                ErrorText.setVisible(true);
-				return false;
-			}
-			else if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
+                return false;
+            } else if (testColumnInput != expectedColumnInput)
             {
-                ErrorText.setText("Invalid data entry for build data!");
+                ErrorText.setText("Invalid data entry for build data! Data in field " + column + " does not match expected type.");
                 ErrorText.setVisible(true);
                 return false;
             }
-		}
+        }
         return true;
     }
 
+    private boolean preprocessDataForSubmit()
+    {
+        for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
+        {
+            if (!deviceModel.addField(trackableFields.get(column), deviceInputTable.getValueAt(0, column)))
+                {
+                    ErrorText.setText("Invalid data entry for build data!");
+                    ErrorText.setVisible(true);
+                    return false;
+                }
+        }
+        return true;
+    }
+    
     private boolean submit()
     {
         countNumOfModels = 0;
-        String filePathToBuildFile;
+        String filePathToBuildFile = "";
         ArrayList<Integer> selectedJobID;
 
         if (getAndValididateUserInput())
         {
-            ErrorText.setVisible(false);
-
-            filePathToBuildFile = filepathToSelectedDeviceBuild.getText();
-            selectedJobID = new ArrayList<>();
-
-            /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
-            for (int row = 0; row < fileTableModel.getRowCount(); row++)
+            if(preprocessDataForSubmit())
             {
-                if ((Boolean) fileTableModel.getValueAt(row, 0) /* If checked then add file to list */)
+                ErrorText.setVisible(false);
+                if (studentSubmissionTracked)
                 {
-                    selectedJobID.add(Integer.parseInt((String) fileTableModel.getValueAt(row, 1)));
-                    countNumOfModels++;
+                    filePathToBuildFile = filepathToSelectedDeviceBuild.getText();
+                } else
+                {
+                    filePathToBuildFile = "not_tracked_" + UtilController.getCurrentTimeFromDB();
                 }
+                selectedJobID = new ArrayList<>();
+
+                /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
+                for (int row = 0; row < fileTableModel.getRowCount(); row++)
+                {
+                    if ((Boolean) fileTableModel.getValueAt(row, 0) /* If checked then add file to list */)
+                    {
+                        selectedJobID.add(Integer.parseInt((String) fileTableModel.getValueAt(row, 1)));
+                        countNumOfModels++;
+                    }
+                }
+                return UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels);
             }
-            return UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels);
         }
         return false;
     }
@@ -297,7 +319,7 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
-        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 290, -1));
+        getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 760, -1));
 
         studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
         studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
@@ -380,7 +402,7 @@ public class BuildView extends javax.swing.JFrame
             buildFileLocationErrorStatusText.setLabelFor(browseBtn);
             buildFileLocationErrorStatusText.setText("Error Text For build location");
             buildFileLocationErrorStatusText.setToolTipText("");
-            getContentPane().add(buildFileLocationErrorStatusText, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 400, 20));
+            getContentPane().add(buildFileLocationErrorStatusText, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 520, 20));
 
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
@@ -441,22 +463,16 @@ public class BuildView extends javax.swing.JFrame
         {
             if (!UtilController.isBuildFileLocationUsed(filepathToSelectedDeviceBuild.getText()))
             {
-                buildFileLocationErrorStatusText.setVisible(false);
-                deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
-                trackableFields = deviceModel.getFieldNames();
-                deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
-                deviceInputTable.setModel(deviceDataModel);
-                deviceInputTable.setVisible(true);
-            }
-            else
+                setupUserInputBuildData();
+            } else
             {
                 filepathToSelectedDeviceBuild.setText("");
                 buildFileLocationErrorStatusText.setText("Select a unique build file location");
                 buildFileLocationErrorStatusText.setVisible(true);
-                
+
                 invalidBuildLocationSelectedColumnModel.setColumnIdentifiers(errorTextColumnHeader);
                 deviceInputTable.setModel(invalidBuildLocationSelectedColumnModel);
-                deviceInputTable.setVisible(false); 
+                deviceInputTable.setVisible(false);
             }
         }
     }//GEN-LAST:event_browseBtnActionPerformed
@@ -466,6 +482,16 @@ public class BuildView extends javax.swing.JFrame
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_userGuideActionPerformed
 
+    private void setupUserInputBuildData()
+    {
+        buildFileLocationErrorStatusText.setVisible(false);
+        deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
+
+        trackableFields = deviceModel.getFieldNames();
+        deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
+        deviceInputTable.setModel(deviceDataModel);
+        deviceInputTable.setVisible(true);
+    }
     private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
         /* When a device is selected we put the info into the Device class and then detrmine how we update our view from here 
@@ -506,8 +532,14 @@ public class BuildView extends javax.swing.JFrame
 
         } else
         {
+            setupUserInputBuildData();
+            studentSubmissionTracked = false;
+
             studentSubmissionApprovedTableList.setVisible(false);
-            filepathToSelectedDeviceBuild.setVisible(true);
+            filepathToSelectedDeviceBuild.setVisible(false);
+            buildLbl.setVisible(false);
+            browseBtn.setVisible(false);
+
             fileTableModel.setColumnIdentifiers(new String[]
             {
                 "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs"
