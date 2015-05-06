@@ -52,6 +52,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	public void hideOptions()
 	{
+                className.setVisible(false);
 		classNameL.setVisible(false);
 		classNumberL.setVisible(false);
 		sectionNumberL.setVisible(false);
@@ -84,8 +85,8 @@ public class ClassOptionsView extends javax.swing.JFrame
                                 /* 
                                  If they close the program then close out the window properly 
                                  */
-                            if(!"".equals(className.getSelectedValue().toString())||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
-                                if(JOptionPane.showConfirmDialog(null, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+                            if(className.getSelectedValue() == null || className.getSelectedValue().toString().isEmpty() || classNumber.getText().isEmpty() || classProfessor.getText().isEmpty() || sectionNumber.getText().isEmpty()){
+                                    if(JOptionPane.showConfirmDialog(null, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                                     addNewClass.setVisible(true);
                                     settings.AdminSettingsViewStart();
                                     dispose();
@@ -304,6 +305,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 
     private void addNewClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewClassActionPerformed
 		addNewClass.setVisible(false);
+                className.setVisible(true);
 		classNameL.setVisible(true);
 		classNumberL.setVisible(true);
 		sectionNumberL.setVisible(true);
@@ -318,7 +320,7 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_addNewClassActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        if(!"".equals(className.getSelectedValue().toString())||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
+        if(className.getSelectedValue() == null || className.getSelectedValue().toString().isEmpty() || classNumber.getText().isEmpty() || classProfessor.getText().isEmpty() || sectionNumber.getText().isEmpty()){
             if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                 addNewClass.setVisible(true);
                 settings.AdminSettingsViewStart();
@@ -409,10 +411,10 @@ public class ClassOptionsView extends javax.swing.JFrame
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
 		// TODO add your handling code here:
 		
-		String classSelection = className.getSelectedValue().toString();
-			
-		if(classSelection != null)
+		if(className.getSelectedValue() != null)
 		{
+                    String classSelection = className.getSelectedValue().toString();
+			
 			if(!"".equals(classSelection)||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
 				if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
 					addNewClass.setVisible(true);
