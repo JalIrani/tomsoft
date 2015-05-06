@@ -336,7 +336,13 @@ public class ClassOptionsView extends javax.swing.JFrame
 		{
 			JOptionPane.showMessageDialog(null, "Class already in current class list",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else
+		} 
+		else if(allClassList.getSelectedValue() == null)
+		{
+			JOptionPane.showMessageDialog(null, "No class selected!",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else
 		{
 			currentClassListModel.addElement(allClassList.getSelectedValue());
 			allClassListModel.removeElement(allClassList.getSelectedValue());
