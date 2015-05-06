@@ -887,12 +887,12 @@ public class SQLMethods
         }
     }
 
-    public void deleteByBuildId(int buildid)
+    public void deleteByBuildId(String buildid)
     {
         try
         {
-            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_id = ?;");
-            stmt.setInt(1, buildid);
+            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_name = ?;");
+            stmt.setString(1, buildid);
             stmt.executeUpdate();
         } catch (Exception e)
         {
