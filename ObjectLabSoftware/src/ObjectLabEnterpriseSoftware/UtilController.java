@@ -1070,5 +1070,55 @@ public class UtilController
         dbconn.closeDBConnection();
         
     }
+    public static void removePrinterBuild(String buildname)
+    {SQLMethods dbconn = new SQLMethods();
+        try{
+            
+        
+        ArrayList<String> jobNames;
+        String printer;
+        ResultSet jobs;
+        jobs = dbconn.searchJobsByBuildName(buildname);
+        
+        while (jobs.next())
+        { int currentJob = jobs.getInt("submission_id");
+        String deviceName = jobs.getString("printer_name");
+            dbconn.updateStatus("approved",currentJob );
+            String jobFileName = jobs.getString("file_name");
+               String previousFilePath = jobs.getString("file_path");
+                    previousFilePath = previousFilePath.replace("//", "////");
+                    
+                    /* STEP 3 - Move file to Printed location and update file reference in the database */
+                    if (FileManager.doesFileExist(previousFilePath))
+                    {
+                        /* 
+                            STEP 3.0 - Move file to "Printed" directory 
+                            STEP 3.1 - Update file location info in database
+                            STEP 3.2 - Update build_name info in job table
+                        */ 
+                        String newFileLocation = FileManager.getDeviceToPrint(deviceName) + "\\" + jobFileName;
+                        FileUtils.moveFileToDirectory(new File(previousFilePath), new File(newFileLocation) , true);
+                       
+                        dbconn.updateJobFLocation(currentJob, newFileLocation.replace("//", "////"));
+                       
+                        
+                    } else
+                    {
+                        /* STEP 3.2 - CASE WHERE FILE DOES NOT EXIST - Update file location in database to null */
+                        dbconn.updateJobFLocation(currentJob, "");
+                    }
+                    dbconn.deleteByBuildId(buildname);
+                    dbconn.closeDBConnection();
+            
+        }
+        
+        }
+        catch (Exception e)
+        {  dbconn.closeDBConnection();
+            //shit fucked up
+        }
+       
+        
+    }
 	
 }
