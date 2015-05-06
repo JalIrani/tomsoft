@@ -192,7 +192,7 @@ public class ArchiveView extends javax.swing.JFrame {
                 UtilController.archive(jTextField1.getText(), jTextField2.getText());
                 if(jCheckBox1.isSelected()){
                     JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
-                    //UtilController.clearData();
+                    UtilController.clearData();
                     UtilController.deleteAllFiles();
                     //WIPE DATA AND ARCHIVE
                     settings.AdminSettingsViewStart();

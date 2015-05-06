@@ -52,16 +52,16 @@ public class ClassOptionsView extends javax.swing.JFrame
 
 	public void hideOptions()
 	{
-                className.setVisible(false);
+                classNameList.setVisible(false);
 		classNameL.setVisible(false);
 		classNumberL.setVisible(false);
 		sectionNumberL.setVisible(false);
-		className.setVisible(false);
+		classNameList.setVisible(false);
 		classNumber.setVisible(false);
 		classNumber.setText("");
-        classProfessor.setVisible(false);
+                classProfessor.setVisible(false);
 		classProfessor.setText("");
-        classProfessorL.setVisible(false);
+                classProfessorL.setVisible(false);
 		sectionNumber.setVisible(false);
 		sectionNumber.setText("");
 		cancelBtn.setVisible(false);
@@ -85,14 +85,16 @@ public class ClassOptionsView extends javax.swing.JFrame
                                 /* 
                                  If they close the program then close out the window properly 
                                  */
-                            if(className.getSelectedValue() == null || className.getSelectedValue().toString().isEmpty() || classNumber.getText().isEmpty() || classProfessor.getText().isEmpty() || sectionNumber.getText().isEmpty()){
+                            if(classNameList.getSelectedValue() == null || classNameList.getSelectedValue().toString().isEmpty() || classNumber.getText().isEmpty() || classProfessor.getText().isEmpty() || sectionNumber.getText().isEmpty()){
                                     if(JOptionPane.showConfirmDialog(null, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                                     addNewClass.setVisible(true);
+                                    classNameList.setVisible(false);
                                     settings.AdminSettingsViewStart();
                                     dispose();
                                 }
                             }else{
                                 addNewClass.setVisible(true);
+                                classNameList.setVisible(false);
                                 settings.AdminSettingsViewStart();
                                 dispose();
                             }
@@ -137,7 +139,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         classProfessor = new javax.swing.JTextField();
         classProfessorL = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        className = new javax.swing.JList();
+        classNameList = new javax.swing.JList();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         EditMenu = new javax.swing.JMenu();
@@ -261,24 +263,21 @@ public class ClassOptionsView extends javax.swing.JFrame
         });
         getContentPane().add(classProfessor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 120, -1));
 
-        classProfessorL.setText("Professor:");
-        getContentPane().add(classProfessorL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 80, -1));
+        classProfessorL.setText("<html>\nProfessor\n<br>\n(Last Name):\n</html>");
+        getContentPane().add(classProfessorL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 100, 30));
 
-        className.setModel(new javax.swing.AbstractListModel()
-        {
+        classNameList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        className.addListSelectionListener(new javax.swing.event.ListSelectionListener()
-        {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt)
-            {
-                classNameValueChanged(evt);
+        classNameList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                classNameListValueChanged(evt);
             }
         });
-        jScrollPane5.setViewportView(className);
-        className.setListData(arrayOfTowsonDepartments);
+        jScrollPane5.setViewportView(classNameList);
+        classNameList.setListData(arrayOfTowsonDepartments);
 
         getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 130, 90));
 
@@ -305,14 +304,14 @@ public class ClassOptionsView extends javax.swing.JFrame
 
     private void addNewClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewClassActionPerformed
 		addNewClass.setVisible(false);
-                className.setVisible(true);
+                classNameList.setVisible(true);
 		classNameL.setVisible(true);
 		classNumberL.setVisible(true);
 		sectionNumberL.setVisible(true);
-		className.setVisible(true);
+		classNameList.setVisible(true);
 		classNumber.setVisible(true);
-        classProfessor.setVisible(true);
-        classProfessorL.setVisible(true);
+                classProfessor.setVisible(true);
+                classProfessorL.setVisible(true);
 		sectionNumber.setVisible(true);
 		cancelBtn.setVisible(true);
 		addNewButton.setVisible(true);
@@ -320,14 +319,16 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_addNewClassActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-        if(className.getSelectedValue() == null || className.getSelectedValue().toString().isEmpty() || classNumber.getText().isEmpty() || classProfessor.getText().isEmpty() || sectionNumber.getText().isEmpty()){
+        if(classNameList.getSelectedValue() == null || classNameList.getSelectedValue().toString().isEmpty() || classNumber.getText().isEmpty() || classProfessor.getText().isEmpty() || sectionNumber.getText().isEmpty()){
             if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
                 addNewClass.setVisible(true);
+                classNameList.setVisible(false);
                 settings.AdminSettingsViewStart();
                 dispose();
             }
         }else{
             addNewClass.setVisible(true);
+            classNameList.setVisible(false);
             settings.AdminSettingsViewStart();
             dispose();
         }
@@ -364,12 +365,12 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_removeArrowActionPerformed
 
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
-		if (InputValidation.isEmpty(className.getSelectedValue().toString()) | InputValidation.isEmpty(classNumber.getText())
+		if (InputValidation.isEmpty(classNameList.getSelectedValue().toString()) | InputValidation.isEmpty(classNumber.getText())
 				| InputValidation.isEmpty(sectionNumber.getText()) | InputValidation.isEmpty(classProfessor.getText()))
 		{
 			JOptionPane.showMessageDialog(null, "Please enter all Class Values",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else if (className.getSelectedValue().toString().contains(" ") | classNumber.getText().contains(" ")
+		} else if (classNameList.getSelectedValue().toString().contains(" ") | classNumber.getText().contains(" ")
 				| sectionNumber.getText().contains(" ") | classProfessor.getText().contains(" "))
 		{
 			JOptionPane.showMessageDialog(null, "Values can only be one word each",
@@ -380,13 +381,13 @@ public class ClassOptionsView extends javax.swing.JFrame
 			JOptionPane.showMessageDialog(null, "Class Number and Section Numbers must "
 					+ "contain only numbers",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
-		} else if (!InputValidation.isAlpha(className.getSelectedValue().toString()) | !InputValidation.isAlpha(classProfessor.getText()))
+		} else if (!InputValidation.isAlpha(classNameList.getSelectedValue().toString()) | !InputValidation.isAlpha(classProfessor.getText()))
 		{
 			JOptionPane.showMessageDialog(null, "Names must only contain letters.",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		} else
 		{
-			String input = className.getSelectedValue().toString().toUpperCase() + " "
+			String input = classNameList.getSelectedValue().toString().toUpperCase() + " "
 					+ classNumber.getText() + " " + sectionNumber.getText();
 			DefaultListModel temp = new DefaultListModel();
 			temp.addElement(input);
@@ -398,12 +399,13 @@ public class ClassOptionsView extends javax.swing.JFrame
 			} else
 			{
 				allClassListModel.addElement(input.toUpperCase());
-				UtilController.insertNewClass(className.getSelectedValue().toString().toUpperCase(), classNumber.getText(), sectionNumber.getText(), classProfessor.getText().trim());
+				UtilController.insertNewClass(classNameList.getSelectedValue().toString().toUpperCase(), classNumber.getText(), sectionNumber.getText(), classProfessor.getText().trim());
 			}
 
 			temp.clear();
 			hideOptions();
 			addNewClass.setVisible(true);
+                        classNameList.setVisible(false);
                         updateView();
 		}
     }//GEN-LAST:event_addNewButtonActionPerformed
@@ -411,13 +413,14 @@ public class ClassOptionsView extends javax.swing.JFrame
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
 		// TODO add your handling code here:
 		
-		if(className.getSelectedValue() != null)
+		if(classNameList.getSelectedValue() != null)
 		{
-                    String classSelection = className.getSelectedValue().toString();
+                    String classSelection = classNameList.getSelectedValue().toString();
 			
 			if(!"".equals(classSelection)||!"".equals(classNumber.getText())||!"".equals(classProfessor.getText())||!"".equals(sectionNumber.getText())){
 				if(JOptionPane.showConfirmDialog(this, "Would you like to discard the class you are adding.", "Warning", JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
 					addNewClass.setVisible(true);
+                                        classNameList.setVisible(false);
 					classNumber.setText("");
 					classProfessor.setText("");
 					sectionNumber.setText("");
@@ -425,6 +428,7 @@ public class ClassOptionsView extends javax.swing.JFrame
 				}
 			} else{
 				addNewClass.setVisible(true);
+                                classNameList.setVisible(false);
 				hideOptions();
 			}
 		}
@@ -450,10 +454,10 @@ public class ClassOptionsView extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_classProfessorActionPerformed
 
-    private void classNameValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_classNameValueChanged
-    {//GEN-HEADEREND:event_classNameValueChanged
+    private void classNameListValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_classNameListValueChanged
+    {//GEN-HEADEREND:event_classNameListValueChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_classNameValueChanged
+    }//GEN-LAST:event_classNameListValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -463,8 +467,8 @@ public class ClassOptionsView extends javax.swing.JFrame
     private javax.swing.JButton addNewClass;
     private javax.swing.JList allClassList;
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JList className;
     private javax.swing.JLabel classNameL;
+    private javax.swing.JList classNameList;
     private javax.swing.JTextField classNumber;
     private javax.swing.JLabel classNumberL;
     private javax.swing.JTextField classProfessor;
