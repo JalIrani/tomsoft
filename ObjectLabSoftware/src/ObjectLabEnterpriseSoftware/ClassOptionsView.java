@@ -370,13 +370,21 @@ public class ClassOptionsView extends javax.swing.JFrame
     }//GEN-LAST:event_addArrowActionPerformed
 
     private void removeArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeArrowActionPerformed
-		int i;
-		for (i = 0; i < currentClassListModel.getSize(); i++)
+		if(currentClassList.getSelectedValue() == null)
 		{
-			if (currentClassListModel.elementAt(i).equals(currentClassList.getSelectedValue()))
+			JOptionPane.showMessageDialog(null, "No class selected!",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else
+		{
+			int i;
+			for (i = 0; i < currentClassListModel.getSize(); i++)
 			{
-				allClassListModel.addElement(currentClassListModel.elementAt(i));
-				currentClassListModel.removeElementAt(i);
+				if (currentClassListModel.elementAt(i).equals(currentClassList.getSelectedValue()))
+				{
+					allClassListModel.addElement(currentClassListModel.elementAt(i));
+					currentClassListModel.removeElementAt(i);
+				}
 			}
 		}
     }//GEN-LAST:event_removeArrowActionPerformed
