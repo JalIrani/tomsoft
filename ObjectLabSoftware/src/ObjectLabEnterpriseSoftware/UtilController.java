@@ -1126,7 +1126,7 @@ public class UtilController
 
             while (jobs.next())
             {
-                int currentJob = jobs.getInt("submission_id");
+                int currentJob = jobs.getInt("job_id");
                 String deviceName = jobs.getString("printer_name");
                 
                 String jobFileName = jobs.getString("file_name");
@@ -1142,6 +1142,7 @@ public class UtilController
                     String newFileLocation = FileManager.getDeviceToPrint(deviceName) + "\\" + jobFileName;
                     FileUtils.moveFileToDirectory(new File(previousFilePath), new File(newFileLocation), true);
                     dbconn.updateJobFLocation(currentJob, newFileLocation.replace("\\", "\\\\"));
+					dbconn.updateJobBuildName("", currentJob);
 
                 } else
                 {
@@ -1150,13 +1151,13 @@ public class UtilController
                 }
                 
                 dbconn.updateStatus("approved", currentJob);
-                dbconn.deleteByBuildId(buildname);
             }
-            
+            dbconn.deleteByBuildId(buildname);
             dbconn.closeDBConnection();
 
         } catch (Exception e)
         {
+			System.out.println(e);
             dbconn.closeDBConnection();
         }
     }

@@ -221,8 +221,7 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT * FROM job, printer_build "
-                    + "WHERE buildName = ?  AND printer_build.build_id= Job.build_id;");
+            stmt = this.conn.prepareStatement("SELECT * FROM job WHERE build_name = ?");
             stmt.setString(1, buildName);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -891,7 +890,7 @@ public class SQLMethods
     {
         try
         {
-            stmt = this.conn.prepareStatement("DELETE FROM job WHERE build_name = ?;");
+            stmt = this.conn.prepareStatement("DELETE FROM printer_build WHERE build_name = ?;");
             stmt.setString(1, buildid);
             stmt.executeUpdate();
         } catch (Exception e)

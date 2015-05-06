@@ -3,13 +3,15 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 public class RemoveBuildView extends javax.swing.JFrame
 {
 	
 	private static final String NAME_OF_PAGE = "Removes Build";
 
-	public static final String [] buildList = UtilController.listOfBuilds();
+	private static MainView home = new MainView();
+	private static final String [] buildList = UtilController.listOfBuilds();
 	
 	public RemoveBuildView()
 	{
@@ -22,7 +24,8 @@ public class RemoveBuildView extends javax.swing.JFrame
                         @Override
                         public void windowClosing(WindowEvent we)
                         {
-                            dispose();
+							dispose();
+							home.resetAdminMode();
                         }
                     }
 		);
@@ -70,6 +73,13 @@ public class RemoveBuildView extends javax.swing.JFrame
         jLabel1.setText("Select Build:");
 
         jButton1.setText("Remove");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setContentAreaFilled(false);
@@ -142,6 +152,21 @@ public class RemoveBuildView extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+		if(buildJList.getSelectedValue() == null)
+		{
+			JOptionPane.showMessageDialog(null, "No item selected",
+				"Add Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else
+		{
+			UtilController.removePrinterBuild((String)buildJList.getSelectedValue());
+			dispose();
+			home.resetAdminMode();			
+		}
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
