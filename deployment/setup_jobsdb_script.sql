@@ -281,8 +281,10 @@ SET @sql = CONCAT('SELECT * FROM( SELECT pb.build_name, ', @sql, ' from printer_
 left join column_build_data s
   on pb.build_name = s.build_name
 left join custom_printer_column_names pd
-  on s.column_name_id = pd.column_names_id WHERE pb.printer_name = "', @printer,'") r WHERE r.', @columnF ,' = ', @valueF ,' 
-group by r.build_name');
+  on s.column_name_id = pd.column_names_id WHERE pb.printer_name = "', 
+  @printer,'" group by pb.build_name) r WHERE r.'
+  , @columnF ,' = ', @valueF ,' ');
+
 
 PREPARE stmt FROM @sql ;
 
