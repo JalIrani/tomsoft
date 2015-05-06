@@ -297,31 +297,25 @@ public class FileManager
  
        // System.out.println("Regular file :" + parentName+inputFile.getName() +" is zipped to archive :"+ZIPPED_FOLDER);
     }
-    public static boolean deleteF(File file) {
-
-    File[] flist = null;
-
-    if(file == null){
-        return false;
-    }
-
-    if (file.isFile()) {
-        return file.delete();
-    }
-
-    if (file.isDirectory()) {
-        return false;
-    }
-
-    flist = file.listFiles();
-    if (flist != null && flist.length > 0) {
-        for (File f : flist) {
-            deleteF(f);
+    
+    public void helperArchive(File dir) throws IOException{
+      for(File file: dir.listFiles()){  
+        if(file.isDirectory())
+            helperArchive(file);
+        else {
+            if(file.getPath().compareTo("C:\\Sync\\computername.txt") != 0){
+                System.out.println(file.getAbsolutePath());
+                    file.delete();
+            }
         }
+      }
     }
-
-    return file.delete();
-}
+    
+    public void purgeDir() throws IOException{
+        File file1 = new File(drive);
+        helperArchive(file1);
+    }
+    
     //getters and setters moved from InstanceCall by Emily and Miguel
     /**
      * @return the zcorpToPrint

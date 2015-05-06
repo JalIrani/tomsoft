@@ -204,20 +204,8 @@ public class ArchiveView extends javax.swing.JFrame {
             if(jCheckBox1.isSelected()){
                 JOptionPane.showMessageDialog(null, "Archiving Started\nData is being wiped");
                 //WIPE DATA AND ARCHIVE
-                File input = new File(jTextField1.getText());
-                for(File f: input.listFiles())
-                    FileManager.deleteF(f);
-                File input2 = new File(jTextField2.getText());
-                //delete files, but not directories
                 UtilController.clearData();
-                UtilController.purgeDir(input);
-                try{//to empty the archive folder
-                    JOptionPane.showMessageDialog(null, "Deleting old archives");
-                    FileUtils.cleanDirectory(input2);
-                }
-                catch (IOException e){
-                    JOptionPane.showMessageDialog(null,"Error deleting files.");
-                }
+                UtilController.purgeDir();
                 UtilController.archive(jTextField1.getText(), jTextField2.getText());
             }else{
              JOptionPane.showMessageDialog(null, "Archiving Started\nData will not be wiped");
