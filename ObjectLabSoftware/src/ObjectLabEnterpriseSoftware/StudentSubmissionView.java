@@ -333,7 +333,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private void BrowseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BrowseMouseClicked
         //Creates "JFileChooser" file browser
         JFileChooser fileopen = new JFileChooser();
-        File desktop = new File("Desktop");
+        File desktop = new File(System.getProperty("user.home") + "\\Desktop");
         fileopen.setCurrentDirectory(desktop);
         //in brackets, add Syncthing directory or new Drive's address for default location
         fileopen.setAcceptAllFileFilterUsed(false);
@@ -358,9 +358,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void BrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BrowseActionPerformed
-        JFileChooser fileopen = new JFileChooser();
-        File desktop = new File("Desktop");
-        fileopen.setCurrentDirectory(desktop);
+
     }//GEN-LAST:event_BrowseActionPerformed
 
     private void printerBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printerBoxActionPerformed
