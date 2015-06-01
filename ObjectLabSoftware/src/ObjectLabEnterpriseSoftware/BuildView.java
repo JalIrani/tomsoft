@@ -228,8 +228,7 @@ public class BuildView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -255,13 +254,12 @@ public class BuildView extends javax.swing.JFrame
         buildFileLocationErrorStatusText = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        helpMenu = new javax.swing.JMenu();
-        userGuide = new javax.swing.JMenuItem();
         removeBuildOpen = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        helpMenu = new javax.swing.JMenu();
+        userGuide = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -284,10 +282,8 @@ public class BuildView extends javax.swing.JFrame
 
         Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
         Submit_Button.setText("Submit Build");
-        Submit_Button.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Submit_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Submit_ButtonActionPerformed(evt);
             }
         });
@@ -302,20 +298,16 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
 
         filepathToSelectedDeviceBuild.setEditable(false);
-        filepathToSelectedDeviceBuild.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        filepathToSelectedDeviceBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filepathToSelectedDeviceBuildActionPerformed(evt);
             }
         });
         getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
 
         browseBtn.setText("Browse");
-        browseBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseBtnActionPerformed(evt);
             }
         });
@@ -351,8 +343,7 @@ public class BuildView extends javax.swing.JFrame
                 }
             });
             jScrollPane3.setViewportView(studentSubmissionApprovedTableList);
-            if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0)
-            {
+            if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0) {
                 studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMinWidth(30);
                 studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMaxWidth(30);
                 studentSubmissionApprovedTableList.getColumnModel().getColumn(1).setResizable(false);
@@ -367,10 +358,8 @@ public class BuildView extends javax.swing.JFrame
 
             deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
             deviceNameComboBox.setSelectedItem(null);
-            deviceNameComboBox.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            deviceNameComboBox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     deviceNameComboBoxActionPerformed(evt);
                 }
             });
@@ -393,10 +382,8 @@ public class BuildView extends javax.swing.JFrame
             backToMainMenu.setBorderPainted(false);
             backToMainMenu.setContentAreaFilled(false);
             backToMainMenu.setFocusPainted(false);
-            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
                 }
             });
@@ -413,40 +400,34 @@ public class BuildView extends javax.swing.JFrame
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
 
-            helpMenu.setText("Help");
-
-            userGuide.setText("User Guide");
-            userGuide.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    userGuideActionPerformed(evt);
-                }
-            });
-            helpMenu.add(userGuide);
-
-            jMenuBar1.add(helpMenu);
-
             removeBuildOpen.setText("Remove Build");
-            removeBuildOpen.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            removeBuildOpen.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     removeBuildOpenActionPerformed(evt);
                 }
             });
 
             jMenuItem1.setText("Remove Build");
-            jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jMenuItem1ActionPerformed(evt);
                 }
             });
             removeBuildOpen.add(jMenuItem1);
 
             jMenuBar1.add(removeBuildOpen);
+
+            helpMenu.setText("Help");
+
+            userGuide.setText("User Guide");
+            userGuide.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    userGuideActionPerformed(evt);
+                }
+            });
+            helpMenu.add(userGuide);
+
+            jMenuBar1.add(helpMenu);
 
             setJMenuBar(jMenuBar1);
 
@@ -476,7 +457,12 @@ public class BuildView extends javax.swing.JFrame
      */
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         JFileChooser chooser = new JFileChooser();//Select Default
+        File defaultBuildDirectory;
+        String device = (String)deviceNameComboBox.getSelectedItem();
+        device.toLowerCase();
+        defaultBuildDirectory = new File(FileManager.getDeviceToPrint(device));
         chooser.setPreferredSize(new Dimension(800, 500));
+        chooser.setCurrentDirectory(defaultBuildDirectory);
         int returnVal = chooser.showDialog(null, "Select");
 
         if (returnVal == chooser.APPROVE_OPTION)

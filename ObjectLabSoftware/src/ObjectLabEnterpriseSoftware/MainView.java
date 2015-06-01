@@ -54,8 +54,7 @@ public class MainView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -77,14 +76,13 @@ public class MainView extends javax.swing.JFrame
         settingsLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
-        helpButton = new javax.swing.JMenu();
-        userGuideButton = new javax.swing.JMenuItem();
         userOptionsMenu = new javax.swing.JMenu();
         newStudentOption = new javax.swing.JMenuItem();
         updateStudentOption = new javax.swing.JMenuItem();
+        helpButton = new javax.swing.JMenu();
+        userGuideButton = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -108,10 +106,8 @@ public class MainView extends javax.swing.JFrame
         getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 130, 20));
 
         studentIdString.setToolTipText("Enter seven digit student ID.");
-        studentIdString.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        studentIdString.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentIdStringActionPerformed(evt);
             }
         });
@@ -119,10 +115,8 @@ public class MainView extends javax.swing.JFrame
 
         studentButton.setBackground(new java.awt.Color(0, 0, 0));
         studentButton.setText("Login");
-        studentButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        studentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentButtonActionPerformed(evt);
             }
         });
@@ -131,10 +125,8 @@ public class MainView extends javax.swing.JFrame
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("");
         enterBuild.setContentAreaFilled(false);
-        enterBuild.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        enterBuild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterBuildActionPerformed(evt);
             }
         });
@@ -143,10 +135,8 @@ public class MainView extends javax.swing.JFrame
         openProjectsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/clipboard_icon.png"))); // NOI18N
         openProjectsButton.setToolTipText("");
         openProjectsButton.setContentAreaFilled(false);
-        openProjectsButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        openProjectsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openProjectsButtonActionPerformed(evt);
             }
         });
@@ -155,10 +145,8 @@ public class MainView extends javax.swing.JFrame
         settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png"))); // NOI18N
         settingsButton.setToolTipText("");
         settingsButton.setContentAreaFilled(false);
-        settingsButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 settingsButtonActionPerformed(evt);
             }
         });
@@ -166,10 +154,8 @@ public class MainView extends javax.swing.JFrame
 
         AdminButton.setBackground(new java.awt.Color(0, 0, 0));
         AdminButton.setText("Administrator");
-        AdminButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AdminButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AdminButtonActionPerformed(evt);
             }
         });
@@ -178,10 +164,8 @@ public class MainView extends javax.swing.JFrame
         ReportsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png"))); // NOI18N
         ReportsButton.setToolTipText("");
         ReportsButton.setContentAreaFilled(false);
-        ReportsButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ReportsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportsButtonActionPerformed(evt);
             }
         });
@@ -189,10 +173,8 @@ public class MainView extends javax.swing.JFrame
 
         logoutB.setBackground(new java.awt.Color(0, 0, 0));
         logoutB.setText("Logout");
-        logoutB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        logoutB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutBActionPerformed(evt);
             }
         });
@@ -217,50 +199,42 @@ public class MainView extends javax.swing.JFrame
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 370));
 
-        helpButton.setText("Help");
-
-        userGuideButton.setText("User Guide");
-        userGuideButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                userGuideButtonActionPerformed(evt);
-            }
-        });
-        helpButton.add(userGuideButton);
-
-        MenuBar.add(helpButton);
-
         userOptionsMenu.setText("User Options");
-        userOptionsMenu.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        userOptionsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userOptionsMenuActionPerformed(evt);
             }
         });
 
         newStudentOption.setText("Add User");
-        newStudentOption.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        newStudentOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newStudentOptionActionPerformed(evt);
             }
         });
         userOptionsMenu.add(newStudentOption);
 
         updateStudentOption.setText("Update User Login Info");
-        updateStudentOption.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        updateStudentOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateStudentOptionActionPerformed(evt);
             }
         });
         userOptionsMenu.add(updateStudentOption);
 
         MenuBar.add(userOptionsMenu);
+
+        helpButton.setText("Help");
+
+        userGuideButton.setText("User Guide");
+        userGuideButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userGuideButtonActionPerformed(evt);
+            }
+        });
+        helpButton.add(userGuideButton);
+
+        MenuBar.add(helpButton);
 
         setJMenuBar(MenuBar);
 
@@ -288,6 +262,7 @@ public class MainView extends javax.swing.JFrame
         dialogue.setVisible(true);
         dialogue.setLocationRelativeTo(this);
         dialogue.setResizable(false);
+        errorIdLabel.setVisible(false);
         this.dispose();
 
     }//GEN-LAST:event_AdminButtonActionPerformed
