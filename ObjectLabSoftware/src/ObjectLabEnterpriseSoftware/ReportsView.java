@@ -72,7 +72,7 @@ public class ReportsView extends javax.swing.JFrame
         searchKey = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        ExportMasterReportButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -114,13 +114,13 @@ public class ReportsView extends javax.swing.JFrame
         getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 77, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 682, 10));
 
-        jButton1.setText("Export Master Report");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ExportMasterReportButton.setText("Export Master Report");
+        ExportMasterReportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ExportMasterReportButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
+        getContentPane().add(ExportMasterReportButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Reports");
@@ -218,7 +218,7 @@ public class ReportsView extends javax.swing.JFrame
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
         
         //Exports the grid plus headers to an excel file
-        controller.exportReportToFile(model, headers);
+        controller.exportReportToFile(model, headers, (String)jComboBox1.getSelectedItem());
         
     }//GEN-LAST:event_exportBtnActionPerformed
 
@@ -251,17 +251,17 @@ public class ReportsView extends javax.swing.JFrame
         
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ExportMasterReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportMasterReportButtonActionPerformed
         
         UtilController.exportReportsForPrinters();
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ExportMasterReportButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ExportMasterReportButton;
     private static javax.swing.JButton closeBtn;
     private javax.swing.JButton exportBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
