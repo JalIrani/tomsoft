@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.FileUtils;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
@@ -269,7 +270,7 @@ public class UtilController
 
     }
 
-    public void exportReportToFile(DefaultTableModel model, String[] header)
+    public void exportReportToFile(DefaultTableModel model, String[] header, String printer)
     {
 
         FileManager fileManager = new FileManager();
@@ -279,6 +280,8 @@ public class UtilController
         Sheet sheet = wb.createSheet("new sheet");
         Row row = null;
         Cell cell = null;
+        Calendar c = Calendar.getInstance();
+        String time = "" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.YEAR);
 
         for (int i = 0; i < model.getRowCount() + 1; i++)
         {
@@ -299,8 +302,8 @@ public class UtilController
                 }
             }
         }
-
-        boolean didSave = fileManager.saveReport("ReportName", wb);
+        String reportName = printer + " report for " + time;
+        boolean didSave = fileManager.saveReport(reportName, wb);
 
         if (didSave)
         {
