@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\TomSoft.jar</jar>
+  <jar>C:\Users\David\tomsoft\tomsoft\ObjectLabSoftware\dist\TomSoft.jar</jar>
   <outfile>C:\Users\Miguel\Desktop\COSC 412\tomsoft\ObjectLabSoftware\dist\OLI.exe</outfile>
   <errTitle>COSC 412</errTitle>
   <cmdLine></cmdLine>

@@ -270,7 +270,7 @@ public class UtilController
 
     }
 
-    public void exportReportToFile(DefaultTableModel model, String[] header, String printer)
+    public void exportReportToFile(DefaultTableModel model, String[] header, String printer, char type)
     {
 
         FileManager fileManager = new FileManager();
@@ -302,7 +302,11 @@ public class UtilController
                 }
             }
         }
-        String reportName = printer + " report for " + time;
+        String reportName = "";
+        if(type == 'b')
+            reportName = printer + " build chart " + time;
+        else if (type == 'f')
+            reportName = printer + " file tracking " + time;
         boolean didSave = fileManager.saveReport(reportName, wb);
 
         if (didSave)

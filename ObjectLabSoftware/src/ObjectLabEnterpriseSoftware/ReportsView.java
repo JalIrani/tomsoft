@@ -218,7 +218,7 @@ public class ReportsView extends javax.swing.JFrame
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
         
         //Exports the grid plus headers to an excel file
-        controller.exportReportToFile(model, headers, (String)jComboBox1.getSelectedItem());
+        controller.exportReportToFile(model, headers, (String)jComboBox1.getSelectedItem(), 'b');
         
     }//GEN-LAST:event_exportBtnActionPerformed
 
